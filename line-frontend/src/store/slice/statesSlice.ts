@@ -5,6 +5,7 @@ const statesSlice = createSlice({
     initialState: {
         friendListState: true,
         groupListState: true,
+        friendRecommendationsState: true,
         chatFolderState: 'All',
     },
     reducers: {

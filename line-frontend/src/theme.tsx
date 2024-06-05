@@ -9,6 +9,7 @@ export interface Theme {
             line: string;
             field: string;
             unreadBubble: string;
+            circleColor: string;
         },
         secondary: {
             background: string;
@@ -20,7 +21,8 @@ export interface Theme {
             background: string;
             text: string;
             icon: string;
-        }
+        },
+
     }
 
 }
@@ -35,6 +37,7 @@ const theme: {light:Theme, dark:Theme} = {
                 line: '#d2d8dc',
                 field: '#f5f5f5',
                 unreadBubble: '#00b046',
+                circleColor: '#efefef',
             },
             secondary: {
                 background: '#1d2a45',
@@ -46,7 +49,8 @@ const theme: {light:Theme, dark:Theme} = {
                 background: '#f7f7f7',
                 text: '#b7b7b7',
                 icon: '#838faa',
-            }
+            },
+
         }
     },
     dark: {
@@ -58,6 +62,7 @@ const theme: {light:Theme, dark:Theme} = {
                 line: '#4a4a4a',
                 field: '#4a4a4a',
                 unreadBubble: '#00b046',
+                circleColor: '#3b3c3f',
             },
             secondary: {
                 background: '#1f1f1f',
@@ -69,7 +74,8 @@ const theme: {light:Theme, dark:Theme} = {
                 background: '#343536',
                 text: '#949494',
                 icon: '#949494',
-            }
+            },
+
         }
     }
 }
