@@ -1,7 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
 import AccountItem from "../components/menu-item/AccountItem";
 import SearchField from "../components/SearchField";
-import { StoreType } from "../store";
 import AccountList from "../components/menu_list/AccountList";
 import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import useTheme from "../theme";
@@ -10,10 +8,11 @@ import { setFriendsTerms } from "../store/slice/termsSlice";
 import { useEffect } from "react";
 import ArrayUtils from "../utilities/ArrayUtils";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../hook";
 
 function FriendsPage() {
 
-    const user = useSelector((state: StoreType) => state.user.currentUser);
+    const user = useAppSelector(state => state.user.currentUser);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -24,7 +23,7 @@ function FriendsPage() {
         }
     }, [navigate, location.pathname])
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const theme = useTheme().currentTheme;    
     
     const style = {
@@ -32,12 +31,12 @@ function FriendsPage() {
         fontSize: '12px'
     }
 
-    const friends = useSelector((state: StoreType) => state.friends.friendList);
-    const groups = useSelector((state: StoreType) => state.groups.groupList);
+    const friends = useAppSelector(state => state.friends.friendList);
+    const groups = useAppSelector(state => state.groups.groupList);
 
-    const groupListState = useSelector((state: StoreType) => state.states.groupListState);
-    const friendListState = useSelector((state: StoreType) => state.states.friendListState);
-    const searchTerm = useSelector((state: StoreType) => state.terms.friendsTerm);    
+    const groupListState = useAppSelector(state => state.states.groupListState);
+    const friendListState = useAppSelector(state => state.states.friendListState);
+    const searchTerm = useAppSelector(state => state.terms.friendsTerm);    
     
     const friendsFiltered = ArrayUtils.filterByName(friends, searchTerm);
     const groupsFiltered = ArrayUtils.filterByName(groups, searchTerm);

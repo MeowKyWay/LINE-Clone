@@ -1,17 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
 import useTheme from "../theme";
-import { StoreType } from "../store";
 import { ReactNode } from "react";
 import { setChatFolderState } from "../store/slice/statesSlice";
+import { useAppDispatch, useAppSelector } from "../hook";
 
 function Header() {
 
     const theme = useTheme().currentTheme;
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const chatFolders = useSelector((state: StoreType) => state.user.currentUser.chatFolders);
-    const chatFolderState = useSelector((state: StoreType) => state.states.chatFolderState);
+    const chatFolders = useAppSelector(state => state.user.currentUser.chatFolders);
+    const chatFolderState = useAppSelector(state => state.states.chatFolderState);
 
     const style = {
         backgroundColor: theme.color.primary.background,

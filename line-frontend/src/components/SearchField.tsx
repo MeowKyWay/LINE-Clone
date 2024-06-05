@@ -19,9 +19,8 @@ function SearchField({ height, width, placeholder = "", round = false, term, set
 
     const dispatch = useDispatch();
 
-    const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
-        await dispatch(setTerm(event.target.value));
-        console.log('test' + event.target.value);
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setTerm(event.target.value));
         if (onChange) {
             onChange();
         }

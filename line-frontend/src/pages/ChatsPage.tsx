@@ -1,17 +1,16 @@
-import { useSelector } from "react-redux";
 import SearchField from "../components/SearchField";
-import { StoreType } from "../store";
 import { setChatsTerms } from "../store/slice/termsSlice";
 import ChatList from "../components/menu_list/ChatList";
 import ArrayUtils from "../utilities/ArrayUtils";
+import { useAppSelector } from "../hook";
 
 function ChatsPage() {
 
-    const chatFolders = useSelector((state: StoreType) => state.user.currentUser.chatFolders);
-    const searchTerm = useSelector((state: StoreType) => state.terms.chatsTerm);
-    const chatFolderState = useSelector((state: StoreType) => state.states.chatFolderState);
+    const chatFolders = useAppSelector(state => state.user.currentUser.chatFolders);
+    const searchTerm = useAppSelector(state => state.terms.chatsTerm);
+    const chatFolderState = useAppSelector(state => state.states.chatFolderState);
 
-    const chats = useSelector((state: StoreType) => state.chats.chatList);
+    const chats = useAppSelector(state => state.chats.chatList);
     const chatSorted = chats.slice().sort((a, b) => b.lastUpdate - a.lastUpdate);
     
     let selectedChat, chatFolder;
