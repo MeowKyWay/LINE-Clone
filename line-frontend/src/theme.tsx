@@ -10,6 +10,7 @@ export interface Theme {
             field: string;
             unreadBubble: string;
             circleColor: string;
+            inputBorderColor: string;
         },
         secondary: {
             background: string;
@@ -38,6 +39,7 @@ const theme: {light:Theme, dark:Theme} = {
                 field: '#f5f5f5',
                 unreadBubble: '#00b046',
                 circleColor: '#efefef',
+                inputBorderColor: '#dfdfdf'
             },
             secondary: {
                 background: '#1d2a45',
@@ -63,6 +65,7 @@ const theme: {light:Theme, dark:Theme} = {
                 field: '#4a4a4a',
                 unreadBubble: '#00b046',
                 circleColor: '#3b3c3f',
+                inputBorderColor: '#616161'
             },
             secondary: {
                 background: '#1f1f1f',

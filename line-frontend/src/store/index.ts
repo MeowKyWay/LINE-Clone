@@ -5,11 +5,13 @@ import { groupsReducer } from "./slice/groupsSlice";
 import { termsReducer } from "./slice/termsSlice";
 import { chatsReducer } from "./slice/chatsSlice";
 import { userReducer } from "./slice/userSlice";
+import { friendRecommendReducer } from "./slice/friendRecommendSlice";
 
 const store = configureStore({
     reducer: {
         user: userReducer,
         friends: friendsReducer,
+        friendsRecommend: friendRecommendReducer,
         groups: groupsReducer,
         chats: chatsReducer,
         states: statesReducer,
