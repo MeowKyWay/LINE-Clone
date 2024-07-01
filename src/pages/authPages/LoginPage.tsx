@@ -6,6 +6,7 @@ import Button from "../../components/input/Button";
 import ClickableText from "../../components/input/ClickableText";
 import LineIcon from "../../components/LineIcon";
 import { RoutePath } from "../../RoutePath";
+import { signIn } from "@aws-amplify/auth";
 
 function LoginPage() {
 
@@ -22,22 +23,16 @@ function LoginPage() {
         backgroundColor: theme.color.primary.background
     }
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (validateEmail(email)) {
-            navigate("/");
-        } else {
-            const inputs = event.currentTarget.querySelectorAll('input');
-            inputs.forEach((input: HTMLInputElement) => input.blur());
-            setErrorMessage("Please enter a valid email address.");
-        }
-    }
 
-    const validateEmail = (input: string): boolean => {
-        // Basic email validation using regex
-        const regex: RegExp = /^(?:(?:[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*)|(?:".+"))@(?:(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}|(?:\d{1,3}\.){3}\d{1,3}(?::\d{1,5})?)$/;
-        return regex.test(input);
-    };
+        const res = await signIn({
+            username: email,
+            password: password
+        })
+
+        console.log(res);
+    }
 
     return (
         <div style={bgColor} className="w-full h-full flex flex-col items-center justify-center">
