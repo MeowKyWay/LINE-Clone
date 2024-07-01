@@ -3,7 +3,6 @@ import Logo from '../../assets/lineLogo.png'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/input/Button";
-import TextField from "../../components/input/TextField";
 import ResetEmail from "./resetComponent/ResetEmail";
 import ResetOtp from "./resetComponent/ResetOtp";
 import ResetNewPassword from "./resetComponent/ResetNewPassword";
@@ -16,7 +15,6 @@ function ResetPasswordPage() {
     const themeContext = useTheme();
 
     const [resetPasswordState, setResetPasswordState] = useState<ResetPasswordState>('email');
-    const [otpSended, setOtpSended] = useState(false)
 
     const [email, setEmail] = useState('')
     const [otp, setOtp] = useState('')
@@ -29,10 +27,6 @@ function ResetPasswordPage() {
 
     const bgColor = {
         backgroundColor: theme.color.primary.background
-    }
-
-    const textColor = {
-        color: theme.color.tertiary.text
     }
 
     const handleToLoginClick = () => {
