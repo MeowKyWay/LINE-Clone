@@ -8,8 +8,7 @@ function UnreadBubble({ children }: { children: number }) {
         backgroundColor: theme.color.primary.unreadBubble,
         color: '#ffffff',
         borderRadius: '10px',
-        minWidth: '20px',
-        padding: '0px 6px 0px 6px',
+        minWidth: `calc( 20px + ${Math.floor(Math.log10(children)) * 6}px )`,
         fontSize: '12px'
     }
 
