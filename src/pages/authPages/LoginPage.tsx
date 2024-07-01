@@ -5,6 +5,7 @@ import TextField from "../../components/input/TextField";
 import Button from "../../components/input/Button";
 import ClickableText from "../../components/input/ClickableText";
 import LineIcon from "../../components/LineIcon";
+import { RoutePath } from "../../RoutePath";
 
 function LoginPage() {
 
@@ -78,11 +79,11 @@ function LoginPage() {
                         </Button>
                     </form>
                     <div className="flex flex-row w-full mt-2.5">
-                        <ClickableText className="text-xs" onClick={handleRegisterClick}>
+                        <ClickableText className="text-xs" onClick={() => navigate(RoutePath.REGISTER)}>
                             Don't have an account?
                         </ClickableText>
                         <div className="flex-1"></div>
-                        <ClickableText className="text-xs" onClick={handleResetPasswordClick}>
+                        <ClickableText className="text-xs" onClick={() => navigate(RoutePath.RESET_PASSWORD)}>
                             Reset password
                         </ClickableText>
                     </div>

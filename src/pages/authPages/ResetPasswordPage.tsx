@@ -7,6 +7,8 @@ import ResetEmail from "./resetComponent/ResetEmail";
 import ResetOtp from "./resetComponent/ResetOtp";
 import ResetNewPassword from "./resetComponent/ResetNewPassword";
 import LineIcon from "../../components/LineIcon";
+import { RoutePath } from "../../RoutePath";
+import ClickableText from "../../components/input/ClickableText";
 
 type ResetPasswordState = 'email' | 'otp' | 'newPassword' | 'complete';
 
@@ -30,10 +32,6 @@ function ResetPasswordPage() {
         backgroundColor: theme.color.primary.background
     }
 
-    const handleToLoginClick = () => {
-        navigate('/login')
-    }
-
     const handleSendOtpButtonClicked = async () => {
         //sendOTP()
         setResetPasswordState('otp')
@@ -50,7 +48,7 @@ function ResetPasswordPage() {
 
     return (
         <div style={bgColor} className="size-full w-full h-full flex flex-col items-center justify-center">
-            <div className="flex flex-col items-center relative" style={{ marginTop: '-20rem' }}>
+            <div className="flex flex-col items-center w-96" style={{ marginTop: '-20rem' }}>
                 <LineIcon size="150px" />
                 <div className="w-96">
                     {resetPasswordState === 'email' &&
@@ -73,14 +71,22 @@ function ResetPasswordPage() {
                         </form>
                     }
                     {resetPasswordState === 'complete' &&
-                        <div className="flex flex-col">
-                            <span>Reset Password Complete</span>
-                            <Button type='primary' onClick={handleToLoginClick} className="mt-4">To Login</Button>
+                        <div className="flex flex-col text-center pt-20">
+                            <span className="text-3xl" style={{color: theme.color.primary.text}}>Reset Password Complete</span>
+                            <Button type='primary' onClick={() => navigate(RoutePath.LOGIN)} className="mt-4">Back to login</Button>
                         </div>
                     }
 
                     {errorMessage && <div className="absolute left-0 bottom-0 text-red-500 text-sm" style={{ bottom: '-24px' }}>{errorMessage}</div>}
                 </div>
+                {resetPasswordState !== 'complete' &&
+                    <div className="flex flex-row w-full mt-2.5">
+                        <div className="flex-1"></div>
+                        <ClickableText className="text-xs" onClick={() => navigate(RoutePath.LOGIN)}>
+                            Back to login
+                        </ClickableText>
+                    </div>
+                }
             </div>
             <button onClick={themeContext.toggle} className="relative top-20">Toggle Theme</button>
         </div>

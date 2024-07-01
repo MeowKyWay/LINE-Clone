@@ -1,19 +1,17 @@
 import useTheme from "../../theme";
-import Logo from '../../assets/lineLogo.png'
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PasswordInput from "../../components/input/PasswordInput";
 import TextField from "../../components/input/TextField";
 import Button from "../../components/input/Button";
 import LineIcon from "../../components/LineIcon";
 import ClickableText from "../../components/input/ClickableText";
+import { RoutePath } from "../../RoutePath";
 
 function RegisterPage() {
 
     const navigate = useNavigate();
 
     const theme = useTheme().currentTheme;
-    const themeContext = useTheme();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -70,7 +68,7 @@ function RegisterPage() {
                 </div>
                 <div className="flex flex-row w-full mt-2.5">
                     <div className="flex-1"></div>
-                    <ClickableText className="text-xs" onClick={() => {}}>
+                    <ClickableText className="text-xs" onClick={() => navigate(RoutePath.LOGIN)}>
                         Already have an account?
                     </ClickableText>
                 </div>
