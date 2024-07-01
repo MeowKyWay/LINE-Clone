@@ -9,6 +9,7 @@ export interface Theme {
             line: string;
             field: string;
             button: string;
+            buttonDisabled: string;
             unreadBubble: string;
             circleColor: string;
             inputBorderColor: string;
@@ -40,6 +41,7 @@ const theme: {light:Theme, dark:Theme} = {
                 line: '#d2d8dc',
                 field: '#f5f5f5',
                 button: '#00b81c',
+                buttonDisabled: '#c8c8c8',
                 unreadBubble: '#00b046',
                 circleColor: '#efefef',
                 inputBorderColor: '#dfdfdf',
@@ -68,6 +70,7 @@ const theme: {light:Theme, dark:Theme} = {
                 line: '#4a4a4a',
                 field: '#4a4a4a',
                 button: '#00b81c',
+                buttonDisabled: '#c8c8c8',
                 unreadBubble: '#00b046',
                 circleColor: '#3b3c3f',
                 inputBorderColor: '#616161',

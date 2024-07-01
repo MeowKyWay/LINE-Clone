@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PasswordInput from "../components/input/PasswordInput";
 import TextField from "../components/input/TextField";
+import Button from "../components/input/Button";
 
 function LoginPage() {
 
@@ -75,11 +76,11 @@ function LoginPage() {
                             Password
                         </TextField>
                     </div>
-                    {email && password ? (
-                        <button className="text-white rounded mt-2 h-12" style={{ backgroundColor: '#43b453' }}>Login</button>
-                    ) : (
-                        <button className="text-white rounded mt-2 h-12" style={{ backgroundColor: '#b7b7b7' }} disabled>Login</button>
-                    )}
+                    <Button
+                        type={email && password ? 'primary' : 'disabled'}
+                        className="mt-4">
+                        Login
+                    </Button>
                 </form>
                 {errorMessage && <div className="absolute left-0 bottom-0 text-red-500 text-sm" style={{ bottom: '-24px' }}>{errorMessage}</div>}
             </div>
