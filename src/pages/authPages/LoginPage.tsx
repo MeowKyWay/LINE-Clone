@@ -33,14 +33,6 @@ function LoginPage() {
         }
     }
 
-    const handleResetPasswordClick = () => {
-        navigate('/resetPassword')
-    }
-
-    const handleRegisterClick = () => {
-        navigate('/register')
-    }
-
     const validateEmail = (input: string): boolean => {
         // Basic email validation using regex
         const regex: RegExp = /^(?:(?:[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*)|(?:".+"))@(?:(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}|(?:\d{1,3}\.){3}\d{1,3}(?::\d{1,5})?)$/;
