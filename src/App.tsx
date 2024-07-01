@@ -7,6 +7,7 @@ import AddFriendsPage from './pages/AddFriendsPage';
 import LoginPage from './pages/authPages/LoginPage';
 import RegisterPage from './pages/authPages/RegisterPage'
 import ResetPasswordPage from './pages/authPages/ResetPasswordPage';
+import { RoutePath } from './RoutePath';
 
 function App() {
 
@@ -31,15 +32,15 @@ function App() {
           element: <FriendsPage />
         },
         {
-          path: '/std/friends',
+          path: RoutePath.FRIENDS,
           element: <FriendsPage />
         },
         {
-          path: '/std/chats',
+          path: RoutePath.CHATS,
           element: <ChatsPage />
         },
         {
-          path: '/std/add-friends',
+          path: RoutePath.ADD_FRIENDS,
           element: <AddFriendsPage />
         },
       ]
@@ -53,15 +54,15 @@ function App() {
       ),
       children: [
         {
-          path: '/register',
+          path: RoutePath.REGISTER,
           element: <RegisterPage />
         },
         {
-          path: '/login',
+          path: RoutePath.LOGIN,
           element: <LoginPage />
         },
         {
-          path: '/resetPassword',
+          path: RoutePath.RESET_PASSWORD,
           element: <ResetPasswordPage />
         }
       ]

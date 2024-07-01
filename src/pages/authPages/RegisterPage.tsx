@@ -6,6 +6,7 @@ import PasswordInput from "../../components/input/PasswordInput";
 import TextField from "../../components/input/TextField";
 import Button from "../../components/input/Button";
 import LineIcon from "../../components/LineIcon";
+import ClickableText from "../../components/input/ClickableText";
 
 function RegisterPage() {
 
@@ -66,6 +67,12 @@ function RegisterPage() {
                             Register
                         </Button>
                     </form>
+                </div>
+                <div className="flex flex-row w-full mt-2.5">
+                    <div className="flex-1"></div>
+                    <ClickableText className="text-xs" onClick={() => {}}>
+                        Already have an account?
+                    </ClickableText>
                 </div>
 
             </div>
