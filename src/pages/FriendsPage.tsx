@@ -19,7 +19,7 @@ function FriendsPage() {
 
     useEffect(() => {
         if (location.pathname != '/friends') {
-            navigate('/friends');
+            navigate('/std/friends');
         }
     }, [navigate, location.pathname])
 

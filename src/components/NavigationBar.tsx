@@ -32,22 +32,22 @@ function NavigationBar() {
                 }
                 `}
             </style>
-            <NavigationButton link="/friends">
+            <NavigationButton link="/std/friends">
                 <IoPersonSharp
                     size={22}
-                    className={(location.pathname === '/friends') ? 'active' : 'inactive'}
+                    className={(location.pathname === '/std/friends') ? 'active' : 'inactive'}
                 />
             </NavigationButton>
-            <NavigationButton link="/chats">
+            <NavigationButton link="/std/chats">
                 <BsChatDotsFill
                     size={22}
-                    className={(location.pathname === '/chats') ? 'active' : 'inactive'}
+                    className={(location.pathname === '/std/chats') ? 'active' : 'inactive'}
                 />
             </NavigationButton>
-            <NavigationButton link="/add-friends">
+            <NavigationButton link="/std/add-friends">
                 <IoPersonAddSharp
                     size={22}
-                    className={(location.pathname === '/add-friends') ? 'active' : 'inactive'}
+                    className={(location.pathname === '/std/add-friends') ? 'active' : 'inactive'}
                 />
             </NavigationButton>
             <button onClick={themeContext.toggle}>Toggle Theme</button>
