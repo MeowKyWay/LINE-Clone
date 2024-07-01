@@ -4,6 +4,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/input/Button";
 import TextField from "../../components/input/TextField";
+import ResetEmail from "./resetComponent/ResetEmail";
+import ResetOtp from "./resetComponent/ResetOtp";
+import ResetNewPassword from "./resetComponent/ResetNewPassword";
 
 type ResetPasswordState = 'email' | 'otp' | 'newPassword' | 'complete';
 
@@ -38,12 +41,16 @@ function ResetPasswordPage() {
 
     const handleSendOtpButtonClicked = async () => {
         //sendOTP()
-        setOtpSended(true)
+        setResetPasswordState('otp')
     }
 
-    const handleConfirmOtpButtonClicked = async () => {
-        //resetPassword()
+    const handleConfirmOtpButtonClicked = () => {
         setResetPasswordState('newPassword')
+    }
+
+    const handleResetPasswordButtonClicked = async () => {
+        //resetPassword()
+        setResetPasswordState('complete')
     }
 
     return (
@@ -54,50 +61,28 @@ function ResetPasswordPage() {
                 </div>
                 <div className="w-96">
                     {resetPasswordState === 'email' &&
-                        <form className="flex flex-col mt-10" onSubmit={handleSendOtpButtonClicked}>
-                            <div className="flex flex-row gap-4 w-full">
-                                <TextField
-                                    type='text'
-                                    value={email}
-                                    onChange={setEmail}
-                                    className="flex-1"
-                                >Email</TextField>
-                            </div>
-                            <Button
-                                type={email ? 'primary' : 'disabled'}
-                                className="mt-4"
-                            >
-                                Send
-                            </Button>
+                        <form className="mt-10" onSubmit={handleSendOtpButtonClicked}>
+                            <ResetEmail email={email} setEmail={setEmail} />
                         </form>
                     }
                     {resetPasswordState === 'otp' &&
                         <form className="flex flex-col mt-10" onSubmit={handleConfirmOtpButtonClicked}>
-                            <div className="flex flex-row gap-4 w-full">
-                                <TextField
-                                    type='text'
-                                    value={otp}
-                                    onChange={setOtp}
-                                    className="flex-1"
-                                >OTP</TextField>
-                            </div>
-                            <Button
-                                type={otp ? 'primary' : 'disabled'}
-                                className="mt-4"
-                            >
-                                Reset Password
-                            </Button>
+                            <ResetOtp otp={otp} setOtp={setOtp} />
                         </form>
                     }
                     {resetPasswordState === 'newPassword' &&
-                        (<div></div>)
+                        <form className="flex flex-col mt-10" onSubmit={handleResetPasswordButtonClicked}>
+                            <ResetNewPassword
+                                password={newPassword}
+                                setPassword={setNewPassword}
+                                confirmPassword={confirmNewPassword}
+                                setConfirmPassword={setConfirmNewPassword} />
+                        </form>
                     }
                     {resetPasswordState === 'complete' &&
-                        <div className="w-80 h-12 p-4 flex flex-col items-center">
-                            <p className="mb-4" style={textColor}>Reset Complete</p>
-                            <div className="bg-green-500 text-white w-80 h-12 p-4 text-center cursor-pointer" onClick={handleToLoginClick}>
-                                Back to Log in
-                            </div>
+                        <div className="flex flex-col">
+                            <span>Reset Password Complete</span>
+                            <Button type='primary' onClick={handleToLoginClick} className="mt-4">To Login</Button>
                         </div>
                     }
 
