@@ -35,8 +35,9 @@ function LoginPage() {
     }
 
     return (
-        <div style={bgColor} className="w-full h-full flex flex-col items-center justify-center">
-            <div className="flex flex-col items-center" style={{ marginTop: '-20rem' }}>
+        <div style={{ backgroundColor: theme.color.primary.background }}
+            className="w-full h-full flex flex-col items-center">
+            <div className="flex flex-col items-center mt-20">
                 <LineIcon size="150px" />
                 <div className="w-96">
                     <form className="flex flex-col mt-10 w-full" onSubmit={handleSubmit}>

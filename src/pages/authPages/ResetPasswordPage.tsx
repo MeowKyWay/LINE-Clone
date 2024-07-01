@@ -8,6 +8,7 @@ import ResetNewPassword from "./resetComponent/ResetNewPassword";
 import LineIcon from "../../components/LineIcon";
 import { RoutePath } from "../../RoutePath";
 import ClickableText from "../../components/input/ClickableText";
+import Complete from "./authComponent/Complete";
 
 type ResetPasswordState = 'email' | 'otp' | 'newPassword' | 'complete';
 
@@ -26,11 +27,6 @@ function ResetPasswordPage() {
     const [errorMessage, setErrorMessage] = useState('')
     const navigate = useNavigate()
 
-
-    const bgColor = {
-        backgroundColor: theme.color.primary.background
-    }
-
     const handleSendOtpButtonClicked = async () => {
         //sendOTP()
         setResetPasswordState('otp')
@@ -46,8 +42,9 @@ function ResetPasswordPage() {
     }
 
     return (
-        <div style={bgColor} className="size-full w-full h-full flex flex-col items-center justify-center">
-            <div className="flex flex-col items-center w-96" style={{ marginTop: '-20rem' }}>
+        <div style={{ backgroundColor: theme.color.primary.background }}
+            className="size-full flex flex-col items-center">
+            <div className="flex flex-col items-center w-96 mt-20">
                 <LineIcon size="150px" />
                 <div className="w-96">
                     {resetPasswordState === 'email' &&
@@ -69,12 +66,7 @@ function ResetPasswordPage() {
                                 setConfirmPassword={setConfirmNewPassword} />
                         </form>
                     }
-                    {resetPasswordState === 'complete' &&
-                        <div className="flex flex-col text-center pt-20">
-                            <span className="text-3xl" style={{color: theme.color.primary.text}}>Reset Password Complete</span>
-                            <Button type='primary' onClick={() => navigate(RoutePath.LOGIN)} className="mt-4">Back to login</Button>
-                        </div>
-                    }
+                    {resetPasswordState === 'complete' && <Complete>Reset password complete</Complete>}
 
                     {errorMessage && <div className="absolute left-0 bottom-0 text-red-500 text-sm" style={{ bottom: '-24px' }}>{errorMessage}</div>}
                 </div>

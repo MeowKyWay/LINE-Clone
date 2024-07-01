@@ -32,10 +32,9 @@ function ConfirmSignUp({ email }: {
                         type="text"
                         value={otp}
                         onChange={setOtp}
-                        className="border-0 border-b rounded-b-none"
-                        autoComplete="username"
-                        name="username">
-                        Username
+                        autoComplete="otp"
+                        name="otp">
+                        One time password
                     </TextField>
                     <Button
                         type={otp ? 'primary' : 'disabled'}
