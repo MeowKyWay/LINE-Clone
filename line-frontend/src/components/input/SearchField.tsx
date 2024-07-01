@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import useTheme from "../theme"
+import useTheme from "../../theme"
 import { IoSearch } from "react-icons/io5";
 import { TiDelete } from "react-icons/ti";
 import { useDispatch } from "react-redux";

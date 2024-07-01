@@ -8,9 +8,11 @@ export interface Theme {
             icon: string;
             line: string;
             field: string;
+            button: string;
             unreadBubble: string;
             circleColor: string;
             inputBorderColor: string;
+            error: string;
         },
         secondary: {
             background: string;
@@ -37,9 +39,11 @@ const theme: {light:Theme, dark:Theme} = {
                 icon: '#6e7993',
                 line: '#d2d8dc',
                 field: '#f5f5f5',
+                button: '#00b81c',
                 unreadBubble: '#00b046',
                 circleColor: '#efefef',
-                inputBorderColor: '#dfdfdf'
+                inputBorderColor: '#dfdfdf',
+                error: "#ff0000",
             },
             secondary: {
                 background: '#1d2a45',
@@ -63,9 +67,11 @@ const theme: {light:Theme, dark:Theme} = {
                 icon: '#777777',
                 line: '#4a4a4a',
                 field: '#4a4a4a',
+                button: '#00b81c',
                 unreadBubble: '#00b046',
                 circleColor: '#3b3c3f',
-                inputBorderColor: '#616161'
+                inputBorderColor: '#616161',
+                error: "#ff0000",
             },
             secondary: {
                 background: '#1f1f1f',

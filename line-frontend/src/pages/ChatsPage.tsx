@@ -1,4 +1,4 @@
-import SearchField from "../components/SearchField";
+import SearchField from "../components/input/SearchField";
 import { setChatsTerms } from "../store/slice/termsSlice";
 import ChatList from "../components/menu_list/ChatList";
 import ArrayUtils from "../utilities/ArrayUtils";

@@ -3,36 +3,21 @@ import Logo from '../assets/lineLogo.png'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PasswordInput from "../components/input/PasswordInput";
+import TextField from "../components/input/TextField";
 
 function LoginPage() {
+
     const theme = useTheme().currentTheme;
     const themeContext = useTheme();
+
     const navigate = useNavigate();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState('');
 
     const bgColor = {
         backgroundColor: theme.color.primary.background
-    }
-
-    const inputStyle = {
-        backgroundColor: theme.color.primary.background,
-        borderColor: theme.color.primary.inputBorderColor,
-        color: theme.color.primary.text,
-    }
-
-    const inputColorTop = {
-        ...inputStyle,
-        borderTopLeftRadius: '0.25rem', // 4px
-        borderTopRightRadius: '0.25rem', // 4px
-    }
-
-    const inputColorBottom = {
-        ...inputStyle,
-        borderTop: 'none', // Remove the top border to avoid intersection
-        borderBottomRightRadius: '0.25rem', // 4px
-        borderBottomLeftRadius: '0.25rem' // 4px
     }
 
     const textColor = {
@@ -70,27 +55,26 @@ function LoginPage() {
                 <div>
                     <img src={Logo} style={{ width: '84px', height: '50px', color: '#07b53b' }}></img>
                 </div>
-                <form className="flex flex-col mt-10" onSubmit={handleSubmit}>
-                <div className="border rounded" style={{borderColor: errorMessage ? 'red' : 'none' , borderStyle: errorMessage ? 'solid' : 'none'}}>
-                    <input
-                        placeholder="Email address"
-                        style={inputColorTop}
-                        value={email}
-                        className="w-80 border h-12 p-4 rounded-t"
-                        required
-                        onChange={(e) => {
-                            setEmail(e.target.value);
-                            setErrorMessage("");
-                        }}
-                    />
-                    <PasswordInput
-                        placeholder="Password"
-                        style={inputColorBottom}
-                        value={password}
-                        required
-                        onChange={e => setPassword(e.target.value)}
-                    />
-                </div>
+                <form className="flex flex-col mt-10 w-96" onSubmit={handleSubmit}>
+                    <div className="border rounded" style={{
+                        border: '1px solid',
+                        borderColor: errorMessage ? theme.color.primary.error : theme.color.primary.inputBorderColor,
+                    }}>
+                        <TextField
+                            type="text"
+                            value={email}
+                            onChange={setEmail}
+                            className="border-0 border-b rounded-b-none">
+                            Email
+                        </TextField>
+                        <TextField
+                            type="password"
+                            value={password}
+                            onChange={setPassword}
+                            className="border-none rounded-t-none">
+                            Password
+                        </TextField>
+                    </div>
                     {email && password ? (
                         <button className="text-white rounded mt-2 h-12" style={{ backgroundColor: '#43b453' }}>Login</button>
                     ) : (

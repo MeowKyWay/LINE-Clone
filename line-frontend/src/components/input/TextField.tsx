@@ -3,6 +3,7 @@ import { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { TiDelete } from "react-icons/ti";
+import useTheme from "../../theme";
 
 function TextField({ children, onChange, value, className, type, name, autoComplete, spellCheck = false, resetButton = false }: {
     children?: string,
@@ -16,10 +17,12 @@ function TextField({ children, onChange, value, className, type, name, autoCompl
     resetButton?: boolean
 }) {
 
+    const theme = useTheme().currentTheme;
+
     const [hidden, setHidden] = useState(type === 'password');
 
     const [number, setNumber] = useState(value);
-    
+
     const handleChange = (newValue: string) => {
         if (type !== 'number') {
             onChange(newValue);
@@ -35,8 +38,8 @@ function TextField({ children, onChange, value, className, type, name, autoCompl
     const classes = classNames(
         [
             'flex flex-row items-center',
-            'h-10 border border-gray text-sm font-light focus-within:border-green rounded transition-all',
-            'bg-white',
+            'h-10 border text-sm font-light rounded transition-all',
+            'bg-transparent',
             className
         ],
     );
@@ -44,11 +47,16 @@ function TextField({ children, onChange, value, className, type, name, autoCompl
     const inputClassName = classNames(
         [
             'px-3.5 py-1.5 flex-1 focus:outline-none rounded',
+            'bg-transparent',
         ],
     );
 
     return (
-        <div className={classes}>
+        <div className={classes}
+            style={{
+                borderColor: theme.color.primary.inputBorderColor,
+                color: theme.color.primary.text
+            }}>
             <input
                 type={(type === 'password') ? (hidden) ? 'password' : 'text' : 'text'}
                 value={(type === 'number') ? number : value}
