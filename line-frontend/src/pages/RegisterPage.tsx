@@ -2,7 +2,7 @@ import useTheme from "../theme";
 import Logo from '../assets/lineLogo.png'
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PasswordInput from "../components/PasswordInput";
+import PasswordInput from "../components/input/PasswordInput";
 
 function RegisterPage() {
     const theme = useTheme().currentTheme;
