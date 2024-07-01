@@ -38,7 +38,7 @@ function TextField({ children, onChange, value, className, type, name, autoCompl
     const classes = classNames(
         [
             'flex flex-row items-center',
-            'h-10 border text-sm font-light rounded transition-all',
+            'h-10 border text-sm font-light rounded',
             'bg-transparent',
             className
         ],

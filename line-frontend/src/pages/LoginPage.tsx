@@ -2,9 +2,9 @@ import useTheme from "../theme";
 import Logo from '../assets/lineLogo.png'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PasswordInput from "../components/input/PasswordInput";
 import TextField from "../components/input/TextField";
 import Button from "../components/input/Button";
+import ClickableText from "../components/input/ClickableText";
 
 function LoginPage() {
 
@@ -19,10 +19,6 @@ function LoginPage() {
 
     const bgColor = {
         backgroundColor: theme.color.primary.background
-    }
-
-    const textColor = {
-        color: theme.color.tertiary.text
     }
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -56,39 +52,46 @@ function LoginPage() {
                 <div>
                     <img src={Logo} style={{ width: '84px', height: '50px', color: '#07b53b' }}></img>
                 </div>
-                <form className="flex flex-col mt-10 w-96" onSubmit={handleSubmit}>
-                    <div className="border rounded" style={{
-                        border: '1px solid',
-                        borderColor: errorMessage ? theme.color.primary.error : theme.color.primary.inputBorderColor,
-                    }}>
-                        <TextField
-                            type="text"
-                            value={email}
-                            onChange={setEmail}
-                            className="border-0 border-b rounded-b-none">
-                            Email
-                        </TextField>
-                        <TextField
-                            type="password"
-                            value={password}
-                            onChange={setPassword}
-                            className="border-none rounded-t-none">
-                            Password
-                        </TextField>
+                <div className="w-96">
+                    <form className="flex flex-col mt-10 w-full" onSubmit={handleSubmit}>
+                        <div className="border rounded" style={{
+                            border: '1px solid',
+                            borderColor: errorMessage ? theme.color.primary.error : theme.color.primary.inputBorderColor,
+                        }}>
+                            <TextField
+                                type="text"
+                                value={email}
+                                onChange={setEmail}
+                                className="border-0 border-b rounded-b-none">
+                                Email
+                            </TextField>
+                            <TextField
+                                type="password"
+                                value={password}
+                                onChange={setPassword}
+                                className="border-none rounded-t-none">
+                                Password
+                            </TextField>
+                        </div>
+                        <Button
+                            type={email && password ? 'primary' : 'disabled'}
+                            className="mt-4">
+                            Login
+                        </Button>
+                    </form>
+                    <div className="flex flex-row w-full mt-2.5">
+                        <ClickableText className="text-xs" onClick={handleResetPasswordClick}>
+                            Don't have an account?
+                        </ClickableText>
+                        <div className="flex-1"></div>
+                        <ClickableText className="text-xs" onClick={handleRegisterClick}>
+                            Reset password
+                        </ClickableText>
                     </div>
-                    <Button
-                        type={email && password ? 'primary' : 'disabled'}
-                        className="mt-4">
-                        Login
-                    </Button>
-                </form>
-                <div className="flex flex-row">
-                    
+                    <span className="mt-2.5 text-xs font-light" style={{color: theme.color.primary.error}}>
+                        {errorMessage}
+                    </span>
                 </div>
-            </div>
-            <div className="relative cursor-pointer mt-2 bottom-0 space-y-1" style={{ left: '7.25rem' }}>
-                <p style={textColor} className="text-xs" onClick={handleResetPasswordClick}>Reset password</p>
-                <p style={textColor} className="absolute text-xs left-10" onClick={handleRegisterClick}>Register</p>
             </div>
             <button onClick={themeContext.toggle}>Toggle Theme</button>
         </div>

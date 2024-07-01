@@ -13,7 +13,7 @@ function ClickableText({ children, onClick, className = '' }: {
         <span
             onClick={onClick}
             className={'cursor-pointer ' + className}
-            style={{ color: theme.color.primary.text }}
+            style={{ color: theme.color.tertiary.text }}
         >
             {children}
         </span>
