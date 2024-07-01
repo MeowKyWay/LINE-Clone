@@ -52,7 +52,7 @@ function LoginPage() {
 
     return (
         <div style={bgColor} className="w-full h-full flex flex-col items-center justify-center">
-            <div className="flex flex-col items-center relative" style={{ marginTop: '-20rem' }}>
+            <div className="flex flex-col items-center" style={{ marginTop: '-20rem' }}>
                 <div>
                     <img src={Logo} style={{ width: '84px', height: '50px', color: '#07b53b' }}></img>
                 </div>
@@ -82,7 +82,9 @@ function LoginPage() {
                         Login
                     </Button>
                 </form>
-                {errorMessage && <div className="absolute left-0 bottom-0 text-red-500 text-sm" style={{ bottom: '-24px' }}>{errorMessage}</div>}
+                <div className="flex flex-row">
+                    
+                </div>
             </div>
             <div className="relative cursor-pointer mt-2 bottom-0 space-y-1" style={{ left: '7.25rem' }}>
                 <p style={textColor} className="text-xs" onClick={handleResetPasswordClick}>Reset password</p>
