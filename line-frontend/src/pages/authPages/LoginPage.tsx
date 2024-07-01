@@ -69,7 +69,7 @@ function LoginPage() {
                                 type="password"
                                 value={password}
                                 onChange={setPassword}
-                                className="border-none rounded-t-none">
+                                className="border-0 rounded-t-none">
                                 Password
                             </TextField>
                         </div>
