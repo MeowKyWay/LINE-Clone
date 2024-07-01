@@ -1,6 +1,6 @@
 import Body from './components/Body';
 import NavigationBar from './components/NavigationBar'
-import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom';
+import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import FriendsPage from './pages/FriendsPage';
 import ChatsPage from './pages/ChatsPage';
 import AddFriendsPage from './pages/AddFriendsPage';
