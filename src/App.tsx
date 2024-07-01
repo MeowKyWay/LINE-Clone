@@ -5,7 +5,7 @@ import FriendsPage from './pages/FriendsPage';
 import ChatsPage from './pages/ChatsPage';
 import AddFriendsPage from './pages/AddFriendsPage';
 import LoginPage from './pages/authPages/LoginPage';
-import RegisterPage from './pages//authPages/RegisterPage'
+import RegisterPage from './pages/authPages/RegisterPage'
 import ResetPasswordPage from './pages/authPages/ResetPasswordPage';
 
 function App() {

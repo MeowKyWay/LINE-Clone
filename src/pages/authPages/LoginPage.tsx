@@ -1,5 +1,4 @@
 import useTheme from "../../theme";
-import Logo from '../../assets/lineLogo.png'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TextField from "../../components/input/TextField";
