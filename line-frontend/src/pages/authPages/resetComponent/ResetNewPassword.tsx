@@ -2,7 +2,7 @@ import Button from "../../../components/input/Button";
 import TextField from "../../../components/input/TextField";
 import useTheme from "../../../theme";
 
-function ResetOtp({ password, setPassword, confirmPassword, setConfirmPassword }: {
+function ResetNewPassword({ password, setPassword, confirmPassword, setConfirmPassword }: {
     password: string,
     setPassword: (value: string) => void,
     confirmPassword: string,
@@ -18,13 +18,13 @@ function ResetOtp({ password, setPassword, confirmPassword, setConfirmPassword }
                     type='password'
                     value={password}
                     onChange={setPassword}
-                    className="flex-1 border-none border-b rounded-b-none"
+                    className="border-0 border-b rounded-b-none"
                 >new password</TextField>
                 <TextField
                     type='password'
                     value={confirmPassword}
                     onChange={setConfirmPassword}
-                    className="flex-1 border-none rounded-t-none"
+                    className="border-0 rounded-t-none"
                 >confirm password</TextField>
             </div>
             <Button
@@ -37,4 +37,4 @@ function ResetOtp({ password, setPassword, confirmPassword, setConfirmPassword }
     )
 }
 
-export default ResetOtp;
+export default ResetNewPassword;
