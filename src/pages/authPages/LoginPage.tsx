@@ -6,7 +6,7 @@ import Button from "../../components/input/Button";
 import ClickableText from "../../components/input/ClickableText";
 import LineIcon from "../../components/LineIcon";
 import { RoutePath } from "../../RoutePath";
-import { signIn } from "@aws-amplify/auth";
+import { signIn, signOut } from "@aws-amplify/auth";
 
 function LoginPage() {
 
@@ -19,19 +19,22 @@ function LoginPage() {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    const bgColor = {
-        backgroundColor: theme.color.primary.background
-    }
-
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        await signOut();
 
-        const res = await signIn({
-            username: email,
-            password: password
-        })
-
-        console.log(res);
+        try {
+            const res = await signIn({
+                username: email,
+                password: password
+            })
+            if (res.isSignedIn) {
+                navigate(RoutePath.FRIENDS);
+            }
+        }
+        catch (e) {
+            setErrorMessage((e as Error).message);
+        }
     }
 
     return (
