@@ -4,16 +4,16 @@ import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import FriendsPage from './pages/FriendsPage';
 import ChatsPage from './pages/ChatsPage';
 import AddFriendsPage from './pages/AddFriendsPage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage'
-import ResetPasswordPage from './pages/ResetPasswordPage';
+import LoginPage from './pages/authPages/LoginPage';
+import RegisterPage from './pages//authPages/RegisterPage'
+import ResetPasswordPage from './pages/authPages/ResetPasswordPage';
 
 function App() {
 
   const router = createBrowserRouter([
 
     {
-      path: '/',
+      path: '/std',
       element: (
 
         <div className="h-screen w-screen flex flex-row overflow-hidden">
@@ -23,7 +23,7 @@ function App() {
           </Body>
         </div>
 
-        
+
       ),
       children: [
         {
@@ -31,21 +31,21 @@ function App() {
           element: <FriendsPage />
         },
         {
-          path: '/friends',
+          path: '/std/friends',
           element: <FriendsPage />
         },
         {
-          path: '/chats',
+          path: '/std/chats',
           element: <ChatsPage />
         },
         {
-          path: '/add-friends',
+          path: '/std/add-friends',
           element: <AddFriendsPage />
         },
       ]
     },
     {
-      path: '/register',
+      path: '/',
       element: (
         <div className="h-screen w-screen flex flex-row overflow-hidden">
           <Outlet />
@@ -53,41 +53,21 @@ function App() {
       ),
       children: [
         {
-          index: true,
+          path: '/register',
           element: <RegisterPage />
-        }
-      ]
-    },
-    {
-      path: '/login',
-      element: (
-        <div className="h-screen w-screen flex flex-row overflow-hidden">
-          <Outlet />
-        </div>
-      ),
-      children: [
+        },
         {
-          index: true,
+          path: '/login',
           element: <LoginPage />
-        }
-      ]
-    },
-    {
-      path: '/resetPassword',
-      element: (
-        <div className='h-screen w-screen flex flex-row overflow-hidden'>
-          <Outlet/>
-        </div>
-      ),
-      children: [
+        },
         {
-          index: true,
-          element: <ResetPasswordPage/>
+          path: '/resetPassword',
+          element: <ResetPasswordPage />
         }
       ]
     },
   ]);
-  
+
   return (
     <RouterProvider router={router} />
   )
