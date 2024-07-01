@@ -6,6 +6,7 @@ import Button from "../../components/input/Button";
 import LineIcon from "../../components/LineIcon";
 import ClickableText from "../../components/input/ClickableText";
 import { RoutePath } from "../../RoutePath";
+import { signUp } from "@aws-amplify/auth";
 
 function RegisterPage() {
 
@@ -13,23 +14,34 @@ function RegisterPage() {
 
     const theme = useTheme().currentTheme;
 
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const [errorMessage, setErrorMessage] = useState('');
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-    }
 
-    const bgColor = {
-        backgroundColor: theme.color.primary.background
+        const res = await signUp({
+            username: email,
+            password: password,
+            options: {
+                userAttributes: {
+                    email: email,
+                    preferred_username: username,
+                }
+            }
+        })
+
+        console.log(res);
     }
 
     return (
-        <div style={bgColor} className="size-full w-full h-full flex flex-col items-center justify-center">
-            <div className="flex flex-col items-center relative" style={{ marginTop: '-20rem' }}>
+        <div style={{ backgroundColor: theme.color.primary.background }}
+            className="size-full flex flex-col items-center">
+            <div className="flex flex-col items-center mt-20">
                 <LineIcon size="150px" />
                 <div className="w-96">
                     <form className="flex flex-col mt-10 w-full" onSubmit={handleSubmit}>
@@ -39,28 +51,43 @@ function RegisterPage() {
                         }}>
                             <TextField
                                 type="text"
+                                value={username}
+                                onChange={setUsername}
+                                className="border-0 border-b rounded-b-none"
+                                autoComplete="username"
+                                name="username">
+                                Username
+                            </TextField>
+                            <TextField
+                                type="text"
                                 value={email}
                                 onChange={setEmail}
-                                className="border-0 border-b rounded-b-none">
+                                className="border-0 border-b rounded-none"
+                                autoComplete="email"
+                                name="email">
                                 Email
                             </TextField>
                             <TextField
                                 type="password"
                                 value={password}
                                 onChange={setPassword}
-                                className="border-0 border-b rounded-none">
+                                className="border-0 border-b rounded-none"
+                                autoComplete="password"
+                                name="password">
                                 Password
                             </TextField>
                             <TextField
                                 type="password"
                                 value={confirmPassword}
                                 onChange={setConfirmPassword}
-                                className="border-0 rounded-t-none">
+                                className="border-0 rounded-t-none"
+                                autoComplete="password"
+                                name="confirm-password">
                                 Confirm Password
                             </TextField>
                         </div>
                         <Button
-                            type={email && password && password === confirmPassword ? 'primary' : 'disabled'}
+                            type={email && password && username && password === confirmPassword ? 'primary' : 'disabled'}
                             className="mt-4">
                             Register
                         </Button>
