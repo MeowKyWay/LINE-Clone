@@ -4,6 +4,7 @@ import { IoPersonSharp } from "react-icons/io5";
 import { BsChatDotsFill } from "react-icons/bs";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { useLocation } from "react-router-dom";
+import { RoutePath } from "../RoutePath";
 
 
 function NavigationBar() {
@@ -32,22 +33,22 @@ function NavigationBar() {
                 }
                 `}
             </style>
-            <NavigationButton link="/std/friends">
+            <NavigationButton link={RoutePath.FRIENDS}>
                 <IoPersonSharp
                     size={22}
-                    className={(location.pathname === '/std/friends') ? 'active' : 'inactive'}
+                    className={(location.pathname === RoutePath.FRIENDS) ? 'active' : 'inactive'}
                 />
             </NavigationButton>
-            <NavigationButton link="/std/chats">
+            <NavigationButton link={RoutePath.CHATS}>
                 <BsChatDotsFill
                     size={22}
-                    className={(location.pathname === '/std/chats') ? 'active' : 'inactive'}
+                    className={(location.pathname === RoutePath.CHATS) ? 'active' : 'inactive'}
                 />
             </NavigationButton>
-            <NavigationButton link="/std/add-friends">
+            <NavigationButton link={RoutePath.ADD_FRIENDS}>
                 <IoPersonAddSharp
                     size={22}
-                    className={(location.pathname === '/std/add-friends') ? 'active' : 'inactive'}
+                    className={(location.pathname === RoutePath.ADD_FRIENDS) ? 'active' : 'inactive'}
                 />
             </NavigationButton>
             <button onClick={themeContext.toggle}>Toggle Theme</button>
