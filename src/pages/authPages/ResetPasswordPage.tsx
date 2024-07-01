@@ -6,6 +6,7 @@ import Button from "../../components/input/Button";
 import ResetEmail from "./resetComponent/ResetEmail";
 import ResetOtp from "./resetComponent/ResetOtp";
 import ResetNewPassword from "./resetComponent/ResetNewPassword";
+import LineIcon from "../../components/LineIcon";
 
 type ResetPasswordState = 'email' | 'otp' | 'newPassword' | 'complete';
 
@@ -50,9 +51,7 @@ function ResetPasswordPage() {
     return (
         <div style={bgColor} className="size-full w-full h-full flex flex-col items-center justify-center">
             <div className="flex flex-col items-center relative" style={{ marginTop: '-20rem' }}>
-                <div>
-                    <img src={Logo} style={{ width: '84px', height: '50px', color: '#07b53b' }}></img>
-                </div>
+                <LineIcon size="150px" />
                 <div className="w-96">
                     {resetPasswordState === 'email' &&
                         <form className="mt-10" onSubmit={handleSendOtpButtonClicked}>

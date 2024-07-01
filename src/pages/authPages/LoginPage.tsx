@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import TextField from "../../components/input/TextField";
 import Button from "../../components/input/Button";
 import ClickableText from "../../components/input/ClickableText";
+import LineIcon from "../../components/LineIcon";
 
 function LoginPage() {
 
@@ -48,9 +49,7 @@ function LoginPage() {
     return (
         <div style={bgColor} className="w-full h-full flex flex-col items-center justify-center">
             <div className="flex flex-col items-center" style={{ marginTop: '-20rem' }}>
-                <div>
-                    <img src={Logo} style={{ width: '84px', height: '50px', color: '#07b53b' }}></img>
-                </div>
+                <LineIcon size="150px" />
                 <div className="w-96">
                     <form className="flex flex-col mt-10 w-full" onSubmit={handleSubmit}>
                         <div className="border rounded" style={{
