@@ -5,7 +5,7 @@ import { FaEyeSlash } from "react-icons/fa";
 import { TiDelete } from "react-icons/ti";
 import useTheme from "../../theme";
 
-function TextField({ children, onChange, value, className, type, name, autoComplete, spellCheck = false, resetButton = false }: {
+function TextField({ children, onChange, value, className, type, name, autoComplete, spellCheck = false, resetButton = false, disabled = false }: {
     children?: string,
     onChange: (value: string) => void,
     value: string,
@@ -15,6 +15,7 @@ function TextField({ children, onChange, value, className, type, name, autoCompl
     autoComplete?: string,
     spellCheck?: boolean,
     resetButton?: boolean
+    disabled?: boolean
 }) {
 
     const theme = useTheme().currentTheme;
@@ -66,6 +67,7 @@ function TextField({ children, onChange, value, className, type, name, autoCompl
                 name={name}
                 autoComplete={autoComplete}
                 spellCheck={spellCheck}
+                disabled={disabled}
             >
             </input>
             {type === 'password' && (
