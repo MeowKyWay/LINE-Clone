@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-lineclone-dev-f3c31-authRole",
+      "UnauthRoleArn": "arn:aws:iam::590183958983:role/amplify-lineclone-dev-f3c31-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::590183958983:role/amplify-lineclone-dev-f3c31-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-lineclone-dev-f3c31-deployment",
+      "UnauthRoleName": "amplify-lineclone-dev-f3c31-unauthRole",
+      "StackName": "amplify-lineclone-dev-f3c31",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:590183958983:stack/amplify-lineclone-dev-f3c31/1bec6300-3776-11ef-bcf8-02e7b1b2ee07",
+      "AmplifyAppId": "d39cd0vfyhqx0c"
+    },
+    "categories": {
+      "api": {
+        "lineclone": {}
+      }
+    }
+  }
+}
