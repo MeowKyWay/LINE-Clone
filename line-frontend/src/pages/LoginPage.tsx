@@ -80,11 +80,11 @@ function LoginPage() {
                         </Button>
                     </form>
                     <div className="flex flex-row w-full mt-2.5">
-                        <ClickableText className="text-xs" onClick={handleResetPasswordClick}>
+                        <ClickableText className="text-xs" onClick={handleRegisterClick}>
                             Don't have an account?
                         </ClickableText>
                         <div className="flex-1"></div>
-                        <ClickableText className="text-xs" onClick={handleRegisterClick}>
+                        <ClickableText className="text-xs" onClick={handleResetPasswordClick}>
                             Reset password
                         </ClickableText>
                     </div>
