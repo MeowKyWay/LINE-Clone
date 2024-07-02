@@ -1,6 +1,6 @@
 import useTheme from "../../theme";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import TextField from "../../components/input/TextField";
 import Button from "../../components/input/Button";
 import ClickableText from "../../components/input/ClickableText";
@@ -14,6 +14,13 @@ function LoginPage() {
     const themeContext = useTheme();
 
     const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname !== RoutePath.LOGIN) //In case of no pathname, redirect to login page
+            navigate(RoutePath.LOGIN);
+    })
+
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

@@ -52,7 +52,11 @@ function App() {
           <Outlet />
         </div>
       ),
-      children: [
+      children: [        
+        {
+          index: true,
+          element: <LoginPage />
+        },
         {
           path: RoutePath.REGISTER,
           element: <RegisterPage />
