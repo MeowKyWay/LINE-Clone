@@ -23,8 +23,14 @@ function LoginPage() {
 
     useEffect(() => {
         const checkAuth = async () => {
-            if (await getCurrentUser())
+            try {
+                await getCurrentUser();
                 navigate(RoutePath.FRIENDS);
+            }
+            catch (e) {
+                console.log('Unauthorized')
+            }
+                
         }
         checkAuth();
     });
