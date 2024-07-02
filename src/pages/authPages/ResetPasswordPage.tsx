@@ -1,21 +1,19 @@
 import useTheme from "../../theme";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../../components/input/Button";
 import ResetEmail from "./resetComponent/ResetEmail";
-import ResetOtp from "./resetComponent/ResetOtp";
 import ResetNewPassword from "./resetComponent/ResetNewPassword";
 import LineIcon from "../../components/LineIcon";
 import { RoutePath } from "../../RoutePath";
 import ClickableText from "../../components/input/ClickableText";
 import Complete from "./authComponent/Complete";
+import { confirmResetPassword, resetPassword } from "aws-amplify/auth";
 
-type ResetPasswordState = 'email' | 'otp' | 'newPassword' | 'complete';
+type ResetPasswordState = 'email' | 'newPassword' | 'complete';
 
 function ResetPasswordPage() {
 
     const theme = useTheme().currentTheme;
-    const themeContext = useTheme();
 
     const [resetPasswordState, setResetPasswordState] = useState<ResetPasswordState>('email');
 
@@ -27,18 +25,32 @@ function ResetPasswordPage() {
     const [errorMessage, setErrorMessage] = useState('')
     const navigate = useNavigate()
 
-    const handleSendOtpButtonClicked = async () => {
-        //sendOTP()
-        setResetPasswordState('otp')
+    const handleSendOtpButtonClicked = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        try {
+            await resetPassword({
+                username: email
+            });
+            setResetPasswordState('newPassword')
+        }
+        catch (e) {
+            setErrorMessage((e as Error).message)
+        }
     }
 
-    const handleConfirmOtpButtonClicked = () => {
-        setResetPasswordState('newPassword')
-    }
-
-    const handleResetPasswordButtonClicked = async () => {
-        //resetPassword()
-        setResetPasswordState('complete')
+    const handleConfirmOtpButtonClicked = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        try {
+            await confirmResetPassword({
+                username: email,
+                newPassword: newPassword,
+                confirmationCode: otp
+            })
+            setResetPasswordState('complete');
+        }
+        catch (e) {
+            setErrorMessage((e as Error).message);
+        }
     }
 
     return (
@@ -48,30 +60,28 @@ function ResetPasswordPage() {
                 <LineIcon size="150px" />
                 <div className="w-96">
                     {resetPasswordState === 'email' &&
-                        <form className="mt-10" onSubmit={handleSendOtpButtonClicked}>
+                        <form className="mt-10" onSubmit={(e) => handleSendOtpButtonClicked(e)}>
                             <ResetEmail email={email} setEmail={setEmail} />
                         </form>
                     }
-                    {resetPasswordState === 'otp' &&
-                        <form className="flex flex-col mt-10" onSubmit={handleConfirmOtpButtonClicked}>
-                            <ResetOtp otp={otp} setOtp={setOtp} />
-                        </form>
-                    }
                     {resetPasswordState === 'newPassword' &&
-                        <form className="flex flex-col mt-10" onSubmit={handleResetPasswordButtonClicked}>
+                        <form className="flex flex-col mt-10" onSubmit={handleConfirmOtpButtonClicked}>
                             <ResetNewPassword
+                                otp={otp}
+                                setOtp={setOtp}
                                 password={newPassword}
                                 setPassword={setNewPassword}
                                 confirmPassword={confirmNewPassword}
                                 setConfirmPassword={setConfirmNewPassword} />
                         </form>
                     }
-                    {resetPasswordState === 'complete' && <Complete>Reset password complete</Complete>}
-
-                    {errorMessage && <div className="absolute left-0 bottom-0 text-red-500 text-sm" style={{ bottom: '-24px' }}>{errorMessage}</div>}
+                    {resetPasswordState === 'complete' && <Complete to={RoutePath.LOGIN}>Reset password complete</Complete>}
                 </div>
                 {resetPasswordState !== 'complete' &&
                     <div className="flex flex-row w-full mt-2.5">
+                        <span className="text-xs font-light" style={{ color: theme.color.primary.error }}>
+                            {errorMessage}
+                        </span>
                         <div className="flex-1"></div>
                         <ClickableText className="text-xs" onClick={() => navigate(RoutePath.LOGIN)}>
                             Back to login
@@ -79,7 +89,6 @@ function ResetPasswordPage() {
                     </div>
                 }
             </div>
-            <button onClick={themeContext.toggle} className="relative top-20">Toggle Theme</button>
         </div>
     )
 }

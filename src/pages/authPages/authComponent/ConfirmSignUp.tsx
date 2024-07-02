@@ -3,6 +3,7 @@ import TextField from "../../../components/input/TextField";
 import Button from "../../../components/input/Button";
 import { confirmSignUp } from "@aws-amplify/auth";
 import Complete from "./Complete";
+import { RoutePath } from "../../../RoutePath";
 
 function ConfirmSignUp({ email }: {
     email: string;
@@ -43,7 +44,7 @@ function ConfirmSignUp({ email }: {
                     </Button>
                 </form>
             }
-            {isComplete && <Complete>Sign up complete</Complete>}
+            {isComplete && <Complete to={RoutePath.FRIENDS}>Sign up complete</Complete>}
         </div>
     )
 }
