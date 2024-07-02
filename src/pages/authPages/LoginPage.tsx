@@ -6,7 +6,7 @@ import Button from "../../components/input/Button";
 import ClickableText from "../../components/input/ClickableText";
 import LineIcon from "../../components/LineIcon";
 import { RoutePath } from "../../RoutePath";
-import { signIn, signOut } from "@aws-amplify/auth";
+import { signIn, signOut, getCurrentUser } from "@aws-amplify/auth";
 
 function LoginPage() {
 
@@ -19,7 +19,15 @@ function LoginPage() {
     useEffect(() => {
         if (location.pathname !== RoutePath.LOGIN) //In case of no pathname, redirect to login page
             navigate(RoutePath.LOGIN);
-    })
+    });
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            if (await getCurrentUser())
+                navigate(RoutePath.FRIENDS);
+        }
+        checkAuth();
+    });
 
 
     const [email, setEmail] = useState('');
