@@ -1,5 +1,5 @@
 import Body from './components/Body';
-import NavigationBar from './components/NavigationBar'
+import NavigationBar from './components/navigation/NavigationBar'
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import FriendsPage from './pages/FriendsPage';
 import ChatsPage from './pages/ChatsPage';
