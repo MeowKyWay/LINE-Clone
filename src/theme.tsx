@@ -4,6 +4,7 @@ export interface Theme {
     color: {
         primary: {
             background: string;
+            modalBackground: string;
             text: string;
             icon: string;
             line: string;
@@ -36,6 +37,7 @@ const theme: {light:Theme, dark:Theme} = {
         color: {
             primary: {
                 background: '#ffffff',
+                modalBackground: '#ffffff',
                 text: '#000000',
                 icon: '#6e7993',
                 line: '#d2d8dc',
@@ -65,6 +67,7 @@ const theme: {light:Theme, dark:Theme} = {
         color: {
             primary: {
                 background: '#2d2e30',
+                modalBackground: '#3f3f3f',
                 text: '#dfdfdf',
                 icon: '#777777',
                 line: '#4a4a4a',
