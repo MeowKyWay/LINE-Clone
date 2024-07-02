@@ -22,24 +22,28 @@ function RegisterPage() {
 
     const [errorMessage, setErrorMessage] = useState('');
 
-    const [step, setStep] = useState<'register'|'confirm_sign_up'>('register');
+    const [step, setStep] = useState<'register' | 'confirm_sign_up'>('register');
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const res = await signUp({
-            username: email,
-            password: password,
-            options: {
-                userAttributes: {
-                    email: email,
-                    preferred_username: username,
+        try {
+            const res = await signUp({
+                username: email,
+                password: password,
+                options: {
+                    userAttributes: {
+                        email: email,
+                        preferred_username: username,
+                    }
                 }
+            })
+            if (res.nextStep.signUpStep === 'CONFIRM_SIGN_UP') {
+                setStep('confirm_sign_up');
             }
-        })
-
-        if (res.nextStep.signUpStep === 'CONFIRM_SIGN_UP') {
-            setStep('confirm_sign_up');
+        }
+        catch (e) {
+            setErrorMessage((e as Error).message);
         }
     }
 
@@ -49,7 +53,7 @@ function RegisterPage() {
             <div className="flex flex-col items-center mt-20">
                 <LineIcon size="150px" />
                 <div className="w-96">
-                    { step === 'register' &&
+                    {step === 'register' &&
                         <form className="flex flex-col mt-10 w-full" onSubmit={handleSubmit}>
                             <div className="border rounded" style={{
                                 border: '1px solid',
@@ -99,12 +103,15 @@ function RegisterPage() {
                             </Button>
                         </form>
                     }
-                    { step === 'confirm_sign_up' &&
+                    {step === 'confirm_sign_up' &&
                         <ConfirmSignUp email={email} />
                     }
 
                 </div>
                 <div className="flex flex-row w-full mt-2.5">
+                    <span className="mt-2.5 text-xs font-light" style={{ color: theme.color.primary.error }}>
+                        {errorMessage}
+                    </span>
                     <div className="flex-1"></div>
                     <ClickableText className="text-xs" onClick={() => navigate(RoutePath.LOGIN)}>
                         Already have an account?
