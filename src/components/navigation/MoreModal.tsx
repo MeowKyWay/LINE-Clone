@@ -3,8 +3,11 @@ import useTheme from "../../theme";
 import MoreModalButton from "./MoreModalButton";
 import { signOut } from "aws-amplify/auth";
 import { RoutePath } from "../../RoutePath";
+import ModalOverlay from "../ModalOverlay";
 
-function MoreModal() {
+function MoreModal({onClose}: {
+    onClose: () => void
+}){
 
     const theme = useTheme();
     const navigate = useNavigate();
@@ -23,18 +26,21 @@ function MoreModal() {
     }
 
     return (
-        <div
-            className="fixed z-50 rounded text-xs font-light py-2 flex flex-col"
-            style={{
-                bottom: '50px', 
-                left: '50px', 
-                backgroundColor: theme.currentTheme.color.primary.modal,
-                color: theme.currentTheme.color.primary.text,
-            }}
-        >
-            <MoreModalButton onClick={handleToggleTheme}>Toggle theme</MoreModalButton>
-            <MoreModalButton onClick={handleSignOut}>Log out</MoreModalButton>
-        </div>
+        <ModalOverlay onClose={onClose}>
+            <div
+                className="fixed rounded text-xs font-light py-2 flex flex-col"
+                style={{
+                    bottom: '50px',
+                    left: '50px',
+                    zIndex: 10000,
+                    backgroundColor: theme.currentTheme.color.primary.modal,
+                    color: theme.currentTheme.color.primary.text,
+                }}
+            >
+                <MoreModalButton onClick={handleToggleTheme}>Toggle theme</MoreModalButton>
+                <MoreModalButton onClick={handleSignOut}>Log out</MoreModalButton>
+            </div>
+        </ModalOverlay>
     )
 }
 
