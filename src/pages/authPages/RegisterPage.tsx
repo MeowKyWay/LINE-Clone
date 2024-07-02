@@ -109,7 +109,7 @@ function RegisterPage() {
 
                 </div>
                 <div className="flex flex-row w-full mt-2.5">
-                    <span className="mt-2.5 text-xs font-light" style={{ color: theme.color.primary.error }}>
+                    <span className="text-xs font-light" style={{ color: theme.color.primary.error }}>
                         {errorMessage}
                     </span>
                     <div className="flex-1"></div>
