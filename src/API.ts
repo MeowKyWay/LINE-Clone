@@ -112,12 +112,12 @@ export type ModelUserFriendConnection = {
 
 export type ModelSubscriptionUserFriendFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  userID?: ModelSubscriptionStringInput | null,
   friendID?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserFriendFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserFriendFilterInput | null > | null,
+  userID?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionIDInput = {
