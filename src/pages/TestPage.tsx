@@ -5,7 +5,6 @@ import useTheme from "../theme";
 import TextField from "../components/input/TextField";
 import { useState } from "react";
 import Button from "../components/input/Button";
-import { createUserFriend } from "../graphql/mutations";
 import { fetchAuthSession } from "aws-amplify/auth";
 
 function TestPage() {
@@ -17,26 +16,26 @@ function TestPage() {
     const [friendID,setFriendID] = useState('');
 
     const handleAddFriend = async () => {
-        try {
+        // try {
 
-            const userID = (await fetchAuthSession()).userSub as string;
+        //     const userID = (await fetchAuthSession()).userSub as string;
 
-            const res = await client.graphql({
-                query: createUserFriend,
-                variables: {
-                    input: {
-                        id: userID + ":" + friendID,
-                        userID: userID,
-                        friendID: friendID,
-                    }
-                }
-            })
+        //     const res = await client.graphql({
+        //         query: createUserFriend,
+        //         variables: {
+        //             input: {
+        //                 id: userID + ":" + friendID,
+        //                 userID: userID,
+        //                 friendID: friendID,
+        //             }
+        //         }
+        //     })
 
-            console.log(res);
-        }
-        catch (e) {
-            console.log(e);
-        }
+        //     console.log(res);
+        // }
+        // catch (e) {
+        //     console.log(e);
+        // }
     }
 
     return (
