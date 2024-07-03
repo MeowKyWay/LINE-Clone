@@ -59,3 +59,54 @@ export const deleteChat = /* GraphQL */ `mutation DeleteChat(
   APITypes.DeleteChatMutationVariables,
   APITypes.DeleteChatMutation
 >;
+export const createUserFriend = /* GraphQL */ `mutation CreateUserFriend(
+  $input: CreateUserFriendInput!
+  $condition: ModelUserFriendConditionInput
+) {
+  createUserFriend(input: $input, condition: $condition) {
+    id
+    friendID
+    userID
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateUserFriendMutationVariables,
+  APITypes.CreateUserFriendMutation
+>;
+export const updateUserFriend = /* GraphQL */ `mutation UpdateUserFriend(
+  $input: UpdateUserFriendInput!
+  $condition: ModelUserFriendConditionInput
+) {
+  updateUserFriend(input: $input, condition: $condition) {
+    id
+    friendID
+    userID
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateUserFriendMutationVariables,
+  APITypes.UpdateUserFriendMutation
+>;
+export const deleteUserFriend = /* GraphQL */ `mutation DeleteUserFriend(
+  $input: DeleteUserFriendInput!
+  $condition: ModelUserFriendConditionInput
+) {
+  deleteUserFriend(input: $input, condition: $condition) {
+    id
+    friendID
+    userID
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteUserFriendMutationVariables,
+  APITypes.DeleteUserFriendMutation
+>;

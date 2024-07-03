@@ -7,3 +7,9 @@ type Chat @model {
   name: String!
   description: String
 }
+
+type UserFriend @model {
+  id: ID!
+  friendID: String!
+  userID: String!
+}

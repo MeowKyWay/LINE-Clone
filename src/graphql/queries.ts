@@ -38,3 +38,39 @@ export const listChats = /* GraphQL */ `query ListChats(
   }
 }
 ` as GeneratedQuery<APITypes.ListChatsQueryVariables, APITypes.ListChatsQuery>;
+export const getUserFriend = /* GraphQL */ `query GetUserFriend($id: ID!) {
+  getUserFriend(id: $id) {
+    id
+    friendID
+    userID
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetUserFriendQueryVariables,
+  APITypes.GetUserFriendQuery
+>;
+export const listUserFriends = /* GraphQL */ `query ListUserFriends(
+  $filter: ModelUserFriendFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUserFriends(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      friendID
+      userID
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListUserFriendsQueryVariables,
+  APITypes.ListUserFriendsQuery
+>;

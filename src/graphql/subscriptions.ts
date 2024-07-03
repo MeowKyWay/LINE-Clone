@@ -50,3 +50,51 @@ export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat($filter: Mo
   APITypes.OnDeleteChatSubscriptionVariables,
   APITypes.OnDeleteChatSubscription
 >;
+export const onCreateUserFriend = /* GraphQL */ `subscription OnCreateUserFriend(
+  $filter: ModelSubscriptionUserFriendFilterInput
+) {
+  onCreateUserFriend(filter: $filter) {
+    id
+    friendID
+    userID
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateUserFriendSubscriptionVariables,
+  APITypes.OnCreateUserFriendSubscription
+>;
+export const onUpdateUserFriend = /* GraphQL */ `subscription OnUpdateUserFriend(
+  $filter: ModelSubscriptionUserFriendFilterInput
+) {
+  onUpdateUserFriend(filter: $filter) {
+    id
+    friendID
+    userID
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateUserFriendSubscriptionVariables,
+  APITypes.OnUpdateUserFriendSubscription
+>;
+export const onDeleteUserFriend = /* GraphQL */ `subscription OnDeleteUserFriend(
+  $filter: ModelSubscriptionUserFriendFilterInput
+) {
+  onDeleteUserFriend(filter: $filter) {
+    id
+    friendID
+    userID
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteUserFriendSubscriptionVariables,
+  APITypes.OnDeleteUserFriendSubscription
+>;
