@@ -76,8 +76,8 @@ function RegisterPage() {
                                     value={lineID}
                                     onChange={setLineID}
                                     className="border-0 border-b rounded-none"
-                                    autoComplete="email"
-                                    name="email">
+                                    autoComplete="username"
+                                    name="username">
                                     Line ID
                                 </TextField>
                                 <TextField
@@ -95,7 +95,7 @@ function RegisterPage() {
                                     onChange={setConfirmPassword}
                                     className="border-0 rounded-t-none"
                                     autoComplete="password"
-                                    name="confirm-password">
+                                    name="confirmpassword">
                                     Confirm Password
                                 </TextField>
                             </div>
