@@ -6,6 +6,7 @@ import { termsReducer } from "./slice/termsSlice";
 import { chatsReducer } from "./slice/chatsSlice";
 import { userReducer } from "./slice/userSlice";
 import { friendRecommendReducer } from "./slice/friendRecommendSlice";
+import { messagesReducer } from "./slice/messageSlice";
 
 const store = configureStore({
     reducer: {
@@ -16,6 +17,8 @@ const store = configureStore({
         chats: chatsReducer,
         states: statesReducer,
         terms: termsReducer,
+        messages: messagesReducer
+        
     }
 });
 
