@@ -43,6 +43,9 @@ function App() {
           path: RoutePath.ADD_FRIENDS,
           element: <AddFriendsPage />
         },
+        {
+          path: RoutePath.TEST,
+        }
       ]
     },
     {
