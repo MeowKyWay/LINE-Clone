@@ -8,6 +8,7 @@ import LoginPage from './pages/authPages/LoginPage';
 import RegisterPage from './pages/authPages/RegisterPage'
 import ResetPasswordPage from './pages/authPages/ResetPasswordPage';
 import { RoutePath } from './RoutePath';
+import TestPage from './pages/TestPage';
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
         },
         {
           path: RoutePath.TEST,
+          element: <TestPage />
         }
       ]
     },
