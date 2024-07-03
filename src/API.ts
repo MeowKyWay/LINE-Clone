@@ -77,6 +77,41 @@ export type DeleteChatInput = {
   id: string,
 };
 
+export type CreateUserFriendInput = {
+  id?: string | null,
+  friendID: string,
+  userID: string,
+};
+
+export type ModelUserFriendConditionInput = {
+  friendID?: ModelStringInput | null,
+  userID?: ModelStringInput | null,
+  and?: Array< ModelUserFriendConditionInput | null > | null,
+  or?: Array< ModelUserFriendConditionInput | null > | null,
+  not?: ModelUserFriendConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type UserFriend = {
+  __typename: "UserFriend",
+  id: string,
+  friendID: string,
+  userID: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateUserFriendInput = {
+  id: string,
+  friendID?: string | null,
+  userID?: string | null,
+};
+
+export type DeleteUserFriendInput = {
+  id: string,
+};
+
 export type ModelChatFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -107,6 +142,23 @@ export type ModelIDInput = {
 export type ModelChatConnection = {
   __typename: "ModelChatConnection",
   items:  Array<Chat | null >,
+  nextToken?: string | null,
+};
+
+export type ModelUserFriendFilterInput = {
+  id?: ModelIDInput | null,
+  friendID?: ModelStringInput | null,
+  userID?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelUserFriendFilterInput | null > | null,
+  or?: Array< ModelUserFriendFilterInput | null > | null,
+  not?: ModelUserFriendFilterInput | null,
+};
+
+export type ModelUserFriendConnection = {
+  __typename: "ModelUserFriendConnection",
+  items:  Array<UserFriend | null >,
   nextToken?: string | null,
 };
 
@@ -148,6 +200,16 @@ export type ModelSubscriptionStringInput = {
   beginsWith?: string | null,
   in?: Array< string | null > | null,
   notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionUserFriendFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  friendID?: ModelSubscriptionStringInput | null,
+  userID?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionUserFriendFilterInput | null > | null,
+  or?: Array< ModelSubscriptionUserFriendFilterInput | null > | null,
 };
 
 export type CreateChatMutationVariables = {
@@ -198,6 +260,54 @@ export type DeleteChatMutation = {
   } | null,
 };
 
+export type CreateUserFriendMutationVariables = {
+  input: CreateUserFriendInput,
+  condition?: ModelUserFriendConditionInput | null,
+};
+
+export type CreateUserFriendMutation = {
+  createUserFriend?:  {
+    __typename: "UserFriend",
+    id: string,
+    friendID: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateUserFriendMutationVariables = {
+  input: UpdateUserFriendInput,
+  condition?: ModelUserFriendConditionInput | null,
+};
+
+export type UpdateUserFriendMutation = {
+  updateUserFriend?:  {
+    __typename: "UserFriend",
+    id: string,
+    friendID: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteUserFriendMutationVariables = {
+  input: DeleteUserFriendInput,
+  condition?: ModelUserFriendConditionInput | null,
+};
+
+export type DeleteUserFriendMutation = {
+  deleteUserFriend?:  {
+    __typename: "UserFriend",
+    id: string,
+    friendID: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetChatQueryVariables = {
   id: string,
 };
@@ -227,6 +337,42 @@ export type ListChatsQuery = {
       id: string,
       name: string,
       description?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetUserFriendQueryVariables = {
+  id: string,
+};
+
+export type GetUserFriendQuery = {
+  getUserFriend?:  {
+    __typename: "UserFriend",
+    id: string,
+    friendID: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListUserFriendsQueryVariables = {
+  filter?: ModelUserFriendFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListUserFriendsQuery = {
+  listUserFriends?:  {
+    __typename: "ModelUserFriendConnection",
+    items:  Array< {
+      __typename: "UserFriend",
+      id: string,
+      friendID: string,
+      userID: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -274,6 +420,51 @@ export type OnDeleteChatSubscription = {
     id: string,
     name: string,
     description?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateUserFriendSubscriptionVariables = {
+  filter?: ModelSubscriptionUserFriendFilterInput | null,
+};
+
+export type OnCreateUserFriendSubscription = {
+  onCreateUserFriend?:  {
+    __typename: "UserFriend",
+    id: string,
+    friendID: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateUserFriendSubscriptionVariables = {
+  filter?: ModelSubscriptionUserFriendFilterInput | null,
+};
+
+export type OnUpdateUserFriendSubscription = {
+  onUpdateUserFriend?:  {
+    __typename: "UserFriend",
+    id: string,
+    friendID: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteUserFriendSubscriptionVariables = {
+  filter?: ModelSubscriptionUserFriendFilterInput | null,
+};
+
+export type OnDeleteUserFriendSubscription = {
+  onDeleteUserFriend?:  {
+    __typename: "UserFriend",
+    id: string,
+    friendID: string,
+    userID: string,
     createdAt: string,
     updatedAt: string,
   } | null,

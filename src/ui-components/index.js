@@ -6,4 +6,6 @@
 
 export { default as ChatCreateForm } from "./ChatCreateForm";
 export { default as ChatUpdateForm } from "./ChatUpdateForm";
+export { default as UserFriendCreateForm } from "./UserFriendCreateForm";
+export { default as UserFriendUpdateForm } from "./UserFriendUpdateForm";
 export { default as studioTheme } from "./studioTheme";

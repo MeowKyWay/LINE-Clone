@@ -1,7 +1,15 @@
 {
   "api": {
     "lineclone": {
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "LINEClone"
+        }
+      ],
       "output": {
         "authConfig": {
           "additionalAuthenticationProviders": [],
