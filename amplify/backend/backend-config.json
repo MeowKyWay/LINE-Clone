@@ -28,7 +28,7 @@
     }
   },
   "auth": {
-    "LineCloneUserpool": {
+    "lineclonef2133382f2133382": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -45,9 +45,7 @@
           "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
-          "EMAIL",
-          "NAME",
-          "PREFERRED_USERNAME"
+          "EMAIL"
         ],
         "socialProviders": [],
         "usernameAttributes": [],

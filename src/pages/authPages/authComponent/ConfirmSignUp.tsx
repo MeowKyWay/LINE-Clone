@@ -5,8 +5,8 @@ import { confirmSignUp } from "@aws-amplify/auth";
 import Complete from "./Complete";
 import { RoutePath } from "../../../RoutePath";
 
-function ConfirmSignUp({ email }: {
-    email: string;
+function ConfirmSignUp({ username }: {
+    username: string;
 }) {
 
     const [otp, setOtp] = useState('');
@@ -16,7 +16,7 @@ function ConfirmSignUp({ email }: {
         event.preventDefault();
 
         const res = await confirmSignUp({
-            username: email,
+            username: username,
             confirmationCode: otp,
         })
 

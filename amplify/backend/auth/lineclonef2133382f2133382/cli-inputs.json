@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "lineclone6268a6de_identitypool_6268a6de",
+    "identityPoolName": "lineclonef2133382_identitypool_f2133382",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "linecl6268a6de",
-    "userPoolName": "lineclone6268a6de_userpool_6268a6de",
+    "resourceNameTruncated": "lineclf2133382",
+    "userPoolName": "lineclonef2133382_userpool_f2133382",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -24,9 +24,7 @@
       "Requires Numbers"
     ],
     "requiredAttributes": [
-      "email",
-      "name",
-      "preferred_username"
+      "email"
     ],
     "aliasAttributes": [
       "email",
@@ -40,14 +38,13 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "LineCl6268a6de_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "lineclf2133382_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "6268a6de",
-    "resourceName": "LineCloneUserpool",
+    "sharedId": "f2133382",
+    "resourceName": "lineclonef2133382f2133382",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "manual",
-    "thirdPartyAuth": true,
-    "authProviders": [],
+    "thirdPartyAuth": false,
     "userPoolGroups": false,
     "adminQueries": false,
     "triggers": {},

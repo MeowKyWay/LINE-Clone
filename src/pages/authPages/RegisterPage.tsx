@@ -15,8 +15,8 @@ function RegisterPage() {
 
     const theme = useTheme().currentTheme;
 
-    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
+    const [lineID, setLineID] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -31,12 +31,11 @@ function RegisterPage() {
 
         try {
             const res = await signUp({
-                username: email,
+                username: lineID,
                 password: password,
                 options: {
                     userAttributes: {
                         email: email,
-                        preferred_username: username,
                     }
                 }
             })
@@ -63,21 +62,21 @@ function RegisterPage() {
                             }}>
                                 <TextField
                                     type="text"
-                                    value={username}
-                                    onChange={setUsername}
-                                    className="border-0 border-b rounded-b-none"
-                                    autoComplete="username"
-                                    name="username">
-                                    Username
-                                </TextField>
-                                <TextField
-                                    type="text"
                                     value={email}
                                     onChange={setEmail}
                                     className="border-0 border-b rounded-none"
                                     autoComplete="email"
                                     name="email">
                                     Email
+                                </TextField>
+                                <TextField
+                                    type="text"
+                                    value={lineID}
+                                    onChange={setLineID}
+                                    className="border-0 border-b rounded-none"
+                                    autoComplete="email"
+                                    name="email">
+                                    Line ID
                                 </TextField>
                                 <TextField
                                     type="password"
@@ -99,14 +98,14 @@ function RegisterPage() {
                                 </TextField>
                             </div>
                             <Button
-                                type={email && password && username && password === confirmPassword ? 'primary' : 'disabled'}
+                                type={email && password && lineID && password === confirmPassword ? 'primary' : 'disabled'}
                                 className="mt-4">
                                 Register
                             </Button>
                         </form>
                     }
                     {step === 'confirm_sign_up' &&
-                        <ConfirmSignUp email={email} />
+                        <ConfirmSignUp username={lineID} />
                     }
 
                 </div>
