@@ -27,6 +27,8 @@ function RegisterPage() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
+        if (!confirm("Register?")) return;
+
         try {
             const res = await signUp({
                 username: email,
