@@ -27,6 +27,8 @@ function RegisterPage() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
+        setErrorMessage('');
+
         if (!confirm("Register?")) return;
 
         try {
