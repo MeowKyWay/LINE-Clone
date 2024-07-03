@@ -89,6 +89,13 @@ const messagesSlice = createSlice({
                 chatId: 2,
                 createdAt: new Date('2024-12-29T22:30:00Z').getTime()
             },
+            {
+                id: 12,
+                message: "lastest",
+                userId: 1,
+                chatId: 2,
+                createdAt: new Date('2024-12-31T22:30:00Z').getTime()
+            },
         ] as MessageType[]
     },
     reducers: {

@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "lineclone",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authLINECloneAuth",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

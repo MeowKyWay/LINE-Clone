@@ -9,7 +9,6 @@ function Chat() {
     const [term, setTerm] = useState('');
     const theme = useTheme().currentTheme;
 
-    // Use useMemo to memoize the sorted message list
     const sortedMessageList = useMemo(() => {
         return [...messageList].sort((a, b) => a.createdAt - b.createdAt);
     }, [messageList]);
@@ -33,33 +32,27 @@ function Chat() {
     }
 
     const renderedMessages = sortedMessageList.filter(message => message.chatId === 2).map((message, index) => {
-        const isUserMessage = message.userId === 1; // Adjust this condition based on your user identifier
+        const isUserMessage = message.userId === 1;
         const formattedTime = format(new Date(message.createdAt), 'h:mm a');
 
         return (
             <div key={index} className={`flex ${isUserMessage ? 'justify-end' : 'justify-start'} mb-4`}>
                 {isUserMessage ? (
                     <div className="relative">
-                        <div className="max-w-xs px-4 py-2 rounded-lg break-words" style={{ backgroundColor: "#86d97b", color: "#2d2e30" }}>
+                        <div className="max-w-xs px-4 py-2 rounded-lg break-words relative user-chat" style={{backgroundColor: '#86d97b'}}>
                             <span className="block">{message.message}</span>
                         </div>
-                        <div 
-                            className="text-xs text-gray-600 block absolute" 
-                            id="userChat-time" 
-                            style={{left: "-55px" , bottom: "3px"}}>
+                        <div className="text-xs text-gray-600 block absolute" id="userChat-time" style={{ left: "-50px", bottom: "3px" }}>
                             {formattedTime}
                         </div>
                     </div>
                 ) : (
                     <div className="flex items-start space-x-4 relative">
                         <ProfilePicture size="34px" />
-                        <div className="max-w-xs px-4 py-2 text-white rounded-lg break-words" style={receiverChatStyle}>
+                        <div className="max-w-xs px-4 py-2 rounded-lg break-words relative receiver-chat" style={receiverChatStyle}>
                             <span className="block">{message.message}</span>
                         </div>
-                        <div 
-                            className="text-xs text-gray-400 block absolute" 
-                            id="receiverChat-time" 
-                            style={{right: "-55px" , bottom: "3px"}}>
+                        <div className="text-xs text-gray-400 block absolute" id="receiverChat-time" style={{ right: "-50px", bottom: "3px" }}>
                             {formattedTime}
                         </div>
                     </div>
@@ -80,13 +73,13 @@ function Chat() {
                 <div className="w-full border-t" style={inputChatStyle}></div>
                 <textarea onChange={(e) => setTerm(e.target.value)}
                     value={term} placeholder="Enter a message"
-                    className="p-4 bg-transparent w-full" 
+                    className="p-4 bg-transparent w-full"
                     style={receiverNameStyle} />
                 <style>
                     {`
                         .p-4::placeholder {
-                            color: #555555; /* Change the placeholder text color */
-                            font-size: 14px; /* Change the placeholder font size */
+                            color: #555555; 
+                            font-size: 14px;
                         }
                         textarea{
                             height: 150px;
@@ -94,6 +87,32 @@ function Chat() {
                         textarea:focus {
                             outline: none;
                             border-color: initial;
+                        }
+                        .user-chat::after {
+                            content: '';
+                            position: absolute;
+                            right: -8px;
+                            top: 15px;
+                            width: 0;
+                            height: 0;
+                            border: 10px solid transparent;
+                            border-left-color: #86d97b;
+                            border-right: 0;
+                            border-bottom: 0;
+                            margin-top: -5px;
+                        }
+                        .receiver-chat::before {
+                            content: '';
+                            position: absolute;
+                            left: -8px;
+                            top: 15px;
+                            width: 0;
+                            height: 0;
+                            border: 10px solid transparent;
+                            border-right-color: ${theme.color.chat.background};
+                            border-left: 0;
+                            border-bottom: 0;
+                            margin-top: -5px;
                         }
                     `}
                 </style>
