@@ -7,7 +7,9 @@
           "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+              "apiKeyExpirationDate": "2024-07-10T04:18:08.277Z",
+              "apiKeyExpirationDays": 7,
+              "description": ""
             },
             "authenticationType": "API_KEY"
           }
@@ -18,7 +20,7 @@
     }
   },
   "auth": {
-    "LINEClone": {
+    "LineCloneUserpool": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -29,19 +31,18 @@
         "passwordProtectionSettings": {
           "passwordPolicyCharacters": [
             "REQUIRES_LOWERCASE",
-            "REQUIRES_NUMBERS",
-            "REQUIRES_UPPERCASE"
+            "REQUIRES_UPPERCASE",
+            "REQUIRES_NUMBERS"
           ],
           "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
           "EMAIL",
+          "NAME",
           "PREFERRED_USERNAME"
         ],
         "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
-        ],
+        "usernameAttributes": [],
         "verificationMechanisms": [
           "EMAIL"
         ]
