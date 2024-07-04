@@ -8,6 +8,81 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
+export const createUser = /* GraphQL */ `mutation CreateUser(
+  $input: CreateUserInput!
+  $condition: ModelUserConditionInput
+) {
+  createUser(input: $input, condition: $condition) {
+    id
+    name
+    statusMessage
+    friends {
+      nextToken
+      __typename
+    }
+    friendOf {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateUserMutationVariables,
+  APITypes.CreateUserMutation
+>;
+export const updateUser = /* GraphQL */ `mutation UpdateUser(
+  $input: UpdateUserInput!
+  $condition: ModelUserConditionInput
+) {
+  updateUser(input: $input, condition: $condition) {
+    id
+    name
+    statusMessage
+    friends {
+      nextToken
+      __typename
+    }
+    friendOf {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateUserMutationVariables,
+  APITypes.UpdateUserMutation
+>;
+export const deleteUser = /* GraphQL */ `mutation DeleteUser(
+  $input: DeleteUserInput!
+  $condition: ModelUserConditionInput
+) {
+  deleteUser(input: $input, condition: $condition) {
+    id
+    name
+    statusMessage
+    friends {
+      nextToken
+      __typename
+    }
+    friendOf {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteUserMutationVariables,
+  APITypes.DeleteUserMutation
+>;
 export const createUserFriend = /* GraphQL */ `mutation CreateUserFriend(
   $input: CreateUserFriendInput!
   $condition: ModelUserFriendConditionInput
@@ -15,7 +90,23 @@ export const createUserFriend = /* GraphQL */ `mutation CreateUserFriend(
   createUserFriend(input: $input, condition: $condition) {
     id
     userID
+    user {
+      id
+      name
+      statusMessage
+      createdAt
+      updatedAt
+      __typename
+    }
     friendID
+    friend {
+      id
+      name
+      statusMessage
+      createdAt
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -32,7 +123,23 @@ export const updateUserFriend = /* GraphQL */ `mutation UpdateUserFriend(
   updateUserFriend(input: $input, condition: $condition) {
     id
     userID
+    user {
+      id
+      name
+      statusMessage
+      createdAt
+      updatedAt
+      __typename
+    }
     friendID
+    friend {
+      id
+      name
+      statusMessage
+      createdAt
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -49,7 +156,23 @@ export const deleteUserFriend = /* GraphQL */ `mutation DeleteUserFriend(
   deleteUserFriend(input: $input, condition: $condition) {
     id
     userID
+    user {
+      id
+      name
+      statusMessage
+      createdAt
+      updatedAt
+      __typename
+    }
     friendID
+    friend {
+      id
+      name
+      statusMessage
+      createdAt
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     __typename
