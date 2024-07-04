@@ -7,7 +7,7 @@ import { useState } from "react";
 import Button from "../components/input/Button";
 import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
 import { createUserFriend, deleteUserFriend } from "../graphql/mutations";
-import { invokeLambda } from "../utilities/LambdaUtil";
+import { LambdaARN, invokeLambda } from "../utilities/LambdaUtil";
 
 function TestPage() {
 
@@ -21,7 +21,7 @@ function TestPage() {
         const resp = await fetchAuthSession();
         try {
             const res = await invokeLambda({
-                arn: 'LINEClone-AddFriend',
+                arn: LambdaARN.ADD_FRIEND,
                 body: {
                     accessToken: resp.tokens?.accessToken.toString(),
                     friendID: friendLineID,
