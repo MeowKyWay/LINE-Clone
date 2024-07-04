@@ -5,7 +5,7 @@ import useTheme from "../theme";
 import TextField from "../components/input/TextField";
 import { useState } from "react";
 import Button from "../components/input/Button";
-import { getCurrentUser } from "aws-amplify/auth";
+import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
 import { createUserFriend, deleteUserFriend } from "../graphql/mutations";
 import { invokeLambda } from "../utilities/LambdaUtil";
 
@@ -18,17 +18,13 @@ function TestPage() {
     const [friendLineID, setFriendLineID] = useState('');
 
     const handleAddFriend = async () => {
+        const resp = await fetchAuthSession();
+        console.log(resp);
         try {
-            const userLineID = (await getCurrentUser()).username;
-
-            const res = await client.graphql({
-                query: createUserFriend,
-                variables: {
-                    input: {
-                        id: userLineID + ":" + friendLineID,
-                        userID: userLineID,
-                        friendID: friendLineID,
-                    }
+            const res = await invokeLambda({
+                arn: 'LINEClone-AddFriend',
+                body: {
+                    accessToken: resp.tokens?.accessToken,
                 }
             })
             console.log(res);
@@ -50,23 +46,6 @@ function TestPage() {
                     }
                 }
             })
-            console.log(res);
-        }
-        catch (e) {
-            console.log(e);
-        }
-    }
-
-    const handleListFriend = async () => {
-        try {
-
-            const res = await invokeLambda({
-                arn: 'arn:aws:lambda:ap-southeast-1:767398112415:function:LINEClone-listUserFriends',
-                body: {
-                    userID: (await getCurrentUser()).username,
-                }
-            })
-
             console.log(res);
         }
         catch (e) {
@@ -101,12 +80,6 @@ function TestPage() {
                 onClick={handleRemoveFriend}
             >
                 Remove Friend
-            </Button>
-            <Button
-                type='primary'
-                onClick={handleListFriend}
-            >
-                List Friends
             </Button>
         </div>
     )

@@ -21,7 +21,7 @@ type User
 type UserFriend
   @model 
   @auth(rules: [
-    { allow: owner, ownerField: "userID", operations: [delete] }
+    { allow: owner, ownerField: "userID", operations: [create, delete] }
     { allow: private, operations: [read] }
   ]) {
   id: ID!
