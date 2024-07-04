@@ -5,10 +5,8 @@ import useTheme from "../theme";
 import TextField from "../components/input/TextField";
 import { useState } from "react";
 import Button from "../components/input/Button";
-import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
+import { getCurrentUser } from "aws-amplify/auth";
 import { createUserFriend, deleteUserFriend } from "../graphql/mutations";
-import { listUserFriends } from "../graphql/queries";
-import { Lambda } from "@aws-sdk/client-lambda";
 import { invokeLambda } from "../utilities/LambdaUtil";
 
 function TestPage() {
@@ -62,7 +60,12 @@ function TestPage() {
     const handleListFriend = async () => {
         try {
 
-            const res = await invokeLambda('arn:aws:lambda:ap-southeast-1:767398112415:function:LINEClone-listUserFriends')
+            const res = await invokeLambda({
+                arn: 'arn:aws:lambda:ap-southeast-1:767398112415:function:LINEClone-listUserFriends',
+                body: {
+                    userID: (await getCurrentUser()).username,
+                }
+            })
 
             console.log(res);
         }
