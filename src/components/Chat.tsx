@@ -1,19 +1,28 @@
 import useTheme from "../theme";
 import { useAppSelector } from "../hook";
 import ProfilePicture from "./ProfilePicture";
-import { useState, useMemo } from "react";
+import { useState, useMemo , useRef } from "react";
 import { format } from 'date-fns';
 import { UserChat, ReceiverChat } from  "./ChatBubble";
 import { TextAreaChat } from "./input/TextAreaChat";
+import { TiAttachment } from "react-icons/ti";
 
 function Chat() {
     const messageList = useAppSelector(state => state.messages.messageList);
     const [term, setTerm] = useState('');
     const theme = useTheme().currentTheme;
+    const imgFileInput = useRef<HTMLInputElement>(null)
+
 
     const sortedMessageList = useMemo(() => {
         return [...messageList].sort((a, b) => a.createdAt - b.createdAt);
     }, [messageList]);
+
+    async function uploadImg(){
+        if(imgFileInput.current){
+            imgFileInput.current.click()
+        }
+    }
 
     const style = {
         backgroundColor: theme.color.primary.background,
@@ -65,6 +74,7 @@ function Chat() {
         );
     });
 
+
     return (
         <div className="flex-1 border-box border-l h-full" style={style}>
             <div className="w-full ml-4 mt-4 font-semibold" style={receiverNameStyle}>
@@ -75,9 +85,14 @@ function Chat() {
             </div>
             <div className="relative h-full">
                 <div className="w-full border-t" style={inputChatStyle}></div>
-                <TextAreaChat onChange={(e) => setTerm(e.target.value)}
+                <TextAreaChat 
+                    onChange={(e) => setTerm(e.target.value)}
                     value={term} placeholder="Enter a message"
                     style={receiverNameStyle} />
+                <input type="file" ref={imgFileInput} className="absolute w-0 h-0"></input>
+                <button onClick={uploadImg}>
+                    <TiAttachment style={receiverNameStyle} size="24px" className="ml-4"/>
+                </button>
             </div>
         </div>
     );
