@@ -29,14 +29,17 @@ function ConfirmSignUp({ username }: {
         <div>
             {!isComplete &&
                 <form className="flex flex-col mt-10 w-full" onSubmit={handleSubmit}>
-                    <TextField
-                        type="text"
-                        value={otp}
-                        onChange={setOtp}
-                        autoComplete="otp"
-                        name="otp">
-                        One time password
-                    </TextField>
+                    <div className="flex flex-row w-full">
+                        <TextField
+                            type="text"
+                            value={otp}
+                            onChange={setOtp}
+                            autoComplete="otp"
+                            name="otp">
+                            One time password
+                        </TextField>
+                    </div>
+
                     <Button
                         type={otp ? 'primary' : 'disabled'}
                         className="mt-4">
