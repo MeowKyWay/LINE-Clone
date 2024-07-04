@@ -107,6 +107,7 @@ export const createUserFriend = /* GraphQL */ `mutation CreateUserFriend(
       updatedAt
       __typename
     }
+    status
     createdAt
     updatedAt
     __typename
@@ -140,6 +141,7 @@ export const updateUserFriend = /* GraphQL */ `mutation UpdateUserFriend(
       updatedAt
       __typename
     }
+    status
     createdAt
     updatedAt
     __typename
@@ -173,6 +175,7 @@ export const deleteUserFriend = /* GraphQL */ `mutation DeleteUserFriend(
       updatedAt
       __typename
     }
+    status
     createdAt
     updatedAt
     __typename

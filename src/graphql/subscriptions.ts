@@ -97,6 +97,7 @@ export const onCreateUserFriend = /* GraphQL */ `subscription OnCreateUserFriend
       updatedAt
       __typename
     }
+    status
     createdAt
     updatedAt
     __typename
@@ -129,6 +130,7 @@ export const onUpdateUserFriend = /* GraphQL */ `subscription OnUpdateUserFriend
       updatedAt
       __typename
     }
+    status
     createdAt
     updatedAt
     __typename
@@ -161,6 +163,7 @@ export const onDeleteUserFriend = /* GraphQL */ `subscription OnDeleteUserFriend
       updatedAt
       __typename
     }
+    status
     createdAt
     updatedAt
     __typename

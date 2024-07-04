@@ -5,8 +5,7 @@ import useTheme from "../theme";
 import TextField from "../components/input/TextField";
 import { useState } from "react";
 import Button from "../components/input/Button";
-import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
-import { createUserFriend, deleteUserFriend } from "../graphql/mutations";
+import { fetchAuthSession } from "aws-amplify/auth";
 import { LambdaARN, invokeLambda } from "../utilities/LambdaUtil";
 
 function TestPage() {
@@ -25,25 +24,6 @@ function TestPage() {
                 body: {
                     accessToken: resp.tokens?.accessToken.toString(),
                     friendID: friendLineID,
-                }
-            })
-            console.log(res);
-        }
-        catch (e) {
-            console.log(e);
-        }
-    }
-
-    const handleRemoveFriend = async () => {
-        try {
-            const userLineID = (await getCurrentUser()).username;
-
-            const res = await client.graphql({
-                query: deleteUserFriend,
-                variables: {
-                    input: {
-                        id: userLineID + ":" + friendLineID,
-                    }
                 }
             })
             console.log(res);
@@ -74,12 +54,6 @@ function TestPage() {
                 onClick={handleAddFriend}
             >
                 Add Friend
-            </Button>
-            <Button
-                type='warning'
-                onClick={handleRemoveFriend}
-            >
-                Remove Friend
             </Button>
         </div>
     )

@@ -83,6 +83,7 @@ export type UserFriend = {
   user?: User | null,
   friendID: string,
   friend?: User | null,
+  status: string,
   createdAt: string,
   updatedAt: string,
 };
@@ -101,11 +102,13 @@ export type CreateUserFriendInput = {
   id?: string | null,
   userID: string,
   friendID: string,
+  status: string,
 };
 
 export type ModelUserFriendConditionInput = {
   userID?: ModelIDInput | null,
   friendID?: ModelIDInput | null,
+  status?: ModelStringInput | null,
   and?: Array< ModelUserFriendConditionInput | null > | null,
   or?: Array< ModelUserFriendConditionInput | null > | null,
   not?: ModelUserFriendConditionInput | null,
@@ -133,6 +136,7 @@ export type UpdateUserFriendInput = {
   id: string,
   userID?: string | null,
   friendID?: string | null,
+  status?: string | null,
 };
 
 export type DeleteUserFriendInput = {
@@ -160,6 +164,7 @@ export type ModelUserFriendFilterInput = {
   id?: ModelIDInput | null,
   userID?: ModelIDInput | null,
   friendID?: ModelIDInput | null,
+  status?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelUserFriendFilterInput | null > | null,
@@ -200,12 +205,13 @@ export type ModelSubscriptionStringInput = {
 
 export type ModelSubscriptionUserFriendFilterInput = {
   id?: ModelSubscriptionIDInput | null,
+  userID?: ModelSubscriptionIDInput | null,
   friendID?: ModelSubscriptionIDInput | null,
+  status?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserFriendFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserFriendFilterInput | null > | null,
-  userID?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -322,6 +328,7 @@ export type CreateUserFriendMutation = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    status: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -354,6 +361,7 @@ export type UpdateUserFriendMutation = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    status: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -386,6 +394,7 @@ export type DeleteUserFriendMutation = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    status: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -461,6 +470,7 @@ export type GetUserFriendQuery = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    status: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -480,6 +490,7 @@ export type ListUserFriendsQuery = {
       id: string,
       userID: string,
       friendID: string,
+      status: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -503,6 +514,7 @@ export type UserFriendsByUserIDQuery = {
       id: string,
       userID: string,
       friendID: string,
+      status: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -526,6 +538,7 @@ export type UserFriendsByFriendIDQuery = {
       id: string,
       userID: string,
       friendID: string,
+      status: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -628,6 +641,7 @@ export type OnCreateUserFriendSubscription = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    status: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -659,6 +673,7 @@ export type OnUpdateUserFriendSubscription = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    status: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -690,6 +705,7 @@ export type OnDeleteUserFriendSubscription = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    status: string,
     createdAt: string,
     updatedAt: string,
   } | null,
