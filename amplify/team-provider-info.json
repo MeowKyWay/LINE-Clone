@@ -9,11 +9,15 @@
       "UnauthRoleName": "amplify-lineclone-dev-46391-unauthRole",
       "StackName": "amplify-lineclone-dev-46391",
       "StackId": "arn:aws:cloudformation:ap-southeast-1:767398112415:stack/amplify-lineclone-dev-46391/318618f0-390b-11ef-a8c2-0aae5a0552b9",
-      "AmplifyAppId": "d2z73mlqai53f"
+      "AmplifyAppId": "d2z73mlqai53f",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-lineclone-dev-46391-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
         "LINECloneAuth": {}
+      },
+      "api": {
+        "lineclone": {}
       }
     }
   }

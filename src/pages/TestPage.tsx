@@ -5,7 +5,9 @@ import useTheme from "../theme";
 import TextField from "../components/input/TextField";
 import { useState } from "react";
 import Button from "../components/input/Button";
-import { fetchAuthSession } from "aws-amplify/auth";
+import { getCurrentUser } from "aws-amplify/auth";
+import { createUserFriend, deleteUserFriend } from "../graphql/mutations";
+import { invokeLambda } from "../utilities/LambdaUtil";
 
 function TestPage() {
 
@@ -13,29 +15,63 @@ function TestPage() {
     
     const client = generateClient();
 
-    const [friendID,setFriendID] = useState('');
+    const [friendLineID, setFriendLineID] = useState('');
 
     const handleAddFriend = async () => {
-        // try {
+        try {
+            const userLineID = (await getCurrentUser()).username;
 
-        //     const userID = (await fetchAuthSession()).userSub as string;
+            const res = await client.graphql({
+                query: createUserFriend,
+                variables: {
+                    input: {
+                        id: userLineID + ":" + friendLineID,
+                        userID: userLineID,
+                        friendID: friendLineID,
+                    }
+                }
+            })
+            console.log(res);
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
 
-        //     const res = await client.graphql({
-        //         query: createUserFriend,
-        //         variables: {
-        //             input: {
-        //                 id: userID + ":" + friendID,
-        //                 userID: userID,
-        //                 friendID: friendID,
-        //             }
-        //         }
-        //     })
+    const handleRemoveFriend = async () => {
+        try {
+            const userLineID = (await getCurrentUser()).username;
 
-        //     console.log(res);
-        // }
-        // catch (e) {
-        //     console.log(e);
-        // }
+            const res = await client.graphql({
+                query: deleteUserFriend,
+                variables: {
+                    input: {
+                        id: userLineID + ":" + friendLineID,
+                    }
+                }
+            })
+            console.log(res);
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+    const handleListFriend = async () => {
+        try {
+
+            const res = await invokeLambda({
+                arn: 'arn:aws:lambda:ap-southeast-1:767398112415:function:LINEClone-listUserFriends',
+                body: {
+                    userID: (await getCurrentUser()).username,
+                }
+            })
+
+            console.log(res);
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
 
     return (
@@ -48,8 +84,8 @@ function TestPage() {
             <h1>Test Page</h1>
             <TextField
                 type='text'
-                value={friendID}
-                onChange={setFriendID}
+                value={friendLineID}
+                onChange={setFriendLineID}
                 className="text-xs w-full"
             >
                 FriendID
@@ -59,6 +95,18 @@ function TestPage() {
                 onClick={handleAddFriend}
             >
                 Add Friend
+            </Button>
+            <Button
+                type='warning'
+                onClick={handleRemoveFriend}
+            >
+                Remove Friend
+            </Button>
+            <Button
+                type='primary'
+                onClick={handleListFriend}
+            >
+                List Friends
             </Button>
         </div>
     )
