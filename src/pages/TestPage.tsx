@@ -19,12 +19,12 @@ function TestPage() {
 
     const handleAddFriend = async () => {
         const resp = await fetchAuthSession();
-        console.log(resp);
         try {
             const res = await invokeLambda({
                 arn: 'LINEClone-AddFriend',
                 body: {
-                    accessToken: resp.tokens?.accessToken,
+                    accessToken: resp.tokens?.accessToken.toString(),
+                    friendID: friendLineID,
                 }
             })
             console.log(res);
