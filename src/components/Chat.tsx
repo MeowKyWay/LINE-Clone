@@ -10,6 +10,7 @@ import { TiAttachment } from "react-icons/ti";
 function Chat() {
     const messageList = useAppSelector(state => state.messages.messageList);
     const [term, setTerm] = useState('');
+    const [image, setImage] = useState<File | null>(null)
     const theme = useTheme().currentTheme;
     const imgFileInput = useRef<HTMLInputElement>(null)
 
@@ -17,6 +18,12 @@ function Chat() {
     const sortedMessageList = useMemo(() => {
         return [...messageList].sort((a, b) => a.createdAt - b.createdAt);
     }, [messageList]);
+
+    function onImageChange(e: React.ChangeEvent<HTMLInputElement>){
+        const fileUploaded = e.target.files ? e.target.files[0] : null;
+        if(!fileUploaded) return;
+        setImage(fileUploaded)
+    }
 
     async function uploadImg(){
         if(imgFileInput.current){
@@ -70,6 +77,7 @@ function Chat() {
                         </div>
                     </div>
                 )}
+                
             </div>
         );
     });
@@ -82,14 +90,22 @@ function Chat() {
             </div>
             <div className="p-4 h-full overflow-y-auto" style={{ maxHeight: "calc(-192px + 100vh)" }}>
                 {renderedMessages}
+                {
+                    image && (
+                    <div className="flex flex-col items-end">
+                        <img src={URL.createObjectURL(image)} className="my-4 items-center size-3/12 rounded-lg"></img>
+                    </div>
+                    )
+                }
             </div>
             <div className="relative h-full">
                 <div className="w-full border-t" style={inputChatStyle}></div>
                 <TextAreaChat
                     onChange={(e) => setTerm(e.target.value)}
                     value={term} placeholder="Enter a message"
-                    style={receiverNameStyle}/>
-                <input type="file" ref={imgFileInput} className="absolute w-0 h-0"></input>
+                    style={receiverNameStyle}>
+                </TextAreaChat>
+                <input type="file" ref={imgFileInput} className="absolute w-0 h-0" onChange={onImageChange}></input>
                 <button onClick={uploadImg}>
                     <TiAttachment style={receiverNameStyle} size="24px" className="ml-4"/>
                 </button>
