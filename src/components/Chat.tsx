@@ -85,10 +85,10 @@ function Chat() {
             </div>
             <div className="relative h-full">
                 <div className="w-full border-t" style={inputChatStyle}></div>
-                <TextAreaChat 
+                <TextAreaChat
                     onChange={(e) => setTerm(e.target.value)}
                     value={term} placeholder="Enter a message"
-                    style={receiverNameStyle} />
+                    style={receiverNameStyle}/>
                 <input type="file" ref={imgFileInput} className="absolute w-0 h-0"></input>
                 <button onClick={uploadImg}>
                     <TiAttachment style={receiverNameStyle} size="24px" className="ml-4"/>
