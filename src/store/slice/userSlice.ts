@@ -1,9 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { User } from "../../API";
 import { fetchUser } from "../thunks/fetchUser";
 
+export interface UserType {
+    name: string;
+    email: string;
+    lineID: string;
+    statusMessage: string;
+}
+
 const initialState = {
-    currentUser: null as User | null,
+    currentUser: null as UserType | null,
 };
 
 const userSlice = createSlice({
