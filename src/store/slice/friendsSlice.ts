@@ -1,19 +1,43 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUserFriends } from "../thunks/fetchUserFriends";
-import { addUserFriend } from "../thunks/addUserFriend";
-import type { UserFriend } from "../../API";
+import type { User } from "../../API";
+import { addFriend, fetchFriendRequest, fetchUserFriends } from "../thunks/friendsThunk";
 
 
 const friendsSlice = createSlice({
     name: 'friendList',
     initialState: {
-        friendList: [] as UserFriend[],
+        friends: {
+            data: null as User[] | null,
+            error: "",
+        },
+        friendRequests: { 
+            data: null as User[] | null,
+            error: "",
+        },
+        error: "",
     }, extraReducers(builder) {
         builder.addCase(fetchUserFriends.fulfilled, (state, action) => {
-            state.friendList = action.payload;
+            state.friends.data = action.payload;
+            state.friends.error = "";
         })
-        builder.addCase(addUserFriend.fulfilled , (state ,action) => {
-            state.friendList.push(action.payload)
+        builder.addCase(fetchUserFriends.rejected, (state, action) => {
+            state.friends.error = action.error.message ?? "";
+        })
+
+        builder.addCase(addFriend.fulfilled , (state ,action) => {
+            if (!state.friends.data) return;
+            state.friends.data.push(action.payload)
+            state.friends.error = "";
+        })
+        builder.addCase(addFriend.rejected , (state ,action) => {
+            state.error = action.error.message ?? "";
+        })
+
+        builder.addCase(fetchFriendRequest.fulfilled, (state, action) => {
+            state.friendRequests.data = action.payload;
+        })
+        builder.addCase(fetchFriendRequest.rejected, (state, action) => {
+            state.friendRequests.error = action.error.message ?? "";
         })
     },
     reducers: {
