@@ -1,7 +1,7 @@
 import Body from './components/Body';
 import NavigationBar from './components/navigation/NavigationBar'
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
-import FriendsPage from './pages/FriendsPage';
+import FriendsPage from './pages/friendPage/FriendsPage';
 import ChatsPage from './pages/ChatsPage';
 import AddFriendsPage from './pages/AddFriendsPage';
 import LoginPage from './pages/authPages/LoginPage';

@@ -4,7 +4,7 @@ type GeneratedQuery<InputType, OutputType> = string & {
     __generatedQueryOutput: OutputType;
 };
 
-export const listUserFriendRequests = /* GraphQL */ `query ListUserFriends(
+export const listFriend = /* GraphQL */ `query ListUserFriends(
     $filter: ModelUserFriendFilterInput
     $limit: Int
     $nextToken: String
@@ -13,6 +13,11 @@ export const listUserFriendRequests = /* GraphQL */ `query ListUserFriends(
       items {
         id
         userID
+        user {
+          id
+          name
+          statusMessage
+        }
         friendID
         friend {
             id
@@ -29,6 +34,6 @@ export const listUserFriendRequests = /* GraphQL */ `query ListUserFriends(
     }
   }
   ` as GeneratedQuery<
-    CustomAPITypes.ListUserFriendRequestsQueryVariables,
-    CustomAPITypes.ListUserFriendRequestsQuery
+    CustomAPITypes.ListFriendQueryVariables,
+    CustomAPITypes.ListFriendQuery
   >;
