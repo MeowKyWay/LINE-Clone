@@ -7,13 +7,21 @@ import type { UserFriend } from "../../API";
 const friendsSlice = createSlice({
     name: 'friendList',
     initialState: {
-        friendList: [] as UserFriend[],
+        friends: {
+            data: null as UserFriend[] | null,
+            error: "",
+        },
+        friendRequests: { 
+            data: null as UserFriend[] | null,
+            error: "",
+        },
+        error: "",
     }, extraReducers(builder) {
         builder.addCase(fetchUserFriends.fulfilled, (state, action) => {
-            state.friendList = action.payload;
+            state.friends.data = action.payload;
         })
         builder.addCase(addUserFriend.fulfilled , (state ,action) => {
-            state.friendList.push(action.payload)
+            state.friends.data?.push(action.payload)
         })
     },
     reducers: {
