@@ -67,6 +67,7 @@ export const getUserFriend = /* GraphQL */ `query GetUserFriend($id: ID!) {
       updatedAt
       __typename
     }
+    status
     createdAt
     updatedAt
     __typename
@@ -86,6 +87,7 @@ export const listUserFriends = /* GraphQL */ `query ListUserFriends(
       id
       userID
       friendID
+      status
       createdAt
       updatedAt
       __typename
@@ -116,6 +118,7 @@ export const userFriendsByUserID = /* GraphQL */ `query UserFriendsByUserID(
       id
       userID
       friendID
+      status
       createdAt
       updatedAt
       __typename
@@ -146,6 +149,7 @@ export const userFriendsByFriendID = /* GraphQL */ `query UserFriendsByFriendID(
       id
       userID
       friendID
+      status
       createdAt
       updatedAt
       __typename

@@ -13,7 +13,6 @@ type User
 
     friends: [UserFriend] 
       @hasMany(indexName: "friends", fields: ["id"])
-
     friendOf: [UserFriend] 
       @hasMany(indexName: "friendOf"fields: ["id"])
 }
@@ -21,7 +20,6 @@ type User
 type UserFriend
   @model 
   @auth(rules: [
-    { allow: owner, ownerField: "userID", operations: [delete] }
     { allow: private, operations: [read] }
   ]) {
   id: ID!
@@ -30,4 +28,6 @@ type UserFriend
 
   friendID: ID! @index(name: "friendOf")
   friend: User @belongsTo(fields: ["friendID"])
+
+  status: String!
 }

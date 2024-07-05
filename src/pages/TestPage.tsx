@@ -5,9 +5,8 @@ import useTheme from "../theme";
 import TextField from "../components/input/TextField";
 import { useState } from "react";
 import Button from "../components/input/Button";
-import { getCurrentUser } from "aws-amplify/auth";
-import { createUserFriend, deleteUserFriend } from "../graphql/mutations";
-import { invokeLambda } from "../utilities/LambdaUtil";
+import { fetchAuthSession } from "aws-amplify/auth";
+import { LambdaARN, invokeLambda } from "../utilities/LambdaUtil";
 
 function TestPage() {
 
@@ -18,55 +17,15 @@ function TestPage() {
     const [friendLineID, setFriendLineID] = useState('');
 
     const handleAddFriend = async () => {
+        const resp = await fetchAuthSession();
         try {
-            const userLineID = (await getCurrentUser()).username;
-
-            const res = await client.graphql({
-                query: createUserFriend,
-                variables: {
-                    input: {
-                        id: userLineID + ":" + friendLineID,
-                        userID: userLineID,
-                        friendID: friendLineID,
-                    }
-                }
-            })
-            console.log(res);
-        }
-        catch (e) {
-            console.log(e);
-        }
-    }
-
-    const handleRemoveFriend = async () => {
-        try {
-            const userLineID = (await getCurrentUser()).username;
-
-            const res = await client.graphql({
-                query: deleteUserFriend,
-                variables: {
-                    input: {
-                        id: userLineID + ":" + friendLineID,
-                    }
-                }
-            })
-            console.log(res);
-        }
-        catch (e) {
-            console.log(e);
-        }
-    }
-
-    const handleListFriend = async () => {
-        try {
-
             const res = await invokeLambda({
-                arn: 'arn:aws:lambda:ap-southeast-1:767398112415:function:LINEClone-listUserFriends',
+                arn: LambdaARN.ADD_FRIEND,
                 body: {
-                    userID: (await getCurrentUser()).username,
+                    accessToken: resp.tokens?.accessToken.toString(),
+                    friendID: friendLineID,
                 }
             })
-
             console.log(res);
         }
         catch (e) {
@@ -95,18 +54,6 @@ function TestPage() {
                 onClick={handleAddFriend}
             >
                 Add Friend
-            </Button>
-            <Button
-                type='warning'
-                onClick={handleRemoveFriend}
-            >
-                Remove Friend
-            </Button>
-            <Button
-                type='primary'
-                onClick={handleListFriend}
-            >
-                List Friends
             </Button>
         </div>
     )
