@@ -1,29 +1,25 @@
-import { AccountType } from "../../store/slice/friendsSlice";
 import { GroupType } from "../../store/slice/groupsSlice";
 import useTheme from "../../theme";
 import ProfilePicture from "../ProfilePicture";
 import { FriendRecommendType } from "../../store/slice/friendRecommendSlice";
 import { IoPersonAdd } from "react-icons/io5";
-import { addFriend } from "../../store/slice/friendsSlice";
-
+import { addUserFriend } from "../../store/thunks/addUserFriend";
+import { getCurrentUser } from "aws-amplify/auth";
 import { useAppDispatch , useAppSelector } from "../../hook";
+import { User, UserFriend } from "../../API";
+import { AuthUser } from "aws-amplify/auth";
 
-function AccountItem({ value }: { value: AccountType | GroupType | FriendRecommendType}) {
+function AccountItem({ value }: { value: User |UserFriend | GroupType | FriendRecommendType | AuthUser}) {
 
     const dispatch = useAppDispatch();
-
     const friendList = useAppSelector(state => state.friends.friendList);
     const friendRecommendList = useAppSelector(state => state.friendsRecommend.friendRecommendList);
+
 
     const handleClick = () => {
         if(value as FriendRecommendType)
         {
-            dispatch(addFriend({
-                id: value.id
-                ,name: value.name
-                ,statusMessage: 'message for new friend'
-                ,profilePicture: value.profilePicture
-            }))
+            dispatch(addUserFriend(userId,value.id))
         }
     }
 
@@ -45,7 +41,7 @@ function AccountItem({ value }: { value: AccountType | GroupType | FriendRecomme
     }
 
     return (
-        <div className="h-14 w-full cursor-pointer">
+        <div className={`h-14 w-full ${value as FriendRecommendType ?'' : 'cursor-pointer'} items-center`}>
             <style>
                 {`
                 .hover:hover {
@@ -55,7 +51,7 @@ function AccountItem({ value }: { value: AccountType | GroupType | FriendRecomme
             </style>
             <div className="h-14 w-full px-5 flex flex-row items-center hover">
                 <ProfilePicture size="43px" src={value.profilePicture} />
-                <div className="relative flex flex-row ml-3" style={{ maxWidth: 'calc(100% - 83px)' }}>
+                <div className="relative flex flex-row ml-3 items-center" style={{ maxWidth: 'calc(100% - 83px)' }}>
                     <div>
                         <div className="overflow-hidden whitespace-nowrap text-ellipsis" style={name}>
                             {value.name} {'memberCount' in value && `(${value.memberCount})`}
@@ -74,12 +70,16 @@ function AccountItem({ value }: { value: AccountType | GroupType | FriendRecomme
                                 </span>
                         }
                     </div>
-            {
-                ('addByStatus' in value ) && 
-                    <IoPersonAdd onClick={handleClick} className="absolute left-44" style={icon}></IoPersonAdd>
+                    {
+                (value as FriendRecommendType) && 
+                    <button  onClick={handleClick}>
+                        <IoPersonAdd className="absolute left-44 bottom-1" style={icon}></IoPersonAdd>
+                    </button>
+                    
             }
                 </div>
             </div>
+            
         </div>
 
     )
