@@ -8,7 +8,7 @@ import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import useTheme from "../theme";
 import { withAuthenticator , WithAuthenticatorProps } from "@aws-amplify/ui-react";
 import { useEffect , useState } from "react";
-import { fetchUsersRecommend } from "../store/thunks/fetchUsersRecommend";
+import { fetchFriendRequest } from "../store/thunks/friendsThunk";
 import FriendSearchModalContent from "./ModalPage/FriendSearchModalContent";
 
 interface Props extends WithAuthenticatorProps {
@@ -30,7 +30,7 @@ function AddFriendsPage ({isPassedToWithAuthenticator , user} : Props) {
 
     useEffect(() => {
         if(user?.username){
-            dispatch(fetchUsersRecommend(user.username))
+            dispatch(fetchFriendRequest(user.username))
         }
     } , [user?.username])
 
