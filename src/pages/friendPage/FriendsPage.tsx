@@ -34,14 +34,10 @@ function FriendsPage() {
     }, [user.currentUser, user.error, dispatch]);
 
     const groupListState = useAppSelector(state => state.states.groupListState);
-    const friendListState = useAppSelector(state => state.states.friendListState);
     const searchTerm = useAppSelector(state => state.terms.friendsTerm);
 
     const groups = useAppSelector(state => state.groups.groupList);
     const groupsFiltered = groups.filter(group => group.name.toLowerCase().includes(searchTerm.toLowerCase())) || [];
-
-    const friends = useAppSelector(state => state.friends.friends.data);
-    const friendsFiltered = friends?.filter(friend => friend.name.toLowerCase().includes(searchTerm.toLowerCase())) || [];
 
     const currentUser = useAppSelector(state => state.user.currentUser)
 
