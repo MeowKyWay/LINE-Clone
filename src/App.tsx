@@ -30,11 +30,11 @@ function App() {
       children: [
         {
           index: true,
-          element: <FriendsPage />
+          element: <FriendsPage isPassedToWithAuthenticator={true} />
         },
         {
           path: RoutePath.FRIENDS,
-          element: <FriendsPage />
+          element: <FriendsPage isPassedToWithAuthenticator={true} />
         },
         {
           path: RoutePath.CHATS,
@@ -42,7 +42,7 @@ function App() {
         },
         {
           path: RoutePath.ADD_FRIENDS,
-          element: <AddFriendsPage />
+          element: <AddFriendsPage isPassedToWithAuthenticator={true} />
         },
         {
           path: RoutePath.TEST,

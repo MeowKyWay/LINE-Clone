@@ -6,14 +6,33 @@ import AccountList from "../components/menu_list/AccountList";
 import { setFriendRecommendState } from "../store/slice/statesSlice";
 import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import useTheme from "../theme";
+import { withAuthenticator , WithAuthenticatorProps } from "@aws-amplify/ui-react";
+import { useEffect } from "react";
+import { fetchUsersRecommend } from "../store/thunks/fetchUsersRecommend";
+
+interface Props extends WithAuthenticatorProps {
+    isPassedToWithAuthenticator: boolean;
+}
 
 
 
-function AddFriendsPage () {
+function AddFriendsPage ({isPassedToWithAuthenticator , user} : Props) {
+
+    if (!isPassedToWithAuthenticator) {
+        throw new Error(`isPassedToWithAuthenticator was not provided`);
+    }
+
     const friendRecommendState = useAppSelector(state => state.states.friendRecommendState)
     const friendRecommendList = useAppSelector(state => state.friendsRecommend.friendRecommendList)
+    console.log(friendRecommendList)
 
     const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        if(user?.username){
+            dispatch(fetchUsersRecommend(user.username))
+        }
+    } , [user?.username])
 
     const setFriendRecommend = (state: boolean) => {
         dispatch(setFriendRecommendState(state))
@@ -102,4 +121,12 @@ function AddFriendsPage () {
     )
 }
 
-export default AddFriendsPage;
+export default withAuthenticator(AddFriendsPage);
+
+export async function getStaticProps() {
+    return {
+      props: {
+        isPassedToWithAuthenticator: true,
+      },
+}
+}

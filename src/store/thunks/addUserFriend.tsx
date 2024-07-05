@@ -2,20 +2,19 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { generateClient } from "aws-amplify/api";
 import { createUserFriend } from "../../graphql/mutations";
 
-const client = generateClient()
+const client = generateClient();
 
-const addUserFriend = createAsyncThunk('userFriends/add' , async (user , friend) => {
+const addUserFriend = createAsyncThunk('userFriends/add', async ({ userId, friendId }: { userId: string, friendId: string }) => {
     const response = await client.graphql({
         query: createUserFriend,
         variables: {
             input: {
-                userID: user.id,
-                friendID: friend.id
+                userID: userId,
+                friendID: friendId
             }
         }
+    });
+    return response.data.createUserFriend;
+});
 
-    })
-    return response.data.createUserFriend
-})
-
-export { addUserFriend }
+export { addUserFriend };

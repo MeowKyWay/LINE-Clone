@@ -9,10 +9,22 @@ import { useEffect } from "react";
 import ArrayUtils from "../utilities/ArrayUtils";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hook";
+import { WithAuthenticatorProps , withAuthenticator } from "@aws-amplify/ui-react";
+import { fetchUser } from "../store/thunks/fetchUser";
 
-function FriendsPage() {
+interface Props extends WithAuthenticatorProps {
+    isPassedToWithAuthenticator: boolean;
+}
 
-    const user = useAppSelector(state => state.user.currentUser);
+
+function FriendsPage({isPassedToWithAuthenticator , user} : Props) {
+
+    if (!isPassedToWithAuthenticator) {
+        throw new Error(`isPassedToWithAuthenticator was not provided`);
+    }
+
+    //const user = useAppSelector(state => state.user.currentUser);
+
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -21,7 +33,14 @@ function FriendsPage() {
         if (location.pathname != '/friends') {
             navigate('/std/friends');
         }
+
     }, [navigate, location.pathname])
+
+    useEffect(() => {
+        if (user?.username) {
+            dispatch(fetchUser(user.username));
+        }
+    }, [user?.username]);
 
     const dispatch = useAppDispatch();
     const theme = useTheme().currentTheme;    
@@ -31,15 +50,19 @@ function FriendsPage() {
         fontSize: '12px'
     }
 
-    const friends = useAppSelector(state => state.friends.friendList);
+    //const friends = useAppSelector(state => state.friends.friendList);
     const groups = useAppSelector(state => state.groups.groupList);
 
     const groupListState = useAppSelector(state => state.states.groupListState);
     const friendListState = useAppSelector(state => state.states.friendListState);
     const searchTerm = useAppSelector(state => state.terms.friendsTerm);    
     
-    const friendsFiltered = ArrayUtils.filterByName(friends, searchTerm);
+    //const friendsFiltered = ArrayUtils.filterByName(friends, searchTerm);
     const groupsFiltered = ArrayUtils.filterByName(groups, searchTerm);
+
+    const currentUser = useAppSelector(state => state.user.currentUser)
+    
+
 
 
 
@@ -72,7 +95,7 @@ function FriendsPage() {
             </div>
             <div className="flex-1 flex flex-col w-full overflow-y-scroll" style={{ maxHeight: 'calc(100vh - 76px)' }}>
                 <div className="w-full flex flex-col">
-                    <AccountItem value={user} />
+                {currentUser && <AccountItem value={currentUser} />}
                     <div className="w-full h-8 flex flex-row items-center font-light px-5" style={style}>
                         <button onClick={() => setGroupList(!groupListState)} className="w-full h-4 flex flex-row items-center">
                             <span className="flex-1 text-left">Groups {groupsFiltered.length}</span>
@@ -82,11 +105,11 @@ function FriendsPage() {
                     {groupListState && <AccountList accounts={groupsFiltered}></AccountList>}
                     <div className="w-full h-8 flex flex-row items-center font-light px-5" style={style}>
                         <button onClick={() => setFriendList(!friendListState)} className="w-full h-4 flex flex-row items-center">
-                            <span className="flex-1 text-left">Friends {friendsFiltered.length}</span>
+                            <span className="flex-1 text-left">Friends </span>
                             {(friendListState && <MdExpandLess size={20} />) || (!friendListState) && <MdExpandMore size={20} />}
                         </button>
                     </div>
-                    {friendListState && <AccountList accounts={friendsFiltered}></AccountList>}
+                    {/* {friendListState && <AccountList accounts={friendsFiltered}></AccountList>} */}
 
                 </div>
             </div>
@@ -96,4 +119,12 @@ function FriendsPage() {
     )
 }
 
-export default FriendsPage;
+export default  withAuthenticator(FriendsPage);
+
+export async function getStaticProps() {
+    return {
+      props: {
+        isPassedToWithAuthenticator: true,
+      },
+}
+}
