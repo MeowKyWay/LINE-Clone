@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hook";
 import { fetchUser } from "../../store/thunks/fetchUser";
-import FriendList from "./friendList";
+import FriendList from "./FriendList";
 
 function FriendsPage() {
 
