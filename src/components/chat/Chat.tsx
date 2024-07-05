@@ -49,6 +49,7 @@ function Chat() {
             <div 
                 className="px-3 pb-4 overflow-y-scroll flex flex-col gap-1"
                 style={{
+                    height: 'calc(100vh - 228px)',
                     maxHeight: 'calc(100vh - 228px)',
                 }}>
                 {renderedMessages}
