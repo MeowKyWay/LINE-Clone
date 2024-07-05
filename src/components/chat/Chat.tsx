@@ -17,7 +17,6 @@ function Chat() {
 
     useEffect(() => {
         if (currentUser || currentUserErrorMessage) return;
-        console.log("fetching user");
         dispatch(fetchUser());
     })
 
