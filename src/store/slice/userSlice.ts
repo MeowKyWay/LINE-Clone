@@ -2,21 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { User } from "../../API";
 import { fetchUser } from "../thunks/fetchUser";
 
-export interface ChatFolderType {
-    name: string;
-    chatID: number[];
-}
-
-export interface UserType {
-    id: number;
-    name: string;
-    email: string;
-    lineID: string;
-    statusMessage: string;
-    profilePicture: string;
-    chatFolders: ChatFolderType[];
-}
-
 const initialState = {
     currentUser: null as User | null,
 };

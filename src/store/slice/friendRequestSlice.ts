@@ -2,14 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import { User } from "../../API";
 import { fetchUsersRecommend } from "../thunks/fetchUsersRecommend";
 
-const friendRecommendSlice = createSlice({
+const friendRequestSlice = createSlice({
     name: 'friendRecommend',
     initialState: {
-        friendRecommendList: [] as User[]
+        friendRequestList: [] as User[]
     },
     extraReducers(builder) {
         builder.addCase(fetchUsersRecommend.fulfilled, (state, action) => {
-            state.friendRecommendList = action.payload;
+            state.friendRequestList = action.payload;
         })
     },
     reducers: {
@@ -18,4 +18,4 @@ const friendRecommendSlice = createSlice({
 })
 
 
-export const friendRecommendReducer = friendRecommendSlice.reducer;
+export const friendRequestReducer = friendRequestSlice.reducer;
