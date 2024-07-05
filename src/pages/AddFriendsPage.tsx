@@ -7,8 +7,9 @@ import { setFriendRecommendState } from "../store/slice/statesSlice";
 import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import useTheme from "../theme";
 import { withAuthenticator , WithAuthenticatorProps } from "@aws-amplify/ui-react";
-import { useEffect } from "react";
+import { useEffect , useState } from "react";
 import { fetchUsersRecommend } from "../store/thunks/fetchUsersRecommend";
+import FriendSearchModalContent from "./ModalPage/FriendSearchModalContent";
 
 interface Props extends WithAuthenticatorProps {
     isPassedToWithAuthenticator: boolean;
@@ -22,7 +23,8 @@ function AddFriendsPage ({isPassedToWithAuthenticator , user} : Props) {
 
     const friendRecommendState = useAppSelector(state => state.states.friendRecommendState)
     const friendRecommendList = useAppSelector(state => state.friendsRequest.friendRequestList)
-    console.log(friendRecommendList)
+    const [showModal , setShowModal] = useState(false)
+    const [searchTerm , setSearchTerm] = useState('');
 
     const dispatch = useAppDispatch()
 
@@ -34,6 +36,11 @@ function AddFriendsPage ({isPassedToWithAuthenticator , user} : Props) {
 
     const setFriendRecommend = (state: boolean) => {
         dispatch(setFriendRecommendState(state))
+    }
+    
+    const handleAddFriendModal = () => {
+        setShowModal(true)
+        console.log(showModal)
     }
 
 
@@ -58,8 +65,18 @@ function AddFriendsPage ({isPassedToWithAuthenticator , user} : Props) {
 
     return (
         <div>
+            {
+                showModal && (
+                    <FriendSearchModalContent
+                    showModal={showModal}
+                    onClose={() => setShowModal(false)}
+                    searchTerm={searchTerm}
+                    setSearchTerm={setSearchTerm}
+                />
+                )
+            }
             <div className="flex flex-col w-full" >
-                <div id="w1" className="flex flex-row cursor-pointer h-12 mt-6">
+                <div id="w1" className="flex flex-row cursor-pointer h-12 mt-6" onClick={handleAddFriendModal}>
                     <style>
                     {`
                     #w1:hover {
@@ -69,7 +86,6 @@ function AddFriendsPage ({isPassedToWithAuthenticator , user} : Props) {
                     </style>
                     <div className="relative bg-gray-200 flex items-center justify-center ml-6 mt-2"
                      style={circleStyle}>
-                        
                         <IoSearchOutline style={iconsStyle}/>
                     </div>
                     <p className="ml-3 mt-2" style={iconsStyle}>Friend search</p>

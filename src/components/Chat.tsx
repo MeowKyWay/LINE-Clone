@@ -1,33 +1,32 @@
 import useTheme from "../theme";
 import { useAppSelector } from "../hook";
 import ProfilePicture from "./ProfilePicture";
-import { useState, useMemo , useRef } from "react";
+import { useState, useMemo, useRef } from "react";
 import Time from "../utilities/Time";
-import { UserChat, ReceiverChat } from  "./ChatBubble";
+import { UserChat, ReceiverChat } from "./ChatBubble";
 import { TextAreaChat } from "./input/TextAreaChat";
 import { TiAttachment } from "react-icons/ti";
 
 function Chat() {
     const messageList = useAppSelector(state => state.messages.messageList);
     const [term, setTerm] = useState('');
-    const [image, setImage] = useState<File | null>(null)
+    const [image, setImage] = useState<File | null>(null);
     const theme = useTheme().currentTheme;
-    const imgFileInput = useRef<HTMLInputElement>(null)
-
+    const imgFileInput = useRef<HTMLInputElement>(null);
 
     const sortedMessageList = useMemo(() => {
         return [...messageList].sort((a, b) => a.createdAt - b.createdAt);
     }, [messageList]);
 
-    function onImageChange(e: React.ChangeEvent<HTMLInputElement>){
+    function onImageChange(e: React.ChangeEvent<HTMLInputElement>) {
         const fileUploaded = e.target.files ? e.target.files[0] : null;
-        if(!fileUploaded) return;
-        setImage(fileUploaded)
+        if (!fileUploaded) return;
+        setImage(fileUploaded);
     }
 
-    async function uploadImg(){
-        if(imgFileInput.current){
-            imgFileInput.current.click()
+    async function uploadImg() {
+        if (imgFileInput.current) {
+            imgFileInput.current.click();
         }
     }
 
@@ -46,7 +45,7 @@ function Chat() {
 
     const renderedMessages = sortedMessageList.filter(message => message.chatId === 2).map((message, index) => {
         const isUserMessage = message.userId === 1;
-        const formattedTime = Time.timeOfDay((message.createdAt));
+        const formattedTime = Time.timeOfDay(message.createdAt);
 
         return (
             <div key={index} className={`flex ${isUserMessage ? 'justify-end' : 'justify-start'} mb-4`}>
@@ -56,10 +55,8 @@ function Chat() {
                             <span className="block">{message.message}</span>
                         </UserChat>
                         <div>
-                            <div className="text-xs absolute" style={{ left: "-35px", bottom: "20px", color: "#6e6f70"}}>Read</div>
-                            <div className="text-xs absolute" 
-                                id="userChat-time" 
-                                style={{ left: "-50px", bottom: "3px", color: "#6e6f70"}}>
+                            <div className="text-xs absolute" style={{ left: "-35px", bottom: "20px", color: "#6e6f70" }}>Read</div>
+                            <div className="text-xs absolute" id="userChat-time" style={{ left: "-50px", bottom: "3px", color: "#6e6f70" }}>
                                 {formattedTime}
                             </div>
                         </div>
@@ -70,18 +67,14 @@ function Chat() {
                         <ReceiverChat backgroundColor={theme.color.chat.background} color={theme.color.chat.text}>
                             <span className="block">{message.message}</span>
                         </ReceiverChat>
-                        <div className="text-xs block absolute" 
-                            id="receiverChat-time" 
-                            style={{ right: "-50px", bottom: "3px", color: "#6e6f70"}}>
+                        <div className="text-xs block absolute" id="receiverChat-time" style={{ right: "-50px", bottom: "3px", color: "#6e6f70" }}>
                             {formattedTime}
                         </div>
                     </div>
                 )}
-                
             </div>
         );
     });
-
 
     return (
         <div className="flex-1 border-box border-l h-full" style={style}>
@@ -90,13 +83,11 @@ function Chat() {
             </div>
             <div className="p-4 h-full overflow-y-auto" style={{ maxHeight: "calc(-192px + 100vh)" }}>
                 {renderedMessages}
-                {
-                    image && (
+                {image && (
                     <div className="flex flex-col items-end">
                         <img src={URL.createObjectURL(image)} className="my-4 items-center size-3/12 rounded-lg"></img>
                     </div>
-                    )
-                }
+                )}
             </div>
             <div className="relative h-full">
                 <div className="w-full border-t" style={inputChatStyle}></div>
@@ -107,7 +98,7 @@ function Chat() {
                 </TextAreaChat>
                 <input type="file" ref={imgFileInput} className="absolute w-0 h-0" onChange={onImageChange}></input>
                 <button onClick={uploadImg}>
-                    <TiAttachment style={receiverNameStyle} size="24px" className="ml-4"/>
+                    <TiAttachment style={receiverNameStyle} size="24px" className="ml-4" />
                 </button>
             </div>
         </div>
