@@ -7,13 +7,15 @@ function NavigationBar() {
     const themeContext = useTheme();
     const theme = themeContext.currentTheme;
 
-    const style = {
-        backgroundColor: theme.color.secondary.background,
-        width: '63px',
-    }
-
     return (
-        <div className="h-auto pt-6 flex flex-col overflow-hidden items-center pb-6" style={style}>
+        <div 
+            className="h-auto pt-6 flex flex-col overflow-hidden items-center pb-6" 
+            style={{
+                backgroundColor: theme.color.secondary.background,
+                width: '63px',
+                minWidth: '63px',
+            }}
+        >
             <style>
                 {`
                 .inactive {

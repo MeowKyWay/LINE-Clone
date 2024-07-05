@@ -28,7 +28,7 @@ export interface Theme {
             text: string;
             icon: string;
         },
-        chat: {
+        chatBubble: {
             background: string;
             text: string;
             inputChat: string;
@@ -67,7 +67,7 @@ const theme: {light:Theme, dark:Theme} = {
                 text: '#b7b7b7',
                 icon: '#838faa',
             },
-            chat: {
+            chatBubble: {
                 background: "#efefef",
                 text: "#1f1f1f",
                 inputChat: "#ececec"
@@ -103,7 +103,7 @@ const theme: {light:Theme, dark:Theme} = {
                 text: '#949494',
                 icon: '#949494',
             },
-            chat: {
+            chatBubble: {
                 background: "#555555",
                 text: "#dfdfdf",
                 inputChat: "#37383a"

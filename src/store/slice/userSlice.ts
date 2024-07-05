@@ -6,10 +6,12 @@ export interface UserType {
     email: string;
     lineID: string;
     statusMessage: string;
+    chatFolders: string;
 }
 
 const initialState = {
     currentUser: null as UserType | null,
+    error: "",
 };
 
 const userSlice = createSlice({
@@ -18,6 +20,11 @@ const userSlice = createSlice({
     extraReducers(builder) {
         builder.addCase(fetchUser.fulfilled, (state, action) => {
             state.currentUser = action.payload;
+            state.error = "";
+        })
+        builder.addCase(fetchUser.rejected, (state) => {
+            state.currentUser = null;
+            state.error = "Failed to fetch user";
         })
     },
     reducers: {

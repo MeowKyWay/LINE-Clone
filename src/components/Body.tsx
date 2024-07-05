@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom"
 import Header from "./Header";
 import { ReactNode } from "react";
 import Menu from "./Menu";
-import Chat from "./Chat";
+import Chat from "./chat/Chat";
 import { RoutePath } from "../RoutePath";
 
 function Body ({children}: {children: ReactNode}) {

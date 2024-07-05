@@ -9,7 +9,6 @@ function Header() {
 
     const dispatch = useAppDispatch();
 
-    const chatFolders = useAppSelector(state => state.user.currentUser.chatFolders);
     const chatFolderState = useAppSelector(state => state.states.chatFolderState);
 
     const style = {
@@ -31,9 +30,6 @@ function Header() {
     }
 
     const name = ['All', 'Friends', 'Groups'];
-    chatFolders.map((folder) => {
-        name.push(folder.name);
-    });
 
     const renderFolders = name.map((name) => {
         return (
