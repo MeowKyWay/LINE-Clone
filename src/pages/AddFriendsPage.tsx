@@ -14,8 +14,6 @@ interface Props extends WithAuthenticatorProps {
     isPassedToWithAuthenticator: boolean;
 }
 
-
-
 function AddFriendsPage ({isPassedToWithAuthenticator , user} : Props) {
 
     if (!isPassedToWithAuthenticator) {
@@ -23,7 +21,7 @@ function AddFriendsPage ({isPassedToWithAuthenticator , user} : Props) {
     }
 
     const friendRecommendState = useAppSelector(state => state.states.friendRecommendState)
-    const friendRecommendList = useAppSelector(state => state.friendsRecommend.friendRecommendList)
+    const friendRecommendList = useAppSelector(state => state.friendsRequest.friendRequestList)
     console.log(friendRecommendList)
 
     const dispatch = useAppDispatch()
@@ -71,7 +69,8 @@ function AddFriendsPage ({isPassedToWithAuthenticator , user} : Props) {
                     </style>
                     <div className="relative bg-gray-200 flex items-center justify-center ml-6 mt-2"
                      style={circleStyle}>
-                        <IoSearchOutline style={iconsStyle}></IoSearchOutline>
+                        
+                        <IoSearchOutline style={iconsStyle}/>
                     </div>
                     <p className="ml-3 mt-2" style={iconsStyle}>Friend search</p>
                 </div>
