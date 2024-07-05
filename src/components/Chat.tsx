@@ -2,7 +2,7 @@ import useTheme from "../theme";
 import { useAppSelector } from "../hook";
 import ProfilePicture from "./ProfilePicture";
 import { useState, useMemo , useRef } from "react";
-import { format } from 'date-fns';
+import Time from "../utilities/Time";
 import { UserChat, ReceiverChat } from  "./ChatBubble";
 import { TextAreaChat } from "./input/TextAreaChat";
 import { TiAttachment } from "react-icons/ti";
@@ -46,7 +46,7 @@ function Chat() {
 
     const renderedMessages = sortedMessageList.filter(message => message.chatId === 2).map((message, index) => {
         const isUserMessage = message.userId === 1;
-        const formattedTime = format(new Date(message.createdAt), 'h:mm a');
+        const formattedTime = Time.timeOfDay((message.createdAt));
 
         return (
             <div key={index} className={`flex ${isUserMessage ? 'justify-end' : 'justify-start'} mb-4`}>

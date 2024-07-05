@@ -14,8 +14,6 @@ interface Props extends WithAuthenticatorProps {
     isPassedToWithAuthenticator: boolean;
 }
 
-
-
 function AddFriendsPage ({isPassedToWithAuthenticator , user} : Props) {
 
     if (!isPassedToWithAuthenticator) {

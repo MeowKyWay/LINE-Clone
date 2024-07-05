@@ -10,8 +10,6 @@ function AccountItem({ value }: { value: User | UserFriend | GroupType }) {
     //const friendList = useAppSelector(state => state.friends.friendList);
     //const friendRecommendList = useAppSelector(state => state.friendsRequest.friendRequestList);
 
-
-
     const theme = useTheme().currentTheme;
 
     const name = {
