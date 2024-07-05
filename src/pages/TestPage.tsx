@@ -5,7 +5,7 @@ import useTheme from "../theme";
 import TextField from "../components/input/TextField";
 import { useState } from "react";
 import Button from "../components/input/Button";
-import { fetchAuthSession } from "aws-amplify/auth";
+import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
 import { LambdaARN, invokeLambda } from "../utilities/LambdaUtil";
 
 function TestPage() {
@@ -54,6 +54,14 @@ function TestPage() {
                 onClick={handleAddFriend}
             >
                 Add Friend
+            </Button>
+            <Button
+                type='primary'
+                onClick={async () => {
+                    console.log(await getCurrentUser())
+                }}
+            >
+
             </Button>
         </div>
     )

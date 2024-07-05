@@ -6,37 +6,28 @@ import { useAppSelector } from "../hook";
 
 function ChatsPage() {
 
-    const chatFolders = useAppSelector(state => state.user.currentUser.chatFolders);
     const searchTerm = useAppSelector(state => state.terms.chatsTerm);
     const chatFolderState = useAppSelector(state => state.states.chatFolderState);
 
     const chats = useAppSelector(state => state.chats.chatList);
     const chatSorted = chats.slice().sort((a, b) => b.lastUpdate - a.lastUpdate);
-    
-    let selectedChat, chatFolder;
+
+    let selectedChat;
     switch (chatFolderState) {
-        case 'All':
-            selectedChat = chatSorted.slice();
-            break;
         case 'Friends':
-            selectedChat = chatSorted.slice().filter(chat => chat.type==='friend');
+            selectedChat = chatSorted.slice().filter(chat => chat.type === 'friend');
             break;
         case 'Groups':
-            selectedChat = chatSorted.slice().filter(chat => chat.type==='group');
+            selectedChat = chatSorted.slice().filter(chat => chat.type === 'group');
             break;
         default:
-            chatFolder = chatFolders.find(folder => folder.name===chatFolderState);
-            if (!chatFolder) {
-                selectedChat = chatSorted.slice();
-                break;
-            }
-            selectedChat = ArrayUtils.filterByIdArray(chatSorted.slice(), chatFolder.chatID);
+            selectedChat = chatSorted.slice();
             break;
     }
 
     const chatsFiltered = ArrayUtils.filterByName(selectedChat, searchTerm);
-    
-    
+
+
 
     return (
         <div className="size-full flex flex-col">

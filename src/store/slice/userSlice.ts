@@ -1,9 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { User } from "../../API";
 import { fetchUser } from "../thunks/fetchUser";
 
+export interface UserType {
+    name: string;
+    email: string;
+    lineID: string;
+    statusMessage: string;
+    chatFolders: string;
+}
+
 const initialState = {
-    currentUser: null as User | null,
+    currentUser: null as UserType | null,
+    error: "",
 };
 
 const userSlice = createSlice({
@@ -12,6 +20,11 @@ const userSlice = createSlice({
     extraReducers(builder) {
         builder.addCase(fetchUser.fulfilled, (state, action) => {
             state.currentUser = action.payload;
+            state.error = "";
+        })
+        builder.addCase(fetchUser.rejected, (state) => {
+            state.currentUser = null;
+            state.error = "Failed to fetch user";
         })
     },
     reducers: {
