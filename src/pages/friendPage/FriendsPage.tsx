@@ -45,9 +45,10 @@ function FriendsPage() {
         dispatch(setGroupListState(state));
     }
 
-    const handleTermChange = () => {
+    const handleTermChange = (value: string) => {
         dispatch(setGroupListState(true));
         dispatch(setFriendListState(true));
+        dispatch(setFriendsTerms(value));
     }
 
     return (
@@ -55,8 +56,7 @@ function FriendsPage() {
             <div className="pt-8 pb-2">
                 <div className="mx-4">
                     <SearchField
-                        term={searchTerm}
-                        setTerm={setFriendsTerms}
+                        value={searchTerm}
                         onChange={handleTermChange}
                         height="36px"
                         width="100%"
