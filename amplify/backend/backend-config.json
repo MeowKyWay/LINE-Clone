@@ -75,5 +75,23 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
+  },
+  "parameters": {
+    "AMPLIFY_function_LINECloneAppSyncAddFriend_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "LINECloneAppSyncAddFriend"
+        }
+      ]
+    },
+    "AMPLIFY_function_LINECloneAppSyncAddFriend_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "LINECloneAppSyncAddFriend"
+        }
+      ]
+    }
   }
 }

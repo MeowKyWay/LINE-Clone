@@ -3,10 +3,11 @@ import { fetchAuthSession } from "aws-amplify/auth";
 
 export enum LambdaARN {
     ADD_FRIEND = "LINEClone-AddFriend",
+
 }
 
 export async function invokeLambda ( {arn, body}: { 
-    arn: LambdaARN, 
+    arn: LambdaARN | string, 
     body?: object 
 }) {
     const lambda = new Lambda({
@@ -16,7 +17,9 @@ export async function invokeLambda ( {arn, body}: {
 
     const res = await lambda.invoke({
         FunctionName: arn,
-        Payload: JSON.stringify(body)
+        Payload: JSON.stringify({
+            body: body
+        })
     })
 
     return lambdaDecode(res);

@@ -7,6 +7,7 @@ import { useState } from "react";
 import Button from "../components/input/Button";
 import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
 import { LambdaARN, invokeLambda } from "../utilities/LambdaUtils";
+import { listUsers } from "../graphql/queries";
 
 function TestPage() {
 
@@ -22,13 +23,33 @@ function TestPage() {
             const res = await invokeLambda({
                 arn: LambdaARN.ADD_FRIEND,
                 body: {
-                    accessToken: resp.tokens?.accessToken.toString(),
+                    accessToken: resp.tokens?.accessToken,
                     friendID: friendLineID,
                 }
             })
             console.log(res);
         }
         catch (e) {
+            console.log(e);
+        }
+    }
+
+    const test = async () => {
+        try {
+            const res = await invokeLambda({
+                arn: 'LINECloneAppSyncAddFriend-dev',
+            })
+
+            console.log(res);
+        } catch (e) {
+            console.log(e);
+        }
+        try {
+            const res = await client.graphql({
+                query: listUsers,
+            })
+            console.log(res);
+        } catch (e) {
             console.log(e);
         }
     }
@@ -41,27 +62,8 @@ function TestPage() {
             }}
         >
             <h1>Test Page</h1>
-            <TextField
-                type='text'
-                value={friendLineID}
-                onChange={setFriendLineID}
-                className="text-xs w-full"
-            >
-                FriendID
-            </TextField>
-            <Button
-                type='primary'
-                onClick={handleAddFriend}
-            >
-                Add Friend
-            </Button>
-            <Button
-                type='primary'
-                onClick={async () => {
-                    console.log(await getCurrentUser())
-                }}
-            >
-
+            <Button type='primary' onClick={test}>
+                Test
             </Button>
         </div>
     )
