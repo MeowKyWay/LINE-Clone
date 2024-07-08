@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "api": {
+      "lineclone": [
+        "Query",
+        "Mutation"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}
