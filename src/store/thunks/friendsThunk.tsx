@@ -40,7 +40,7 @@ const addFriend = createAsyncThunk('addFriend', async (friendID: string) => {
             id: friendID,
         }
     })).data.getUser;
-
+    
     return friend as User;
 })
 
@@ -58,6 +58,10 @@ const fetchUserFriends = createAsyncThunk('userFriends/fetch', async () => {
 
     return response.data.listUserFriends.items.map((item) => item.friend) as User[];
 })
+
+// const subscriptionFriendRequest = createAsyncThunk('subFriendRequest/update', async () => {
+
+// })
 
 export { 
     fetchFriendRequest, 

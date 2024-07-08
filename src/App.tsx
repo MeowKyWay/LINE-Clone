@@ -3,7 +3,7 @@ import NavigationBar from './components/navigation/NavigationBar'
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import FriendsPage from './pages/friendPage/FriendsPage';
 import ChatsPage from './pages/ChatsPage';
-import AddFriendsPage from './pages/AddFriendsPage';
+import AddFriendsPage from './pages/AddFriend/AddFriendsPage';
 import LoginPage from './pages/authPages/LoginPage';
 import RegisterPage from './pages/authPages/RegisterPage'
 import ResetPasswordPage from './pages/authPages/ResetPasswordPage';
@@ -30,11 +30,11 @@ function App() {
       children: [
         {
           index: true,
-          element: <FriendsPage isPassedToWithAuthenticator={true} />
+          element: <FriendsPage />
         },
         {
           path: RoutePath.FRIENDS,
-          element: <FriendsPage isPassedToWithAuthenticator={true} />
+          element: <FriendsPage/>
         },
         {
           path: RoutePath.CHATS,
@@ -42,7 +42,7 @@ function App() {
         },
         {
           path: RoutePath.ADD_FRIENDS,
-          element: <AddFriendsPage isPassedToWithAuthenticator={true} />
+          element: <AddFriendsPage/>
         },
         {
           path: RoutePath.TEST,
