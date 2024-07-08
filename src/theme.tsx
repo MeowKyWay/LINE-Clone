@@ -22,6 +22,7 @@ export interface Theme {
             text: string;
             icon: string;
             line: string;
+            button: string;
         },
         tertiary: {
             background: string;
@@ -60,7 +61,8 @@ const theme: {light:Theme, dark:Theme} = {
                 background: '#1d2a45',
                 text: '#000000',
                 icon: '#ffffff',
-                line: '#e9e9e9'
+                line: '#e9e9e9',
+                button: '#ffffff',
             },
             tertiary: {
                 background: '#f7f7f7',
@@ -97,6 +99,7 @@ const theme: {light:Theme, dark:Theme} = {
                 text: '#373737',
                 icon: '#dfdfdf',
                 line: '#37383a',
+                button: '#ffffff',
             },
             tertiary: {
                 background: '#343536',

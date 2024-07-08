@@ -1,11 +1,74 @@
+import { useState } from "react";
 import Modal from "../../components/Modal/Modal";
+import SearchField from "../../components/input/SearchField";
+import useTheme from "../../theme";
+import ProfilePicture from "../../components/ProfilePicture";
+import Button from "../../components/input/Button";
+import { User } from "../../API";
+import { searchUserByUsername } from "../../utilities/APIUtils";
+import { useAppDispatch, useAppSelector } from "../../hook";
+import { addFriend } from "../../store/thunks/friendsThunk";
 
 function AddFriendModal({ onClose }: {
     onClose: () => void
 }) {
+
+    const dispatch = useAppDispatch();
+
+    const [friend, setFriend] = useState<User | null>(null);
+
+    const errorMessage = useAppSelector((state) => state.friends.error);
+
+    const theme = useTheme().currentTheme;
+
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const handleSearchFriend = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        const user = await searchUserByUsername(searchTerm);
+        if (user) {
+            setFriend(user);
+        }
+    }
+
+    const handleAddFriend = async () => {
+        await dispatch(addFriend(friend?.id as string));
+    }
+
     return (
         <Modal onClose={onClose} label="Friend search" height="486px" width="312px">
-            Test
+            <div
+                className="flex flex-col size-full items-center"
+                style={{
+                    color: theme.color.primary.text,
+                }}>
+                <div className="h-12 w-full px-3 flex flex-row items-center">
+                    <span className="text-sm">LINE ID</span>
+                </div>
+                <form onSubmit={(e) => handleSearchFriend(e)}>
+                    <SearchField
+                        height="28px"
+                        width="296px"
+                        placeholder="Search by ID"
+                        value={searchTerm}
+                        onChange={(value: string) => setSearchTerm(value)}
+                        round
+                    >
+                    </SearchField>
+                </form>
+
+                { friend &&
+                    <div className="flex-1 w-full flex flex-col items-center justify-center">
+                        <ProfilePicture size="94px"></ProfilePicture>
+                        <span className="mt-3">{friend.name}</span>
+                        <span className="text-red-500 text-xs font-light">{errorMessage}</span>
+                        <div>
+                            <Button type="primary" className="text-sm w-22 h-7.5" onClick={handleAddFriend}>Add</Button>
+                        </div>
+                    </div>
+                }
+            </div>
         </Modal>
     )
 }

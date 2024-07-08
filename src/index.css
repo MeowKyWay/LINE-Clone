@@ -29,6 +29,10 @@
     height: 12.5rem;
 }
 
+.w-22 {
+    width: 5.5rem;
+}
+
 ::-webkit-scrollbar {
     width: 6px;
 }
