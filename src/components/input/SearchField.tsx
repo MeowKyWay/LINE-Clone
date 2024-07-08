@@ -59,7 +59,7 @@ function SearchField({ height, width, placeholder = "", round = false, value, on
             </input>
             {
                 value && (
-                    <button onClick={handleReset}>
+                    <button type="button" onClick={handleReset}>
                         <TiDelete color={theme.color.tertiary.text} size='20px'></TiDelete>
                     </button>
                 )
