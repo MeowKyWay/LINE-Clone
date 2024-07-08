@@ -5,15 +5,15 @@ const statesSlice = createSlice({
     initialState: {
         friendListState: true,
         groupListState: true,
-        friendRecommendState: true,
+        friendRequestListState: true,
         chatFolderState: 'All',
     },
     reducers: {
         setFriendListState(state, action: PayloadAction<boolean>) {
             state.friendListState = action.payload;
         },
-        setFriendRecommendState(state, action: PayloadAction<boolean>){
-            state.friendRecommendState = action.payload;
+        setFriendRequestListState(state, action: PayloadAction<boolean>){
+            state.friendRequestListState = action.payload;
         },
         setGroupListState(state, action: PayloadAction<boolean>) {
             state.groupListState = action.payload;
@@ -24,5 +24,5 @@ const statesSlice = createSlice({
     }
 })
 
-export const { setFriendListState, setGroupListState, setChatFolderState , setFriendRecommendState} = statesSlice.actions;
+export const { setFriendListState, setGroupListState, setChatFolderState , setFriendRequestListState} = statesSlice.actions;
 export const statesReducer = statesSlice.reducer;

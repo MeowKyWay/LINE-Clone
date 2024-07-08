@@ -22,7 +22,6 @@ const fetchFriendRequest = createAsyncThunk('fetchFriendRequest', async (userID:
             }
         }
     })
-
     return response.data.listUserFriends.items.map((item) => item.user) as User[];
 })
 
