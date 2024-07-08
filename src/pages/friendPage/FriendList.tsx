@@ -1,15 +1,13 @@
-import { MdExpandLess, MdExpandMore } from "react-icons/md"
 import AccountList from "../../components/menu_list/AccountList"
 import { useAppDispatch, useAppSelector } from "../../hook";
 import { useEffect } from "react";
 import { fetchUserFriends } from "../../store/thunks/friendsThunk";
-import useTheme from "../../theme";
 import { setFriendListState } from "../../store/slice/statesSlice";
+import ExpandListButton from "../../components/ExpandListButton";
 
 function FriendList({searchTerm}: {searchTerm: string}) {
 
     const dispatch = useAppDispatch();
-    const theme = useTheme().currentTheme;
 
     const friends = useAppSelector(state => state.friends.friends);
     console.log(friends)
@@ -23,23 +21,14 @@ function FriendList({searchTerm}: {searchTerm: string}) {
         dispatch(fetchUserFriends());
     }, [friends.data, friends.error, dispatch]);
 
-    const setFriendList = (state: boolean) => {
-        dispatch(setFriendListState(state));
-    }
-
     return (
         <div>
-            <div
-                className="w-full h-8 flex flex-row items-center font-light px-5"
-                style={{
-                    color: theme.color.tertiary.text,
-                    fontSize: '12px'
-                }}>
-                <button onClick={() => setFriendList(!friendListState)} className="w-full h-4 flex flex-row items-center">
-                    <span className="flex-1 text-left">Friends {friendsFiltered.length}</span>
-                    {(friendListState && <MdExpandLess size={20} />) || (!friendListState) && <MdExpandMore size={20} />}
-                </button>
-            </div>
+            <ExpandListButton
+                label="Friends"
+                value={friendListState}
+                size={friendsFiltered.length}
+                onClick={() => dispatch(setFriendListState(!friendListState))}
+            ></ExpandListButton>
             {friendListState && <AccountList accounts={friendsFiltered}></AccountList>}
         </div>
     )

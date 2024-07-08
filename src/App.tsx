@@ -3,7 +3,7 @@ import NavigationBar from './components/navigation/NavigationBar'
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import FriendsPage from './pages/friendPage/FriendsPage';
 import ChatsPage from './pages/ChatsPage';
-import AddFriendsPage from './pages/AddFriend/AddFriendsPage';
+import AddFriendsPage from './pages/addFriendPage/AddFriendsPage';
 import LoginPage from './pages/authPages/LoginPage';
 import RegisterPage from './pages/authPages/RegisterPage'
 import ResetPasswordPage from './pages/authPages/ResetPasswordPage';
@@ -31,6 +31,7 @@ function App() {
         {
           index: true,
           element: <FriendsPage />
+
         },
         {
           path: RoutePath.FRIENDS,
@@ -38,7 +39,7 @@ function App() {
         },
         {
           path: RoutePath.CHATS,
-          element: <ChatsPage />
+          element: <ChatsPage/>
         },
         {
           path: RoutePath.ADD_FRIENDS,

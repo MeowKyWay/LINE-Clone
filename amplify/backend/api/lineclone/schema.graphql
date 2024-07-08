@@ -21,6 +21,7 @@ type UserFriend
   @model 
   @auth(rules: [
     { allow: private, operations: [read] }
+    { allow: private, provider: identityPool }
   ]) {
   id: ID!
   userID: ID! @index(name: "friends")

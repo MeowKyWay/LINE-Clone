@@ -6,7 +6,7 @@ import TextField from "../components/input/TextField";
 import { useState } from "react";
 import Button from "../components/input/Button";
 import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
-import { LambdaARN, invokeLambda } from "../utilities/LambdaUtil";
+import { LambdaARN, invokeLambda } from "../utilities/LambdaUtils";
 
 function TestPage() {
 

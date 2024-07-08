@@ -1,33 +1,20 @@
-import { ChangeEvent } from "react";
 import useTheme from "../../theme"
 import { IoSearch } from "react-icons/io5";
 import { TiDelete } from "react-icons/ti";
-import { useDispatch } from "react-redux";
-import { PayloadAction } from "@reduxjs/toolkit";
 
-function SearchField({ height, width, placeholder = "", round = false, term, setTerm, onChange }: {
+function SearchField({ height, width, placeholder = "", round = false, value, onChange }: {
     height: string,
     width: string,
     placeholder?: string,
     round?: boolean,
-    term: string,
-    setTerm: (value: string) => PayloadAction<string>,
-    onChange?: () => void,
+    value: string,
+    onChange: (value: string) => void,
 }) {
 
     const theme = useTheme().currentTheme;
 
-    const dispatch = useDispatch();
-
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setTerm(event.target.value));
-        if (onChange) {
-            onChange();
-        }
-    }
-
     const handleReset = () => {
-        dispatch(setTerm(''));
+        onChange("");
     }
 
     const box = {
@@ -59,8 +46,8 @@ function SearchField({ height, width, placeholder = "", round = false, term, set
             <input
                 type="text"
                 maxLength={20}
-                onChange={(e) => handleChange(e)}
-                value={term}
+                onChange={(e) => onChange(e.target.value)}
+                value={value}
                 className="bg-transparent text-xs font-extralight h-full pl-2 flex-1"
                 style={input}
                 placeholder={placeholder}
@@ -71,8 +58,8 @@ function SearchField({ height, width, placeholder = "", round = false, term, set
             >
             </input>
             {
-                term && (
-                    <button onClick={handleReset}>
+                value && (
+                    <button type="button" onClick={handleReset}>
                         <TiDelete color={theme.color.tertiary.text} size='20px'></TiDelete>
                     </button>
                 )

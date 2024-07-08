@@ -2,9 +2,11 @@ import SearchField from "../components/input/SearchField";
 import { setChatsTerms } from "../store/slice/termsSlice";
 import ChatList from "../components/menu_list/ChatList";
 import ArrayUtils from "../utilities/ArrayUtils";
-import { useAppSelector } from "../hook";
+import { useAppDispatch, useAppSelector } from "../hook";
 
 function ChatsPage() {
+
+    const dispatch = useAppDispatch();
 
     const searchTerm = useAppSelector(state => state.terms.chatsTerm);
     const chatFolderState = useAppSelector(state => state.states.chatFolderState);
@@ -34,8 +36,8 @@ function ChatsPage() {
             <div className="pt-4 pb-2">
                 <div className="mx-4">
                     <SearchField
-                        term={searchTerm}
-                        setTerm={setChatsTerms}
+                        value={searchTerm}
+                        onChange={(value: string) => dispatch(setChatsTerms(value))}
                         height="36px"
                         width="100%"
                         round

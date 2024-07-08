@@ -3,7 +3,7 @@ import useTheme from "../../theme";
 import MoreModalButton from "./MoreModalButton";
 import { signOut } from "aws-amplify/auth";
 import { RoutePath } from "../../RoutePath";
-import ModalOverlay from "../ModalOverlay";
+import ModalOverlay from "../Modal/ModalOverlay";
 
 function MoreModal({onClose}: {
     onClose: () => void
