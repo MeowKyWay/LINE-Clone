@@ -23,7 +23,8 @@ function Modal({ onClose, label, children, height, width }: {
           backgroundColor: theme.color.primary.background,
           boxShadow: theme.color.primary.line + ' 0px 0px 5px',
         }}
-        className="rounded-lg flex flex-col">
+        className="rounded-lg flex flex-col"
+        onClick={(e) => e.stopPropagation()}>
           <div 
             className="h-7.5 w-full rounded-t-lg flex flex-row items-center pl-2 pr-5 text-sm font-light"
             style={{
