@@ -26,7 +26,7 @@ function TestPage() {
                 arn: 'LINECloneAddFriend-dev',
                 body: {
                     accessToken: (await fetchAuthSession()).tokens?.accessToken.toString(),
-                    friendID: "feeders_wagon",
+                    friendID: "aonprasertn",
                 }
             })
 

@@ -4,7 +4,7 @@ const statesSlice = createSlice({
     name: 'states',
     initialState: {
         friendListState: true,
-        groupListState: true,
+        groupListState: false,
         friendRequestListState: true,
         chatFolderState: 'All',
     },

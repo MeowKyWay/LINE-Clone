@@ -30,7 +30,8 @@ function App() {
       children: [
         {
           index: true,
-          element: <FriendsPage/>
+          element: <FriendsPage />
+
         },
         {
           path: RoutePath.FRIENDS,
