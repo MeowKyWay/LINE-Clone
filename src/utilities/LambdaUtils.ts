@@ -2,11 +2,12 @@ import { InvokeCommandOutput, Lambda } from "@aws-sdk/client-lambda";
 import { fetchAuthSession } from "aws-amplify/auth";
 
 export enum LambdaARN {
-    ADD_FRIEND = "LINEClone-AddFriend",
+    ADD_FRIEND = "LINECloneAddFriend",
+
 }
 
 export async function invokeLambda ( {arn, body}: { 
-    arn: LambdaARN, 
+    arn: LambdaARN | string, 
     body?: object 
 }) {
     const lambda = new Lambda({
