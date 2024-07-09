@@ -1,13 +1,10 @@
 import AccountList from "../../components/menu_list/AccountList"
 import { useAppDispatch, useAppSelector } from "../../hook";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { fetchFriendRequest } from "../../store/thunks/friendsThunk";
 import ExpandListButton from "../../components/ExpandListButton";
 import { setFriendRequestListState } from "../../store/slice/statesSlice";
-import { Subscription } from 'rxjs'
-import { generateClient } from "aws-amplify/api";
-import { onCreateUserFriend } from "../../graphql/subscriptions";
-import { UserFriend } from "../../API";
+import { useAddFriendSubscription } from "../../store/subscriptions/userFriendSubscription";
 
 function FriendRequestsList() {
 
@@ -18,38 +15,42 @@ function FriendRequestsList() {
 
     const friendRequestListState = useAppSelector(state => state.states.friendRequestListState);
     const user = useAppSelector(state => state.user);
-    const client = generateClient()
-    const [ newRequest , setNewRequest ] = useState<UserFriend>()
 
-    let subOnUpdateFriendRequest: Subscription
-
-    function setUpSubscription(){
-        if (!user) return;
-        subOnUpdateFriendRequest = client.graphql({
-            query: onCreateUserFriend,
-        }).subscribe({
-            next: ({data}) => {
-                const request = data.onCreateUserFriend as UserFriend
-                setNewRequest(request)
-                dispatch(fetchFriendRequest(user.currentUser?.lineID as string))
-            }
-        })
+    const dispatchRequest = (data: string) => {
+        dispatch(fetchFriendRequest(data));
     }
 
-    console.log("newRequest: ",newRequest)
+    useAddFriendSubscription(user.currentUser?.lineID as string , dispatchRequest)
+    
+    // let subOnUpdateFriendRequest: Subscription
 
-    useEffect(() => {
-        setUpSubscription();
-        return () => {
-            subOnUpdateFriendRequest.unsubscribe();
-        }
-    },[])
+    // function setUpSubscription(){
+    //     if (!user) return;
+    //     subOnUpdateFriendRequest = client.graphql({
+    //         query: onCreateUserFriend,
+    //     }).subscribe({
+    //         next: ({data}) => {
+    //             const request = data.onCreateUserFriend as UserFriend
+    //             setNewRequest(request)
+    //             dispatch(fetchFriendRequest(user.currentUser?.lineID as string))
+    //         }
+    //     })
+    // }
+
+    // console.log("newRequest: ",newRequest)
+
+    // useEffect(() => {
+    //     setUpSubscription();
+    //     return () => {
+    //         subOnUpdateFriendRequest.unsubscribe();
+    //     }
+    // },[])
 
     useEffect(() => {
         if (friendRequests.data || friendRequests.error) return;
         //console.log('fetchFriendRequests')
         dispatch(fetchFriendRequest(user.currentUser?.lineID as string));
-    }, [friendRequests.data, friendRequests.error, dispatch , newRequest]);
+    }, [friendRequests.data, friendRequests.error, dispatch , useAddFriendSubscription]);
 
     return (
         <div>

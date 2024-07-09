@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { generateClient } from "aws-amplify/api";
 import { listFriend } from "../../graphql/customQueries";
-import { LambdaARN, invokeLambda } from "../../utilities/LambdaUtils";
+import { invokeLambda } from "../../utilities/LambdaUtils";
 import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
 import { getUser } from "../../graphql/queries";
 import { User } from "../../API";
@@ -45,6 +45,8 @@ const addFriend = createAsyncThunk('addFriend', async (friendID: string, { rejec
     return friend as User;
 })
 
+
+
 const fetchUserFriends = createAsyncThunk('userFriends/fetch', async () => {
     const response = await client.graphql({
         query: listFriend,
@@ -67,5 +69,5 @@ const fetchUserFriends = createAsyncThunk('userFriends/fetch', async () => {
 export { 
     fetchFriendRequest, 
     addFriend, 
-    fetchUserFriends 
+    fetchUserFriends,
 }
