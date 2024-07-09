@@ -8,6 +8,7 @@ import Button from "../components/input/Button";
 import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
 import { LambdaARN, invokeLambda } from "../utilities/LambdaUtils";
 import { listUsers } from "../graphql/queries";
+import { createUserFriend } from "../graphql/mutations";
 
 function TestPage() {
 
@@ -15,39 +16,20 @@ function TestPage() {
     
     const client = generateClient();
 
-    const [friendLineID, setFriendLineID] = useState('');
+    client.g
 
-    const handleAddFriend = async () => {
-        const resp = await fetchAuthSession();
-        try {
-            const res = await invokeLambda({
-                arn: LambdaARN.ADD_FRIEND,
-                body: {
-                    accessToken: resp.tokens?.accessToken,
-                    friendID: friendLineID,
-                }
-            })
-            console.log(res);
-        }
-        catch (e) {
-            console.log(e);
-        }
-    }
+    const [friendLineID, setFriendLineID] = useState('');
 
     const test = async () => {
         try {
             const res = await invokeLambda({
-                arn: 'LINECloneAppSyncAddFriend-dev',
+                arn: 'LINECloneAddFriend-dev',
+                body: {
+                    accessToken: (await fetchAuthSession()).tokens?.accessToken.toString(),
+                    friendID: "feeders_wagon",
+                }
             })
 
-            console.log(res);
-        } catch (e) {
-            console.log(e);
-        }
-        try {
-            const res = await client.graphql({
-                query: listUsers,
-            })
             console.log(res);
         } catch (e) {
             console.log(e);

@@ -3,11 +3,8 @@
 
 type User
   @model
-  @aws_iam
-  @aws_cognito_user_pools
   @auth(rules: [
     { allow: private, operations: [read] }
-    { allow: private, provider: identityPool }
   ]) {
     id: ID!
     name: String!
@@ -16,16 +13,13 @@ type User
     friends: [UserFriend] 
       @hasMany(indexName: "friends", fields: ["id"])
     friendOf: [UserFriend] 
-      @hasMany(indexName: "friendOf"fields: ["id"])
+      @hasMany(indexName: "friendOf", fields: ["id"])
 }
 
 type UserFriend
   @model 
-  @aws_iam
-  @aws_cognito_user_pools
   @auth(rules: [
     { allow: private, operations: [read] }
-    { allow: private, provider: identityPool }
   ]) {
   id: ID!
   userID: ID! @index(name: "friends")

@@ -60,7 +60,7 @@
     }
   },
   "function": {
-    "LINECloneAppSyncAddFriend": {
+    "LINECloneAddFriend": {
       "build": true,
       "dependsOn": [
         {
@@ -77,19 +77,19 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_LINECloneAppSyncAddFriend_deploymentBucketName": {
+    "AMPLIFY_function_LINECloneAddFriend_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "LINECloneAppSyncAddFriend"
+          "resourceName": "LINECloneAddFriend"
         }
       ]
     },
-    "AMPLIFY_function_LINECloneAppSyncAddFriend_s3Key": {
+    "AMPLIFY_function_LINECloneAddFriend_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "LINECloneAppSyncAddFriend"
+          "resourceName": "LINECloneAddFriend"
         }
       ]
     }
