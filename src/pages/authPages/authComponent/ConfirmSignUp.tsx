@@ -47,7 +47,7 @@ function ConfirmSignUp({ username }: {
                     </Button>
                 </form>
             }
-            {isComplete && <Complete to={RoutePath.FRIENDS}>Sign up complete</Complete>}
+            {isComplete && <Complete to={RoutePath.LOGIN}>Sign up complete</Complete>}
         </div>
     )
 }

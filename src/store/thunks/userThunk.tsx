@@ -2,12 +2,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { generateClient } from "aws-amplify/api";
 import { getUser } from "../../graphql/queries";
 import { UserType } from "../slice/userSlice";
-import { fetchUserAttributes, getCurrentUser } from "aws-amplify/auth";
+import { fetchUserAttributes, getCurrentUser, signOut } from "aws-amplify/auth";
 
 const client = generateClient();
 
 const fetchUser = createAsyncThunk('users/fetch', async () => {
-    
+
     const username = (await getCurrentUser()).username;
     const userAttribute = (await fetchUserAttributes());
 
@@ -18,7 +18,7 @@ const fetchUser = createAsyncThunk('users/fetch', async () => {
         }
     })
     const user = response.data.getUser;
-    
+
 
     return {
         name: user?.name,
@@ -28,4 +28,9 @@ const fetchUser = createAsyncThunk('users/fetch', async () => {
     } as UserType;
 })
 
-export { fetchUser }
+const logout = createAsyncThunk('users/logout', async () => {
+    await signOut();
+    return "Logged out successfully";
+})
+
+export { fetchUser, logout }

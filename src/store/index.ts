@@ -5,7 +5,7 @@ import { groupsReducer } from "./slice/groupsSlice";
 import { termsReducer } from "./slice/termsSlice";
 import { chatsReducer } from "./slice/chatsSlice";
 import { userReducer } from "./slice/userSlice";
-import { messagesReducer } from "./slice/messageSlice";
+import { messagesReducer } from "./slice/messagesSlice";
 
 const store = configureStore({
     reducer: {

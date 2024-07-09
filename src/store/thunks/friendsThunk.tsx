@@ -8,7 +8,8 @@ import { User } from "../../API";
 
 const client = generateClient();
 
-const fetchFriendRequest = createAsyncThunk('fetchFriendRequest', async (userID: string) => {
+const fetchFriendRequest = createAsyncThunk('fetchFriendRequest', async () => {
+    const userID = (await getCurrentUser()).username;
     const response = await client.graphql({
         query: listFriend,
         variables: {

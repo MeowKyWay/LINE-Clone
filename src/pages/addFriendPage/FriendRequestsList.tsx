@@ -16,8 +16,8 @@ function FriendRequestsList() {
     const friendRequestListState = useAppSelector(state => state.states.friendRequestListState);
     const user = useAppSelector(state => state.user);
 
-    const dispatchRequest = (data: string) => {
-        dispatch(fetchFriendRequest(data));
+    const dispatchRequest = () => {
+        dispatch(fetchFriendRequest());
     }
 
     useAddFriendSubscription(user.currentUser?.lineID as string , dispatchRequest)
@@ -48,9 +48,9 @@ function FriendRequestsList() {
 
     useEffect(() => {
         if (friendRequests.data || friendRequests.error) return;
-        //console.log('fetchFriendRequests')
-        dispatch(fetchFriendRequest(user.currentUser?.lineID as string));
-    }, [friendRequests.data, friendRequests.error, dispatch , useAddFriendSubscription]);
+        console.log('fetchFriendRequests')
+        dispatch(fetchFriendRequest());
+    }, [friendRequests.data, friendRequests.error, dispatch]);
 
     return (
         <div>

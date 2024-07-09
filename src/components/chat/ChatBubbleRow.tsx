@@ -1,4 +1,4 @@
-import { MessageType } from "../../store/slice/messageSlice";
+import { MessageType } from "../../store/slice/messagesSlice";
 import ProfilePicture from "../ProfilePicture";
 import ChatBubble from "./ChatBubble";
 

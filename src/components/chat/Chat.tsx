@@ -2,7 +2,7 @@ import useTheme from "../../theme";
 import { useAppDispatch, useAppSelector } from "../../hook";
 import ChatBubbleRow from "./ChatBubbleRow";
 import { useEffect } from "react";
-import { fetchUser } from "../../store/thunks/fetchUser";
+import { fetchUser } from "../../store/thunks/userThunk";
 import ChatTextArea from "./ChatTextArea";
 
 function Chat() {

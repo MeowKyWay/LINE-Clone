@@ -1,13 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import useTheme from "../../theme";
 import MoreModalButton from "./MoreModalButton";
-import { signOut } from "aws-amplify/auth";
 import { RoutePath } from "../../RoutePath";
 import ModalOverlay from "../Modal/ModalOverlay";
+import { useAppDispatch } from "../../hook";
+import { logout } from "../../store/thunks/userThunk";
 
 function MoreModal({onClose}: {
     onClose: () => void
 }){
+
+    const dispatch = useAppDispatch();
 
     const theme = useTheme();
     const navigate = useNavigate();
@@ -18,8 +21,9 @@ function MoreModal({onClose}: {
 
     const handleSignOut = async () => {
         try {
-            await signOut();
-            navigate(RoutePath.LOGIN)
+            await dispatch(logout());
+            navigate(RoutePath.LOGIN);
+            window.location.reload();
         } catch (error) {
             console.error(error);
         }
