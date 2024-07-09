@@ -27,7 +27,7 @@ const fetchFriendRequest = createAsyncThunk('fetchFriendRequest', async (userID:
 
 const addFriend = createAsyncThunk('addFriend', async (friendID: string, { rejectWithValue }) => {
     const response = await invokeLambda({
-        arn: LambdaARN.ADD_FRIEND,
+        arn: 'LINECloneAddFriend-dev',
         body: {
             accessToken: (await fetchAuthSession()).tokens?.accessToken.toString(),
             friendID,

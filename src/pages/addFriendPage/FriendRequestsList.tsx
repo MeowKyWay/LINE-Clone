@@ -27,16 +27,6 @@ function FriendRequestsList() {
         if (!user) return;
         subOnUpdateFriendRequest = client.graphql({
             query: onCreateUserFriend,
-            variables: {
-                filter: {
-                    friendID: {
-                        eq: user.currentUser?.lineID
-                    },
-                    status: {
-                        eq: "pending"
-                    }
-                }
-            }
         }).subscribe({
             next: ({data}) => {
                 const request = data.onCreateUserFriend as UserFriend
