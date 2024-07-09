@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUser } from "../thunks/fetchUser";
+import { fetchUser } from "../thunks/userThunk";
 
 export interface UserType {
     name: string;
@@ -20,6 +20,7 @@ const userSlice = createSlice({
     extraReducers(builder) {
         builder.addCase(fetchUser.fulfilled, (state, action) => {
             state.currentUser = action.payload;
+            console.log(action.payload);
             state.error = "";
         })
         builder.addCase(fetchUser.rejected, (state) => {

@@ -99,7 +99,6 @@ const messagesSlice = createSlice({
         ] as MessageType[]
     },
     reducers: {
-
     }
 })
 

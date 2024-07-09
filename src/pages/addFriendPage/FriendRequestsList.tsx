@@ -1,7 +1,7 @@
 import AccountList from "../../components/menu_list/AccountList"
 import { useAppDispatch, useAppSelector } from "../../hook";
 import { useEffect } from "react";
-import { fetchUserFriends } from "../../store/thunks/friendsThunk";
+import { fetchFriendRequest } from "../../store/thunks/friendsThunk";
 import ExpandListButton from "../../components/ExpandListButton";
 import { setFriendRequestListState } from "../../store/slice/statesSlice";
 
@@ -16,7 +16,7 @@ function FriendRequestsList() {
     useEffect(() => {
         if (friendRequests.data || friendRequests.error) return;
         console.log('fetchFriendRequests')
-        dispatch(fetchUserFriends());
+        dispatch(fetchFriendRequest());
     }, [friendRequests.data, friendRequests.error, dispatch]);
 
     return (

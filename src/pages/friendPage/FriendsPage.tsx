@@ -8,7 +8,7 @@ import { setFriendsTerms } from "../../store/slice/termsSlice";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hook";
-import { fetchUser } from "../../store/thunks/fetchUser";
+import { fetchUser } from "../../store/thunks/userThunk";
 import FriendList from "./FriendList";
 
 function FriendsPage() {
@@ -19,6 +19,8 @@ function FriendsPage() {
 
     const navigate = useNavigate();
     const location = useLocation();
+    
+    const currentUser = useAppSelector(state => state.user.currentUser)
 
     useEffect(() => {
         if (location.pathname != '/friends') {
@@ -26,20 +28,19 @@ function FriendsPage() {
         }
     }, [navigate, location.pathname])
 
-    const user = useAppSelector(state => state.user);
-
-    useEffect(() => {
-        if (user.currentUser || user.error) return;
-        dispatch(fetchUser());
-    }, [user.currentUser, user.error, dispatch]);
-
+    const user = useAppSelector(state => state.user);    
+    
     const groupListState = useAppSelector(state => state.states.groupListState);
     const searchTerm = useAppSelector(state => state.terms.friendsTerm);
 
     const groups = useAppSelector(state => state.groups.groupList);
-    const groupsFiltered = groups.filter(group => group.name.toLowerCase().includes(searchTerm.toLowerCase())) || [];
+    const groupsFiltered = groups?.filter(group => group.name.toLowerCase().includes(searchTerm.toLowerCase())) || [];
 
-    const currentUser = useAppSelector(state => state.user.currentUser)
+    useEffect(() => {
+        if (user.currentUser || user.error) return;
+        console.log('fetching user');
+        dispatch(fetchUser());
+    }, [user.currentUser, user.error, dispatch]);
 
     const setGroupList = (state: boolean) => {
         dispatch(setGroupListState(state));

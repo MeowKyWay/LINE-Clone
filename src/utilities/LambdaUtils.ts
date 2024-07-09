@@ -2,7 +2,7 @@ import { InvokeCommandOutput, Lambda } from "@aws-sdk/client-lambda";
 import { fetchAuthSession } from "aws-amplify/auth";
 
 export enum LambdaARN {
-    ADD_FRIEND = "LINECloneAddFriend",
+    ADD_FRIEND = "LINECloneAddFriend-dev",
 
 }
 

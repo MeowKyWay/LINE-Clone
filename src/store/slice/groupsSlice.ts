@@ -131,7 +131,7 @@ const groupsSlice = createSlice({
                 memberCount: 10,
                 profilePicture: 'https://static01.nyt.com/images/2019/10/01/science/00SCI-CATS1/merlin_102054072_34962289-a2a4-4c52-9969-4b2719347e76-articleLarge.jpg?quality=75&auto=webp&disable=upscale',
             },
-        ] as GroupType[],
+        ] as GroupType[] | null,
     },
     reducers: {
     }

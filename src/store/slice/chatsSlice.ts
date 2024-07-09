@@ -69,13 +69,15 @@ const chatsSlice = createSlice({
                 lastUpdate: new Date('2024-10-21T12:00:00Z').getTime(),
                 unread: 0,
             },
-        ] as ChatType[],
+        ] as ChatType[] | null,
     },
     reducers: {
         newChat(state, action: PayloadAction<ChatType>) {
+            if (!state.chatList) return;
             state.chatList.push(action.payload)
         },
         removeChat(state, action: PayloadAction<ChatType>) {
+            if (!state.chatList) return;
             const id = action.payload.id;
             state.chatList = state.chatList.filter(chat => chat.id !== id);
         },

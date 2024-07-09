@@ -17,7 +17,7 @@ const friendsSlice = createSlice({
         error: "",
     }, extraReducers(builder) {
         builder.addCase(fetchUserFriends.fulfilled, (state, action) => {
-            state.friends.data = action.payload;
+            state.friends.data = action.payload || [];
             state.friends.error = "";
         })
         builder.addCase(fetchUserFriends.rejected, (state, action) => {
@@ -30,19 +30,19 @@ const friendsSlice = createSlice({
             state.friends.error = "";
         })
         builder.addCase(addFriend.rejected , (state, action) => {
-            console.log(action)
             state.error = action.payload as string;
         })
 
         builder.addCase(fetchFriendRequest.fulfilled, (state, action) => {
-            state.friendRequests.data = action.payload;
+            state.friendRequests.data = action.payload || [];
         })
         builder.addCase(fetchFriendRequest.rejected, (state, action) => {
             state.friendRequests.error = action.error.message ?? "";
         })
+
     },
     reducers: {
-
     }
 })
+
 export const friendsReducer = friendsSlice.reducer;
