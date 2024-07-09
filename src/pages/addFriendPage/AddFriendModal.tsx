@@ -34,6 +34,7 @@ function AddFriendModal({ onClose }: {
 
     const handleAddFriend = async () => {
         await dispatch(addFriend(friend?.id as string));
+        onClose()
     }
 
     return (

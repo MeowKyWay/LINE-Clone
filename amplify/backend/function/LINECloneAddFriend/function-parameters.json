@@ -3,7 +3,8 @@
     "api": {
       "lineclone": [
         "Query",
-        "Mutation"
+        "Mutation",
+        "Subscription"
       ]
     }
   },

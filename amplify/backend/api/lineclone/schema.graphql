@@ -4,24 +4,22 @@
 type User
   @model
   @auth(rules: [
-    { allow: owner, ownerField: "id", operations: [update] }
     { allow: private, operations: [read] }
   ]) {
-    id: ID! @auth(rules: [{ allow: private, operations: [read] }])
+    id: ID!
     name: String!
     statusMessage: String!
 
     friends: [UserFriend] 
       @hasMany(indexName: "friends", fields: ["id"])
     friendOf: [UserFriend] 
-      @hasMany(indexName: "friendOf"fields: ["id"])
+      @hasMany(indexName: "friendOf", fields: ["id"])
 }
 
 type UserFriend
   @model 
   @auth(rules: [
     { allow: private, operations: [read] }
-    { allow: private, provider: identityPool }
   ]) {
   id: ID!
   userID: ID! @index(name: "friends")

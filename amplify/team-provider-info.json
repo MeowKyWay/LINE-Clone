@@ -20,7 +20,11 @@
         "lineclone": {}
       },
       "function": {
-        "LINECloneAppSyncAddFriend": {}
+        "LINECloneAppSyncAddFriend": {},
+        "LINECloneAddFriend": {
+          "deploymentBucketName": "amplify-lineclone-dev-46391-deployment",
+          "s3Key": "amplify-builds/LINECloneAddFriend-4c334e425a7877367973-build.zip"
+        }
       }
     }
   }

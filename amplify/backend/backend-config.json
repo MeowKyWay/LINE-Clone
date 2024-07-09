@@ -60,7 +60,7 @@
     }
   },
   "function": {
-    "LINECloneAppSyncAddFriend": {
+    "LINECloneAddFriend": {
       "build": true,
       "dependsOn": [
         {
@@ -74,6 +74,24 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_LINECloneAddFriend_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "LINECloneAddFriend"
+        }
+      ]
+    },
+    "AMPLIFY_function_LINECloneAddFriend_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "LINECloneAddFriend"
+        }
+      ]
     }
   }
 }
