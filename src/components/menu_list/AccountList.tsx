@@ -3,7 +3,7 @@ import AccountItem from "../menu-item/AccountItem";
 import { GroupType } from "../../store/slice/groupsSlice";
 import { User } from "../../API";
 
-function AccountList({ accounts , accountsRequest}: { accounts: User[] | GroupType[] }) {
+function AccountList({ accounts}: { accounts: User[] | GroupType[] }) {
 
     const renderAccount = accounts.map((account) => {
         return <AccountItem value={account} key={account.id}></AccountItem>

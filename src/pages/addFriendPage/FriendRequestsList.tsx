@@ -33,7 +33,6 @@ function FriendRequestsList() {
         const newSubscription = friendRequestSubscription(user.currentUser?.lineID as string, (data) => {
             dispatch(addFriendRequest(data.onCreateUserFriend?.user));
         })
-
         subscription.current = newSubscription;
 
         return () => {

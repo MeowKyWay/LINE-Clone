@@ -3,7 +3,6 @@ import useTheme from "../../theme";
 import ProfilePicture from "../ProfilePicture";
 import type { User } from "../../API";
 import { UserType } from "../../store/slice/userSlice";
-import { MdPersonAddAlt1 } from "react-icons/md";
 
 function AccountItem({ value }: { value: UserType | User | GroupType }) {
     const theme = useTheme().currentTheme;
