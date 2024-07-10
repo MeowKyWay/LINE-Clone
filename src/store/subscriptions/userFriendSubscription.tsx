@@ -11,6 +11,9 @@ const friendRequestSubscription = (userID: string, onUpdate: (data: OnCreateUser
             filter: {
                 friendID: {
                     eq: userID
+                },
+                status: {
+                    eq: "pending"
                 }
             }
         }
