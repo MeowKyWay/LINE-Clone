@@ -9,6 +9,7 @@ type User
     id: ID!
     name: String!
     statusMessage: String!
+    image: String
 
     friends: [UserFriend] 
       @hasMany(indexName: "friends", fields: ["id"])
