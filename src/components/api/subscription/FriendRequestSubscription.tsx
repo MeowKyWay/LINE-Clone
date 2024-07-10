@@ -38,14 +38,14 @@ function FriendRequestSubscription() {
 
         subscription.current = newSubscription;
 
-        console.log('friendRequestSubscribe')
+        console.log('subscribe Friend request')
 
         return () => {
             if (newSubscription) {
                 newSubscription.unsubscribe();
                 subscription.current = null;
             }
-            console.log('friendRequestUnsubscribe')
+            console.log('unsubscribe Friend request')
         };
 
     }, [client, dispatch, user.currentUser, user.error]);

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hook";
 import { fetchUser } from "../../../store/thunks/userThunk";
 
-function UserFetch() {
+function FetchUser() {
 
     const dispatch = useAppDispatch();
 
@@ -10,11 +10,11 @@ function UserFetch() {
 
     useEffect(() => {
         if (user.currentUser || user.error) return;
-        console.log('fetchUser')
+        console.log('fetch User')
         dispatch(fetchUser());
     })
 
     return <div className="hidden" />
 }
 
-export default UserFetch;
+export default FetchUser;

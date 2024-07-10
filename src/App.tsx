@@ -10,7 +10,7 @@ import ResetPasswordPage from './pages/authPages/ResetPasswordPage';
 import { RoutePath } from './RoutePath';
 import TestPage from './pages/TestPage';
 import FriendRequestSubscription from './components/api/subscription/FriendRequestSubscription';
-import UserFetch from './components/api/fetch/UserFetch';
+import FetchUser from './components/api/fetch/FetchUser';
 
 function App() {
 
@@ -26,7 +26,7 @@ function App() {
             <Outlet />
           </Body>
           <FriendRequestSubscription />
-          <UserFetch />
+          <FetchUser />
         </div>
 
 
