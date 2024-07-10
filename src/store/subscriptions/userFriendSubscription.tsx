@@ -8,11 +8,11 @@ const useAddFriendSubscription = (userID: string , dispatch: (data: string) => v
     const subscription: Subscription = client.graphql({
         query: onCreateUserFriend,
     }).subscribe({
-        next: ({ data }) => {
+        next: () => {
             dispatch(userID);
         }
     });
-return subscription
+    return subscription
 };
 
 export { useAddFriendSubscription }

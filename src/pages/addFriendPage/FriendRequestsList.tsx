@@ -1,4 +1,4 @@
-import AccountList from "../../components/menu_list/AccountList"
+import AccountRequestList from "../../components/menu_list/AccountRequestList";
 import { useAppDispatch, useAppSelector } from "../../hook";
 import { useEffect } from "react";
 import { fetchFriendRequest } from "../../store/thunks/friendsThunk";
@@ -21,31 +21,7 @@ function FriendRequestsList() {
     }
 
     useAddFriendSubscription(user.currentUser?.lineID as string , dispatchRequest)
-    
-    // let subOnUpdateFriendRequest: Subscription
-
-    // function setUpSubscription(){
-    //     if (!user) return;
-    //     subOnUpdateFriendRequest = client.graphql({
-    //         query: onCreateUserFriend,
-    //     }).subscribe({
-    //         next: ({data}) => {
-    //             const request = data.onCreateUserFriend as UserFriend
-    //             setNewRequest(request)
-    //             dispatch(fetchFriendRequest(user.currentUser?.lineID as string))
-    //         }
-    //     })
-    // }
-
-    // console.log("newRequest: ",newRequest)
-
-    // useEffect(() => {
-    //     setUpSubscription();
-    //     return () => {
-    //         subOnUpdateFriendRequest.unsubscribe();
-    //     }
-    // },[])
-
+ 
     useEffect(() => {
         if (friendRequests.data || friendRequests.error) return;
         console.log('fetchFriendRequests')
@@ -60,7 +36,7 @@ function FriendRequestsList() {
                 size={friendRequests.data?.length || 0}
                 onClick={() => dispatch(setFriendRequestListState(!friendRequestListState))}
             ></ExpandListButton>
-            {friendRequestListState && <AccountList accounts={friendRequests.data || []}></AccountList>}
+            {friendRequestListState && <AccountRequestList accounts={friendRequests.data || []}></AccountRequestList>}
         </div>
     )
 }
