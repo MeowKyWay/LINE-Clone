@@ -7,6 +7,7 @@ export const onCreateUser = /* GraphQL */ `
       id
       name
       statusMessage
+      image
       friends {
         nextToken
         __typename
@@ -27,6 +28,7 @@ export const onUpdateUser = /* GraphQL */ `
       id
       name
       statusMessage
+      image
       friends {
         nextToken
         __typename
@@ -47,6 +49,7 @@ export const onDeleteUser = /* GraphQL */ `
       id
       name
       statusMessage
+      image
       friends {
         nextToken
         __typename
@@ -72,6 +75,7 @@ export const onCreateUserFriend = /* GraphQL */ `
         id
         name
         statusMessage
+        image
         createdAt
         updatedAt
         __typename
@@ -81,6 +85,7 @@ export const onCreateUserFriend = /* GraphQL */ `
         id
         name
         statusMessage
+        image
         createdAt
         updatedAt
         __typename
@@ -103,6 +108,7 @@ export const onUpdateUserFriend = /* GraphQL */ `
         id
         name
         statusMessage
+        image
         createdAt
         updatedAt
         __typename
@@ -112,6 +118,7 @@ export const onUpdateUserFriend = /* GraphQL */ `
         id
         name
         statusMessage
+        image
         createdAt
         updatedAt
         __typename
@@ -134,6 +141,7 @@ export const onDeleteUserFriend = /* GraphQL */ `
         id
         name
         statusMessage
+        image
         createdAt
         updatedAt
         __typename
@@ -143,6 +151,7 @@ export const onDeleteUserFriend = /* GraphQL */ `
         id
         name
         statusMessage
+        image
         createdAt
         updatedAt
         __typename

@@ -22,9 +22,12 @@
       "function": {
         "LINECloneAddFriend": {
           "deploymentBucketName": "amplify-lineclone-dev-46391-deployment",
-          "s3Key": "amplify-builds/LINECloneAddFriend-33564e514e3045494950-build.zip"
+          "s3Key": "amplify-builds/LINECloneAddFriend-7474464d506f68733044-build.zip"
         },
         "LINEClonePostComfirmationTrigger": {}
+      },
+      "storage": {
+        "profileImages": {}
       }
     }
   }

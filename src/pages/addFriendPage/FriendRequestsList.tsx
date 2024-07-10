@@ -19,6 +19,7 @@ function FriendRequestsList() {
     const user = useAppSelector(state => state.user);
 
     const subscription = useRef<Subscription | null>(null);
+    console.log(subscription)
 
     useEffect(() => {
         if (user.currentUser || user.error) return;

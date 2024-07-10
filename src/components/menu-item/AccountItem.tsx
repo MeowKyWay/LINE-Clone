@@ -4,7 +4,7 @@ import ProfilePicture from "../ProfilePicture";
 import type { User } from "../../API";
 import { UserType } from "../../store/slice/userSlice";
 
-function AccountItem({ value }: { value: UserType | User | GroupType }) {
+function AccountItem({ value , onClick }: { value: UserType | User | GroupType, onClick: () => void | null}) {
     const theme = useTheme().currentTheme;
 
     const name = {
@@ -18,7 +18,7 @@ function AccountItem({ value }: { value: UserType | User | GroupType }) {
     }
 
     return (
-        <div className={"h-14 w-full cursor-pointer items-center"}>
+        <div className={"h-14 w-full cursor-pointer items-center"} onClick={onClick}>
             <style>
                 {`
                 .hover:hover {
