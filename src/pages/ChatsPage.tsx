@@ -3,6 +3,7 @@ import { setChatsTerms } from "../store/slice/termsSlice";
 import ChatList from "../components/menu_list/ChatList";
 import ArrayUtils from "../utilities/ArrayUtils";
 import { useAppDispatch, useAppSelector } from "../hook";
+import { ChatType } from "../store/slice/chatsSlice";
 
 function ChatsPage() {
 
@@ -12,22 +13,22 @@ function ChatsPage() {
     const chatFolderState = useAppSelector(state => state.states.chatFolderState);
 
     const chats = useAppSelector(state => state.chats.chatList);
-    const chatSorted = chats.slice().sort((a, b) => b.lastUpdate - a.lastUpdate);
+    const chatSorted = chats?.slice().sort((a, b) => b.lastUpdate - a.lastUpdate);
 
     let selectedChat;
     switch (chatFolderState) {
         case 'Friends':
-            selectedChat = chatSorted.slice().filter(chat => chat.type === 'friend');
+            selectedChat = chatSorted?.slice().filter(chat => chat.type === 'friend');
             break;
         case 'Groups':
-            selectedChat = chatSorted.slice().filter(chat => chat.type === 'group');
+            selectedChat = chatSorted?.slice().filter(chat => chat.type === 'group');
             break;
         default:
-            selectedChat = chatSorted.slice();
+            selectedChat = chatSorted?.slice();
             break;
     }
 
-    const chatsFiltered = ArrayUtils.filterByName(selectedChat, searchTerm);
+    const chatsFiltered = ArrayUtils.filterByName(selectedChat as ChatType[], searchTerm);
 
 
 

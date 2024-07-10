@@ -1,9 +1,9 @@
 import { generateClient } from "aws-amplify/api"
 import { useEffect, useRef } from "react"
 import { Subscription } from "rxjs"
-import { onCreateUserFriend } from "../../graphql/subscriptions";
-import { useAppDispatch, useAppSelector } from "../../hook";
-import { addFriendRequest } from "../../store/slice/friendsSlice";
+import { onCreateUserFriend } from "../../../graphql/subscriptions";
+import { useAppDispatch, useAppSelector } from "../../../hook";
+import { addFriendRequest } from "../../../store/slice/friendsSlice";
 
 function FriendRequestSubscription() {
 

@@ -9,7 +9,8 @@ import RegisterPage from './pages/authPages/RegisterPage'
 import ResetPasswordPage from './pages/authPages/ResetPasswordPage';
 import { RoutePath } from './RoutePath';
 import TestPage from './pages/TestPage';
-import FriendRequestSubscription from './components/subscription/FriendRequestSubscription';
+import FriendRequestSubscription from './components/api/subscription/FriendRequestSubscription';
+import UserFetch from './components/api/fetch/UserFetch';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
             <Outlet />
           </Body>
           <FriendRequestSubscription />
+          <UserFetch />
         </div>
 
 

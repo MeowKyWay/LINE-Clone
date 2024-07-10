@@ -8,7 +8,6 @@ import { setFriendsTerms } from "../../store/slice/termsSlice";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hook";
-import { fetchUser } from "../../store/thunks/userThunk";
 import FriendList from "./FriendList";
 
 function FriendsPage() {
@@ -19,14 +18,12 @@ function FriendsPage() {
 
     const navigate = useNavigate();
     const location = useLocation();
-    
-    const currentUser = useAppSelector(state => state.user.currentUser)
 
     useEffect(() => {
         if (location.pathname != '/friends') {
             navigate('/std/friends');
         }
-    }, [navigate, location.pathname])
+    }, [navigate, location.pathname]);
 
     const user = useAppSelector(state => state.user);    
     
@@ -35,12 +32,6 @@ function FriendsPage() {
 
     const groups = useAppSelector(state => state.groups.groupList);
     const groupsFiltered = groups?.filter(group => group.name.toLowerCase().includes(searchTerm.toLowerCase())) || [];
-
-    useEffect(() => {
-        if (user.currentUser || user.error) return;
-        console.log('fetching user');
-        dispatch(fetchUser());
-    }, [user.currentUser, user.error, dispatch]);
 
     const setGroupList = (state: boolean) => {
         dispatch(setGroupListState(state));
@@ -68,7 +59,7 @@ function FriendsPage() {
             </div>
             <div className="flex-1 flex flex-col w-full overflow-y-scroll" style={{ maxHeight: 'calc(100vh - 76px)' }}>
                 <div className="w-full flex flex-col">
-                    {currentUser && <AccountItem value={currentUser} />}
+                    {user.currentUser && <AccountItem value={user.currentUser} />}
                     <div
                         className="w-full h-8 flex flex-row items-center font-light px-5"
                         style={{
