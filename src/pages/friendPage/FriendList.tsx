@@ -1,9 +1,8 @@
 import AccountList from "../../components/menu_list/AccountList"
 import { useAppDispatch, useAppSelector } from "../../hook";
-import { useEffect } from "react";
-import { fetchUserFriends } from "../../store/thunks/friendsThunk";
 import { setFriendListState } from "../../store/slice/statesSlice";
 import ExpandListButton from "../../components/ExpandListButton";
+import FetchFriend from "../../components/api/fetch/FetchFriend";
 
 function FriendList({searchTerm}: {searchTerm: string}) {
 
@@ -14,12 +13,6 @@ function FriendList({searchTerm}: {searchTerm: string}) {
 
     const friendListState = useAppSelector(state => state.states.friendListState);
 
-    useEffect(() => {
-        if (friends.data || friends.error) return;
-        console.log('fetchUserFriends')
-        dispatch(fetchUserFriends());
-    }, [friends.data, friends.error, dispatch]);
-
     return (
         <div>
             <ExpandListButton
@@ -29,6 +22,7 @@ function FriendList({searchTerm}: {searchTerm: string}) {
                 onClick={() => dispatch(setFriendListState(!friendListState))}
             ></ExpandListButton>
             {friendListState && <AccountList accounts={friendsFiltered}></AccountList>}
+            <FetchFriend />
         </div>
     )
 }

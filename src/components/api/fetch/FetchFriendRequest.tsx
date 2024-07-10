@@ -10,7 +10,7 @@ function FetchFriendRequest() {
 
     useEffect(() => {
         if (friendRequests.data || friendRequests.error) return;
-        console.log('fetch Friend requests')
+        console.log('Fetch Friend requests')
         dispatch(fetchFriendRequest());
     }, [friendRequests.data, friendRequests.error, dispatch]);
 

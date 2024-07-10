@@ -10,7 +10,7 @@ function FetchUser() {
 
     useEffect(() => {
         if (user.currentUser || user.error) return;
-        console.log('fetch User')
+        console.log('Fetch User')
         dispatch(fetchUser());
     })
 
