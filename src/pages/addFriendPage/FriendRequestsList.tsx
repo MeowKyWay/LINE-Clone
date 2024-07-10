@@ -1,4 +1,4 @@
-import AccountRequestList from "../../components/menu_list/AccountRequestList";
+import AccountList from "../../components/menu_list/AccountList"
 import { useAppDispatch, useAppSelector } from "../../hook";
 import { useEffect, useRef } from "react";
 import { fetchFriendRequest } from "../../store/thunks/friendsThunk";
@@ -44,7 +44,6 @@ function FriendRequestsList() {
 
     }, [dispatch, user.currentUser?.lineID]);
 
-
     useEffect(() => {
         if (friendRequests.data || friendRequests.error) return;
         console.log('fetchFriendRequests')
@@ -59,7 +58,7 @@ function FriendRequestsList() {
                 size={friendRequests.data?.length || 0}
                 onClick={() => dispatch(setFriendRequestListState(!friendRequestListState))}
             ></ExpandListButton>
-            {friendRequestListState && <AccountRequestList accounts={friendRequests.data || []}></AccountRequestList>}
+            {friendRequestListState && <AccountList accounts={friendRequests.data || []}></AccountList>}
         </div>
     )
 }
