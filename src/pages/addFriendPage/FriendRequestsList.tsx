@@ -27,7 +27,7 @@ function FriendRequestsList() {
                 size={friendRequests.data?.length || 0}
                 onClick={() => dispatch(setFriendRequestListState(!friendRequestListState))}
             ></ExpandListButton>
-            {friendRequestListState && <AccountList accounts={friendRequests.data || []}></AccountList>}
+            {friendRequestListState && <AccountList accounts={friendRequests.data || []} isRequest></AccountList>}
         </div>
     )
 }
