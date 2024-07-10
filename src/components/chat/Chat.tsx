@@ -1,24 +1,15 @@
 import useTheme from "../../theme";
-import { useAppDispatch, useAppSelector } from "../../hook";
+import { useAppSelector } from "../../hook";
 import ChatBubbleRow from "./ChatBubbleRow";
-import { useEffect } from "react";
-import { fetchUser } from "../../store/thunks/userThunk";
 import ChatTextArea from "./ChatTextArea";
 
 function Chat() {
     
     const theme = useTheme().currentTheme;
-    const dispatch = useAppDispatch();
 
     const currentUser = useAppSelector(state => state.user.currentUser);
-    const currentUserErrorMessage = useAppSelector(state => state.user.error);
 
     const messages = useAppSelector(state => state.messages.messageList);
-
-    useEffect(() => {
-        if (currentUser || currentUserErrorMessage) return;
-        dispatch(fetchUser());
-    })
 
     const renderedMessages = messages.filter(message => message.chatId === "1").map((message) => { //replace 1 later
         if (!currentUser) return null;
