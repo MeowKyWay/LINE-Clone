@@ -1,18 +1,25 @@
-import { Subscription } from 'rxjs'
 import { generateClient } from 'aws-amplify/api';
 import { onCreateUserFriend } from '../../graphql/subscriptions';
+import { OnCreateUserFriendSubscription } from '../../API';
 
 const client = generateClient()
 
-const useAddFriendSubscription = (userID: string , dispatch: (data: string) => void) => {
-    const subscription: Subscription = client.graphql({
+const friendRequestSubscription = (userID: string, onUpdate: (data: OnCreateUserFriendSubscription) => void) => {
+    const subscription = client.graphql({
         query: onCreateUserFriend,
+        variables: {
+            filter: {
+                friendID: {
+                    eq: userID
+                }
+            }
+        }
     }).subscribe({
-        next: () => {
-            dispatch(userID);
+        next: ({ data }) => {
+            onUpdate(data);
         }
     });
     return subscription
 };
 
-export { useAddFriendSubscription }
+export { friendRequestSubscription }

@@ -22,11 +22,15 @@ type UserFriend
     { allow: private, operations: [read] }
   ]) {
   id: ID!
-  userID: ID! @index(name: "friends")
-  user: User @belongsTo(fields: ["userID"])
+  userID: ID! 
+    @index(name: "friends")
+  user: User 
+    @belongsTo(fields: ["userID"])
 
-  friendID: ID! @index(name: "friendOf")
-  friend: User @belongsTo(fields: ["friendID"])
+  friendID: ID! 
+    @index(name: "friendOf")
+  friend: User 
+    @belongsTo(fields: ["friendID"])
 
   status: String!
 }

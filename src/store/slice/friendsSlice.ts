@@ -42,7 +42,12 @@ const friendsSlice = createSlice({
 
     },
     reducers: {
+        addFriendRequest(state, action) {
+            if (!state.friendRequests.data) return;
+            state.friendRequests.data.push(action.payload);
+        }
     }
 })
 
+export const { addFriendRequest } = friendsSlice.actions;
 export const friendsReducer = friendsSlice.reducer;
