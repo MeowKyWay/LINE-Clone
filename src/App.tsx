@@ -9,6 +9,7 @@ import RegisterPage from './pages/authPages/RegisterPage'
 import ResetPasswordPage from './pages/authPages/ResetPasswordPage';
 import { RoutePath } from './RoutePath';
 import TestPage from './pages/TestPage';
+import FriendRequestSubscription from './components/subscription/FriendRequestSubscription';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
           <Body>
             <Outlet />
           </Body>
+          <FriendRequestSubscription />
         </div>
 
 
