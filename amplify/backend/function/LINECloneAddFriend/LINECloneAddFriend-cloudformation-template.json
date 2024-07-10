@@ -103,12 +103,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "linecloneLambdaRole19aff3ea",
+            "linecloneLambdaRoled0bd6db1",
             {
               "Fn::Join": [
                 "",
                 [
-                  "linecloneLambdaRole19aff3ea",
+                  "linecloneLambdaRoled0bd6db1",
                   "-",
                   {
                     "Ref": "env"
@@ -237,26 +237,6 @@
                         "Ref": "apilinecloneGraphQLAPIIdOutput"
                       },
                       "/types/Mutation/*"
-                    ]
-                  ]
-                },
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:aws:appsync:",
-                      {
-                        "Ref": "AWS::Region"
-                      },
-                      ":",
-                      {
-                        "Ref": "AWS::AccountId"
-                      },
-                      ":apis/",
-                      {
-                        "Ref": "apilinecloneGraphQLAPIIdOutput"
-                      },
-                      "/types/Subscription/*"
                     ]
                   ]
                 }

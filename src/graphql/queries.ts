@@ -13,6 +13,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     id
     name
     statusMessage
+    image
     friends {
       nextToken
       __typename
@@ -37,6 +38,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
       id
       name
       statusMessage
+      image
       createdAt
       updatedAt
       __typename
@@ -54,6 +56,7 @@ export const getUserFriend = /* GraphQL */ `query GetUserFriend($id: ID!) {
       id
       name
       statusMessage
+      image
       createdAt
       updatedAt
       __typename
@@ -63,6 +66,7 @@ export const getUserFriend = /* GraphQL */ `query GetUserFriend($id: ID!) {
       id
       name
       statusMessage
+      image
       createdAt
       updatedAt
       __typename
