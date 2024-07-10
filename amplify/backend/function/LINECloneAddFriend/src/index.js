@@ -96,6 +96,27 @@ const createUserFriend = async (userID, friendID, status) => {
       mutation CREATE_USER_FRIEND($input: CreateUserFriendInput!) {
         createUserFriend(input: $input) {
           id
+          userID
+          friendID
+          status
+          createdAt
+          updatedAt
+
+          user {
+            id
+            name 
+            statusMessage
+            createdAt
+            updatedAt
+          }
+          
+          friend {
+            id
+            name
+            statusMessage
+            createdAt
+            updatedAt
+          }
         }
       }
     `,

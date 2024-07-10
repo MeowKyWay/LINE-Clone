@@ -1,50 +1,48 @@
 import AccountList from "../../components/menu_list/AccountList"
 import { useAppDispatch, useAppSelector } from "../../hook";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { fetchFriendRequest } from "../../store/thunks/friendsThunk";
 import ExpandListButton from "../../components/ExpandListButton";
 import { setFriendRequestListState } from "../../store/slice/statesSlice";
-import { useAddFriendSubscription } from "../../store/subscriptions/userFriendSubscription";
+import { Subscription } from "rxjs"
+import { fetchUser } from "../../store/thunks/userThunk";
+import { addFriendRequest } from "../../store/slice/friendsSlice";
+import { friendRequestSubscription } from "../../store/subscriptions/userFriendSubscription";
 
 function FriendRequestsList() {
 
     const dispatch = useAppDispatch();
 
     const friendRequests = useAppSelector(state => state.friends.friendRequests);
-    console.log(friendRequests)
 
     const friendRequestListState = useAppSelector(state => state.states.friendRequestListState);
     const user = useAppSelector(state => state.user);
 
-    const dispatchRequest = (data: string) => {
-        dispatch(fetchFriendRequest(data));
-    }
+    const subscription = useRef<Subscription | null>(null);
 
-    useAddFriendSubscription(user.currentUser?.lineID as string , dispatchRequest)
-    
-    // let subOnUpdateFriendRequest: Subscription
+    useEffect(() => {
+        if (user.currentUser || user.error) return;
+        console.log('fetchUser')
+        dispatch(fetchUser());
+    }, [dispatch, user.currentUser, user.error])
 
-    // function setUpSubscription(){
-    //     if (!user) return;
-    //     subOnUpdateFriendRequest = client.graphql({
-    //         query: onCreateUserFriend,
-    //     }).subscribe({
-    //         next: ({data}) => {
-    //             const request = data.onCreateUserFriend as UserFriend
-    //             setNewRequest(request)
-    //             dispatch(fetchFriendRequest(user.currentUser?.lineID as string))
-    //         }
-    //     })
-    // }
+    useEffect(() => {
+        if (subscription.current)
+            subscription.current.unsubscribe();
 
-    // console.log("newRequest: ",newRequest)
+        const newSubscription = friendRequestSubscription(user.currentUser?.lineID as string, (data) => {
+            dispatch(addFriendRequest(data.onCreateUserFriend?.user));
+        })
 
-    // useEffect(() => {
-    //     setUpSubscription();
-    //     return () => {
-    //         subOnUpdateFriendRequest.unsubscribe();
-    //     }
-    // },[])
+        subscription.current = newSubscription;
+
+        return () => {
+            if (newSubscription) {
+                newSubscription.unsubscribe();
+            }
+        };
+
+    }, [dispatch, user.currentUser?.lineID]);
 
     useEffect(() => {
         if (friendRequests.data || friendRequests.error) return;
