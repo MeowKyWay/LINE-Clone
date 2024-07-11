@@ -29,7 +29,7 @@ function FriendsPage() {
     }, [navigate, location.pathname]);
 
 
-    const user = useAppSelector(state => state.user);    
+    const user = useAppSelector(state => state.user); 
     const groupListState = useAppSelector(state => state.states.groupListState);
     const searchTerm = useAppSelector(state => state.terms.friendsTerm);
 

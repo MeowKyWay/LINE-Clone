@@ -2,12 +2,12 @@ import { useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import SearchField from "../../components/input/SearchField";
 import useTheme from "../../theme";
-import ProfilePicture from "../../components/ProfilePicture";
 import Button from "../../components/input/Button";
 import { User } from "../../API";
 import { searchUserByUsername } from "../../utilities/APIUtils";
 import { useAppDispatch, useAppSelector } from "../../hook";
 import { addFriend } from "../../store/thunks/friendsThunk";
+import FriendProfilePicture from "../../components/FriendProfilePicture";
 
 function AddFriendModal({ onClose }: {
     onClose: () => void
@@ -70,7 +70,7 @@ function AddFriendModal({ onClose }: {
                 <div className="flex-1 w-full flex flex-col items-center justify-center">
                 { (friend && !userNotFound) && (
                         <>
-                        <ProfilePicture size="94px"></ProfilePicture>
+                        <FriendProfilePicture user={friend} size="94px"></FriendProfilePicture>
                         <span className="mt-3">{friend.name}</span>
                         <span className="text-red-500 text-xs font-light">{errorMessage}</span>
                         {

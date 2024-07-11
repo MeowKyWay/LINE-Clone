@@ -7,7 +7,6 @@ function FetchUser() {
     const dispatch = useAppDispatch();
 
     const user = useAppSelector(state => state.user);
-    console.log(user);
     
 
     useEffect(() => {

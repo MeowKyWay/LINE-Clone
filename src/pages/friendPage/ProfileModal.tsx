@@ -4,12 +4,12 @@ import { useAppSelector } from "../../hook";
 import useTheme from "../../theme";
 import { CiCamera } from "react-icons/ci";
 import { useRef, useState } from "react";
-import { StorageImage } from "@aws-amplify/ui-react-storage";
-import { useEffect } from "react";
 import Button from "../../components/input/Button";
-import { getProperties, uploadData } from "aws-amplify/storage";
+import { uploadData } from "aws-amplify/storage";
 import { v4 as uuid} from "uuid"
-import { setProfileUser } from "../../store/thunks/userThunk";
+import { setProfileUser ,  } from "../../store/thunks/userThunk";
+import { useAppDispatch } from "../../hook";
+import { IoPencilOutline } from "react-icons/io5";
 
 function ProfileModal({onClose} : { onClose: () => void}){
     
@@ -18,17 +18,23 @@ function ProfileModal({onClose} : { onClose: () => void}){
     console.log(currentUser?.image)
     const imageFileInput = useRef<HTMLInputElement | null>(null)
     const [image , setImage] = useState<File | null>(null)
-    const [ profileIMG , setProfileIMG] = useState('')
     const [editImg , setEditImg] = useState(false)
-    console.log("image: ", currentUser?.image)
+    const dispatch = useAppDispatch()
+    
+    console.log("editImg: " , editImg)
+    console.log("currentUser: ", currentUser)
+    console.log("image: ",image)
+    console.log("userProfile: ", currentUser?.image)
+
+    const profilePictureStyle = {
+        borderRadius: "50%", width: "94px" , height: "94px"
+    }
 
     const textStyle = {
         color: theme.color.primary.text
     }
 
-    useEffect(() => {
-        updateCoverImage()
-    }, [])
+
 
     function onImageChange(e: React.ChangeEvent<HTMLInputElement>){
         const fileUploaded = e.target.files ? e.target.files[0] : null;
@@ -43,23 +49,12 @@ function ProfileModal({onClose} : { onClose: () => void}){
         }
     }
 
-    async function updateCoverImage(){
-        if(currentUser?.image){
-            try {
-                const result = await getProperties({
-                  path: currentUser.image,
-                });
-                setProfileIMG(result.path)
-              } catch (error) {
-                console.log('Error ', error);
-              }
-        }
-    }
 
     async function uploadImage(){
         if(image){
             const filename = `public/${image.name}_${uuid()}`
-            setProfileUser(filename)
+            dispatch(setProfileUser(filename))
+
               try {
                 const result = await uploadData({
                   path: filename, 
@@ -69,19 +64,22 @@ function ProfileModal({onClose} : { onClose: () => void}){
               } catch (error) {
                 console.log('Error : ', error);
               }
+            setEditImg(false)
         }
     }
 
     return (
         <Modal onClose={onClose} label={"profile page"}  height={"516px"} width={"312px"}>
-            {/* <StorageImage path={profileIMG} alt="profile" className="rounded-lg"></StorageImage> */}
             <div className="flex flex-col items-center justify-center h-full w-full gap-4">
                 <div>
                     {
-                        (image && editImg) ? <ProfilePicture size="94px" src={URL.createObjectURL(image)}/>
-                        :
-                         <ProfilePicture size="94px"></ProfilePicture>
-                        
+                        (image && editImg) && <img style={profilePictureStyle} src={URL.createObjectURL(image)}/>
+                    }
+                    
+                    {
+                        (!editImg) && (
+                            <ProfilePicture size="94px"></ProfilePicture>
+                        )
                     }
                     
                     <input type="file" ref={imageFileInput} onChange={onImageChange} className="absolute w-0 h-0"></input>
@@ -103,7 +101,13 @@ function ProfileModal({onClose} : { onClose: () => void}){
                         </button>
                     </div>
                     :
-                    <><div className="text-sm" style={textStyle}>{currentUser?.name}</div><div className="text-xs" style={textStyle}>status message...</div></>
+                    <>
+                    <div className="text-xl" style={textStyle}>{currentUser?.name}</div>
+                    <div className="flex flex-row cursor-pointer">
+                        <div className="text-xs" style={textStyle}>Enter a status message.</div>
+                        <IoPencilOutline style={textStyle} className="ml-1"></IoPencilOutline>
+                    </div>
+                    </>
                     }
                 </div>
             </div>
