@@ -9,9 +9,14 @@ type User
     image: String
 
     friends: [UserFriend] 
-      @hasMany(indexName: "friends", fields: ["id"])
+      @hasMany(fields: ["id"])
     friendOf: [UserFriend] 
-      @hasMany(indexName: "friendOf", fields: ["id"])
+      @hasMany(fields: ["id"])
+
+    chats: [Chat]
+      @hasMany(fields: ["id"])
+    chatWith: [Chat]
+      @hasMany(fields: ["id"])
 }
 
 type UserFriend
@@ -21,14 +26,28 @@ type UserFriend
   ]) {
   id: ID!
   userID: ID! 
-    @index(name: "friends")
   user: User 
     @belongsTo(fields: ["userID"])
 
   friendID: ID! 
-    @index(name: "friendOf")
   friend: User 
     @belongsTo(fields: ["friendID"])
 
   status: String!
 }
+
+type Chat
+  @model
+  @auth(rules: [
+    { allow: custom, provider: function, operations: [read] }
+  ]) {
+    id: ID!
+
+    userID: ID!
+    user: User 
+      @belongsTo(fields: ["userID"])
+
+    friendID: ID!
+    friend: User 
+      @belongsTo(fields: ["friendID"])
+  }
