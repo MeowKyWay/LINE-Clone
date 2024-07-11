@@ -21,28 +21,31 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type ChatCreateFormInputValues = {
-    userID?: string;
-    friendID?: string;
+export declare type UserCreateFormInputValues = {
+    name?: string;
+    statusMessage?: string;
+    image?: string;
 };
-export declare type ChatCreateFormValidationValues = {
-    userID?: ValidationFunction<string>;
-    friendID?: ValidationFunction<string>;
+export declare type UserCreateFormValidationValues = {
+    name?: ValidationFunction<string>;
+    statusMessage?: ValidationFunction<string>;
+    image?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type ChatCreateFormOverridesProps = {
-    ChatCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    userID?: PrimitiveOverrideProps<TextFieldProps>;
-    friendID?: PrimitiveOverrideProps<TextFieldProps>;
+export declare type UserCreateFormOverridesProps = {
+    UserCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    name?: PrimitiveOverrideProps<TextFieldProps>;
+    statusMessage?: PrimitiveOverrideProps<TextFieldProps>;
+    image?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type ChatCreateFormProps = React.PropsWithChildren<{
-    overrides?: ChatCreateFormOverridesProps | undefined | null;
+export declare type UserCreateFormProps = React.PropsWithChildren<{
+    overrides?: UserCreateFormOverridesProps | undefined | null;
 } & {
     clearOnSuccess?: boolean;
-    onSubmit?: (fields: ChatCreateFormInputValues) => ChatCreateFormInputValues;
-    onSuccess?: (fields: ChatCreateFormInputValues) => void;
-    onError?: (fields: ChatCreateFormInputValues, errorMessage: string) => void;
-    onChange?: (fields: ChatCreateFormInputValues) => ChatCreateFormInputValues;
-    onValidate?: ChatCreateFormValidationValues;
+    onSubmit?: (fields: UserCreateFormInputValues) => UserCreateFormInputValues;
+    onSuccess?: (fields: UserCreateFormInputValues) => void;
+    onError?: (fields: UserCreateFormInputValues, errorMessage: string) => void;
+    onChange?: (fields: UserCreateFormInputValues) => UserCreateFormInputValues;
+    onValidate?: UserCreateFormValidationValues;
 } & React.CSSProperties>;
-export default function ChatCreateForm(props: ChatCreateFormProps): React.ReactElement;
+export default function UserCreateForm(props: UserCreateFormProps): React.ReactElement;

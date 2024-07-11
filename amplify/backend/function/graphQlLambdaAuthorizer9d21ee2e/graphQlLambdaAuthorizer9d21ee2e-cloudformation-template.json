@@ -55,12 +55,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "LINECloneAddFriend",
+            "graphQlLambdaAuthorizer9d21ee2e",
             {
               "Fn::Join": [
                 "",
                 [
-                  "LINECloneAddFriend",
+                  "graphQlLambdaAuthorizer9d21ee2e",
                   "-",
                   {
                     "Ref": "env"
@@ -103,12 +103,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "linecloneLambdaRoled0bd6db1",
+            "linecloneLambdaRole5cd9890a",
             {
               "Fn::Join": [
                 "",
                 [
-                  "linecloneLambdaRoled0bd6db1",
+                  "linecloneLambdaRole5cd9890a",
                   "-",
                   {
                     "Ref": "env"
@@ -177,6 +177,16 @@
             }
           ]
         }
+      }
+    },
+    "PermissionForAppSyncToInvokeLambda": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "LambdaFunction"
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "appsync.amazonaws.com"
       }
     },
     "AmplifyResourcesPolicy": {

@@ -15,6 +15,13 @@
           "additionalAuthenticationProviders": [
             {
               "authenticationType": "AWS_IAM"
+            },
+            {
+              "authenticationType": "AWS_LAMBDA",
+              "lambdaAuthorizerConfig": {
+                "lambdaFunction": "graphQlLambdaAuthorizer9d21ee2e",
+                "ttlSeconds": "300"
+              }
             }
           ],
           "defaultAuthentication": {
@@ -74,6 +81,21 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "graphQlLambdaAuthorizer9d21ee2e": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ],
+          "category": "api",
+          "resourceName": "lineclone"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -90,6 +112,22 @@
         {
           "category": "function",
           "resourceName": "LINECloneAddFriend"
+        }
+      ]
+    },
+    "AMPLIFY_function_graphQlLambdaAuthorizer9d21ee2e_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "graphQlLambdaAuthorizer9d21ee2e"
+        }
+      ]
+    },
+    "AMPLIFY_function_graphQlLambdaAuthorizer9d21ee2e_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "graphQlLambdaAuthorizer9d21ee2e"
         }
       ]
     }

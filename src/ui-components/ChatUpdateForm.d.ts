@@ -23,18 +23,18 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type ChatUpdateFormInputValues = {
-    name?: string;
-    description?: string;
+    userID?: string;
+    friendID?: string;
 };
 export declare type ChatUpdateFormValidationValues = {
-    name?: ValidationFunction<string>;
-    description?: ValidationFunction<string>;
+    userID?: ValidationFunction<string>;
+    friendID?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ChatUpdateFormOverridesProps = {
     ChatUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    name?: PrimitiveOverrideProps<TextFieldProps>;
-    description?: PrimitiveOverrideProps<TextFieldProps>;
+    userID?: PrimitiveOverrideProps<TextFieldProps>;
+    friendID?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type ChatUpdateFormProps = React.PropsWithChildren<{
     overrides?: ChatUpdateFormOverridesProps | undefined | null;

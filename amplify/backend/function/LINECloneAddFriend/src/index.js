@@ -5,18 +5,13 @@
   REGION
 Amplify Params - DO NOT EDIT */
 
+//GraphQL
 import crypto from '@aws-crypto/sha256-js';
 import { defaultProvider } from '@aws-sdk/credential-provider-node';
 import { SignatureV4 } from '@aws-sdk/signature-v4';
 import { HttpRequest } from '@aws-sdk/protocol-http';
 import { default as fetch, Request } from 'node-fetch';
-import { CognitoIdentityProviderClient, GetUserCommand } from "@aws-sdk/client-cognito-identity-provider";
 
-const cognitoClient = new CognitoIdentityProviderClient({
-  region: process.env.AWS_REGION
-});
-
-//GraphQL
 const { Sha256 } = crypto;
 const GRAPHQL_ENDPOINT = process.env.API_LINECLONE_GRAPHQLAPIENDPOINTOUTPUT;
 const endpoint = new URL(GRAPHQL_ENDPOINT);
@@ -47,6 +42,13 @@ const graphql = async (query) => {
   }
 }
 //GraphQL
+
+//Cognito
+import { CognitoIdentityProviderClient, GetUserCommand } from "@aws-sdk/client-cognito-identity-provider";
+const cognitoClient = new CognitoIdentityProviderClient({
+  region: process.env.AWS_REGION
+});
+//Cognito
 
 const getUser = async (accessToken) => {
   try {

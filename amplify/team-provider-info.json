@@ -16,15 +16,22 @@
       "auth": {
         "LINECloneAuth": {}
       },
-      "api": {
-        "lineclone": {}
-      },
       "function": {
+        "LINEClonePostComfirmationTrigger": {},
         "LINECloneAddFriend": {
           "deploymentBucketName": "amplify-lineclone-dev-46391-deployment",
-          "s3Key": "amplify-builds/LINECloneAddFriend-7474464d506f68733044-build.zip"
+          "s3Key": "amplify-builds/LINECloneAddFriend-6d584652776f4c2b4134-build.zip"
         },
-        "LINEClonePostComfirmationTrigger": {}
+        "graphQlLambdaAuthorizer9d21ee2e": {
+          "deploymentBucketName": "amplify-lineclone-dev-46391-deployment",
+          "s3Key": "amplify-builds/graphQlLambdaAuthorizer9d21ee2e-4b7053674f3832493263-build.zip"
+        }
+      },
+      "storage": {
+        "profileImages": {}
+      },
+      "api": {
+        "lineclone": {}
       }
     }
   }

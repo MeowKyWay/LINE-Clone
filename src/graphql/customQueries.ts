@@ -4,7 +4,7 @@ type GeneratedQuery<InputType, OutputType> = string & {
     __generatedQueryOutput: OutputType;
 };
 
-export const listFriend = /* GraphQL */ `query ListUserFriends(
+export const listFriend = /* GraphQL */ `query ListFriends(
     $filter: ModelUserFriendFilterInput
     $limit: Int
     $nextToken: String

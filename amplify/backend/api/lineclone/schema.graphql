@@ -1,10 +1,8 @@
-# This "input" configures a global authorization rule to enable public access to
-# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-
 type User
   @model
   @auth(rules: [
     { allow: private, operations: [read] }
+    { allow: owner , ownerField: "id"}
   ]) {
     id: ID!
     name: String!
@@ -12,9 +10,14 @@ type User
     image: String
 
     friends: [UserFriend] 
-      @hasMany(indexName: "friends", fields: ["id"])
+      @hasMany(fields: ["id"])
     friendOf: [UserFriend] 
-      @hasMany(indexName: "friendOf", fields: ["id"])
+      @hasMany(fields: ["id"])
+
+    chats: [Chat]
+      @hasMany(fields: ["id"])
+    chatWith: [Chat]
+      @hasMany(fields: ["id"])
 }
 
 type UserFriend
@@ -24,14 +27,29 @@ type UserFriend
   ]) {
   id: ID!
   userID: ID! 
-    @index(name: "friends")
   user: User 
     @belongsTo(fields: ["userID"])
 
   friendID: ID! 
-    @index(name: "friendOf")
   friend: User 
     @belongsTo(fields: ["friendID"])
 
   status: String!
 }
+
+type Chat
+  @model
+  @aws_lambda
+  @auth(rules: [
+    { allow: owner, ownerField: "userID", operations: [read] }
+  ]) {
+    id: ID!
+
+    userID: ID!
+    user: User 
+      @belongsTo(fields: ["userID"])
+
+    friendID: ID!
+    friend: User 
+      @belongsTo(fields: ["friendID"])
+  }

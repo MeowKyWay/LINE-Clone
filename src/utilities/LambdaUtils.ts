@@ -6,9 +6,9 @@ export enum LambdaARN {
 
 }
 
-export async function invokeLambda ( {arn, body}: { 
-    arn: LambdaARN | string, 
-    body?: object 
+export async function invokeLambda({ arn, body }: {
+    arn: LambdaARN | string,
+    body?: object
 }) {
     const lambda = new Lambda({
         region: 'ap-southeast-1',
@@ -23,9 +23,14 @@ export async function invokeLambda ( {arn, body}: {
     return lambdaDecode(res);
 }
 
-export function lambdaDecode (response: InvokeCommandOutput) {
-    const decoder = new TextDecoder('utf-8');
-    const payload = JSON.parse(decoder.decode(response.Payload));
-    const body = JSON.parse(payload.body);
-    return body;
+export function lambdaDecode(response: InvokeCommandOutput) {
+    try {
+        const decoder = new TextDecoder('utf-8');
+        const payload = JSON.parse(decoder.decode(response.Payload));
+        const body = JSON.parse(payload.body);
+        return body;
+    } catch (e) {
+        console.log(e);
+        return response;
+    }
 }
