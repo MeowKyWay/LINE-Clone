@@ -21,6 +21,10 @@
         "LINECloneAddFriend": {
           "deploymentBucketName": "amplify-lineclone-dev-46391-deployment",
           "s3Key": "amplify-builds/LINECloneAddFriend-324b306b5348426f6843-build.zip"
+        },
+        "graphQlLambdaAuthorizer9d21ee2e": {
+          "deploymentBucketName": "amplify-lineclone-dev-46391-deployment",
+          "s3Key": "amplify-builds/graphQlLambdaAuthorizer9d21ee2e-34384f577a7a556a3357-build.zip"
         }
       },
       "storage": {

@@ -104,25 +104,27 @@ export const listUserFriends = /* GraphQL */ `query ListUserFriends(
   APITypes.ListUserFriendsQueryVariables,
   APITypes.ListUserFriendsQuery
 >;
-export const userFriendsByUserID = /* GraphQL */ `query UserFriendsByUserID(
-  $userID: ID!
-  $sortDirection: ModelSortDirection
-  $filter: ModelUserFriendFilterInput
+export const getChat = /* GraphQL */ `query GetChat($id: ID!) {
+  getChat(id: $id) {
+    id
+    userID
+    friendID
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetChatQueryVariables, APITypes.GetChatQuery>;
+export const listChats = /* GraphQL */ `query ListChats(
+  $filter: ModelChatFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  userFriendsByUserID(
-    userID: $userID
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
+  listChats(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
       userID
       friendID
-      status
       createdAt
       updatedAt
       __typename
@@ -131,38 +133,4 @@ export const userFriendsByUserID = /* GraphQL */ `query UserFriendsByUserID(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.UserFriendsByUserIDQueryVariables,
-  APITypes.UserFriendsByUserIDQuery
->;
-export const userFriendsByFriendID = /* GraphQL */ `query UserFriendsByFriendID(
-  $friendID: ID!
-  $sortDirection: ModelSortDirection
-  $filter: ModelUserFriendFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  userFriendsByFriendID(
-    friendID: $friendID
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      userID
-      friendID
-      status
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.UserFriendsByFriendIDQueryVariables,
-  APITypes.UserFriendsByFriendIDQuery
->;
+` as GeneratedQuery<APITypes.ListChatsQueryVariables, APITypes.ListChatsQuery>;

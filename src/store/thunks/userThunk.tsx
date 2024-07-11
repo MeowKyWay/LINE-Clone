@@ -10,15 +10,24 @@ const client = generateClient();
 const fetchUser = createAsyncThunk('users/fetch', async () => {
 
     const username = (await getCurrentUser()).username;
+    console.log(username);
+    
     const userAttribute = (await fetchUserAttributes());
-
+    try{
     const response = await client.graphql({
         query: getUser,
         variables: {
             id: username
         }
-    })
+    })}
+    catch(e){
+        console.log(e);
+        
+    }
+    console.log(response);
+    
     const user = response.data.getUser;
+    
 
 
     return {
@@ -36,15 +45,17 @@ const logout = createAsyncThunk('users/logout', async () => {
 
 const setProfileUser = createAsyncThunk('user/setImg', async (filename: string) => {
     const username = (await getCurrentUser()).username;
-    await client.graphql({
+    const response = await client.graphql({
         query: updateUser,
         variables: {
             input: {
                 id: username,
-                
+                image: filename
             }
         }
     })
+    console.log(response.data.updateUser.image)
+    return response.data.updateUser.image;
 })
 
 export { fetchUser, logout , setProfileUser}
