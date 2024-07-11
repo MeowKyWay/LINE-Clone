@@ -37,7 +37,7 @@ const addFriend = createAsyncThunk('addFriend', async (friendID: string, { rejec
     if (response.status === "error") 
         return rejectWithValue(response.message);
     const friend = (await client.graphql({
-        query: getUser,
+        query: getUser, //Todo
         variables: {
             id: friendID,
         }

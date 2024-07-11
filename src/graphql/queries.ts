@@ -22,6 +22,14 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
       nextToken
       __typename
     }
+    chats {
+      nextToken
+      __typename
+    }
+    chatWith {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -108,7 +116,25 @@ export const getChat = /* GraphQL */ `query GetChat($id: ID!) {
   getChat(id: $id) {
     id
     userID
+    user {
+      id
+      name
+      statusMessage
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     friendID
+    friend {
+      id
+      name
+      statusMessage
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     __typename

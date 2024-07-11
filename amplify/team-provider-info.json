@@ -20,11 +20,11 @@
         "LINEClonePostComfirmationTrigger": {},
         "LINECloneAddFriend": {
           "deploymentBucketName": "amplify-lineclone-dev-46391-deployment",
-          "s3Key": "amplify-builds/LINECloneAddFriend-324b306b5348426f6843-build.zip"
+          "s3Key": "amplify-builds/LINECloneAddFriend-6d584652776f4c2b4134-build.zip"
         },
         "graphQlLambdaAuthorizer9d21ee2e": {
           "deploymentBucketName": "amplify-lineclone-dev-46391-deployment",
-          "s3Key": "amplify-builds/graphQlLambdaAuthorizer9d21ee2e-34384f577a7a556a3357-build.zip"
+          "s3Key": "amplify-builds/graphQlLambdaAuthorizer9d21ee2e-4b7053674f3832493263-build.zip"
         }
       },
       "storage": {

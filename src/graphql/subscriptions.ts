@@ -25,6 +25,14 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser(
       nextToken
       __typename
     }
+    chats {
+      nextToken
+      __typename
+    }
+    chatWith {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -51,6 +59,14 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser(
       nextToken
       __typename
     }
+    chats {
+      nextToken
+      __typename
+    }
+    chatWith {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -74,6 +90,14 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser(
       __typename
     }
     friendOf {
+      nextToken
+      __typename
+    }
+    chats {
+      nextToken
+      __typename
+    }
+    chatWith {
       nextToken
       __typename
     }
@@ -191,11 +215,32 @@ export const onDeleteUserFriend = /* GraphQL */ `subscription OnDeleteUserFriend
   APITypes.OnDeleteUserFriendSubscriptionVariables,
   APITypes.OnDeleteUserFriendSubscription
 >;
-export const onCreateChat = /* GraphQL */ `subscription OnCreateChat($filter: ModelSubscriptionChatFilterInput) {
-  onCreateChat(filter: $filter) {
+export const onCreateChat = /* GraphQL */ `subscription OnCreateChat(
+  $filter: ModelSubscriptionChatFilterInput
+  $userID: String
+) {
+  onCreateChat(filter: $filter, userID: $userID) {
     id
     userID
+    user {
+      id
+      name
+      statusMessage
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     friendID
+    friend {
+      id
+      name
+      statusMessage
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -205,11 +250,32 @@ export const onCreateChat = /* GraphQL */ `subscription OnCreateChat($filter: Mo
   APITypes.OnCreateChatSubscriptionVariables,
   APITypes.OnCreateChatSubscription
 >;
-export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat($filter: ModelSubscriptionChatFilterInput) {
-  onUpdateChat(filter: $filter) {
+export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat(
+  $filter: ModelSubscriptionChatFilterInput
+  $userID: String
+) {
+  onUpdateChat(filter: $filter, userID: $userID) {
     id
     userID
+    user {
+      id
+      name
+      statusMessage
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     friendID
+    friend {
+      id
+      name
+      statusMessage
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -219,11 +285,32 @@ export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat($filter: Mo
   APITypes.OnUpdateChatSubscriptionVariables,
   APITypes.OnUpdateChatSubscription
 >;
-export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat($filter: ModelSubscriptionChatFilterInput) {
-  onDeleteChat(filter: $filter) {
+export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat(
+  $filter: ModelSubscriptionChatFilterInput
+  $userID: String
+) {
+  onDeleteChat(filter: $filter, userID: $userID) {
     id
     userID
+    user {
+      id
+      name
+      statusMessage
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     friendID
+    friend {
+      id
+      name
+      statusMessage
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     __typename

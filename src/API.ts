@@ -96,6 +96,25 @@ export type User = {
   image?: string | null,
   friends?: ModelUserFriendConnection | null,
   friendOf?: ModelUserFriendConnection | null,
+  chats?: ModelChatConnection | null,
+  chatWith?: ModelChatConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelChatConnection = {
+  __typename: "ModelChatConnection",
+  items:  Array<Chat | null >,
+  nextToken?: string | null,
+};
+
+export type Chat = {
+  __typename: "Chat",
+  id: string,
+  userID: string,
+  user?: User | null,
+  friendID: string,
+  friend?: User | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -175,15 +194,6 @@ export type ModelChatConditionInput = {
   updatedAt?: ModelStringInput | null,
 };
 
-export type Chat = {
-  __typename: "Chat",
-  id: string,
-  userID: string,
-  friendID: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
 export type UpdateChatInput = {
   id: string,
   userID?: string | null,
@@ -221,12 +231,6 @@ export type ModelChatFilterInput = {
   and?: Array< ModelChatFilterInput | null > | null,
   or?: Array< ModelChatFilterInput | null > | null,
   not?: ModelChatFilterInput | null,
-};
-
-export type ModelChatConnection = {
-  __typename: "ModelChatConnection",
-  items:  Array<Chat | null >,
-  nextToken?: string | null,
 };
 
 export type ModelSubscriptionUserFilterInput = {
@@ -283,12 +287,12 @@ export type ModelSubscriptionIDInput = {
 
 export type ModelSubscriptionChatFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  userID?: ModelSubscriptionIDInput | null,
   friendID?: ModelSubscriptionIDInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionChatFilterInput | null > | null,
   or?: Array< ModelSubscriptionChatFilterInput | null > | null,
+  userID?: ModelStringInput | null,
 };
 
 export type ListFriendsQueryVariables = {
@@ -345,6 +349,14 @@ export type CreateUserMutation = {
       __typename: "ModelUserFriendConnection",
       nextToken?: string | null,
     } | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
+    chatWith?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -370,6 +382,14 @@ export type UpdateUserMutation = {
       __typename: "ModelUserFriendConnection",
       nextToken?: string | null,
     } | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
+    chatWith?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -393,6 +413,14 @@ export type DeleteUserMutation = {
     } | null,
     friendOf?:  {
       __typename: "ModelUserFriendConnection",
+      nextToken?: string | null,
+    } | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
+    chatWith?:  {
+      __typename: "ModelChatConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -515,7 +543,25 @@ export type CreateChatMutation = {
     __typename: "Chat",
     id: string,
     userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      statusMessage: string,
+      image?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     friendID: string,
+    friend?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      statusMessage: string,
+      image?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -531,7 +577,25 @@ export type UpdateChatMutation = {
     __typename: "Chat",
     id: string,
     userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      statusMessage: string,
+      image?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     friendID: string,
+    friend?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      statusMessage: string,
+      image?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -547,7 +611,25 @@ export type DeleteChatMutation = {
     __typename: "Chat",
     id: string,
     userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      statusMessage: string,
+      image?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     friendID: string,
+    friend?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      statusMessage: string,
+      image?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -570,6 +652,14 @@ export type GetUserQuery = {
     } | null,
     friendOf?:  {
       __typename: "ModelUserFriendConnection",
+      nextToken?: string | null,
+    } | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
+    chatWith?:  {
+      __typename: "ModelChatConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -664,7 +754,25 @@ export type GetChatQuery = {
     __typename: "Chat",
     id: string,
     userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      statusMessage: string,
+      image?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     friendID: string,
+    friend?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      statusMessage: string,
+      image?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -711,6 +819,14 @@ export type OnCreateUserSubscription = {
       __typename: "ModelUserFriendConnection",
       nextToken?: string | null,
     } | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
+    chatWith?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -736,6 +852,14 @@ export type OnUpdateUserSubscription = {
       __typename: "ModelUserFriendConnection",
       nextToken?: string | null,
     } | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
+    chatWith?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -759,6 +883,14 @@ export type OnDeleteUserSubscription = {
     } | null,
     friendOf?:  {
       __typename: "ModelUserFriendConnection",
+      nextToken?: string | null,
+    } | null,
+    chats?:  {
+      __typename: "ModelChatConnection",
+      nextToken?: string | null,
+    } | null,
+    chatWith?:  {
+      __typename: "ModelChatConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -870,6 +1002,7 @@ export type OnDeleteUserFriendSubscription = {
 
 export type OnCreateChatSubscriptionVariables = {
   filter?: ModelSubscriptionChatFilterInput | null,
+  userID?: string | null,
 };
 
 export type OnCreateChatSubscription = {
@@ -877,7 +1010,25 @@ export type OnCreateChatSubscription = {
     __typename: "Chat",
     id: string,
     userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      statusMessage: string,
+      image?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     friendID: string,
+    friend?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      statusMessage: string,
+      image?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -885,6 +1036,7 @@ export type OnCreateChatSubscription = {
 
 export type OnUpdateChatSubscriptionVariables = {
   filter?: ModelSubscriptionChatFilterInput | null,
+  userID?: string | null,
 };
 
 export type OnUpdateChatSubscription = {
@@ -892,7 +1044,25 @@ export type OnUpdateChatSubscription = {
     __typename: "Chat",
     id: string,
     userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      statusMessage: string,
+      image?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     friendID: string,
+    friend?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      statusMessage: string,
+      image?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -900,6 +1070,7 @@ export type OnUpdateChatSubscription = {
 
 export type OnDeleteChatSubscriptionVariables = {
   filter?: ModelSubscriptionChatFilterInput | null,
+  userID?: string | null,
 };
 
 export type OnDeleteChatSubscription = {
@@ -907,7 +1078,25 @@ export type OnDeleteChatSubscription = {
     __typename: "Chat",
     id: string,
     userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      statusMessage: string,
+      image?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     friendID: string,
+    friend?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      statusMessage: string,
+      image?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,

@@ -25,6 +25,14 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
       nextToken
       __typename
     }
+    chats {
+      nextToken
+      __typename
+    }
+    chatWith {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -51,6 +59,14 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
       nextToken
       __typename
     }
+    chats {
+      nextToken
+      __typename
+    }
+    chatWith {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -74,6 +90,14 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
       __typename
     }
     friendOf {
+      nextToken
+      __typename
+    }
+    chats {
+      nextToken
+      __typename
+    }
+    chatWith {
       nextToken
       __typename
     }
@@ -201,7 +225,25 @@ export const createChat = /* GraphQL */ `mutation CreateChat(
   createChat(input: $input, condition: $condition) {
     id
     userID
+    user {
+      id
+      name
+      statusMessage
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     friendID
+    friend {
+      id
+      name
+      statusMessage
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -218,7 +260,25 @@ export const updateChat = /* GraphQL */ `mutation UpdateChat(
   updateChat(input: $input, condition: $condition) {
     id
     userID
+    user {
+      id
+      name
+      statusMessage
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     friendID
+    friend {
+      id
+      name
+      statusMessage
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -235,7 +295,25 @@ export const deleteChat = /* GraphQL */ `mutation DeleteChat(
   deleteChat(input: $input, condition: $condition) {
     id
     userID
+    user {
+      id
+      name
+      statusMessage
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     friendID
+    friend {
+      id
+      name
+      statusMessage
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     __typename

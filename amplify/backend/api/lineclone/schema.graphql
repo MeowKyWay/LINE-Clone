@@ -14,10 +14,10 @@ type User
     friendOf: [UserFriend] 
       @hasMany(fields: ["id"])
 
-    # chats: [Chat]
-    #   @hasMany(fields: ["id"])
-    # chatWith: [Chat]
-    #   @hasMany(fields: ["id"])
+    chats: [Chat]
+      @hasMany(fields: ["id"])
+    chatWith: [Chat]
+      @hasMany(fields: ["id"])
 }
 
 type UserFriend
@@ -41,15 +41,15 @@ type Chat
   @model
   @aws_lambda
   @auth(rules: [
-    { allow: custom, provider: function, operations: [read] }
+    { allow: owner, ownerField: "userID", operations: [read] }
   ]) {
     id: ID!
 
     userID: ID!
-    # user: User 
-    #   @belongsTo(fields: ["userID"])
+    user: User 
+      @belongsTo(fields: ["userID"])
 
     friendID: ID!
-    # friend: User 
-    #   @belongsTo(fields: ["friendID"])
+    friend: User 
+      @belongsTo(fields: ["friendID"])
   }

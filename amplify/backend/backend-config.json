@@ -84,6 +84,16 @@
     },
     "graphQlLambdaAuthorizer9d21ee2e": {
       "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ],
+          "category": "api",
+          "resourceName": "lineclone"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
