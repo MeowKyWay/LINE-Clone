@@ -17,7 +17,7 @@ function AddFriendModal({ onClose }: {
     const user = useAppSelector(state => state.user);
 
     const [friend, setFriend] = useState<User | null>(null);
-    const [userNotFound , setUserNotFound] = useState(false)
+    const [userNotFound, setUserNotFound] = useState(false)
 
     const errorMessage = useAppSelector((state) => state.friends.error);
 
@@ -34,7 +34,7 @@ function AddFriendModal({ onClose }: {
             setFriend(user);
             setUserNotFound(false)
         }
-        else{
+        else {
             setUserNotFound(true)
         }
     }
@@ -68,41 +68,39 @@ function AddFriendModal({ onClose }: {
 
 
                 <div className="flex-1 w-full flex flex-col items-center justify-center">
-                { (friend && !userNotFound) && (
+                    {(friend && !userNotFound) && (
                         <>
-                        <ProfilePicture size="94px"></ProfilePicture>
-                        <span className="mt-3">{friend.name}</span>
-                        <span className="text-red-500 text-xs font-light">{errorMessage}</span>
-                        {
-                            friend.id === user.currentUser?.lineID ? 
-                            <div className="flex flex-col items-center gap-4">
-                                <div className="text-xs text-gray-400">You can't add yourself as a friend.</div>
-                                <Button type="disabled" className="text-sm w-22 h-7.5" onClick={handleAddFriend}>Add</Button>
-                            </div>
-
-                            :
-
-                            <div>
-                                <Button type="primary" className="text-sm w-22 h-7.5" onClick={handleAddFriend}>Add</Button>
-                            </div>
-                        }
-                    </>
+                            <ProfilePicture size="94px"></ProfilePicture>
+                            <span className="mt-3">{friend.name}</span>
+                            <span className="text-red-500 text-xs font-light">{errorMessage}</span>
+                            {
+                                friend.id === user.currentUser?.lineID ?
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div className="text-xs text-gray-400">You can't add yourself as a friend.</div>
+                                        <Button type="disabled" className="text-sm w-22 h-7.5" onClick={handleAddFriend}>Add</Button>
+                                    </div>
+                                    :
+                                    <div>
+                                        <Button type="primary" className="text-sm w-22 h-7.5" onClick={handleAddFriend}>Add</Button>
+                                    </div>
+                            }
+                        </>
 
                     )}
-                    
-                {
-                    (userNotFound) &&  (
-                        <>
-                            <span className="text-sm">User not found.</span>
-                            <div>
-                                <Button type="primary" onClick={onClose} className="w-22 h-8 mt-2">OK</Button>
-                            </div>
-                        </>
-                    )
-                }
 
-                    
-                
+                    {
+                        (userNotFound) && (
+                            <>
+                                <span className="text-sm">User not found.</span>
+                                <div>
+                                    <Button type="primary" onClick={onClose} className="w-22 h-8 mt-2">OK</Button>
+                                </div>
+                            </>
+                        )
+                    }
+
+
+
                 </div>
             </div>
         </Modal>
