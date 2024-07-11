@@ -16,18 +16,18 @@
       "auth": {
         "LINECloneAuth": {}
       },
-      "api": {
-        "lineclone": {}
-      },
       "function": {
+        "LINEClonePostComfirmationTrigger": {},
         "LINECloneAddFriend": {
           "deploymentBucketName": "amplify-lineclone-dev-46391-deployment",
-          "s3Key": "amplify-builds/LINECloneAddFriend-7474464d506f68733044-build.zip"
-        },
-        "LINEClonePostComfirmationTrigger": {}
+          "s3Key": "amplify-builds/LINECloneAddFriend-324b306b5348426f6843-build.zip"
+        }
       },
       "storage": {
         "profileImages": {}
+      },
+      "api": {
+        "lineclone": {}
       }
     }
   }

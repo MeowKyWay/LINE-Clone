@@ -3,6 +3,7 @@ import { generateClient } from "aws-amplify/api";
 import { getUser } from "../../graphql/queries";
 import { UserType } from "../slice/userSlice";
 import { fetchUserAttributes, getCurrentUser, signOut } from "aws-amplify/auth";
+import { updateUser } from "../../graphql/mutations";
 
 const client = generateClient();
 
@@ -33,4 +34,17 @@ const logout = createAsyncThunk('users/logout', async () => {
     return "Logged out successfully";
 })
 
-export { fetchUser, logout }
+const setProfileUser = createAsyncThunk('user/setImg', async (filename: string) => {
+    const username = (await getCurrentUser()).username;
+    await client.graphql({
+        query: updateUser,
+        variables: {
+            input: {
+                id: username,
+                
+            }
+        }
+    })
+})
+
+export { fetchUser, logout , setProfileUser}

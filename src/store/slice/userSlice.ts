@@ -7,6 +7,7 @@ export interface UserType {
     lineID: string;
     statusMessage: string;
     chatFolders: string;
+    image?: string
 }
 
 const initialState = {

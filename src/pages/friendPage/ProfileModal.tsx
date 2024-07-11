@@ -6,6 +6,8 @@ import { CiCamera } from "react-icons/ci";
 import { useRef, useState } from "react";
 import { StorageImage } from "@aws-amplify/ui-react-storage";
 import Button from "../../components/input/Button";
+import { uploadData } from "aws-amplify/storage";
+import { v4 as uuid} from "uuid"
 
 function ProfileModal({onClose} : { onClose: () => void}){
     
@@ -28,9 +30,25 @@ function ProfileModal({onClose} : { onClose: () => void}){
         setImage(fileUploaded)
     }
 
-    async function uploadImage(){
+    async function uploadImageRef(){
         if(imageFileInput.current){
             imageFileInput.current.click()
+        }
+    }
+
+    async function uploadImage(){
+        if(image){
+            const filename = `public/${image.name}_${uuid()}`
+            // user.coverImage = filename
+              try {
+                const result = await uploadData({
+                  path: filename, 
+                  data: image,
+                }).result;
+                console.log('Succeeded: ', result);
+              } catch (error) {
+                console.log('Error : ', error);
+              }
         }
     }
 
@@ -46,7 +64,7 @@ function ProfileModal({onClose} : { onClose: () => void}){
                     
                     <input type="file" ref={imageFileInput} onChange={onImageChange} className="absolute w-0 h-0"></input>
                     <div className="relative bottom-4 left-16 bg-white border border-gray-600 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer">
-                        <CiCamera onClick={uploadImage}></CiCamera>
+                        <CiCamera onClick={uploadImageRef}></CiCamera>
                     </div>
                 </div>
                 <div className="flex flex-col items-center gap-2">

@@ -16,6 +16,7 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
     id
     name
     statusMessage
+    image
     friends {
       nextToken
       __typename
@@ -41,6 +42,7 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
     id
     name
     statusMessage
+    image
     friends {
       nextToken
       __typename
@@ -66,6 +68,7 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
     id
     name
     statusMessage
+    image
     friends {
       nextToken
       __typename
@@ -94,6 +97,7 @@ export const createUserFriend = /* GraphQL */ `mutation CreateUserFriend(
       id
       name
       statusMessage
+      image
       createdAt
       updatedAt
       __typename
@@ -103,6 +107,7 @@ export const createUserFriend = /* GraphQL */ `mutation CreateUserFriend(
       id
       name
       statusMessage
+      image
       createdAt
       updatedAt
       __typename
@@ -128,6 +133,7 @@ export const updateUserFriend = /* GraphQL */ `mutation UpdateUserFriend(
       id
       name
       statusMessage
+      image
       createdAt
       updatedAt
       __typename
@@ -137,6 +143,7 @@ export const updateUserFriend = /* GraphQL */ `mutation UpdateUserFriend(
       id
       name
       statusMessage
+      image
       createdAt
       updatedAt
       __typename
@@ -162,6 +169,7 @@ export const deleteUserFriend = /* GraphQL */ `mutation DeleteUserFriend(
       id
       name
       statusMessage
+      image
       createdAt
       updatedAt
       __typename
@@ -171,6 +179,7 @@ export const deleteUserFriend = /* GraphQL */ `mutation DeleteUserFriend(
       id
       name
       statusMessage
+      image
       createdAt
       updatedAt
       __typename

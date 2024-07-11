@@ -13,6 +13,7 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
     id
     name
     statusMessage
+    image
     friends {
       nextToken
       __typename
@@ -35,6 +36,7 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
     id
     name
     statusMessage
+    image
     friends {
       nextToken
       __typename
@@ -57,6 +59,7 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
     id
     name
     statusMessage
+    image
     friends {
       nextToken
       __typename
@@ -84,6 +87,7 @@ export const onCreateUserFriend = /* GraphQL */ `subscription OnCreateUserFriend
       id
       name
       statusMessage
+      image
       createdAt
       updatedAt
       __typename
@@ -93,6 +97,7 @@ export const onCreateUserFriend = /* GraphQL */ `subscription OnCreateUserFriend
       id
       name
       statusMessage
+      image
       createdAt
       updatedAt
       __typename
@@ -117,6 +122,7 @@ export const onUpdateUserFriend = /* GraphQL */ `subscription OnUpdateUserFriend
       id
       name
       statusMessage
+      image
       createdAt
       updatedAt
       __typename
@@ -126,6 +132,7 @@ export const onUpdateUserFriend = /* GraphQL */ `subscription OnUpdateUserFriend
       id
       name
       statusMessage
+      image
       createdAt
       updatedAt
       __typename
@@ -150,6 +157,7 @@ export const onDeleteUserFriend = /* GraphQL */ `subscription OnDeleteUserFriend
       id
       name
       statusMessage
+      image
       createdAt
       updatedAt
       __typename
@@ -159,6 +167,7 @@ export const onDeleteUserFriend = /* GraphQL */ `subscription OnDeleteUserFriend
       id
       name
       statusMessage
+      image
       createdAt
       updatedAt
       __typename
