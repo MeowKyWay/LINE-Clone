@@ -23,22 +23,20 @@ export default function ChatCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    name: "",
-    description: "",
+    userID: "",
+    friendID: "",
   };
-  const [name, setName] = React.useState(initialValues.name);
-  const [description, setDescription] = React.useState(
-    initialValues.description
-  );
+  const [userID, setUserID] = React.useState(initialValues.userID);
+  const [friendID, setFriendID] = React.useState(initialValues.friendID);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setName(initialValues.name);
-    setDescription(initialValues.description);
+    setUserID(initialValues.userID);
+    setFriendID(initialValues.friendID);
     setErrors({});
   };
   const validations = {
-    name: [{ type: "Required" }],
-    description: [],
+    userID: [{ type: "Required" }],
+    friendID: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -66,8 +64,8 @@ export default function ChatCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          name,
-          description,
+          userID,
+          friendID,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -122,54 +120,54 @@ export default function ChatCreateForm(props) {
       {...rest}
     >
       <TextField
-        label="Name"
+        label="User id"
         isRequired={true}
         isReadOnly={false}
-        value={name}
+        value={userID}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              name: value,
-              description,
+              userID: value,
+              friendID,
             };
             const result = onChange(modelFields);
-            value = result?.name ?? value;
+            value = result?.userID ?? value;
           }
-          if (errors.name?.hasError) {
-            runValidationTasks("name", value);
+          if (errors.userID?.hasError) {
+            runValidationTasks("userID", value);
           }
-          setName(value);
+          setUserID(value);
         }}
-        onBlur={() => runValidationTasks("name", name)}
-        errorMessage={errors.name?.errorMessage}
-        hasError={errors.name?.hasError}
-        {...getOverrideProps(overrides, "name")}
+        onBlur={() => runValidationTasks("userID", userID)}
+        errorMessage={errors.userID?.errorMessage}
+        hasError={errors.userID?.hasError}
+        {...getOverrideProps(overrides, "userID")}
       ></TextField>
       <TextField
-        label="Description"
-        isRequired={false}
+        label="Friend id"
+        isRequired={true}
         isReadOnly={false}
-        value={description}
+        value={friendID}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              name,
-              description: value,
+              userID,
+              friendID: value,
             };
             const result = onChange(modelFields);
-            value = result?.description ?? value;
+            value = result?.friendID ?? value;
           }
-          if (errors.description?.hasError) {
-            runValidationTasks("description", value);
+          if (errors.friendID?.hasError) {
+            runValidationTasks("friendID", value);
           }
-          setDescription(value);
+          setFriendID(value);
         }}
-        onBlur={() => runValidationTasks("description", description)}
-        errorMessage={errors.description?.errorMessage}
-        hasError={errors.description?.hasError}
-        {...getOverrideProps(overrides, "description")}
+        onBlur={() => runValidationTasks("friendID", friendID)}
+        errorMessage={errors.friendID?.errorMessage}
+        hasError={errors.friendID?.hasError}
+        {...getOverrideProps(overrides, "friendID")}
       ></TextField>
       <Flex
         justifyContent="space-between"

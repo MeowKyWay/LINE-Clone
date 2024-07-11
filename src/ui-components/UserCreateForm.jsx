@@ -9,13 +9,11 @@ import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
-import { getChat } from "../graphql/queries";
-import { updateChat } from "../graphql/mutations";
+import { createUser } from "../graphql/mutations";
 const client = generateClient();
-export default function ChatUpdateForm(props) {
+export default function UserCreateForm(props) {
   const {
-    id: idProp,
-    chat: chatModelProp,
+    clearOnSuccess = true,
     onSuccess,
     onError,
     onSubmit,
@@ -25,39 +23,26 @@ export default function ChatUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    userID: "",
-    friendID: "",
+    name: "",
+    statusMessage: "",
+    image: "",
   };
-  const [userID, setUserID] = React.useState(initialValues.userID);
-  const [friendID, setFriendID] = React.useState(initialValues.friendID);
+  const [name, setName] = React.useState(initialValues.name);
+  const [statusMessage, setStatusMessage] = React.useState(
+    initialValues.statusMessage
+  );
+  const [image, setImage] = React.useState(initialValues.image);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = chatRecord
-      ? { ...initialValues, ...chatRecord }
-      : initialValues;
-    setUserID(cleanValues.userID);
-    setFriendID(cleanValues.friendID);
+    setName(initialValues.name);
+    setStatusMessage(initialValues.statusMessage);
+    setImage(initialValues.image);
     setErrors({});
   };
-  const [chatRecord, setChatRecord] = React.useState(chatModelProp);
-  React.useEffect(() => {
-    const queryData = async () => {
-      const record = idProp
-        ? (
-            await client.graphql({
-              query: getChat.replaceAll("__typename", ""),
-              variables: { id: idProp },
-            })
-          )?.data?.getChat
-        : chatModelProp;
-      setChatRecord(record);
-    };
-    queryData();
-  }, [idProp, chatModelProp]);
-  React.useEffect(resetStateValues, [chatRecord]);
   const validations = {
-    userID: [{ type: "Required" }],
-    friendID: [{ type: "Required" }],
+    name: [{ type: "Required" }],
+    statusMessage: [{ type: "Required" }],
+    image: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -85,8 +70,9 @@ export default function ChatUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          userID,
-          friendID,
+          name,
+          statusMessage,
+          image,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -117,16 +103,18 @@ export default function ChatUpdateForm(props) {
             }
           });
           await client.graphql({
-            query: updateChat.replaceAll("__typename", ""),
+            query: createUser.replaceAll("__typename", ""),
             variables: {
               input: {
-                id: chatRecord.id,
                 ...modelFields,
               },
             },
           });
           if (onSuccess) {
             onSuccess(modelFields);
+          }
+          if (clearOnSuccess) {
+            resetStateValues();
           }
         } catch (err) {
           if (onError) {
@@ -135,72 +123,99 @@ export default function ChatUpdateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "ChatUpdateForm")}
+      {...getOverrideProps(overrides, "UserCreateForm")}
       {...rest}
     >
       <TextField
-        label="User id"
+        label="Name"
         isRequired={true}
         isReadOnly={false}
-        value={userID}
+        value={name}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              userID: value,
-              friendID,
+              name: value,
+              statusMessage,
+              image,
             };
             const result = onChange(modelFields);
-            value = result?.userID ?? value;
+            value = result?.name ?? value;
           }
-          if (errors.userID?.hasError) {
-            runValidationTasks("userID", value);
+          if (errors.name?.hasError) {
+            runValidationTasks("name", value);
           }
-          setUserID(value);
+          setName(value);
         }}
-        onBlur={() => runValidationTasks("userID", userID)}
-        errorMessage={errors.userID?.errorMessage}
-        hasError={errors.userID?.hasError}
-        {...getOverrideProps(overrides, "userID")}
+        onBlur={() => runValidationTasks("name", name)}
+        errorMessage={errors.name?.errorMessage}
+        hasError={errors.name?.hasError}
+        {...getOverrideProps(overrides, "name")}
       ></TextField>
       <TextField
-        label="Friend id"
+        label="Status message"
         isRequired={true}
         isReadOnly={false}
-        value={friendID}
+        value={statusMessage}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              userID,
-              friendID: value,
+              name,
+              statusMessage: value,
+              image,
             };
             const result = onChange(modelFields);
-            value = result?.friendID ?? value;
+            value = result?.statusMessage ?? value;
           }
-          if (errors.friendID?.hasError) {
-            runValidationTasks("friendID", value);
+          if (errors.statusMessage?.hasError) {
+            runValidationTasks("statusMessage", value);
           }
-          setFriendID(value);
+          setStatusMessage(value);
         }}
-        onBlur={() => runValidationTasks("friendID", friendID)}
-        errorMessage={errors.friendID?.errorMessage}
-        hasError={errors.friendID?.hasError}
-        {...getOverrideProps(overrides, "friendID")}
+        onBlur={() => runValidationTasks("statusMessage", statusMessage)}
+        errorMessage={errors.statusMessage?.errorMessage}
+        hasError={errors.statusMessage?.hasError}
+        {...getOverrideProps(overrides, "statusMessage")}
+      ></TextField>
+      <TextField
+        label="Image"
+        isRequired={false}
+        isReadOnly={false}
+        value={image}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              statusMessage,
+              image: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.image ?? value;
+          }
+          if (errors.image?.hasError) {
+            runValidationTasks("image", value);
+          }
+          setImage(value);
+        }}
+        onBlur={() => runValidationTasks("image", image)}
+        errorMessage={errors.image?.errorMessage}
+        hasError={errors.image?.hasError}
+        {...getOverrideProps(overrides, "image")}
       ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
-          children="Reset"
+          children="Clear"
           type="reset"
           onClick={(event) => {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || chatModelProp)}
-          {...getOverrideProps(overrides, "ResetButton")}
+          {...getOverrideProps(overrides, "ClearButton")}
         ></Button>
         <Flex
           gap="15px"
@@ -210,10 +225,7 @@ export default function ChatUpdateForm(props) {
             children="Submit"
             type="submit"
             variation="primary"
-            isDisabled={
-              !(idProp || chatModelProp) ||
-              Object.values(errors).some((e) => e?.hasError)
-            }
+            isDisabled={Object.values(errors).some((e) => e?.hasError)}
             {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>

@@ -11,21 +11,33 @@ const fetchUser = createAsyncThunk('users/fetch', async () => {
     const username = (await getCurrentUser()).username;
     const userAttribute = (await fetchUserAttributes());
 
-    const response = await client.graphql({
-        query: getUser,
-        variables: {
-            id: username
-        }
-    })
-    const user = response.data.getUser;
+    try {
+        const response = await client.graphql({
+            query: getUser,
+            variables: {
+                id: username
+            }
+        })
+        const user = response.data.getUser;
+
+        console.log(username);
+        console.log(user);
+        console.log(userAttribute);
+
+        return {
+            name: user?.name,
+            email: userAttribute.email,
+            lineID: user?.id,
+            statusMessage: user?.statusMessage,
+        } as UserType;
+    } catch (error) {
+        console.log(error);
+    }
 
 
-    return {
-        name: user?.name,
-        email: userAttribute.email,
-        lineID: user?.id,
-        statusMessage: user?.statusMessage,
-    } as UserType;
+
+
+
 })
 
 const logout = createAsyncThunk('users/logout', async () => {
