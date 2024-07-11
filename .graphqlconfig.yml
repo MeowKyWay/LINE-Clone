@@ -14,3 +14,9 @@ projects:
         region: ap-southeast-1
         apiId: null
         maxDepth: 2
+<<<<<<< HEAD
+=======
+extensions:
+  amplify:
+    version: 3
+>>>>>>> 128b4ed33ff5107365c190ffc6877bd899859477

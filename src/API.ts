@@ -6,17 +6,18 @@ export type CreateUserInput = {
   id?: string | null,
   name: string,
   statusMessage: string,
+  image?: string | null,
 };
 
 export type ModelUserConditionInput = {
   name?: ModelStringInput | null,
   statusMessage?: ModelStringInput | null,
+  image?: ModelStringInput | null,
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
   not?: ModelUserConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-  id?: ModelStringInput | null,
 };
 
 export type ModelStringInput = {
@@ -64,6 +65,7 @@ export type User = {
   id: string,
   name: string,
   statusMessage: string,
+  image?: string | null,
   friends?: ModelUserFriendConnection | null,
   friendOf?: ModelUserFriendConnection | null,
   createdAt: string,
@@ -92,6 +94,7 @@ export type UpdateUserInput = {
   id: string,
   name?: string | null,
   statusMessage?: string | null,
+  image?: string | null,
 };
 
 export type DeleteUserInput = {
@@ -147,6 +150,7 @@ export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   statusMessage?: ModelStringInput | null,
+  image?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelUserFilterInput | null > | null,
@@ -179,13 +183,29 @@ export enum ModelSortDirection {
 
 
 export type ModelSubscriptionUserFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
   statusMessage?: ModelSubscriptionStringInput | null,
+  image?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserFilterInput | null > | null,
-  id?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  in?: Array< string | null > | null,
+  notIn?: Array< string | null > | null,
 };
 
 export type ModelSubscriptionStringInput = {
@@ -214,21 +234,6 @@ export type ModelSubscriptionUserFriendFilterInput = {
   or?: Array< ModelSubscriptionUserFriendFilterInput | null > | null,
 };
 
-export type ModelSubscriptionIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  in?: Array< string | null > | null,
-  notIn?: Array< string | null > | null,
-};
-
 export type CreateUserMutationVariables = {
   input: CreateUserInput,
   condition?: ModelUserConditionInput | null,
@@ -240,6 +245,7 @@ export type CreateUserMutation = {
     id: string,
     name: string,
     statusMessage: string,
+    image?: string | null,
     friends?:  {
       __typename: "ModelUserFriendConnection",
       nextToken?: string | null,
@@ -264,6 +270,7 @@ export type UpdateUserMutation = {
     id: string,
     name: string,
     statusMessage: string,
+    image?: string | null,
     friends?:  {
       __typename: "ModelUserFriendConnection",
       nextToken?: string | null,
@@ -288,6 +295,7 @@ export type DeleteUserMutation = {
     id: string,
     name: string,
     statusMessage: string,
+    image?: string | null,
     friends?:  {
       __typename: "ModelUserFriendConnection",
       nextToken?: string | null,
@@ -316,6 +324,7 @@ export type CreateUserFriendMutation = {
       id: string,
       name: string,
       statusMessage: string,
+      image?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -325,6 +334,7 @@ export type CreateUserFriendMutation = {
       id: string,
       name: string,
       statusMessage: string,
+      image?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -349,6 +359,7 @@ export type UpdateUserFriendMutation = {
       id: string,
       name: string,
       statusMessage: string,
+      image?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -358,6 +369,7 @@ export type UpdateUserFriendMutation = {
       id: string,
       name: string,
       statusMessage: string,
+      image?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -382,6 +394,7 @@ export type DeleteUserFriendMutation = {
       id: string,
       name: string,
       statusMessage: string,
+      image?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -391,6 +404,7 @@ export type DeleteUserFriendMutation = {
       id: string,
       name: string,
       statusMessage: string,
+      image?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -410,6 +424,7 @@ export type GetUserQuery = {
     id: string,
     name: string,
     statusMessage: string,
+    image?: string | null,
     friends?:  {
       __typename: "ModelUserFriendConnection",
       nextToken?: string | null,
@@ -437,6 +452,7 @@ export type ListUsersQuery = {
       id: string,
       name: string,
       statusMessage: string,
+      image?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -458,6 +474,7 @@ export type GetUserFriendQuery = {
       id: string,
       name: string,
       statusMessage: string,
+      image?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -467,6 +484,7 @@ export type GetUserFriendQuery = {
       id: string,
       name: string,
       statusMessage: string,
+      image?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -556,6 +574,7 @@ export type OnCreateUserSubscription = {
     id: string,
     name: string,
     statusMessage: string,
+    image?: string | null,
     friends?:  {
       __typename: "ModelUserFriendConnection",
       nextToken?: string | null,
@@ -579,6 +598,7 @@ export type OnUpdateUserSubscription = {
     id: string,
     name: string,
     statusMessage: string,
+    image?: string | null,
     friends?:  {
       __typename: "ModelUserFriendConnection",
       nextToken?: string | null,
@@ -602,6 +622,7 @@ export type OnDeleteUserSubscription = {
     id: string,
     name: string,
     statusMessage: string,
+    image?: string | null,
     friends?:  {
       __typename: "ModelUserFriendConnection",
       nextToken?: string | null,
@@ -629,6 +650,7 @@ export type OnCreateUserFriendSubscription = {
       id: string,
       name: string,
       statusMessage: string,
+      image?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -638,6 +660,7 @@ export type OnCreateUserFriendSubscription = {
       id: string,
       name: string,
       statusMessage: string,
+      image?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -661,6 +684,7 @@ export type OnUpdateUserFriendSubscription = {
       id: string,
       name: string,
       statusMessage: string,
+      image?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -670,6 +694,7 @@ export type OnUpdateUserFriendSubscription = {
       id: string,
       name: string,
       statusMessage: string,
+      image?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -693,6 +718,7 @@ export type OnDeleteUserFriendSubscription = {
       id: string,
       name: string,
       statusMessage: string,
+      image?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -702,6 +728,7 @@ export type OnDeleteUserFriendSubscription = {
       id: string,
       name: string,
       statusMessage: string,
+      image?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null,

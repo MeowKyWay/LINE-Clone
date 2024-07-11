@@ -9,14 +9,13 @@ import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
 import { LambdaARN, invokeLambda } from "../utilities/LambdaUtils";
 import { listUsers } from "../graphql/queries";
 import { createUserFriend } from "../graphql/mutations";
+import { updateUser } from "../graphql/mutations";
 
 function TestPage() {
 
     const theme = useTheme().currentTheme;
     
     const client = generateClient();
-
-    client.g
 
     const [friendLineID, setFriendLineID] = useState('');
 
