@@ -1,7 +1,7 @@
 import * as CustomAPITypes from "../CustomAPI";
 type GeneratedQuery<InputType, OutputType> = string & {
-    __generatedQueryInput: InputType;
-    __generatedQueryOutput: OutputType;
+  __generatedQueryInput: InputType;
+  __generatedQueryOutput: OutputType;
 };
 
 export const listFriend = /* GraphQL */ `query ListFriends(
@@ -36,6 +36,35 @@ export const listFriend = /* GraphQL */ `query ListFriends(
     }
   }
   ` as GeneratedQuery<
-    CustomAPITypes.ListFriendQueryVariables,
-    CustomAPITypes.ListFriendQuery
-  >;
+  CustomAPITypes.ListFriendQueryVariables,
+  CustomAPITypes.ListFriendQuery
+>;
+
+export const listMyChats = /* GraphQL */ `query ListMyChats(
+    $filter: ModelChatFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listChats(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userID
+        friendID
+        friend {
+          id
+          name
+          statusMessage
+          image
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+  ` as GeneratedQuery<
+  CustomAPITypes.ListMyChatsQueryVariables,
+  CustomAPITypes.ListMyChatsQuery
+>;

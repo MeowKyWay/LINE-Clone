@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { generateClient } from "aws-amplify/api";
-import { listChats } from "../../graphql/queries";
 import { Chat } from "../../API";
+import { listMyChats } from "../../graphql/customQueries";
 
 const client = generateClient();
 
 export const fetchFriendChats = createAsyncThunk('fetchChats', async (userID: string, { rejectWithValue }) => {
     const response = await client.graphql({
-        query: listChats,
+        query: listMyChats,
         variables: {
             filter: {
                 userID: {

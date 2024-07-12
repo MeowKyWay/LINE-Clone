@@ -1,4 +1,4 @@
-import { ModelUserFriendFilterInput } from "./API";
+import { ModelChatFilterInput, ModelUserFriendFilterInput } from "./API";
 
 export type ListFriendQueryVariables = {
     filter?: ModelUserFriendFilterInput | null,
@@ -29,6 +29,34 @@ export type ListFriendQuery = {
                 image: string
             } | null,
             status: string,
+            createdAt: string,
+            updatedAt: string,
+        } | null>,
+        nextToken?: string | null,
+    } | null,
+};
+
+export type ListMyChatsQueryVariables = {
+    filter?: ModelChatFilterInput | null,
+    limit?: number | null,
+    nextToken?: string | null,
+};
+
+export type ListMyChatsQuery = {
+    listChats?: {
+        __typename: "ModelChatConnection",
+        items: Array<{
+            __typename: "Chat",
+            id: string,
+            userID: string,
+            friendID: string,
+            friend: {
+                __typename: "User",
+                id: string,
+                name: string,
+                statusMessage: string,
+                image: string
+            }
             createdAt: string,
             updatedAt: string,
         } | null>,

@@ -30,8 +30,8 @@ function ChatsPage() {
     }
 
     const chatsFiltered = selectedChat?.filter(chat => {
-        console.log(chat.friend?.name);
-        chat.friend?.name.toLowerCase().includes(searchTerm.toLowerCase())
+        console.log(chat.friend?.name.toLowerCase(), searchTerm.toLowerCase());
+        return chat.friend?.name.toLowerCase().includes(searchTerm.toLowerCase())
     });
 
     console.log(chatsFiltered);
