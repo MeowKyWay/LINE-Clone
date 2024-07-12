@@ -120,6 +120,17 @@ export type Chat = {
   updatedAt: string,
 };
 
+export type ModelChatFilterInput = {
+  id?: ModelIDInput | null,
+  userID?: ModelIDInput | null,
+  friendID?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelChatFilterInput | null > | null,
+  or?: Array< ModelChatFilterInput | null > | null,
+  not?: ModelChatFilterInput | null,
+};
+
 export type CreateUserInput = {
   id?: string | null,
   name: string,
@@ -227,17 +238,6 @@ export type ModelUserConnection = {
   nextToken?: string | null,
 };
 
-export type ModelChatFilterInput = {
-  id?: ModelIDInput | null,
-  userID?: ModelIDInput | null,
-  friendID?: ModelIDInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  and?: Array< ModelChatFilterInput | null > | null,
-  or?: Array< ModelChatFilterInput | null > | null,
-  not?: ModelChatFilterInput | null,
-};
-
 export type ModelSubscriptionUserFilterInput = {
   name?: ModelSubscriptionStringInput | null,
   statusMessage?: ModelSubscriptionStringInput | null,
@@ -330,6 +330,34 @@ export type ListFriendsQuery = {
         image?: string | null,
       } | null,
       status: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type ListMyChatsQueryVariables = {
+  filter?: ModelChatFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListMyChatsQuery = {
+  listChats?:  {
+    __typename: "ModelChatConnection",
+    items:  Array< {
+      __typename: "Chat",
+      id: string,
+      userID: string,
+      friendID: string,
+      friend?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        statusMessage: string,
+        image?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null >,

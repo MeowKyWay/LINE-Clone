@@ -2,14 +2,11 @@
 
 import { generateClient } from "aws-amplify/api";
 import useTheme from "../theme";
-import TextField from "../components/input/TextField";
 import { useState } from "react";
 import Button from "../components/input/Button";
-import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
-import { LambdaARN, invokeLambda } from "../utilities/LambdaUtils";
-import { listUsers } from "../graphql/queries";
-import { createUserFriend } from "../graphql/mutations";
-import { updateUser } from "../graphql/mutations";
+import { listUserChats } from "../utilities/APIUtils";
+import { invokeLambda } from "../utilities/LambdaUtils";
+import { fetchAuthSession } from "aws-amplify/auth";
 
 function TestPage() {
 
@@ -20,19 +17,14 @@ function TestPage() {
     const [friendLineID, setFriendLineID] = useState('');
 
     const test = async () => {
-        try {
-            const res = await invokeLambda({
-                arn: 'LINECloneAddFriend-dev',
-                body: {
-                    accessToken: (await fetchAuthSession()).tokens?.accessToken.toString(),
-                    friendID: "feeders_wagon",
-                }
-            })
-
-            console.log(res);
-        } catch (e) {
-            console.log(e);
-        }
+        const res = await invokeLambda({
+            arn: 'LINECloneNewChat-dev',
+            body: {
+                accessToken: (await fetchAuthSession()).tokens?.accessToken.toString(),
+                friendID: "broths_tractor"
+            }
+        })
+        console.log(res);
     }
 
     return (

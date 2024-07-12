@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "../../components/Modal/Modal";
+import Modal from "../../components/modal/Modal";
 import SearchField from "../../components/input/SearchField";
 import useTheme from "../../theme";
 import Button from "../../components/input/Button";
@@ -17,7 +17,7 @@ function AddFriendModal({ onClose }: {
     const user = useAppSelector(state => state.user);
 
     const [friend, setFriend] = useState<User | null>(null);
-    const [userNotFound , setUserNotFound] = useState(false)
+    const [userNotFound, setUserNotFound] = useState(false)
 
     const errorMessage = useAppSelector((state) => state.friends.error);
 
@@ -34,7 +34,7 @@ function AddFriendModal({ onClose }: {
             setFriend(user);
             setUserNotFound(false)
         }
-        else{
+        else {
             setUserNotFound(true)
         }
     }
@@ -68,8 +68,9 @@ function AddFriendModal({ onClose }: {
 
 
                 <div className="flex-1 w-full flex flex-col items-center justify-center">
+
                 { (friend && !userNotFound) && (
-                        <>
+                        <div>
                         <ProfilePicture src={friend.image} size="94px"></ProfilePicture>
                         <span className="mt-3">{friend.name}</span>
                         <span className="text-red-500 text-xs font-light">{errorMessage}</span>
@@ -79,30 +80,24 @@ function AddFriendModal({ onClose }: {
                                 <div className="text-xs text-gray-400">You can't add yourself as a friend.</div>
                                 <Button type="disabled" className="text-sm w-22 h-7.5" onClick={handleAddFriend}>Add</Button>
                             </div>
+                                    :
 
-                            :
-
-                            <div>
-                                <Button type="primary" className="text-sm w-22 h-7.5" onClick={handleAddFriend}>Add</Button>
-                            </div>
-                        }
-                    </>
-
+                                    <div>
+                                        <Button type="primary" className="text-sm w-22 h-7.5" onClick={handleAddFriend}>Add</Button>
+                                    </div>
+                            }
+                        </div>
                     )}
-                    
-                {
-                    (userNotFound) &&  (
-                        <>
-                            <span className="text-sm">User not found.</span>
+                    {
+                        (userNotFound) && (
                             <div>
-                                <Button type="primary" onClick={onClose} className="w-22 h-8 mt-2">OK</Button>
+                                <span className="text-sm">User not found.</span>
+                                <div>
+                                    <Button type="primary" onClick={onClose} className="w-22 h-8 mt-2">OK</Button>
+                                </div>
                             </div>
-                        </>
-                    )
-                }
-
-                    
-                
+                        )
+                    }
                 </div>
             </div>
         </Modal>

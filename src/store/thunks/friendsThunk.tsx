@@ -8,7 +8,7 @@ import { User } from "../../API";
 
 const client = generateClient();
 
-const fetchFriendRequest = createAsyncThunk('fetchFriendRequest', async () => {
+const fetchFriendRequests = createAsyncThunk('fetchFriendRequests', async () => {
     const userID = (await getCurrentUser()).username;
     const response = await client.graphql({
         query: listFriend,
@@ -37,7 +37,7 @@ const addFriend = createAsyncThunk('addFriend', async (friendID: string, { rejec
     if (response.status === "error") 
         return rejectWithValue(response.message);
     const friend = (await client.graphql({
-        query: getUser,
+        query: getUser, //Todo
         variables: {
             id: friendID,
         }
@@ -68,7 +68,7 @@ const fetchUserFriends = createAsyncThunk('userFriends/fetch', async () => {
 // })
 
 export { 
-    fetchFriendRequest, 
+    fetchFriendRequests as fetchFriendRequest, 
     addFriend, 
     fetchUserFriends,
 }

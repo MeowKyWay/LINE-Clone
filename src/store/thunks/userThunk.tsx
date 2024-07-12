@@ -22,10 +22,6 @@ const fetchUser = createAsyncThunk('users/fetch', async () => {
         })
         const user = response.data.getUser;
 
-        console.log(username);
-        console.log(user);
-        console.log(userAttribute);
-
         return {
             name: user?.name,
             email: userAttribute.email,
