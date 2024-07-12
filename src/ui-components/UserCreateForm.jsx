@@ -26,23 +26,27 @@ export default function UserCreateForm(props) {
     name: "",
     statusMessage: "",
     image: "",
+    coverImage: "",
   };
   const [name, setName] = React.useState(initialValues.name);
   const [statusMessage, setStatusMessage] = React.useState(
     initialValues.statusMessage
   );
   const [image, setImage] = React.useState(initialValues.image);
+  const [coverImage, setCoverImage] = React.useState(initialValues.coverImage);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setName(initialValues.name);
     setStatusMessage(initialValues.statusMessage);
     setImage(initialValues.image);
+    setCoverImage(initialValues.coverImage);
     setErrors({});
   };
   const validations = {
     name: [{ type: "Required" }],
     statusMessage: [{ type: "Required" }],
     image: [],
+    coverImage: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -73,6 +77,7 @@ export default function UserCreateForm(props) {
           name,
           statusMessage,
           image,
+          coverImage,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -138,6 +143,7 @@ export default function UserCreateForm(props) {
               name: value,
               statusMessage,
               image,
+              coverImage,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -164,6 +170,7 @@ export default function UserCreateForm(props) {
               name,
               statusMessage: value,
               image,
+              coverImage,
             };
             const result = onChange(modelFields);
             value = result?.statusMessage ?? value;
@@ -190,6 +197,7 @@ export default function UserCreateForm(props) {
               name,
               statusMessage,
               image: value,
+              coverImage,
             };
             const result = onChange(modelFields);
             value = result?.image ?? value;
@@ -203,6 +211,33 @@ export default function UserCreateForm(props) {
         errorMessage={errors.image?.errorMessage}
         hasError={errors.image?.hasError}
         {...getOverrideProps(overrides, "image")}
+      ></TextField>
+      <TextField
+        label="Cover image"
+        isRequired={false}
+        isReadOnly={false}
+        value={coverImage}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              statusMessage,
+              image,
+              coverImage: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.coverImage ?? value;
+          }
+          if (errors.coverImage?.hasError) {
+            runValidationTasks("coverImage", value);
+          }
+          setCoverImage(value);
+        }}
+        onBlur={() => runValidationTasks("coverImage", coverImage)}
+        errorMessage={errors.coverImage?.errorMessage}
+        hasError={errors.coverImage?.hasError}
+        {...getOverrideProps(overrides, "coverImage")}
       ></TextField>
       <Flex
         justifyContent="space-between"

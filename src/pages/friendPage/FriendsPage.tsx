@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hook";
 import { useState } from "react";
 import FriendList from "./FriendList";
-import ProfileModal from "./ProfileModal";
+import ProfileModal from "./FriendPageModal/ProfileModal";
 
 function FriendsPage() {
 

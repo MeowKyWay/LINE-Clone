@@ -8,20 +8,26 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
-export const onCreateUser = /* GraphQL */ `subscription OnCreateUser(
-  $filter: ModelSubscriptionUserFilterInput
-  $id: String
-) {
-  onCreateUser(filter: $filter, id: $id) {
+export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
+  onCreateUser(filter: $filter) {
     id
     name
     statusMessage
     image
+    coverImage
     friends {
       nextToken
       __typename
     }
     friendOf {
+      nextToken
+      __typename
+    }
+    chats {
+      nextToken
+      __typename
+    }
+    chatWith {
       nextToken
       __typename
     }
@@ -34,20 +40,26 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser(
   APITypes.OnCreateUserSubscriptionVariables,
   APITypes.OnCreateUserSubscription
 >;
-export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser(
-  $filter: ModelSubscriptionUserFilterInput
-  $id: String
-) {
-  onUpdateUser(filter: $filter, id: $id) {
+export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
+  onUpdateUser(filter: $filter) {
     id
     name
     statusMessage
     image
+    coverImage
     friends {
       nextToken
       __typename
     }
     friendOf {
+      nextToken
+      __typename
+    }
+    chats {
+      nextToken
+      __typename
+    }
+    chatWith {
       nextToken
       __typename
     }
@@ -60,20 +72,26 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser(
   APITypes.OnUpdateUserSubscriptionVariables,
   APITypes.OnUpdateUserSubscription
 >;
-export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser(
-  $filter: ModelSubscriptionUserFilterInput
-  $id: String
-) {
-  onDeleteUser(filter: $filter, id: $id) {
+export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
+  onDeleteUser(filter: $filter) {
     id
     name
     statusMessage
     image
+    coverImage
     friends {
       nextToken
       __typename
     }
     friendOf {
+      nextToken
+      __typename
+    }
+    chats {
+      nextToken
+      __typename
+    }
+    chatWith {
       nextToken
       __typename
     }
@@ -97,6 +115,7 @@ export const onCreateUserFriend = /* GraphQL */ `subscription OnCreateUserFriend
       name
       statusMessage
       image
+      coverImage
       createdAt
       updatedAt
       __typename
@@ -107,6 +126,7 @@ export const onCreateUserFriend = /* GraphQL */ `subscription OnCreateUserFriend
       name
       statusMessage
       image
+      coverImage
       createdAt
       updatedAt
       __typename
@@ -132,6 +152,7 @@ export const onUpdateUserFriend = /* GraphQL */ `subscription OnUpdateUserFriend
       name
       statusMessage
       image
+      coverImage
       createdAt
       updatedAt
       __typename
@@ -142,6 +163,7 @@ export const onUpdateUserFriend = /* GraphQL */ `subscription OnUpdateUserFriend
       name
       statusMessage
       image
+      coverImage
       createdAt
       updatedAt
       __typename
@@ -167,6 +189,7 @@ export const onDeleteUserFriend = /* GraphQL */ `subscription OnDeleteUserFriend
       name
       statusMessage
       image
+      coverImage
       createdAt
       updatedAt
       __typename
@@ -177,6 +200,7 @@ export const onDeleteUserFriend = /* GraphQL */ `subscription OnDeleteUserFriend
       name
       statusMessage
       image
+      coverImage
       createdAt
       updatedAt
       __typename
@@ -191,11 +215,34 @@ export const onDeleteUserFriend = /* GraphQL */ `subscription OnDeleteUserFriend
   APITypes.OnDeleteUserFriendSubscriptionVariables,
   APITypes.OnDeleteUserFriendSubscription
 >;
-export const onCreateChat = /* GraphQL */ `subscription OnCreateChat($filter: ModelSubscriptionChatFilterInput) {
-  onCreateChat(filter: $filter) {
+export const onCreateChat = /* GraphQL */ `subscription OnCreateChat(
+  $filter: ModelSubscriptionChatFilterInput
+  $userID: String
+) {
+  onCreateChat(filter: $filter, userID: $userID) {
     id
     userID
+    user {
+      id
+      name
+      statusMessage
+      image
+      coverImage
+      createdAt
+      updatedAt
+      __typename
+    }
     friendID
+    friend {
+      id
+      name
+      statusMessage
+      image
+      coverImage
+      createdAt
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -205,11 +252,34 @@ export const onCreateChat = /* GraphQL */ `subscription OnCreateChat($filter: Mo
   APITypes.OnCreateChatSubscriptionVariables,
   APITypes.OnCreateChatSubscription
 >;
-export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat($filter: ModelSubscriptionChatFilterInput) {
-  onUpdateChat(filter: $filter) {
+export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat(
+  $filter: ModelSubscriptionChatFilterInput
+  $userID: String
+) {
+  onUpdateChat(filter: $filter, userID: $userID) {
     id
     userID
+    user {
+      id
+      name
+      statusMessage
+      image
+      coverImage
+      createdAt
+      updatedAt
+      __typename
+    }
     friendID
+    friend {
+      id
+      name
+      statusMessage
+      image
+      coverImage
+      createdAt
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -219,11 +289,34 @@ export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat($filter: Mo
   APITypes.OnUpdateChatSubscriptionVariables,
   APITypes.OnUpdateChatSubscription
 >;
-export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat($filter: ModelSubscriptionChatFilterInput) {
-  onDeleteChat(filter: $filter) {
+export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat(
+  $filter: ModelSubscriptionChatFilterInput
+  $userID: String
+) {
+  onDeleteChat(filter: $filter, userID: $userID) {
     id
     userID
+    user {
+      id
+      name
+      statusMessage
+      image
+      coverImage
+      createdAt
+      updatedAt
+      __typename
+    }
     friendID
+    friend {
+      id
+      name
+      statusMessage
+      image
+      coverImage
+      createdAt
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     __typename

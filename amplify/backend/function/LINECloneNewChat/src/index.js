@@ -1,4 +1,9 @@
 /* Amplify Params - DO NOT EDIT
+	API_LINECLONE_GRAPHQLAPIENDPOINTOUTPUT
+	API_LINECLONE_GRAPHQLAPIIDOUTPUT
+	ENV
+	REGION
+Amplify Params - DO NOT EDIT *//* Amplify Params - DO NOT EDIT
   API_LINECLONE_GRAPHQLAPIENDPOINTOUTPUT
   API_LINECLONE_GRAPHQLAPIIDOUTPUT
   ENV
@@ -79,32 +84,27 @@ const getFriend = async (friendID) => {
   console.log("Friend: ", response);
   return response;
 }
-const getUserFriend = async (userID, friendID) => {
+const getChat = async (userID, friendID) => {
   const response = await graphql({
     query: /* GraphQL */ `
-      query GET_USER_FRIEND($id: ID!) {
-        getUserFriend(id: $id) {
+      query GET_CHAT($id: ID!) {
+        getChat(id: $id) {
           id
         }
       }
     `,
     variables: { id: userID + ":" + friendID }
   })
-  console.log("UserFriend: ", response);
+  console.log("Chat: ", response);
   return response;
 }
-const createUserFriend = async (userID, friendID, status) => {
+const createChat = async (userID, friendID) => {
   const response = await graphql({
     query: /* GraphQL */ `
-      mutation CREATE_USER_FRIEND($input: CreateUserFriendInput!) {
-        createUserFriend(input: $input) {
+      mutation CREATE_CHAT($input: CreateChatInput!) {
+        createChat(input: $input) {
           id
           userID
-          friendID
-          status
-          createdAt
-          updatedAt
-
           user {
             id
             name 
@@ -112,7 +112,7 @@ const createUserFriend = async (userID, friendID, status) => {
             createdAt
             updatedAt
           }
-          
+          friendID
           friend {
             id
             name
@@ -128,33 +128,12 @@ const createUserFriend = async (userID, friendID, status) => {
         id: userID + ":" + friendID,
         userID: userID,
         friendID: friendID,
-        status: status,
       }
     }
   })
-  console.log("CreateUserFriend: ", response);
+  console.log("CreateChat: ", response);
   return response;
 }
-const updateUserFriend = async (userID, friendID, status) => {
-  const response = await graphql({
-    query: /* GraphQL */ `
-      mutation UPDATE_USER_FRIEND($input: UpdateUserFriendInput!) {
-        updateUserFriend(input: $input) {
-          id
-          status
-        }
-      }
-    `,
-    variables: {
-      input: {
-        id: userID + ":" + friendID,
-        status: status,
-      }
-    }
-  });
-  console.log("UpdateUserFriend: ", response);
-  return response;
-};
 
 const response = (body) => {
   return {
@@ -196,26 +175,18 @@ export const handler = async (event) => {
     return error("Friend does not exist");
 
   if (friendID === userID)
-    return error("Cannot add self")
+    return error("Cannot create new chat with self")
 
-  const userFriend = (await getUserFriend(userID, friendID));
-  if (userFriend.data.getUserFriend)
-    return error("Friend already added");
+  const userFriend = (await getChat(userID, friendID));
+  if (userFriend.data.getChat)
+    return error("Chat already exists");
 
-  const friendUser = (await getUserFriend(friendID, userID));
-  if (friendUser.data.getUserFriend) {
-    try {
-      await updateUserFriend(friendID, userID, "accepted");
-      await createUserFriend(userID, friendID, "accepted");
-    } catch (error) {
-      return error("Failed to accepted friend");
-    }
-    return response("Friend accepted");
-  }
   try {
-    await createUserFriend(userID, friendID, "pending");
-    return response("Friend request sent");
+    await createChat(userID, friendID);
+    await createChat(friendID, userID);
   } catch (error) {
-    return error("Failed to add friend");
+    return error("Failed to create chat");
   }
+
+  return response("Chat created");
 };

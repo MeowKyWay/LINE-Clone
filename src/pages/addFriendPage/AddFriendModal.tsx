@@ -7,7 +7,7 @@ import { User } from "../../API";
 import { searchUserByUsername } from "../../utilities/APIUtils";
 import { useAppDispatch, useAppSelector } from "../../hook";
 import { addFriend } from "../../store/thunks/friendsThunk";
-import FriendProfilePicture from "../../components/FriendProfilePicture";
+import ProfilePicture from "../../components/ProfilePicture";
 
 function AddFriendModal({ onClose }: {
     onClose: () => void
@@ -70,7 +70,7 @@ function AddFriendModal({ onClose }: {
                 <div className="flex-1 w-full flex flex-col items-center justify-center">
                 { (friend && !userNotFound) && (
                         <>
-                        <FriendProfilePicture user={friend} size="94px"></FriendProfilePicture>
+                        <ProfilePicture src={friend.image} size="94px"></ProfilePicture>
                         <span className="mt-3">{friend.name}</span>
                         <span className="text-red-500 text-xs font-light">{errorMessage}</span>
                         {

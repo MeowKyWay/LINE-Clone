@@ -14,11 +14,20 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     name
     statusMessage
     image
+    coverImage
     friends {
       nextToken
       __typename
     }
     friendOf {
+      nextToken
+      __typename
+    }
+    chats {
+      nextToken
+      __typename
+    }
+    chatWith {
       nextToken
       __typename
     }
@@ -39,6 +48,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
       name
       statusMessage
       image
+      coverImage
       createdAt
       updatedAt
       __typename
@@ -57,6 +67,7 @@ export const getUserFriend = /* GraphQL */ `query GetUserFriend($id: ID!) {
       name
       statusMessage
       image
+      coverImage
       createdAt
       updatedAt
       __typename
@@ -67,6 +78,7 @@ export const getUserFriend = /* GraphQL */ `query GetUserFriend($id: ID!) {
       name
       statusMessage
       image
+      coverImage
       createdAt
       updatedAt
       __typename
@@ -108,7 +120,27 @@ export const getChat = /* GraphQL */ `query GetChat($id: ID!) {
   getChat(id: $id) {
     id
     userID
+    user {
+      id
+      name
+      statusMessage
+      image
+      coverImage
+      createdAt
+      updatedAt
+      __typename
+    }
     friendID
+    friend {
+      id
+      name
+      statusMessage
+      image
+      coverImage
+      createdAt
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     __typename

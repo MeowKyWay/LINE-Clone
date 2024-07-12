@@ -1,19 +1,12 @@
-import Button from "../../components/input/Button";
-import { IoPencilOutline } from "react-icons/io5";
-import useTheme from "../../theme";
+import Button from "../../../components/input/Button";
 import { uploadData } from "aws-amplify/storage";
-import { setProfileUser } from "../../store/thunks/userThunk";
-import { useAppDispatch, useAppSelector } from "../../hook";
+import { setProfileUser } from "../../../store/thunks/userThunk";
+import { useAppDispatch } from "../../../hook";
 import { v4 as uuid} from "uuid"
 
-function EditProfileImage({editImg, setEditImg , image} : {editImg : boolean,setEditImg: React.Dispatch<React.SetStateAction<boolean>> ,image: File | null}){
+function EditProfileImage({setEditImg , image} : {setEditImg: React.Dispatch<React.SetStateAction<boolean>> ,image: File | null}){
 
-    const theme = useTheme().currentTheme;
     const dispatch = useAppDispatch()
-    const currentUser = useAppSelector(state => state.user.currentUser)
-    const textStyle = {
-        color: theme.color.primary.text
-    }
 
     async function uploadImage(){
         if(image){
@@ -34,10 +27,7 @@ function EditProfileImage({editImg, setEditImg , image} : {editImg : boolean,set
     }
 
     return(
-        <div>
-            {
-                    editImg ?
-                    
+        <div className="flex flex-col items-center gap-1">
                     <div className="flex flex-row gap-x-2">
                         <Button type="primary" onClick={uploadImage}>Save</Button>
                         <button 
@@ -47,15 +37,6 @@ function EditProfileImage({editImg, setEditImg , image} : {editImg : boolean,set
                             cancel
                         </button>
                     </div>
-                    :
-                    <>
-                    <div className="text-xl" style={textStyle}>{currentUser?.name}</div>
-                    <div className="flex flex-row cursor-pointer">
-                        <div className="text-xs" style={textStyle}>Enter a status message.</div>
-                        <IoPencilOutline style={textStyle} className="ml-1"></IoPencilOutline>
-                    </div>
-                    </>
-            }    
         </div>
     )
 }

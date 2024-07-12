@@ -6,20 +6,16 @@ import { UserType } from "../../store/slice/userSlice";
 import { MdPersonAddAlt1 } from "react-icons/md";
 import { useAppDispatch } from "../../hook";
 import { addFriend } from "../../store/thunks/friendsThunk";
-import FriendProfilePicture from "../FriendProfilePicture";
 
-function AccountItem({ value, isRequest = false, isFriend = false , onClick}: {
+
+function AccountItem({ value, isRequest = false, onClick}: {
     value: UserType | User | GroupType
     isRequest?: boolean
-    isFriend?: boolean
     onClick?: () => void | null
 }) {
 
     const theme = useTheme().currentTheme;
     const dispatch = useAppDispatch();
-    console.log("isFriend: " , isFriend);
-    console.log("value: ", value);
-    
     
     
     return (
@@ -33,14 +29,7 @@ function AccountItem({ value, isRequest = false, isFriend = false , onClick}: {
                 `}
             </style>
             <div className="h-14 w-full pl-5 flex flex-row items-center hover">
-                {
-                    isFriend ? (
-                        <FriendProfilePicture size="43px" user={value}></FriendProfilePicture>
-                    )
-                    :
-                    <ProfilePicture size="43px" />
-                }
-                 
+                <ProfilePicture size="43px" src={value.image} />
                 <div className="flex flex-row ml-3 items-center" style={{ maxWidth: 'calc(100% - 83px)' }}>
                     <div>
                         <div className="overflow-hidden whitespace-nowrap text-ellipsis" style={{

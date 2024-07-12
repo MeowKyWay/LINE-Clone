@@ -1,9 +1,11 @@
+import { useAppSelector } from "../../hook";
 import { MessageType } from "../../store/slice/messagesSlice";
 import ProfilePicture from "../ProfilePicture";
 import ChatBubble from "./ChatBubble";
 
 function ChatBubbleRow({ children, isCurrentUser }: { children: MessageType, isCurrentUser: boolean }) {
 
+    const currentUser = useAppSelector(state => state.user.currentUser) 
     const time = ( //Todo implement
         <div className="flex flex-col">
             <div className="flex-1"/>
@@ -14,7 +16,7 @@ function ChatBubbleRow({ children, isCurrentUser }: { children: MessageType, isC
     return (
         <div className={`flex flex-row gap-2 ${isCurrentUser ? 'justify-end' : 'justify-start'}`}>
             { !isCurrentUser &&
-                <ProfilePicture size="38px" />
+                <ProfilePicture size="38px" src={currentUser?.image} />
             }
             { isCurrentUser &&
                 time

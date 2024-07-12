@@ -8,6 +8,7 @@ export interface UserType {
     statusMessage: string;
     chatFolders: string;
     image?: string | null
+    coverImage?: string | null
 }
 
 const initialState = {
