@@ -2,9 +2,10 @@ type User
   @model
   @auth(rules: [
     { allow: private, operations: [read] }
-    { allow: owner , ownerField: "id"}
+    { allow: owner, ownerField: "id", operations: [update] }
   ]) {
-    id: ID!
+    id: ID! 
+      @auth(rules: [{ allow: private, operations: [read] }])
     name: String!
     statusMessage: String!
     image: String

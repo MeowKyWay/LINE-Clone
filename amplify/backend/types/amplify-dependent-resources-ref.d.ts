@@ -24,6 +24,13 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     },
+    "LINECloneNewChat": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "graphQlLambdaAuthorizer9d21ee2e": {
       "Arn": "string",
       "LambdaExecutionRole": "string",

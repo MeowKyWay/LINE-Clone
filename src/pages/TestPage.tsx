@@ -5,6 +5,8 @@ import useTheme from "../theme";
 import { useState } from "react";
 import Button from "../components/input/Button";
 import { listUserChats } from "../utilities/APIUtils";
+import { invokeLambda } from "../utilities/LambdaUtils";
+import { fetchAuthSession } from "aws-amplify/auth";
 
 function TestPage() {
 
@@ -15,7 +17,14 @@ function TestPage() {
     const [friendLineID, setFriendLineID] = useState('');
 
     const test = async () => {
-        console.log(await listUserChats());
+        const res = await invokeLambda({
+            arn: 'LINECloneNewChat-dev',
+            body: {
+                accessToken: (await fetchAuthSession()).tokens?.accessToken.toString(),
+                friendID: "broths_tractor"
+            }
+        })
+        console.log(res);
     }
 
     return (

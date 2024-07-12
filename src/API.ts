@@ -801,7 +801,6 @@ export type ListChatsQuery = {
 
 export type OnCreateUserSubscriptionVariables = {
   filter?: ModelSubscriptionUserFilterInput | null,
-  id?: string | null,
 };
 
 export type OnCreateUserSubscription = {
@@ -834,7 +833,6 @@ export type OnCreateUserSubscription = {
 
 export type OnUpdateUserSubscriptionVariables = {
   filter?: ModelSubscriptionUserFilterInput | null,
-  id?: string | null,
 };
 
 export type OnUpdateUserSubscription = {
@@ -867,7 +865,6 @@ export type OnUpdateUserSubscription = {
 
 export type OnDeleteUserSubscriptionVariables = {
   filter?: ModelSubscriptionUserFilterInput | null,
-  id?: string | null,
 };
 
 export type OnDeleteUserSubscription = {

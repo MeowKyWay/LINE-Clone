@@ -8,11 +8,8 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
-export const onCreateUser = /* GraphQL */ `subscription OnCreateUser(
-  $filter: ModelSubscriptionUserFilterInput
-  $id: String
-) {
-  onCreateUser(filter: $filter, id: $id) {
+export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
+  onCreateUser(filter: $filter) {
     id
     name
     statusMessage
@@ -42,11 +39,8 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser(
   APITypes.OnCreateUserSubscriptionVariables,
   APITypes.OnCreateUserSubscription
 >;
-export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser(
-  $filter: ModelSubscriptionUserFilterInput
-  $id: String
-) {
-  onUpdateUser(filter: $filter, id: $id) {
+export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
+  onUpdateUser(filter: $filter) {
     id
     name
     statusMessage
@@ -76,11 +70,8 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser(
   APITypes.OnUpdateUserSubscriptionVariables,
   APITypes.OnUpdateUserSubscription
 >;
-export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser(
-  $filter: ModelSubscriptionUserFilterInput
-  $id: String
-) {
-  onDeleteUser(filter: $filter, id: $id) {
+export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
+  onDeleteUser(filter: $filter) {
     id
     name
     statusMessage
