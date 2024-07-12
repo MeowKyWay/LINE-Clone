@@ -14,15 +14,12 @@ function EditProfileImage({setEditImg , image , isCoverImg} :
             const filename = `public/${image?.name}_${uuid()}`
             if(isCoverImg){
                 dispatch(setCoverImageUser(filename))
-                dispatch(uploadImg({filename,image}))
-                setEditImg(false)
-
             }
             else{
                 dispatch(setProfileUser(filename))
-                dispatch(uploadImg({filename, image}))
-                setEditImg(false)
             }
+            dispatch(uploadImg({filename,image}))
+            setEditImg(false)
             dispatch(fetchUser())
     }
 }
