@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Chat } from "../../API";
 
 const statesSlice = createSlice({
     name: 'states',
@@ -6,13 +7,14 @@ const statesSlice = createSlice({
         friendListState: true,
         groupListState: false,
         friendRequestListState: true,
+        activeChat: null as Chat | null,
         chatFolderState: 'All',
     },
     reducers: {
         setFriendListState(state, action: PayloadAction<boolean>) {
             state.friendListState = action.payload;
         },
-        setFriendRequestListState(state, action: PayloadAction<boolean>){
+        setFriendRequestListState(state, action: PayloadAction<boolean>) {
             state.friendRequestListState = action.payload;
         },
         setGroupListState(state, action: PayloadAction<boolean>) {
@@ -21,15 +23,26 @@ const statesSlice = createSlice({
         setChatFolderState(state, action: PayloadAction<string>) {
             state.chatFolderState = action.payload;
         },
+        setActiveChat(state, action: PayloadAction<Chat>) {
+            state.activeChat = action.payload;
+        },
 
         clearStates(state) {
             state.friendListState = true;
             state.groupListState = true;
             state.friendRequestListState = true;
             state.chatFolderState = 'All';
+            state.activeChat = null;
         }
     }
 })
 
-export const { setFriendListState, setGroupListState, setChatFolderState , setFriendRequestListState, clearStates} = statesSlice.actions;
+export const {
+    setFriendListState,
+    setGroupListState,
+    setChatFolderState,
+    setFriendRequestListState,
+    setActiveChat,
+    clearStates
+} = statesSlice.actions;
 export const statesReducer = statesSlice.reducer;
