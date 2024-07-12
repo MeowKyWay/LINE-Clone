@@ -1,30 +1,31 @@
 import Button from "../../../components/input/Button";
-import { uploadData } from "aws-amplify/storage";
-import { setProfileUser } from "../../../store/thunks/userThunk";
+import { fetchUser, setCoverImageUser, setProfileUser } from "../../../store/thunks/userThunk";
 import { useAppDispatch } from "../../../hook";
 import { v4 as uuid} from "uuid"
+import { uploadImg } from "../../../store/thunks/imagesThunk";
 
-function EditProfileImage({setEditImg , image} : {setEditImg: React.Dispatch<React.SetStateAction<boolean>> ,image: File | null}){
+function EditProfileImage({setEditImg , image , isCoverImg} : 
+    {setEditImg: React.Dispatch<React.SetStateAction<boolean>> ,image: File | null , isCoverImg?: boolean }){
 
     const dispatch = useAppDispatch()
 
     async function uploadImage(){
         if(image){
-            const filename = `public/${image.name}_${uuid()}`
-            dispatch(setProfileUser(filename))
+            const filename = `public/${image?.name}_${uuid()}`
+            if(isCoverImg){
+                dispatch(setCoverImageUser(filename))
+                dispatch(uploadImg({filename,image}))
+                setEditImg(false)
 
-              try {
-                const result = await uploadData({
-                  path: filename, 
-                  data: image,
-                }).result;
-                console.log('Succeeded: ', result);
-              } catch (error) {
-                console.log('Error : ', error);
-              }
-            setEditImg(false)
-        }
+            }
+            else{
+                dispatch(setProfileUser(filename))
+                dispatch(uploadImg({filename, image}))
+                setEditImg(false)
+            }
+            dispatch(fetchUser())
     }
+}
 
     return(
         <div className="flex flex-col items-center gap-1">

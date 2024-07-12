@@ -8,7 +8,7 @@ function ProfilePicture ({src, size}: {
     return (
         <div>
             {
-                src ? <StorageImage path={src} alt="profile" style={
+                src ? <StorageImage path={src} alt="profile" className="object-cover" style={
                     {
                         width: size,
                         height: size,

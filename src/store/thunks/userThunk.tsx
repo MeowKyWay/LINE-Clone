@@ -65,6 +65,27 @@ const setProfileUser = createAsyncThunk('users/setImg', async (filename: string)
     }
 })
 
+const setCoverImageUser = createAsyncThunk('users/setImg', async (filename: string) => {
+    const username = (await getCurrentUser()).username;
+    
+    try{
+        await client.graphql({
+            query: updateUser,
+            variables: {
+                input: {
+                    id: username,
+                    coverImage: filename
+                }
+            }
+        })        
+        return filename;
+    }
+    catch(error){
+        console.log(error);
+        throw error
+    }
+})
+
 const setStatusMessage = createAsyncThunk('users/setStatusMessage', async (message: string) => {
     const username = (await getCurrentUser()).username;
 
@@ -86,4 +107,4 @@ const setStatusMessage = createAsyncThunk('users/setStatusMessage', async (messa
     }
 })
 
-export { fetchUser, logout , setProfileUser , setStatusMessage}
+export { fetchUser, logout , setProfileUser, setCoverImageUser , setStatusMessage}
