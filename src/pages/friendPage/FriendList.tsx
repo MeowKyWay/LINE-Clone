@@ -21,7 +21,7 @@ function FriendList({searchTerm}: {searchTerm: string}) {
                 size={friendsFiltered.length}
                 onClick={() => dispatch(setFriendListState(!friendListState))}
             ></ExpandListButton>
-            {friendListState && <AccountList accounts={friendsFiltered} isFriend></AccountList>}
+            {friendListState && <AccountList accounts={friendsFiltered}></AccountList>}
             <FetchFriend />
         </div>
     )
