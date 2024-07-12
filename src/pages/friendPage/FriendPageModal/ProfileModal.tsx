@@ -58,12 +58,14 @@ function ProfileModal({onClose} : { onClose: () => void}){
                 <div className="relative z-10 flex flex-col items-center justify-center h-full w-full gap-4 bg-opacity-75 bg-black">
                     <div>
                         { (image && editImg) && <img style={profilePictureStyle} src={URL.createObjectURL(image)} />}
-                        { (!editImg && !editStatus) && (<ProfilePicture size="94px" />)}
+                        { (!editImg && !editStatus ) && (<ProfilePicture size="94px" src={currentUser?.image}/>)}
                         
                         <input type="file" ref={imageFileInput} onChange={onImageChange} className="absolute w-0 h-0"></input>
+                        { !editStatus && (
                         <div className="relative bottom-4 left-16 bg-white border border-gray-600 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer">
                             <CiCamera onClick={uploadImageRef}></CiCamera>
                         </div>
+                        )}
                     </div>
                     <div className="flex flex-col items-center gap-2">
                         { editImg ? ( <EditProfileImage setEditImg={setEditImg} image={image}></EditProfileImage>)
