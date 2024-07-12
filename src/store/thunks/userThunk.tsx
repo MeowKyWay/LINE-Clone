@@ -10,32 +10,24 @@ const client = generateClient();
 const fetchUser = createAsyncThunk('users/fetch', async () => {
 
     const username = (await getCurrentUser()).username;
-    
+
     const userAttribute = (await fetchUserAttributes());
 
-    try {
-        const response = await client.graphql({
-            query: getUser,
-            variables: {
-                id: username
-            }
-        })
-        const user = response.data.getUser;
+    const response = await client.graphql({
+        query: getUser,
+        variables: {
+            id: username
+        }
+    })
+    const user = response.data.getUser;
 
-        return {
-            name: user?.name,
-            email: userAttribute.email,
-            lineID: user?.id,
-            statusMessage: user?.statusMessage,
-            image: user?.image
-        } as UserType;
-    } catch (error) {
-        console.log(error);
-    }
-
-
-
-
+    return {
+        name: user?.name,
+        email: userAttribute.email,
+        lineID: user?.id,
+        statusMessage: user?.statusMessage,
+        image: user?.image
+    } as UserType;
 })
 
 const logout = createAsyncThunk('users/logout', async () => {
@@ -45,8 +37,8 @@ const logout = createAsyncThunk('users/logout', async () => {
 
 const setProfileUser = createAsyncThunk('users/setImg', async (filename: string) => {
     const username = (await getCurrentUser()).username;
-    
-    try{
+
+    try {
         await client.graphql({
             query: updateUser,
             variables: {
@@ -55,10 +47,10 @@ const setProfileUser = createAsyncThunk('users/setImg', async (filename: string)
                     image: filename
                 }
             }
-        })        
+        })
         return filename;
     }
-    catch(error){
+    catch (error) {
         console.log(error);
         throw error
     }
@@ -67,7 +59,7 @@ const setProfileUser = createAsyncThunk('users/setImg', async (filename: string)
 const setStatusMessage = createAsyncThunk('users/setStatusMessage', async (message: string) => {
     const username = (await getCurrentUser()).username;
 
-    try{
+    try {
         await client.graphql({
             query: updateUser,
             variables: {
@@ -76,13 +68,13 @@ const setStatusMessage = createAsyncThunk('users/setStatusMessage', async (messa
                     statusMessage: message
                 }
             }
-        })        
+        })
         return message;
     }
-    catch(error){
+    catch (error) {
         console.log(error);
         throw error
     }
 })
 
-export { fetchUser, logout , setProfileUser , setStatusMessage}
+export { fetchUser, logout, setProfileUser, setStatusMessage }
