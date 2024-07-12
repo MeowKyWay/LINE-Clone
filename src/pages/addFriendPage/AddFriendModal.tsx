@@ -1,13 +1,13 @@
 import { useState } from "react";
-import Modal from "../../components/modal/Modal";
+import Modal from "../../components/Modal/Modal";
 import SearchField from "../../components/input/SearchField";
 import useTheme from "../../theme";
-import ProfilePicture from "../../components/ProfilePicture";
 import Button from "../../components/input/Button";
 import { User } from "../../API";
 import { searchUserByUsername } from "../../utilities/APIUtils";
 import { useAppDispatch, useAppSelector } from "../../hook";
 import { addFriend } from "../../store/thunks/friendsThunk";
+import FriendProfilePicture from "../../components/FriendProfilePicture";
 
 function AddFriendModal({ onClose }: {
     onClose: () => void
@@ -69,8 +69,8 @@ function AddFriendModal({ onClose }: {
 
                 <div className="flex-1 w-full flex flex-col items-center justify-center">
                     {(friend && !userNotFound) && (
-                        <>
-                            <ProfilePicture size="94px"></ProfilePicture>
+                        <div>
+                            <FriendProfilePicture user={friend} size="94px"></FriendProfilePicture>
                             <span className="mt-3">{friend.name}</span>
                             <span className="text-red-500 text-xs font-light">{errorMessage}</span>
                             {
@@ -79,28 +79,25 @@ function AddFriendModal({ onClose }: {
                                         <div className="text-xs text-gray-400">You can't add yourself as a friend.</div>
                                         <Button type="disabled" className="text-sm w-22 h-7.5" onClick={handleAddFriend}>Add</Button>
                                     </div>
+
                                     :
+
                                     <div>
                                         <Button type="primary" className="text-sm w-22 h-7.5" onClick={handleAddFriend}>Add</Button>
                                     </div>
                             }
-                        </>
-
+                        </div>
                     )}
-
                     {
                         (userNotFound) && (
-                            <>
+                            <div>
                                 <span className="text-sm">User not found.</span>
                                 <div>
                                     <Button type="primary" onClick={onClose} className="w-22 h-8 mt-2">OK</Button>
                                 </div>
-                            </>
+                            </div>
                         )
                     }
-
-
-
                 </div>
             </div>
         </Modal>

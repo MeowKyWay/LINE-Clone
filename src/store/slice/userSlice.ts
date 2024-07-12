@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUser } from "../thunks/userThunk";
+import { fetchUser , setProfileUser , setStatusMessage} from "../thunks/userThunk";
 
 export interface UserType {
     name: string;
@@ -7,6 +7,7 @@ export interface UserType {
     lineID: string;
     statusMessage: string;
     chatFolders: string;
+    image?: string | null
 }
 
 const initialState = {
@@ -25,6 +26,26 @@ const userSlice = createSlice({
         builder.addCase(fetchUser.rejected, (state) => {
             state.currentUser = null;
             state.error = "Failed to fetch user";
+        })
+        builder.addCase(setProfileUser.fulfilled, (state, action) => {
+            if (state.currentUser) {
+                state.currentUser.image = action.payload;
+            }
+        })
+        builder.addCase(setProfileUser.rejected, (state, action) => {
+            state.error = action.error.message || "Failed to set profile image";
+            console.log(state.error);
+            
+        })
+        builder.addCase(setStatusMessage.fulfilled, (state, action) => {
+            if (state.currentUser) {
+                state.currentUser.statusMessage = action.payload;
+            }
+        })
+        builder.addCase(setStatusMessage.rejected, (state, action) => {
+            state.error = action.error.message || "Failed to set status message";
+            console.log(state.error);
+            
         })
     },
     reducers: {

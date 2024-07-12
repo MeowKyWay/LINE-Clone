@@ -3,12 +3,14 @@ import { generateClient } from "aws-amplify/api";
 import { getUser } from "../../graphql/queries";
 import { UserType } from "../slice/userSlice";
 import { fetchUserAttributes, getCurrentUser, signOut } from "aws-amplify/auth";
+import { updateUser } from "../../graphql/mutations";
 
 const client = generateClient();
 
 const fetchUser = createAsyncThunk('users/fetch', async () => {
 
     const username = (await getCurrentUser()).username;
+    
     const userAttribute = (await fetchUserAttributes());
 
     try {
@@ -29,11 +31,11 @@ const fetchUser = createAsyncThunk('users/fetch', async () => {
             email: userAttribute.email,
             lineID: user?.id,
             statusMessage: user?.statusMessage,
+            image: user?.image
         } as UserType;
     } catch (error) {
         console.log(error);
     }
-
 
 
 
@@ -45,4 +47,46 @@ const logout = createAsyncThunk('users/logout', async () => {
     return "Logged out successfully";
 })
 
-export { fetchUser, logout }
+const setProfileUser = createAsyncThunk('users/setImg', async (filename: string) => {
+    const username = (await getCurrentUser()).username;
+    
+    try{
+        await client.graphql({
+            query: updateUser,
+            variables: {
+                input: {
+                    id: username,
+                    image: filename
+                }
+            }
+        })        
+        return filename;
+    }
+    catch(error){
+        console.log(error);
+        throw error
+    }
+})
+
+const setStatusMessage = createAsyncThunk('users/setStatusMessage', async (message: string) => {
+    const username = (await getCurrentUser()).username;
+
+    try{
+        await client.graphql({
+            query: updateUser,
+            variables: {
+                input: {
+                    id: username,
+                    statusMessage: message
+                }
+            }
+        })        
+        return message;
+    }
+    catch(error){
+        console.log(error);
+        throw error
+    }
+})
+
+export { fetchUser, logout , setProfileUser , setStatusMessage}

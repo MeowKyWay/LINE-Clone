@@ -17,12 +17,14 @@ export const listFriend = /* GraphQL */ `query ListFriends(
           id
           name
           statusMessage
+          image
         }
         friendID
         friend {
             id
             name
             statusMessage
+            image
         }
         status
         createdAt

@@ -1,12 +1,13 @@
-import { useAppSelector } from "../hook"
+import { User } from "../API"
 import { StorageImage } from "@aws-amplify/ui-react-storage"
+import { UserType } from "../store/slice/userSlice"
+import { GroupType } from "../store/slice/groupsSlice"
 
-function ProfilePicture ({src, size}: {
+function FriendProfilePicture ({src, size , user}: {
     src?: string
     size: string
+    user: User | UserType | GroupType
 }) {
-
-    const currentUser = useAppSelector(state => state.user.currentUser)
 
     if (!src) {
         src = '../src/assets/profile.jpeg'
@@ -15,7 +16,7 @@ function ProfilePicture ({src, size}: {
     return (
         <div>
             {
-                currentUser?.image ? <StorageImage path={currentUser.image} alt="profile" style={
+                user.image ? <StorageImage path={user.image} alt="profile" style={
                     {
                         width: size,
                         height: size,
@@ -44,4 +45,4 @@ function ProfilePicture ({src, size}: {
     )
 }
 
-export default ProfilePicture;
+export default FriendProfilePicture;

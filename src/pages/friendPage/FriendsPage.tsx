@@ -8,11 +8,14 @@ import { setFriendsTerms } from "../../store/slice/termsSlice";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hook";
+import { useState } from "react";
 import FriendList from "./FriendList";
+import ProfileModal from "./ProfileModal";
 
 function FriendsPage() {
 
     const dispatch = useAppDispatch()
+    const [ showModal , setShowModal ] = useState(false)
 
     const theme = useTheme().currentTheme;
 
@@ -25,8 +28,8 @@ function FriendsPage() {
         }
     }, [navigate, location.pathname]);
 
-    const user = useAppSelector(state => state.user);    
-    
+
+    const user = useAppSelector(state => state.user); 
     const groupListState = useAppSelector(state => state.states.groupListState);
     const searchTerm = useAppSelector(state => state.terms.friendsTerm);
 
@@ -45,6 +48,7 @@ function FriendsPage() {
 
     return (
         <div className="size-full flex flex-col">
+            { showModal && <ProfileModal onClose={() => setShowModal(false)}></ProfileModal>}
             <div className="pt-8 pb-2">
                 <div className="mx-4">
                     <SearchField
@@ -59,7 +63,9 @@ function FriendsPage() {
             </div>
             <div className="flex-1 flex flex-col w-full overflow-y-scroll" style={{ maxHeight: 'calc(100vh - 76px)' }}>
                 <div className="w-full flex flex-col">
-                    {user.currentUser && <AccountItem value={user.currentUser} />}
+
+                    {user.currentUser && <AccountItem value={user.currentUser} onClick={() => setShowModal(true)}/>}
+
                     <div
                         className="w-full h-8 flex flex-row items-center font-light px-5"
                         style={{

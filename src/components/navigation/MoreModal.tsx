@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import useTheme from "../../theme";
 import MoreModalButton from "./MoreModalButton";
 import { RoutePath } from "../../RoutePath";
-import ModalOverlay from "../modal/ModalOverlay";
+import ModalOverlay from "../Modal/ModalOverlay";
 import { useAppDispatch } from "../../hook";
 import { logout } from "../../store/thunks/userThunk";
 

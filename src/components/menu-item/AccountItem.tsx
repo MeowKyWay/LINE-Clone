@@ -6,16 +6,25 @@ import { UserType } from "../../store/slice/userSlice";
 import { MdPersonAddAlt1 } from "react-icons/md";
 import { useAppDispatch } from "../../hook";
 import { addFriend } from "../../store/thunks/friendsThunk";
+import FriendProfilePicture from "../FriendProfilePicture";
 
-function AccountItem({ value, isRequest = false }: {
+function AccountItem({ value, isRequest = false, isFriend = false , onClick}: {
     value: UserType | User | GroupType
     isRequest?: boolean
+    isFriend?: boolean
+    onClick?: () => void | null
 }) {
+
     const theme = useTheme().currentTheme;
     const dispatch = useAppDispatch();
-
+    console.log("isFriend: " , isFriend);
+    console.log("value: ", value);
+    
+    
+    
     return (
-        <div className={`h-14 w-full ${isRequest ? '' : 'cursor-pointer'} items-center`}>
+        <div className={`h-14 w-full ${isRequest ? '' : 'cursor-pointer'} items-center`} onClick={onClick}>
+
             <style>
                 {`
                 .hover:hover {
@@ -24,7 +33,14 @@ function AccountItem({ value, isRequest = false }: {
                 `}
             </style>
             <div className="h-14 w-full pl-5 flex flex-row items-center hover">
-                <ProfilePicture size="43px" /> {/*Todo add src*/}
+                {
+                    isFriend ? (
+                        <FriendProfilePicture size="43px" user={value}></FriendProfilePicture>
+                    )
+                    :
+                    <ProfilePicture size="43px" />
+                }
+                 
                 <div className="flex flex-row ml-3 items-center" style={{ maxWidth: 'calc(100% - 83px)' }}>
                     <div>
                         <div className="overflow-hidden whitespace-nowrap text-ellipsis" style={{
