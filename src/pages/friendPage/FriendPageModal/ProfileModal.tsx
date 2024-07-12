@@ -3,7 +3,7 @@ import ProfilePicture from "../../../components/ProfilePicture";
 import { useRef, useState } from "react";
 import EditProfileImage from "./EditProfileImage";
 import { useAppSelector } from "../../../hook";
-import EditStatusMessage from "./EditStatusMessageModal";
+import EditStatusMessage from "./EditStatusMessage";
 import { IoPencilOutline } from "react-icons/io5";
 import { CiSettings } from "react-icons/ci";
 import UploadImageButton from "../../../components/input/UploadImgButton";
@@ -57,7 +57,7 @@ function ProfileModal({onClose} : { onClose: () => void}){
                         <input type="file" ref={imageFileInput} onChange={onImageChange} className="absolute w-0 h-0"></input>
                         { (!editStatus && !editCoverImg) && (<UploadImageButton className="absolute top-20 left-16" onImageChange={onImageChange}></UploadImageButton>)}
                     </div>
-                    
+
                     <div className="flex flex-col items-center gap-2">
                         { editImg ? ( <EditProfileImage setEditImg={setEditImg} image={image}></EditProfileImage>)
                         : editStatus ? ( <EditStatusMessage setEditStatus={setEditStatus}></EditStatusMessage>)

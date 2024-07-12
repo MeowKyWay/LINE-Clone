@@ -107,4 +107,27 @@ const setStatusMessage = createAsyncThunk('users/setStatusMessage', async (messa
     }
 })
 
-export { fetchUser, logout , setProfileUser, setCoverImageUser , setStatusMessage}
+
+const changeUserName = createAsyncThunk('users/changeUserName', async (newName: string) => {
+    const username = (await getCurrentUser()).username;
+
+    try{
+        await client.graphql({
+            query: updateUser,
+            variables: {
+                input: {
+                    id: username,
+                    name: newName
+                }
+            }
+        })
+        return newName;
+    }
+    catch(error){
+        console.log(error);
+        throw error;
+        
+    }
+})
+
+export { fetchUser, logout , setProfileUser, setCoverImageUser , setStatusMessage , changeUserName}
