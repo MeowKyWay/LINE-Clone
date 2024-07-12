@@ -1,4 +1,4 @@
-import Modal from "../../components/Modal/Modal"
+import Modal from "../../components/modal/Modal"
 import ProfilePicture from "../../components/ProfilePicture";
 import { CiCamera } from "react-icons/ci";
 import { useRef, useState } from "react";

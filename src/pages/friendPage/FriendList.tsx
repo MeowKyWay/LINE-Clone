@@ -2,9 +2,9 @@ import AccountList from "../../components/menu_list/AccountList"
 import { useAppDispatch, useAppSelector } from "../../hook";
 import { setFriendListState } from "../../store/slice/statesSlice";
 import ExpandListButton from "../../components/ExpandListButton";
-import FetchFriend from "../../components/api/fetch/FetchFriend";
+import FetchFriends from "../../components/api/fetch/FetchFriends";
 
-function FriendList({searchTerm}: {searchTerm: string}) {
+function FriendList({ searchTerm }: { searchTerm: string }) {
 
     const dispatch = useAppDispatch();
 
@@ -21,8 +21,8 @@ function FriendList({searchTerm}: {searchTerm: string}) {
                 size={friendsFiltered.length}
                 onClick={() => dispatch(setFriendListState(!friendListState))}
             ></ExpandListButton>
-            {friendListState && <AccountList accounts={friendsFiltered} isFriend></AccountList>}
-            <FetchFriend />
+            {friendListState && <AccountList accounts={friendsFiltered}></AccountList>}
+            <FetchFriends />
         </div>
     )
 }

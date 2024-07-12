@@ -2,7 +2,7 @@ import AccountList from "../../components/menu_list/AccountList"
 import { useAppDispatch, useAppSelector } from "../../hook";
 import ExpandListButton from "../../components/ExpandListButton";
 import { setFriendRequestListState } from "../../store/slice/statesSlice";
-import FetchFriendRequest from "../../components/api/fetch/FetchFriendRequest";
+import FetchFriendRequests from "../../components/api/fetch/FetchFriendRequests";
 
 function FriendRequestsList() {
 
@@ -21,7 +21,7 @@ function FriendRequestsList() {
                 onClick={() => dispatch(setFriendRequestListState(!friendRequestListState))}
             ></ExpandListButton>
             {friendRequestListState && <AccountList accounts={friendRequests.data || []} isRequest></AccountList>}
-            <FetchFriendRequest />
+            <FetchFriendRequests />
         </div>
     )
 }

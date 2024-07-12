@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hook";
 import { fetchFriendRequest } from "../../../store/thunks/friendsThunk";
 
-function FetchFriendRequest() {
+function FetchFriendRequests() {
 
     const dispatch = useAppDispatch();
 
@@ -17,4 +17,4 @@ function FetchFriendRequest() {
     return <div className="hidden" />
 }
 
-export default FetchFriendRequest;
+export default FetchFriendRequests;

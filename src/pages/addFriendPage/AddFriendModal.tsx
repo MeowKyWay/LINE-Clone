@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "../../components/Modal/Modal";
+import Modal from "../../components/modal/Modal";
 import SearchField from "../../components/input/SearchField";
 import useTheme from "../../theme";
 import Button from "../../components/input/Button";

@@ -27,6 +27,7 @@ type UserFriend
     { allow: private, operations: [read] }
   ]) {
   id: ID!
+  
   userID: ID! 
   user: User 
     @belongsTo(fields: ["userID"])
