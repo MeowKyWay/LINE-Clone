@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Chat } from "../../API";
 
 const statesSlice = createSlice({
     name: 'states',
@@ -7,7 +6,7 @@ const statesSlice = createSlice({
         friendListState: true,
         groupListState: false,
         friendRequestListState: true,
-        activeChat: null as Chat | null,
+        activeChat: null as string | null,
         chatFolderState: 'All',
     },
     reducers: {
@@ -23,7 +22,7 @@ const statesSlice = createSlice({
         setChatFolderState(state, action: PayloadAction<string>) {
             state.chatFolderState = action.payload;
         },
-        setActiveChat(state, action: PayloadAction<Chat>) {
+        setActiveChat(state, action: PayloadAction<string>) {
             state.activeChat = action.payload;
         },
 

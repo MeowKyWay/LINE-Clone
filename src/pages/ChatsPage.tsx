@@ -55,7 +55,6 @@ function ChatsPage() {
                     <ChatList chats={chatsFiltered || []}></ChatList>
                 </div>
             </div>
-            <FetchChats />
         </div>
     )
 }

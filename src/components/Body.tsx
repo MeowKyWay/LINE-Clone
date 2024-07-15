@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom"
 import Header from "./Header";
 import { ReactNode } from "react";
 import Menu from "./Menu";
-import Chat from "./chat/Chat";
+import ChatPane from "./chat/ChatPane";
 import { RoutePath } from "../RoutePath";
 
 function Body ({children}: {children: ReactNode}) {
@@ -16,7 +16,7 @@ function Body ({children}: {children: ReactNode}) {
                 <Menu>
                     {children}
                 </Menu>
-                <Chat />
+                <ChatPane />
             </div>
         </div>
     )

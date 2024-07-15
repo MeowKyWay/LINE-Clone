@@ -2,6 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { generateClient } from "aws-amplify/api";
 import { Chat } from "../../API";
 import { listMyChats } from "../../graphql/customQueries";
+import { invokeLambda, LambdaARN } from "../../utilities/LambdaUtils";
+import { fetchAuthSession } from "aws-amplify/auth";
 
 const client = generateClient();
 
@@ -19,4 +21,14 @@ export const fetchFriendChats = createAsyncThunk('fetchChats', async (userID: st
     if (response.errors) 
         return rejectWithValue(response.errors.map((error) => error.message).join(', ') as string);
     return response.data.listChats.items as Chat[];
+})
+
+export const newFriendChat = createAsyncThunk('newChat', async (friendID: string) => {
+    await invokeLambda({
+        arn: LambdaARN.NEW_CHAT,
+        body: {
+            accessToken: (await fetchAuthSession()).tokens?.accessToken.toString(),
+            friendID: friendID
+        }
+    })
 })

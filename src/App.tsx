@@ -11,6 +11,7 @@ import { RoutePath } from './RoutePath';
 import TestPage from './pages/TestPage';
 import FriendRequestSubscription from './components/api/subscription/FriendRequestSubscription';
 import FetchUser from './components/api/fetch/FetchUser';
+import FetchChats from './components/api/fetch/FetchChats';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           </Body>
           <FriendRequestSubscription />
           <FetchUser />
+          <FetchChats />
         </div>
 
 

@@ -2,12 +2,12 @@ import useTheme from "../../theme";
 import { useAppSelector } from "../../hook";
 import ChatBubbleRow from "./ChatBubbleRow";
 import ChatTextArea from "./ChatTextArea";
+import { Chat } from "../../API";
 
-function ChatBody() {
+function ChatBody({activeChat}: {activeChat: Chat}) {
     const theme = useTheme().currentTheme;
 
     const currentUser = useAppSelector(state => state.user.currentUser);
-    const activeChat = useAppSelector(state => state.states.activeChat);
     const messages = useAppSelector(state => state.messages.messageList);
 
     const renderedMessages = messages.filter(message => message.chatId === activeChat?.id).map((message) => { //replace 1 later

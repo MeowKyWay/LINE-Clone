@@ -12,7 +12,7 @@ function ChatItem({ chat }: { chat: Chat }) {
     const theme = useTheme().currentTheme;
 
     return (
-        <div className="w-full cursor-pointer" onClick={() => dispatch(setActiveChat(chat))}>
+        <div className="w-full cursor-pointer" onClick={() => dispatch(setActiveChat(chat.id))}>
             <style>
                 {`
                 .hover:hover {
