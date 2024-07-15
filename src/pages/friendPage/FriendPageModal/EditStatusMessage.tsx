@@ -1,13 +1,30 @@
-import { useAppDispatch } from "../../../hook";
-import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../hook";
+import { useEffect, useState } from "react";
 import Button from "../../../components/input/Button";
 import { setStatusMessage , changeUserName, fetchUser } from "../../../store/thunks/userThunk";
+import ProfilePicture from "../../../components/ProfilePicture";
 
 
 function EditProfileInfo({ setEditStatus, type } : { setEditStatus: React.Dispatch<React.SetStateAction<boolean>> , type: string})
 {
     const [status , setStatus] = useState("")
+    console.log(status);
+    
     const dispatch = useAppDispatch()
+    const currentUser = useAppSelector(state => state.user.currentUser)
+
+    useEffect(() => {
+        setName()
+    },[])
+
+    function setName(){
+        if(type === "username"){
+            setStatus(currentUser?.name as string)
+        }
+        else if(type === "statusMessage"){
+            setStatus(currentUser?.statusMessage as string)
+        }
+    }
 
     const updateStatusMessage = () => {
         if(type === "statusMessage"){
@@ -22,12 +39,17 @@ function EditProfileInfo({ setEditStatus, type } : { setEditStatus: React.Dispat
 
     return(
         <div className="flex flex-col items-center gap-1 relative">
+            {
+                type === "username" && (<ProfilePicture src={currentUser?.image} size="94px"></ProfilePicture>)
+            }
                     <div className="flex items-center">
                         <textarea 
                             className="bg-transparent text-white focus:outline-none h-44 w-64 text-center" 
                             placeholder="Enter a status message" 
                             style={{caretColor: "white" ,resize: "none" }}
-                            onChange={(e) => setStatus(e.target.value)}></textarea>
+                            onChange={(e) => setStatus(e.target.value)}
+                            value={status}
+                            ></textarea>
                     </div>
                     <div className="flex flex-row gap-x-2 absolute bottom-4 ">
                         <Button type="primary" onClick={updateStatusMessage}>Save</Button>

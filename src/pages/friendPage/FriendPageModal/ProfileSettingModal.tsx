@@ -5,6 +5,7 @@ import ProfilePicture from "../../../components/ProfilePicture";
 import ProfileCover from "../../../components/ProfileCover";
 import { IoPencilOutline } from "react-icons/io5";
 import EditStatusMessage from "./EditStatusMessage";
+import { useState } from "react";
 
 
 function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
@@ -12,6 +13,7 @@ function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
         setEditStatus : React.Dispatch<React.SetStateAction<boolean>> , 
         editStatus: boolean}){
 
+    const [type , setType ] = useState("")
     const theme = useTheme().currentTheme;
     const currentUser = useAppSelector(state => state.user.currentUser)
 
@@ -19,9 +21,11 @@ function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
         <div className="flex flex-col relative h-screen">
             {
                 editStatus ? (
-                    <div className="flex flex-col items-center">
+                    <div className="flex flex-col w-full items-center">
                         <ProfileCover editCoverImg={false} className="w-full h-full"></ProfileCover>
-                        <EditStatusMessage setEditStatus={setEditStatus} type="username"></EditStatusMessage>
+                        <div className="flex absolute mt-48">
+                        <EditStatusMessage setEditStatus={setEditStatus} type={type}></EditStatusMessage>
+                        </div>
                     </div>)
              :
             <>
@@ -38,13 +42,13 @@ function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
                             <div>
                                 <div style={{ color: theme.color.tertiary.text }}>Display name</div>
                                 <div className="flex flex-row items-center cursor-pointer">{currentUser?.name}
-                                    <IoPencilOutline size="12px" className="ml-1" onClick={() => setEditStatus(true)}/>
+                                    <IoPencilOutline size="12px" className="ml-1" onClick={() => {setEditStatus(true); setType("username")}}/>
                                 </div>
                             </div>
                             <div>
                                 <div style={{ color: theme.color.tertiary.text }}>Status message</div>
                                 <div className="flex flex-row items-center cursor-pointer">{currentUser?.statusMessage}
-                                    <IoPencilOutline size="12px" className="ml-1" onClick={() => setEditStatus(true)}/>
+                                    <IoPencilOutline size="12px" className="ml-1" onClick={() => {setEditStatus(true); setType("statusMessage")}}/>
                                 </div>
                             </div>
                             <div>
