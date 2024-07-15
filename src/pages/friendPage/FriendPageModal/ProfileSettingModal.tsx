@@ -22,9 +22,9 @@ function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
             {
                 editStatus ? (
                     <div className="flex flex-col w-full items-center">
-                        <ProfileCover editCoverImg={false} className="w-full h-full"></ProfileCover>
-                        <div className="flex absolute mt-48">
-                        <EditStatusMessage setEditStatus={setEditStatus} type={type}></EditStatusMessage>
+                        <ProfileCover editCoverImg={false} className="w-full h-full opacity-50"></ProfileCover>
+                        <div className="flex mt-48">
+                            <EditStatusMessage setEditStatus={setEditStatus} type={type}></EditStatusMessage>
                         </div>
                     </div>)
              :
@@ -35,7 +35,7 @@ function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
                         style={{ color: theme.color.tertiary.text }} />
                         <div className="relative h-2 flex flex-col items-center mx-4 rounded-lg mb-12" id="img">
                             <ProfileCover editCoverImg={false} className="rounded-lg h-28 w-full"></ProfileCover>
-                            <div className="relative flex items-center mt-4">
+                            <div className="relative flex items-center mt-6">
                                 <ProfilePicture src={currentUser?.image} size="64px"></ProfilePicture>
                             </div>
                         </div><div className="flex flex-col ml-4 gap-y-4 text-sm mt-16" style={{ color: theme.color.primary.text }} id="content">

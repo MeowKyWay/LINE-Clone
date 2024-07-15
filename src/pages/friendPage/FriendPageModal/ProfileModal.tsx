@@ -47,8 +47,8 @@ function ProfileModal({onClose} : { onClose: () => void}){
                 setting ? <ProfileSettingModal setSetting={setSetting} setEditStatus={setEditStatus} editStatus={editStatus}></ProfileSettingModal>
              :
             <div className="relative h-full w-full">
-                <ProfileCover editCoverImg={editCoverImg} coverImg={coverImg} className="h-full w-full"></ProfileCover>
-                <div className="relative z-10 flex flex-col items-center justify-center h-full w-full gap-4 bg-opacity-75 bg-black">
+                <ProfileCover editCoverImg={editCoverImg} coverImg={coverImg} className="h-full w-full opacity-50"></ProfileCover>
+                <div className="relative z-10 flex flex-col items-center justify-center h-full w-full gap-4">
 
                     <div className="flex flex-row right-4 absolute top-4 gap-x-2">
                         <UploadImageButton onImageChange={onCoverImageChange}></UploadImageButton>
