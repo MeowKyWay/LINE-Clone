@@ -1,11 +1,11 @@
 import { generateClient } from "aws-amplify/api"
 import { useEffect, useRef } from "react"
 import { Subscription } from "rxjs"
-import { onCreateUserFriend } from "../../../graphql/subscriptions";
+import { onCreateChat } from "../../../graphql/subscriptions";
 import { useAppDispatch, useAppSelector } from "../../../hook";
-import { addFriendRequest } from "../../../store/slice/friendsSlice";
+import { addChat } from "../../../store/slice/chatsSlice";
 
-function FriendRequestSubscription() {
+function FriendChatSubscription() {
 
     const client = generateClient();
     const dispatch = useAppDispatch();
@@ -19,34 +19,30 @@ function FriendRequestSubscription() {
         if (subscription.current) return;
 
         const newSubscription = client.graphql({
-            query: onCreateUserFriend,
+            query: onCreateChat,
             variables: {
                 filter: {
-                    friendID: {
+                    userID: {
                         eq: user.currentUser?.lineID
-                    },
-                    status: {
-                        eq: "pending"
                     }
                 }
             }
         }).subscribe({
             next: ({ data }) => {
-                dispatch(addFriendRequest(data.onCreateUserFriend?.user));
-                console.log(data.onCreateUserFriend)
+                dispatch(addChat(data.onCreateChat));
             }
         })
 
         subscription.current = newSubscription;
 
-        console.log('Subscribe Friend request')
+        console.log('Subscribe Friend chat')
 
         return () => {
             if (newSubscription) {
                 newSubscription.unsubscribe();
                 subscription.current = null;
             }
-            console.log('Unsubscribe Friend request')
+            console.log('Unsubscribe Friend chat')
         };
 
     }, [client, dispatch, user.currentUser, user.error]);
@@ -56,4 +52,4 @@ function FriendRequestSubscription() {
     );
 }
 
-export default FriendRequestSubscription
+export default FriendChatSubscription

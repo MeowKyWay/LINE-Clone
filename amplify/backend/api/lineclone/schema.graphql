@@ -40,7 +40,7 @@ type Chat
   @model
   @aws_lambda
   @auth(rules: [
-    { allow: owner, ownerField: "userID", operations: [read] }
+      { allow: private, operations: [read] }
     ]
   ) {
   id: ID!

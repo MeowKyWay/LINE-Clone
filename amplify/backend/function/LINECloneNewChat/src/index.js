@@ -105,21 +105,18 @@ const createChat = async (userID, friendID) => {
         createChat(input: $input) {
           id
           userID
-          user {
-            id
-            name 
-            statusMessage
-            createdAt
-            updatedAt
-          }
           friendID
           friend {
             id
             name
             statusMessage
+            image
             createdAt
             updatedAt
           }
+          createdAt
+          updatedAt
+          __typename
         }
       }
     `,

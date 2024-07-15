@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppSelector } from "../../hook";
 import useTheme from "../../theme";
 import ChatBody from "./ChatBody";

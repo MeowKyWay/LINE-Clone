@@ -14,8 +14,6 @@ const chatsSlice = createSlice({
         //     error: ''
         // }
     },
-    reducers: {
-    },
     extraReducers(builder) {
         builder.addCase(fetchFriendChats.fulfilled, (state, action) => {
             state.friendChats.data = action.payload;
@@ -25,7 +23,14 @@ const chatsSlice = createSlice({
             state.friendChats.data = null;
             state.friendChats.error = action.payload as string;
         })
-    }
+    },    
+    reducers: {
+        addChat(state, action) {
+            if (!state.friendChats.data) return;
+            state.friendChats.data.push(action.payload);
+        }
+    },
 })
 
+export const { addChat } = chatsSlice.actions;
 export const chatsReducer = chatsSlice.reducer;

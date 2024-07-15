@@ -57,6 +57,7 @@ export const listMyChats = /* GraphQL */ `query ListMyChats(
           name
           statusMessage
           image
+          __typename
         }
         createdAt
         updatedAt
