@@ -1,14 +1,17 @@
 import { StorageImage } from "@aws-amplify/ui-react-storage";
 import { useAppSelector } from "../hook";
+import classNames from "classnames";
 
 interface ProfileCoverProps {
     editCoverImg: boolean;
-    coverImg: File | null;
+    coverImg?: File | null;
+    className?: string;
 }
 
-const ProfileCover: React.FC<ProfileCoverProps> = ({ editCoverImg, coverImg }) => {
+const ProfileCover: React.FC<ProfileCoverProps> = ({ editCoverImg, coverImg , className}) => {
 
     const currentUserCoverImg = useAppSelector(state => state.user.currentUser?.coverImage)
+    const style = classNames("absolute inset-0 object-cover z-0 " + className)
 
     return (
         <div className="absolute h-full w-full">
@@ -16,14 +19,14 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({ editCoverImg, coverImg }) =
                 <StorageImage
                     path={currentUserCoverImg}
                     alt="profile"
-                    className="absolute inset-0 w-full h-full object-cover z-0"
+                    className={style}
                 />
             )}
             {coverImg && editCoverImg && (
                 <img
                     src={URL.createObjectURL(coverImg)}
                     alt="profile"
-                    className="absolute inset-0 w-full h-full object-cover z-0"
+                    className={style}
                 />
             )}
         </div>

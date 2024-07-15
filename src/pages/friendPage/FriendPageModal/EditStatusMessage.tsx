@@ -1,21 +1,27 @@
 import { useAppDispatch } from "../../../hook";
 import { useState } from "react";
 import Button from "../../../components/input/Button";
-import { setStatusMessage } from "../../../store/thunks/userThunk";
+import { setStatusMessage , changeUserName, fetchUser } from "../../../store/thunks/userThunk";
 
 
-function EditStatusMessage({ setEditStatus } : { setEditStatus: React.Dispatch<React.SetStateAction<boolean>>})
+function EditProfileInfo({ setEditStatus, type } : { setEditStatus: React.Dispatch<React.SetStateAction<boolean>> , type: string})
 {
     const [status , setStatus] = useState("")
     const dispatch = useAppDispatch()
 
     const updateStatusMessage = () => {
-        dispatch(setStatusMessage(status))
+        if(type === "statusMessage"){
+            dispatch(setStatusMessage(status))
+        }
+        else if(type === "username"){
+            dispatch(changeUserName(status))
+        }
         setEditStatus(false)
+        dispatch(fetchUser())
     }
 
     return(
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center gap-1 relative">
                     <div className="flex items-center">
                         <textarea 
                             className="bg-transparent text-white focus:outline-none h-44 w-64 text-center" 
@@ -23,7 +29,7 @@ function EditStatusMessage({ setEditStatus } : { setEditStatus: React.Dispatch<R
                             style={{caretColor: "white" ,resize: "none" }}
                             onChange={(e) => setStatus(e.target.value)}></textarea>
                     </div>
-                    <div className="flex flex-row gap-x-2 absolute bottom-4">
+                    <div className="flex flex-row gap-x-2 absolute bottom-4 ">
                         <Button type="primary" onClick={updateStatusMessage}>Save</Button>
                         <button 
                             className="text-white px-2 box-border rounded text-white h-10"  
@@ -36,4 +42,4 @@ function EditStatusMessage({ setEditStatus } : { setEditStatus: React.Dispatch<R
     )
 }
 
-export default EditStatusMessage;
+export default EditProfileInfo;
