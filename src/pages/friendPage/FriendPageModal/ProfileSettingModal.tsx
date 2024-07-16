@@ -17,21 +17,22 @@ function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
 
     const [type , setType ] = useState("")
     const [img , setImg] = useState<File | null>(null)
-    const [coverImg, setCoverImg] = useState<File | null>(null)
-    const [editImg , setEditImg] = useState(false)
-    const [editCoverImg , setEditCoverImg] = useState(false)    
+    const [coverImg, setCoverImg] = useState<File | null>(null)    
+    const [editImgType , setEditImgType] = useState<"profile" | "cover" | null>(null)
     const theme = useTheme().currentTheme;
     const currentUser = useAppSelector(state => state.user.currentUser)
+    console.log("coverImg: ", coverImg);
+    
 
     const onImageChange = (e: React.ChangeEvent<HTMLInputElement>, isCover = false) => {
         const fileUploaded = e.target.files ? e.target.files[0] : null;
         if (!fileUploaded) return;
         if (isCover) {
             setCoverImg(fileUploaded);
-            setEditCoverImg(true);
+            setEditImgType("cover")
         } else {
             setImg(fileUploaded);
-            setEditImg(true);
+            setEditImgType("profile")
         }
     };
 
@@ -47,23 +48,20 @@ function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
                     </div>)
              :
 
-             editCoverImg ? (
-                <div className="flex flex-col w-full items-center">
-                    <ProfileCover editCoverImg={editCoverImg} coverImg={coverImg} className="w-full h-full opacity-50"></ProfileCover>
-                    <div className="flex mt-48">
-                    <EditProfileImage setEditImg={setEditCoverImg} image={coverImg} isCoverImg></EditProfileImage>
+             editImgType ? (
+                    <div className="flex flex-col w-full items-center">
+                        <ProfileCover 
+                            coverImg={coverImg} 
+                            editCoverImg={editImgType === "cover" ? true : false } 
+                            className="w-full h-full opacity-50"/>
+                        <div className="flex mt-48">
+                            <EditProfileImage 
+                                setEditImg={() => setEditImgType(null)} 
+                                image={editImgType === "cover" ? coverImg : img} 
+                                isCoverImg={editImgType === "cover"}/>
+                        </div>
                     </div>
-                </div>)
-
-            :
-
-            editImg ? (
-                <div className="flex flex-col w-full items-center">
-                    <ProfileCover className="w-full h-full opacity-50"></ProfileCover>
-                    <div className="flex mt-48">
-                    <EditProfileImage setEditImg={setEditImg} image={img}></EditProfileImage>
-                    </div>
-                </div>)
+             )
 
             :
             <div>
