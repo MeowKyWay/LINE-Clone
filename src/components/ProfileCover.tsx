@@ -11,11 +11,7 @@ interface ProfileCoverProps {
 const ProfileCover: React.FC<ProfileCoverProps> = ({ editCoverImg, coverImg , className}) => {
 
     const currentUserCoverImg = useAppSelector(state => state.user.currentUser?.coverImage)
-    const style = classNames("absolute inset-0 object-cover z-0 " + className)
-    console.log(coverImg);
-    console.log(editCoverImg);
-    
-    
+    const style = classNames("absolute inset-0 object-cover z-0 " + className)    
 
     return (
         <div className="absolute h-full w-full">
@@ -24,6 +20,7 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({ editCoverImg, coverImg , cl
                     path={currentUserCoverImg}
                     alt="profile"
                     className={style}
+                    style={{pointerEvents: "none"}}
                 />
             )
             : (coverImg && editCoverImg) ? (

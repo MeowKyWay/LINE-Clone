@@ -9,6 +9,10 @@ function EditProfileImage({setEditImg , image , isCoverImg} :
 
     const dispatch = useAppDispatch()
 
+    const profilePictureStyle = {
+        borderRadius: "50%", width: "94px" , height: "94px"
+    }
+
     async function uploadImage(){
         if(image){
             const filename = `public/${image?.name}_${uuid()}`
@@ -25,7 +29,8 @@ function EditProfileImage({setEditImg , image , isCoverImg} :
 }
 
     return(
-        <div className="flex flex-col items-center gap-1 z-10">
+        <div className="flex flex-col items-center gap-1 z-20">
+            { (image && !isCoverImg) && (<img className="object-cover" style={profilePictureStyle} src={URL.createObjectURL(image)} />)}
                     <div className="flex flex-row gap-x-2 absolute bottom-4">
                         <Button type="primary" onClick={uploadImage}>Save</Button>
                         <button 

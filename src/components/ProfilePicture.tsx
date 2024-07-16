@@ -15,6 +15,7 @@ function ProfilePicture({ src, size }: {
                         minWidth: size,
                         minHeight: size,
                         borderRadius: '50%',
+                        
                     }
                 }/>
                 :
