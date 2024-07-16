@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { CiCamera } from "react-icons/ci";
+import { FaCamera } from "react-icons/fa";
 import classNames from 'classnames';
 
 interface UploadImageButtonProps {
@@ -10,7 +10,7 @@ interface UploadImageButtonProps {
 const UploadImageButton: React.FC<UploadImageButtonProps> = ({ onImageChange , className}) => {
   const imageFileInput = useRef<HTMLInputElement | null>(null);
 
-  const style = classNames("bg-white border border-gray-600 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer " + className)
+  const style = classNames("z-10 bg-black opacity-75 border border-white w-6 h-6 rounded-full flex items-center justify-center cursor-pointer " + className)
 
   const uploadImageRef = () => {
     if (imageFileInput.current) {
@@ -30,7 +30,7 @@ const UploadImageButton: React.FC<UploadImageButtonProps> = ({ onImageChange , c
         className={style}
         onClick={uploadImageRef}
       >
-        <CiCamera />
+        <FaCamera style={{color: "white"}} size="12px"/>
       </div>
     </div>
   );
