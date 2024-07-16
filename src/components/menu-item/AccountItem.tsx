@@ -1,26 +1,33 @@
-import { GroupType } from "../../store/slice/groupsSlice";
 import useTheme from "../../theme";
 import ProfilePicture from "../ProfilePicture";
 import type { User } from "../../API";
 import { UserType } from "../../store/slice/userSlice";
 import { MdPersonAddAlt1 } from "react-icons/md";
-import { useAppDispatch } from "../../hook";
+import { useAppDispatch, useAppSelector } from "../../hook";
 import { addFriend } from "../../store/thunks/friendsThunk";
+import { setActiveChat } from "../../store/slice/statesSlice";
 
 
-function AccountItem({ value, isRequest = false, onClick}: {
-    value: UserType | User | GroupType
+function AccountItem({ account, isRequest = false}: {
+    account: UserType | User
     isRequest?: boolean
     onClick?: () => void | null
 }) {
 
     const theme = useTheme().currentTheme;
     const dispatch = useAppDispatch();
+
+    const chats = useAppSelector(state => state.chats.friendChats.data);
     
+    const handleClick = () => {
+        if (isRequest) return;
+        if ("email" in account) return;
+
+        dispatch(setActiveChat(account.id));
+    }
     
     return (
-        <div className={`h-14 w-full ${isRequest ? '' : 'cursor-pointer'} items-center`} onClick={onClick}>
-
+        <div className={`h-14 w-full ${isRequest ? '' : 'cursor-pointer'} items-center`} onClick={handleClick}>
             <style>
                 {`
                 .hover:hover {
@@ -29,31 +36,31 @@ function AccountItem({ value, isRequest = false, onClick}: {
                 `}
             </style>
             <div className="h-14 w-full pl-5 flex flex-row items-center hover">
-                <ProfilePicture size="43px" src={value.image} />
+                <ProfilePicture size="43px" src={account.image} />
                 <div className="flex flex-row ml-3 items-center" style={{ maxWidth: 'calc(100% - 83px)' }}>
                     <div>
                         <div className="overflow-hidden whitespace-nowrap text-ellipsis" style={{
                             color: theme.color.primary.text,
                             fontSize: '12px',
                         }}>
-                            {value.name} {'memberCount' in value && `(${value.memberCount})`}
+                            {account.name} {'memberCount' in account && `(${account.memberCount})`}
                         </div>
-                        {'statusMessage' in value &&
+                        {'statusMessage' in account &&
                             <span
                                 style={{
                                     color: theme.color.tertiary.text,
                                     fontSize: '10px',
                                 }}
                                 className="overflow-hidden whitespace-nowrap text-ellipsis">
-                                {value.statusMessage}
+                                {account.statusMessage}
                             </span>
                         }
                     </div>
                 </div>
-                {isRequest && "id" in value &&
+                {isRequest && "id" in account &&
                     <div className="flex-1 flex flex-row items-center justify-end">
                         <div className="size-8 grid place-items-center cursor-pointer"
-                            onClick={() => dispatch(addFriend(value.id))}>
+                            onClick={() => dispatch(addFriend(account.id))}>
                             <MdPersonAddAlt1
                                 size="22px"
                                 style={{

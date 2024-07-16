@@ -293,12 +293,12 @@ export type ModelSubscriptionIDInput = {
 
 export type ModelSubscriptionChatFilterInput = {
   id?: ModelSubscriptionIDInput | null,
+  userID?: ModelSubscriptionIDInput | null,
   friendID?: ModelSubscriptionIDInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionChatFilterInput | null > | null,
   or?: Array< ModelSubscriptionChatFilterInput | null > | null,
-  userID?: ModelStringInput | null,
 };
 
 export type ListFriendsQueryVariables = {
@@ -1065,7 +1065,6 @@ export type OnDeleteUserFriendSubscription = {
 
 export type OnCreateChatSubscriptionVariables = {
   filter?: ModelSubscriptionChatFilterInput | null,
-  userID?: string | null,
 };
 
 export type OnCreateChatSubscription = {
@@ -1101,7 +1100,6 @@ export type OnCreateChatSubscription = {
 
 export type OnUpdateChatSubscriptionVariables = {
   filter?: ModelSubscriptionChatFilterInput | null,
-  userID?: string | null,
 };
 
 export type OnUpdateChatSubscription = {
@@ -1137,7 +1135,6 @@ export type OnUpdateChatSubscription = {
 
 export type OnDeleteChatSubscriptionVariables = {
   filter?: ModelSubscriptionChatFilterInput | null,
-  userID?: string | null,
 };
 
 export type OnDeleteChatSubscription = {

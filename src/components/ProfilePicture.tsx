@@ -1,6 +1,6 @@
 import { StorageImage } from "@aws-amplify/ui-react-storage"
 
-function ProfilePicture ({src, size}: {
+function ProfilePicture({ src, size }: {
     src?: string | null
     size: string
 }) {

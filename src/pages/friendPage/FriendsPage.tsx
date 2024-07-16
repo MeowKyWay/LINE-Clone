@@ -15,7 +15,7 @@ import ProfileModal from "./FriendPageModal/ProfileModal";
 function FriendsPage() {
 
     const dispatch = useAppDispatch()
-    const [ showModal , setShowModal ] = useState(false)
+    const [showModal, setShowModal] = useState(false)
 
     const theme = useTheme().currentTheme;
 
@@ -29,12 +29,12 @@ function FriendsPage() {
     }, [navigate, location.pathname]);
 
 
-    const user = useAppSelector(state => state.user); 
+    const user = useAppSelector(state => state.user);
     const groupListState = useAppSelector(state => state.states.groupListState);
     const searchTerm = useAppSelector(state => state.terms.friendsTerm);
 
-    const groups = useAppSelector(state => state.groups.groupList);
-    const groupsFiltered = groups?.filter(group => group.name.toLowerCase().includes(searchTerm.toLowerCase())) || [];
+    // const groups = useAppSelector(state => state.groups.groupList);
+    // const groupsFiltered = groups?.filter(group => group.name.toLowerCase().includes(searchTerm.toLowerCase())) || [];
 
     const setGroupList = (state: boolean) => {
         dispatch(setGroupListState(state));
@@ -48,7 +48,7 @@ function FriendsPage() {
 
     return (
         <div className="size-full flex flex-col">
-            { showModal && <ProfileModal onClose={() => setShowModal(false)}></ProfileModal>}
+            {showModal && <ProfileModal onClose={() => setShowModal(false)}></ProfileModal>}
             <div className="pt-8 pb-2">
                 <div className="mx-4">
                     <SearchField
@@ -64,9 +64,13 @@ function FriendsPage() {
             <div className="flex-1 flex flex-col w-full overflow-y-scroll" style={{ maxHeight: 'calc(100vh - 76px)' }}>
                 <div className="w-full flex flex-col">
 
-                    {user.currentUser && <AccountItem value={user.currentUser} onClick={() => setShowModal(true)}/>}
+                    {user.currentUser &&
+                        <div onClick={() => setShowModal(true)}>
+                            <AccountItem account={user.currentUser} />
+                        </div>
+                    }
 
-                    <div
+                    {/* <div
                         className="w-full h-8 flex flex-row items-center font-light px-5"
                         style={{
                             color: theme.color.tertiary.text,
@@ -77,7 +81,7 @@ function FriendsPage() {
                             {(groupListState && <MdExpandLess size={20} />) || (!groupListState) && <MdExpandMore size={20} />}
                         </button>
                     </div>
-                    {groupListState && <AccountList accounts={groupsFiltered}></AccountList>}
+                    {groupListState && <AccountList accounts={groupsFiltered}></AccountList>} */}
                     <FriendList searchTerm={searchTerm} />
                 </div>
             </div>

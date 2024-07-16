@@ -84,7 +84,12 @@ function AddFriendModal({ onClose }: {
                                     :
 
                                     <div>
-                                        <Button type="primary" className="text-sm w-22 h-7.5" onClick={handleAddFriend}>Add</Button>
+                                        <Button
+                                            type={errorMessage ? "disabled" : "primary"}
+                                            className="text-sm w-22 h-7.5"
+                                            onClick={handleAddFriend}>
+                                            Add
+                                        </Button>
                                     </div>
                             }
                         </div>

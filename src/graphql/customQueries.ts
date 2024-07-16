@@ -18,6 +18,7 @@ export const listFriend = /* GraphQL */ `query ListFriends(
           name
           statusMessage
           image
+          __typename
         }
         friendID
         friend {
@@ -25,6 +26,7 @@ export const listFriend = /* GraphQL */ `query ListFriends(
             name
             statusMessage
             image
+            __typename
         }
         status
         createdAt
@@ -55,6 +57,7 @@ export const listMyChats = /* GraphQL */ `query ListMyChats(
           name
           statusMessage
           image
+          __typename
         }
         createdAt
         updatedAt

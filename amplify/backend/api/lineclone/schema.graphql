@@ -1,41 +1,37 @@
 type User
   @model
-  @auth(rules: [
-    { allow: private, operations: [read] }
-    { allow: owner, ownerField: "id", operations: [update] }
-  ]) {
-    id: ID! 
-      @auth(rules: [{ allow: private, operations: [read] }])
-    name: String!
-    statusMessage: String!
-    image: String
-    coverImage: String
+  @auth(
+    rules: [
+      { allow: private, operations: [read] }
+      { allow: owner, ownerField: "id", operations: [update] }
+    ]
+  ) {
+  id: ID! @auth(rules: [{ allow: private, operations: [read] }])
+  name: String!
+  statusMessage: String!
+  image: String
+  coverImage: String
 
-    friends: [UserFriend] 
-      @hasMany(fields: ["id"])
-    friendOf: [UserFriend] 
-      @hasMany(fields: ["id"])
+  friends: [UserFriend] @hasMany(fields: ["id"])
+  friendOf: [UserFriend] @hasMany(fields: ["id"])
 
-    chats: [Chat]
-      @hasMany(fields: ["id"])
-    chatWith: [Chat]
-      @hasMany(fields: ["id"])
+  chats: [Chat] @hasMany(fields: ["id"])
+  chatWith: [Chat] @hasMany(fields: ["id"])
 }
 
-type UserFriend
+type UserFriend 
   @model 
   @auth(rules: [
     { allow: private, operations: [read] }
-  ]) {
+    ]
+  ) {
   id: ID!
-  
-  userID: ID! 
-  user: User 
-    @belongsTo(fields: ["userID"])
 
-  friendID: ID! 
-  friend: User 
-    @belongsTo(fields: ["friendID"])
+  userID: ID!
+  user: User @belongsTo(fields: ["userID"])
+
+  friendID: ID!
+  friend: User @belongsTo(fields: ["friendID"])
 
   status: String!
 }
@@ -44,15 +40,14 @@ type Chat
   @model
   @aws_lambda
   @auth(rules: [
-    { allow: owner, ownerField: "userID", operations: [read] }
-  ]) {
-    id: ID!
+      { allow: private, operations: [read] }
+    ]
+  ) {
+  id: ID!
 
-    userID: ID!
-    user: User 
-      @belongsTo(fields: ["userID"])
+  userID: ID!
+  user: User @belongsTo(fields: ["userID"])
 
-    friendID: ID!
-    friend: User 
-      @belongsTo(fields: ["friendID"])
-  }
+  friendID: ID!
+  friend: User @belongsTo(fields: ["friendID"])
+}

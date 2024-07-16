@@ -4,7 +4,7 @@ import ChatItem from "../menu-item/ChatItem";
 function ChatList({ chats }: { chats: Chat[] }) {
     //console.log(chats);
     const renderChat = chats.map((chat, index) => {
-        return <ChatItem value={chat} key={index}></ChatItem>
+        return <ChatItem chat={chat} key={index}></ChatItem>
     })
 
     return (
