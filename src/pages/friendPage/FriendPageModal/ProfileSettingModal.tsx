@@ -6,6 +6,8 @@ import ProfileCover from "../../../components/ProfileCover";
 import { IoPencilOutline } from "react-icons/io5";
 import EditStatusMessage from "./EditStatusMessage";
 import { useState } from "react";
+import EditProfileImage from "./EditProfileImage";
+import UploadImageButton from "../../../components/input/UploadImgButton";
 
 
 function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
@@ -14,8 +16,23 @@ function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
         editStatus: boolean}){
 
     const [type , setType ] = useState("")
+    const [coverImg, setCoverImg] = useState<File | null>(null)
+    const [editCoverImg , setEditCoverImg] = useState(false)
+    console.log("editStatus :" ,editStatus);
+    console.log("editCoverImg: ",editCoverImg);
+    console.log("coverImg: ",coverImg);
+    
+    
     const theme = useTheme().currentTheme;
     const currentUser = useAppSelector(state => state.user.currentUser)
+
+    function onCoverImageChange(e: React.ChangeEvent<HTMLInputElement>){
+        const fileUploaded = e.target.files ? e.target.files[0] : null;
+        if(!fileUploaded) return;
+        setCoverImg(fileUploaded)
+        setEditCoverImg(true)
+    }
+
 
     return(
         <div className="flex flex-col relative h-screen">
@@ -28,17 +45,29 @@ function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
                         </div>
                     </div>)
              :
+
+             editCoverImg ? (
+                <div className="flex flex-col w-full items-center">
+                    <ProfileCover editCoverImg={editCoverImg} coverImg={coverImg} className="w-full h-full opacity-50"></ProfileCover>
+                    <div className="flex mt-48">
+                    <EditProfileImage setEditImg={setEditCoverImg} image={coverImg} isCoverImg></EditProfileImage>
+                    </div>
+                </div>)
+
+            :
             <>
                         <IoIosArrowBack
                         onClick={() => setSetting(false)}
                         className="cursor-pointer relative m-2"
                         style={{ color: theme.color.tertiary.text }} />
-                        <div className="relative h-2 flex flex-col items-center mx-4 rounded-lg mb-12" id="img">
-                            <ProfileCover editCoverImg={false} className="rounded-lg h-28 w-full"></ProfileCover>
+                        <div className="relative flex flex-col items-center mx-4 rounded-lg h-28" id="img">
+                            <ProfileCover editCoverImg={false} className="rounded-lg h-full w-full"></ProfileCover>
                             <div className="relative flex items-center mt-6">
                                 <ProfilePicture src={currentUser?.image} size="64px"></ProfilePicture>
                             </div>
-                        </div><div className="flex flex-col ml-4 gap-y-4 text-sm mt-16" style={{ color: theme.color.primary.text }} id="content">
+                            <UploadImageButton onImageChange={onCoverImageChange} className="absolute right-2 bottom-2"></UploadImageButton>
+                        </div>
+                        <div className="flex flex-col ml-4 gap-y-4 text-sm mt-4" style={{ color: theme.color.primary.text }} id="content">
                             <div>
                                 <div style={{ color: theme.color.tertiary.text }}>Display name</div>
                                 <div className="flex flex-row items-center cursor-pointer">{currentUser?.name}

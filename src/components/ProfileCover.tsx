@@ -3,7 +3,7 @@ import { useAppSelector } from "../hook";
 import classNames from "classnames";
 
 interface ProfileCoverProps {
-    editCoverImg: boolean;
+    editCoverImg?: boolean;
     coverImg?: File | null;
     className?: string;
 }
@@ -12,6 +12,10 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({ editCoverImg, coverImg , cl
 
     const currentUserCoverImg = useAppSelector(state => state.user.currentUser?.coverImage)
     const style = classNames("absolute inset-0 object-cover z-0 " + className)
+    console.log(coverImg);
+    console.log(editCoverImg);
+    
+    
 
     return (
         <div className="absolute h-full w-full">

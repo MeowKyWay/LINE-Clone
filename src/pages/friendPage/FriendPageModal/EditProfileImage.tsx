@@ -25,11 +25,11 @@ function EditProfileImage({setEditImg , image , isCoverImg} :
 }
 
     return(
-        <div className="flex flex-col items-center gap-1">
-                    <div className="flex flex-row gap-x-2">
+        <div className="flex flex-col items-center gap-1 z-10">
+                    <div className="flex flex-row gap-x-2 absolute bottom-4">
                         <Button type="primary" onClick={uploadImage}>Save</Button>
                         <button 
-                            className="text-white px-2 box-border rounded text-white h-10"  
+                            className="text-white px-2 box-border rounded text-white h-10 cursor-pointer"  
                             style={{backgroundColor: "#575757"}}
                             onClick={() => setEditImg(false)}>
                             cancel

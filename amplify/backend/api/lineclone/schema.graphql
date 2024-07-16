@@ -38,9 +38,8 @@ type UserFriend
 
 type Chat
   @model
-  @aws_lambda
   @auth(rules: [
-      { allow: private, operations: [read] }
+      { allow: owner, ownerField: "userID" operations: [read] }
     ]
   ) {
   id: ID!

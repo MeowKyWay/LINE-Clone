@@ -26,7 +26,8 @@ const fetchUser = createAsyncThunk('users/fetch', async () => {
         email: userAttribute.email,
         lineID: user?.id,
         statusMessage: user?.statusMessage,
-        image: user?.image
+        image: user?.image,
+        coverImage: user?.coverImage,
     } as UserType;
 })
 
