@@ -1,8 +1,8 @@
 /* Amplify Params - DO NOT EDIT
-	API_LINECLONE_GRAPHQLAPIENDPOINTOUTPUT
-	API_LINECLONE_GRAPHQLAPIIDOUTPUT
-	ENV
-	REGION
+  API_LINECLONE_GRAPHQLAPIENDPOINTOUTPUT
+  API_LINECLONE_GRAPHQLAPIIDOUTPUT
+  ENV
+  REGION
 Amplify Params - DO NOT EDIT *//* Amplify Params - DO NOT EDIT
   API_LINECLONE_GRAPHQLAPIENDPOINTOUTPUT
   API_LINECLONE_GRAPHQLAPIIDOUTPUT
@@ -74,21 +74,86 @@ const getCognitoUser = async (accessToken) => {
   }
 }
 
+const getChat = async (id) => {
+  try {
+    const response = await graphql({
+      query: /* GraphQL */ `
+        query GET_CHAT($id: ID!) {
+          getChat(id: $id) {
+            id
+          }
+        }
+      `,
+      variables: { id: id }
+    })
+    console.log("Chat: ", response);
+    return response;
+  }
+  catch (error) {
+    return error;
+  }
+}
+
 export const handler = async (event) => {
-  console.log(`EVENT: ${JSON.stringify(event)}`);
+  const response = ({isAuthorized, info}) => {
+    return {
+      isAuthorized: isAuthorized,
+      resolverContext: {
+        info: info,
+      },
+    };
+  }
+
+  console.log("Event: ", event);
 
   const accessToken = (event.authorizationToken).split(':')[1];
   const user = await getCognitoUser(accessToken);
+  if (!user) {
+    return response({
+      isAuthorized: false,
+      info: 'Invalid access token',
+    })
+  }
 
-  const response = {
+  const queryString = event.requestContext.queryString;
+
+  if (queryString.split("")[0] === 'query') {
+    return response({
+      isAuthorized: false,
+      info: 'Use userPool provider for query',
+    });
+  }
+
+  const query = queryString.match(/{\n[ ]*([a-zA-Z0-9_]+)\(/)[1];
+  const chatID = queryString.match(/chatID:\s*"([^"]+)"/)[0].split(": ")[1].replace(/^"|"$/g, '');
+  const userID = chatID.split(":")[0];
+  const friendID = chatID.split(":")[1];
+  const content = queryString.match(/content:\s*"([^"]+)"/)[0].split(": ")[1].replace(/^"|"$/g, '');
+  console.log({
+    query,
+    chatID,
+    userID,
+    friendID,
+    content
+  })
+
+  if (userID !== user.Username) {
+    return response({
+      isAuthorized: false,
+      info: 'Invalid user',
+    })
+  }
+
+  const chat = await getChat(chatID);
+  if (!chat) {
+    return response({
+      isAuthorized: false,
+      info: 'Chat not found',
+    })
+  }
+
+  return response({
     isAuthorized: true,
-    resolverContext: {
-      // eslint-disable-next-line spellcheck/spell-checker
-      userid: 'user-id',
-      info: 'contextual information A',
-      more_info: 'contextual information B',
-    },
-  };
-  console.log(`response >`, JSON.stringify(response, null, 2));
-  return response;
+    info: 'Authorized',
+  });
 };

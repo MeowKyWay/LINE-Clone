@@ -20,7 +20,7 @@
               "authenticationType": "AWS_LAMBDA",
               "lambdaAuthorizerConfig": {
                 "lambdaFunction": "graphQlLambdaAuthorizer9d21ee2e",
-                "ttlSeconds": "300"
+                "ttlSeconds": "0"
               }
             }
           ],

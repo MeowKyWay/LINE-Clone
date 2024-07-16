@@ -38,9 +38,9 @@ type UserFriend
 
 type Chat
   @model
-  @aws_lambda
   @auth(rules: [
-      { allow: private, operations: [read] }
+    { allow: private, operations: [read] }
+      # { allow: owner, ownerField: "userID" operations: [read] }
     ]
   ) {
   id: ID!
@@ -50,4 +50,23 @@ type Chat
 
   friendID: ID!
   friend: User @belongsTo(fields: ["friendID"])
+
+  message: [Message] @hasMany(fields: ["id"]) 
+    @auth(rules: [
+      { allow: owner, ownerField: "userID", operations: [read] }
+      { allow: owner, ownerField: "friendID", operations: [read] }
+    ])
 }
+
+type Message
+  @model
+  @auth(rules: [
+    { allow: custom, provider: function, operations: [create] }
+    { allow: private, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  content: String!
+  chatID: ID!
+  chat: Chat @belongsTo(fields: ["chatID"])
+  }

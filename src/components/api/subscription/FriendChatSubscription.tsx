@@ -20,16 +20,10 @@ function FriendChatSubscription() {
 
         const newSubscription = client.graphql({
             query: onCreateChat,
-            variables: {
-                filter: {
-                    userID: {
-                        eq: user.currentUser?.lineID
-                    }
-                }
-            }
         }).subscribe({
             next: ({ data }) => {
                 dispatch(addChat(data.onCreateChat));
+                console.log(data.onCreateChat)
             }
         })
 

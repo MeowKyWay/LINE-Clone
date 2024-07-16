@@ -17,14 +17,15 @@ function TestPage() {
     const [friendLineID, setFriendLineID] = useState('');
 
     const test = async () => {
-        const res = await invokeLambda({
-            arn: 'LINECloneNewChat-dev',
-            body: {
-                accessToken: (await fetchAuthSession()).tokens?.accessToken.toString(),
-                friendID: "broths_tractor"
-            }
-        })
+        const res = (await fetchAuthSession()).tokens?.accessToken.toString();
         console.log(res);
+    }
+
+    const test2 = async () => {
+        const str = "mutation MyMutation {\n  createMessage(input: {chatID: \"feeders_wagon:broths_tractor\", content: \"12345\"}) {\n    id\n    chatID\n    content\n    createdAt\n  }\n}\n"
+        const query = str.match(/{\n[ ]*([a-zA-Z0-9_]+)\(/);
+
+        console.log(query);
     }
 
     return (
@@ -37,6 +38,9 @@ function TestPage() {
             <h1>Test Page</h1>
             <Button type='primary' onClick={test}>
                 Test
+            </Button>
+            <Button type='primary' onClick={test2}>
+                Test2
             </Button>
         </div>
     )

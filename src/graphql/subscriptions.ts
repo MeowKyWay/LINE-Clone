@@ -215,8 +215,12 @@ export const onDeleteUserFriend = /* GraphQL */ `subscription OnDeleteUserFriend
   APITypes.OnDeleteUserFriendSubscriptionVariables,
   APITypes.OnDeleteUserFriendSubscription
 >;
-export const onCreateChat = /* GraphQL */ `subscription OnCreateChat($filter: ModelSubscriptionChatFilterInput) {
-  onCreateChat(filter: $filter) {
+export const onCreateChat = /* GraphQL */ `subscription OnCreateChat(
+  $filter: ModelSubscriptionChatFilterInput
+  $userID: String
+  $friendID: String
+) {
+  onCreateChat(filter: $filter, userID: $userID, friendID: $friendID) {
     id
     userID
     user {
@@ -238,6 +242,10 @@ export const onCreateChat = /* GraphQL */ `subscription OnCreateChat($filter: Mo
       coverImage
       createdAt
       updatedAt
+      __typename
+    }
+    message {
+      nextToken
       __typename
     }
     createdAt
@@ -249,8 +257,12 @@ export const onCreateChat = /* GraphQL */ `subscription OnCreateChat($filter: Mo
   APITypes.OnCreateChatSubscriptionVariables,
   APITypes.OnCreateChatSubscription
 >;
-export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat($filter: ModelSubscriptionChatFilterInput) {
-  onUpdateChat(filter: $filter) {
+export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat(
+  $filter: ModelSubscriptionChatFilterInput
+  $userID: String
+  $friendID: String
+) {
+  onUpdateChat(filter: $filter, userID: $userID, friendID: $friendID) {
     id
     userID
     user {
@@ -272,6 +284,10 @@ export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat($filter: Mo
       coverImage
       createdAt
       updatedAt
+      __typename
+    }
+    message {
+      nextToken
       __typename
     }
     createdAt
@@ -283,8 +299,12 @@ export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat($filter: Mo
   APITypes.OnUpdateChatSubscriptionVariables,
   APITypes.OnUpdateChatSubscription
 >;
-export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat($filter: ModelSubscriptionChatFilterInput) {
-  onDeleteChat(filter: $filter) {
+export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat(
+  $filter: ModelSubscriptionChatFilterInput
+  $userID: String
+  $friendID: String
+) {
+  onDeleteChat(filter: $filter, userID: $userID, friendID: $friendID) {
     id
     userID
     user {
@@ -308,6 +328,10 @@ export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat($filter: Mo
       updatedAt
       __typename
     }
+    message {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -316,4 +340,70 @@ export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat($filter: Mo
 ` as GeneratedSubscription<
   APITypes.OnDeleteChatSubscriptionVariables,
   APITypes.OnDeleteChatSubscription
+>;
+export const onCreateMessage = /* GraphQL */ `subscription OnCreateMessage($filter: ModelSubscriptionMessageFilterInput) {
+  onCreateMessage(filter: $filter) {
+    id
+    content
+    chatID
+    chat {
+      id
+      userID
+      friendID
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateMessageSubscriptionVariables,
+  APITypes.OnCreateMessageSubscription
+>;
+export const onUpdateMessage = /* GraphQL */ `subscription OnUpdateMessage($filter: ModelSubscriptionMessageFilterInput) {
+  onUpdateMessage(filter: $filter) {
+    id
+    content
+    chatID
+    chat {
+      id
+      userID
+      friendID
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateMessageSubscriptionVariables,
+  APITypes.OnUpdateMessageSubscription
+>;
+export const onDeleteMessage = /* GraphQL */ `subscription OnDeleteMessage($filter: ModelSubscriptionMessageFilterInput) {
+  onDeleteMessage(filter: $filter) {
+    id
+    content
+    chatID
+    chat {
+      id
+      userID
+      friendID
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteMessageSubscriptionVariables,
+  APITypes.OnDeleteMessageSubscription
 >;

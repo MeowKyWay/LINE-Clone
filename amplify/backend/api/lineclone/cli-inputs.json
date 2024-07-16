@@ -14,7 +14,7 @@
       {
         "mode": "AWS_LAMBDA",
         "lambdaFunction": "graphQlLambdaAuthorizer9d21ee2e",
-        "ttlSeconds": "300"
+        "ttlSeconds": "0"
       }
     ],
     "conflictResolution": {}
