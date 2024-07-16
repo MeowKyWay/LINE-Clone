@@ -19,20 +19,26 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({ editCoverImg, coverImg , cl
 
     return (
         <div className="absolute h-full w-full">
-            { currentUserCoverImg && !editCoverImg && (
+            { (currentUserCoverImg && !editCoverImg) ? (
                 <StorageImage
                     path={currentUserCoverImg}
                     alt="profile"
                     className={style}
                 />
-            )}
-            {coverImg && editCoverImg && (
+            )
+            : (coverImg && editCoverImg) ? (
                 <img
                     src={URL.createObjectURL(coverImg)}
                     alt="profile"
                     className={style}
                 />
-            )}
+            )
+            : (
+                //default coverImg
+                <img src={'../src/assets/default-cover.jpg'} alt="default-cover" className={style}/>
+            )
+            
+            }
         </div>
     );
 };

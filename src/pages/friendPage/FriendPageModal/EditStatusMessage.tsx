@@ -14,10 +14,10 @@ function EditProfileInfo({ setEditStatus, type } : { setEditStatus: React.Dispat
     const currentUser = useAppSelector(state => state.user.currentUser)
 
     useEffect(() => {
-        setName()
+        setDefaultInput()
     },[])
 
-    function setName(){
+    function setDefaultInput(){
         if(type === "username"){
             setStatus(currentUser?.name as string)
         }

@@ -46,8 +46,12 @@ function ProfileModal({onClose} : { onClose: () => void}){
 
                     <div className="relative">
                         { (image && editImg) && <img className="object-cover" style={profilePictureStyle} src={URL.createObjectURL(image)} />}
-                        { (!editStatus  && !editImg) && (<ProfilePicture size="94px" src={currentUser?.image}/>)}
-                        { (!editStatus) && (<UploadImageButton className="absolute top-20 left-16" onImageChange={onImageChange}></UploadImageButton>)}
+                        { (!editStatus  && !editImg) && (
+                            <div>
+                                <ProfilePicture size="94px" src={currentUser?.image}/>
+                                <UploadImageButton className="absolute top-20 left-16" onImageChange={onImageChange}></UploadImageButton>
+                            </div>
+                            )}
                     </div>
 
                     <div className="flex flex-col items-center gap-2">
