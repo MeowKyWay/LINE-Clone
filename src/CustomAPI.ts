@@ -18,7 +18,8 @@ export type ListFriendQuery = {
                 id: string,
                 name: string,
                 statusMessage: string,
-                image: string
+                image: string,
+                coverImage: string,
             } | null,
             friendID: string,
             friend: {
@@ -26,7 +27,8 @@ export type ListFriendQuery = {
                 id: string,
                 name: string,
                 statusMessage: string,
-                image: string
+                image: string,
+                coverImage: string,
             } | null,
             status: string,
             createdAt: string,

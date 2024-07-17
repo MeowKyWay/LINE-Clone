@@ -1,8 +1,5 @@
 import AccountItem from "../../components/menu-item/AccountItem";
 import SearchField from "../../components/input/SearchField";
-import AccountList from "../../components/menu_list/AccountList";
-import { MdExpandLess, MdExpandMore } from "react-icons/md";
-import useTheme from "../../theme";
 import { setFriendListState, setGroupListState } from "../../store/slice/statesSlice";
 import { setFriendsTerms } from "../../store/slice/termsSlice";
 import { useEffect } from "react";
@@ -16,9 +13,6 @@ function FriendsPage() {
 
     const dispatch = useAppDispatch()
     const [showModal, setShowModal] = useState(false)
-
-    const theme = useTheme().currentTheme;
-
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -30,15 +24,15 @@ function FriendsPage() {
 
 
     const user = useAppSelector(state => state.user);
-    const groupListState = useAppSelector(state => state.states.groupListState);
+    // const groupListState = useAppSelector(state => state.states.groupListState);
     const searchTerm = useAppSelector(state => state.terms.friendsTerm);
 
     // const groups = useAppSelector(state => state.groups.groupList);
     // const groupsFiltered = groups?.filter(group => group.name.toLowerCase().includes(searchTerm.toLowerCase())) || [];
 
-    const setGroupList = (state: boolean) => {
-        dispatch(setGroupListState(state));
-    }
+    // const setGroupList = (state: boolean) => {
+    //     dispatch(setGroupListState(state));
+    // }
 
     const handleTermChange = (value: string) => {
         dispatch(setGroupListState(true));

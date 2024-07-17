@@ -320,6 +320,7 @@ export type ListFriendsQuery = {
         name: string,
         statusMessage: string,
         image?: string | null,
+        coverImage?: string | null
       } | null,
       friendID: string,
       friend?:  {
@@ -328,6 +329,7 @@ export type ListFriendsQuery = {
         name: string,
         statusMessage: string,
         image?: string | null,
+        coverImage?: string | null
       } | null,
       status: string,
       createdAt: string,

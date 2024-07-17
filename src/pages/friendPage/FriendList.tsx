@@ -7,7 +7,6 @@ import FetchFriends from "../../components/api/fetch/FetchFriends";
 function FriendList({ searchTerm }: { searchTerm: string }) {
 
     const dispatch = useAppDispatch();
-
     const friends = useAppSelector(state => state.friends.friends);
     const friendsFiltered = friends.data?.filter(friend => friend.name.toLowerCase().includes(searchTerm.toLowerCase())) || [];
 

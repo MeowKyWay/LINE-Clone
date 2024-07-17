@@ -26,17 +26,17 @@ function ProfilePicture({ src, size , onClick}: {
                 }/>
                 :
                 <img 
-                className={`object-cover ${onClick ? "cursor-pointer" : ""}`} 
-                src={'../src/assets/profile.jpeg'} 
-                alt={'Profile'} 
-                onClick={onClick}
-                style={{
-                    width: size,
-                    height: size,
-                    minWidth: size,
-                    minHeight: size,
-                    borderRadius: '50%',
-                }}
+                    className={`object-cover ${onClick ? "cursor-pointer" : ""}`} 
+                    src={'../src/assets/profile.jpeg'} 
+                    alt={'Profile'} 
+                    onClick={onClick}
+                    style={{
+                        width: size,
+                        height: size,
+                        minWidth: size,
+                        minHeight: size,
+                        borderRadius: '50%',
+                    }}
             ></img>
             }
         </div>

@@ -21,6 +21,7 @@ function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
     const [editImgType , setEditImgType] = useState<"profile" | "cover" | null>(null)
     const theme = useTheme().currentTheme;
     const currentUser = useAppSelector(state => state.user.currentUser)
+    const textStyle = { color: theme.color.tertiary.text }
 
     const onImageChange = (e: React.ChangeEvent<HTMLInputElement>, isCover = false) => {
         const fileUploaded = e.target.files ? e.target.files[0] : null;
@@ -83,23 +84,23 @@ function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
 
                         <div className="flex flex-col ml-4 gap-y-4 text-sm mt-4" style={{ color: theme.color.primary.text }} id="content">
                             <div>
-                                <div style={{ color: theme.color.tertiary.text }}>Display name</div>
+                                <div style={textStyle}>Display name</div>
                                 <div className="flex flex-row items-center cursor-pointer">{currentUser?.name}
                                     <IoPencilOutline size="12px" className="ml-1" onClick={() => {setEditStatus(true); setType("username")}}/>
                                 </div>
                             </div>
                             <div>
-                                <div style={{ color: theme.color.tertiary.text }}>Status message</div>
+                                <div style={textStyle}>Status message</div>
                                 <div className="flex flex-row items-center cursor-pointer">{currentUser?.statusMessage}
                                     <IoPencilOutline size="12px" className="ml-1" onClick={() => {setEditStatus(true); setType("statusMessage")}}/>
                                 </div>
                             </div>
                             <div>
-                                <div style={{ color: theme.color.tertiary.text }}>Line ID</div>
+                                <div style={textStyle}>Line ID</div>
                                 <div>{currentUser?.lineID}</div>
                             </div>
                             <div>
-                                <div style={{ color: theme.color.tertiary.text }}>Email</div>
+                                <div style={textStyle}>Email</div>
                                 <div>{currentUser?.email}</div>
                             </div>
 

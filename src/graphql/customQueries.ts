@@ -18,6 +18,7 @@ export const listFriend = /* GraphQL */ `query ListFriends(
           name
           statusMessage
           image
+          coverImage
           __typename
         }
         friendID
@@ -26,6 +27,7 @@ export const listFriend = /* GraphQL */ `query ListFriends(
             name
             statusMessage
             image
+            coverImage
             __typename
         }
         status
