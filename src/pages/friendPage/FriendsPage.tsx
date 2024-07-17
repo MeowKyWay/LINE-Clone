@@ -65,8 +65,8 @@ function FriendsPage() {
                 <div className="w-full flex flex-col">
 
                     {user.currentUser &&
-                        <div onClick={() => setShowModal(true)}>
-                            <AccountItem account={user.currentUser} />
+                        <div>
+                            <AccountItem account={user.currentUser} onClick={() => setShowModal(true)}/>
                         </div>
                     }
 

@@ -8,8 +8,6 @@ import ProfilePicture from "../../../components/ProfilePicture";
 function EditProfileInfo({ setEditStatus, type } : { setEditStatus: React.Dispatch<React.SetStateAction<boolean>> , type: string})
 {
     const [status , setStatus] = useState("")
-    console.log(status);
-    
     const dispatch = useAppDispatch()
     const currentUser = useAppSelector(state => state.user.currentUser)
 
@@ -45,11 +43,12 @@ function EditProfileInfo({ setEditStatus, type } : { setEditStatus: React.Dispat
                     <div className="flex items-center">
                         <textarea 
                             className="bg-transparent text-white focus:outline-none h-44 w-64 text-center" 
-                            placeholder="Enter a status message" 
+                            placeholder={type === "statusMessage" ? "Enter a status message": ""} 
                             style={{caretColor: "white" ,resize: "none" }}
                             onChange={(e) => setStatus(e.target.value)}
                             value={status}
-                            ></textarea>
+                            >
+                        </textarea>
                     </div>
                     <div className="flex flex-row gap-x-2 absolute bottom-4 ">
                         <Button type="primary" onClick={updateStatusMessage}>Save</Button>

@@ -8,7 +8,7 @@ import { addFriend } from "../../store/thunks/friendsThunk";
 import { setActiveChat } from "../../store/slice/statesSlice";
 
 
-function AccountItem({ account, isRequest = false}: {
+function AccountItem({ account, isRequest = false , onClick}: {
     account: UserType | User
     isRequest?: boolean
     onClick?: () => void | null
@@ -27,7 +27,7 @@ function AccountItem({ account, isRequest = false}: {
     }
     
     return (
-        <div className={`h-14 w-full ${isRequest ? '' : 'cursor-pointer'} items-center`} onClick={handleClick}>
+        <div className={`h-14 w-full ${(isRequest || onClick) ? '' : 'cursor-pointer'} items-center`} onClick={handleClick}>
             <style>
                 {`
                 .hover:hover {
@@ -36,7 +36,7 @@ function AccountItem({ account, isRequest = false}: {
                 `}
             </style>
             <div className="h-14 w-full pl-5 flex flex-row items-center hover">
-                <ProfilePicture size="43px" src={account.image} />
+                <ProfilePicture size="43px" src={account.image} onClick={onClick}/>
                 <div className="flex flex-row ml-3 items-center" style={{ maxWidth: 'calc(100% - 83px)' }}>
                     <div>
                         <div className="overflow-hidden whitespace-nowrap text-ellipsis" style={{

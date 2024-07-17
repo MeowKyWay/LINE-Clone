@@ -21,8 +21,6 @@ function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
     const [editImgType , setEditImgType] = useState<"profile" | "cover" | null>(null)
     const theme = useTheme().currentTheme;
     const currentUser = useAppSelector(state => state.user.currentUser)
-    console.log("coverImg: ", coverImg);
-    
 
     const onImageChange = (e: React.ChangeEvent<HTMLInputElement>, isCover = false) => {
         const fileUploaded = e.target.files ? e.target.files[0] : null;
@@ -39,6 +37,7 @@ function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
     return(
         <div className="flex flex-col relative h-screen">
             {
+                //update username & statusMessage
                 editStatus ? (
                     <div className="flex flex-col w-full items-center">
                         <ProfileCover editCoverImg={false} className="w-full h-full opacity-50"></ProfileCover>
@@ -47,7 +46,8 @@ function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
                         </div>
                     </div>)
              :
-
+            
+             //update profileImg & coverImg
              editImgType ? (
                     <div className="flex flex-col w-full items-center">
                         <ProfileCover 

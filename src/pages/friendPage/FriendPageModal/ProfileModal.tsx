@@ -39,15 +39,6 @@ function ProfileModal({onClose} : { onClose: () => void}){
                         <CiSettings onClick={() => setSetting(true)} className="cursor-pointer text-white" size="20px"></CiSettings>
                     </div>
 
-                    <div className="relative">
-                        { (!editStatus  && !editImg) && (
-                            <div>
-                                <ProfilePicture size="94px" src={currentUser?.image}/>
-                                <UploadImageButton className="absolute top-20 left-16" onImageChange={onImageChange}/>
-                            </div>
-                            )}
-                    </div>
-
                     <div className="flex flex-col items-center gap-2">
 
                         {/* edit page */}
@@ -57,6 +48,10 @@ function ProfileModal({onClose} : { onClose: () => void}){
 
                         //profileModal default page
                         : (     <div className="flex flex-col items-center">
+                                    <div className="relative mb-4">
+                                        <ProfilePicture size="94px" src={currentUser?.image}/>
+                                        <UploadImageButton className="absolute top-20 left-16" onImageChange={onImageChange}/>
+                                    </div>
                                     <div className="text-xl text-white">{currentUser?.name}</div>
                                     <div className="flex flex-row cursor-pointer" onClick={() => setEditStatus(true)}>
                                         <div className="text-xs text-white">
