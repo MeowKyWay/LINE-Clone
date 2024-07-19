@@ -4,15 +4,18 @@ import useTheme from "../../theme";
 import Button from "../input/Button";
 import ProfilePicture from "../ProfilePicture";
 
-function NewChat({friend}: {friend: string}) {
+function NewChat() {
 
-    const account = useAppSelector(state => state.friends.friends.data)?.find(f => f.id === friend);
+    const activeChat = useAppSelector(state => state.states.activeChat);
+    const account = useAppSelector(state => state.friends.friends.data)?.find(f => f.id === activeChat);
     const theme = useTheme().currentTheme;
+
+    // console.log(activeChat);
 
     const dispatch = useAppDispatch();
 
     const handleNewChat = async () => {
-        dispatch(newFriendChat(friend));
+        dispatch(newFriendChat(activeChat as string));
     }
 
     return (

@@ -449,6 +449,17 @@ export type ListMyChatsQuery = {
         statusMessage: string,
         image?: string | null,
       } | null,
+      message?:  {
+        __typename: "ModelMessageConnection",
+        items:  Array< {
+          __typename: "Message",
+          id: string,
+          chatID: string,
+          content: string,
+          createdAt: string,
+          updatedAt: string,
+        } | null >,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null >,

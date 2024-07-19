@@ -28,9 +28,15 @@ const chatsSlice = createSlice({
         addChat(state, action) {
             if (!state.friendChats.data) return;
             state.friendChats.data.push(action.payload);
+        },
+        addMessage(state, action) {
+            if (!state.friendChats.data) return;
+            const chat = state.friendChats.data.find(chat => chat.id === action.payload.chatID);
+            if (!chat) return;
+            chat.message?.items.push(action.payload);
         }
     },
 })
 
-export const { addChat } = chatsSlice.actions;
+export const { addChat, addMessage } = chatsSlice.actions;
 export const chatsReducer = chatsSlice.reducer;

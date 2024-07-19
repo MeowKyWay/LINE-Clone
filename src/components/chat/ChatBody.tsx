@@ -2,19 +2,43 @@ import useTheme from "../../theme";
 import { useAppSelector } from "../../hook";
 import ChatBubbleRow from "./ChatBubbleRow";
 import ChatTextArea from "./ChatTextArea";
-import { Chat } from "../../API";
+import { Chat, Message } from "../../API";
+import { useEffect } from "react";
 
-function ChatBody({activeChat}: {activeChat: Chat}) {
+function ChatBody({ activeChat }: { activeChat: Chat }) {
+    // console.log(activeChat);
     const theme = useTheme().currentTheme;
 
     const currentUser = useAppSelector(state => state.user.currentUser);
-    const messages = useAppSelector(state => state.messages.messageList);
+    const myChat = useAppSelector(state => state.chats.friendChats.data)?.filter(chat => chat.id === activeChat.id)[0];
+    const friendChat = useAppSelector(state => state.chats.friendChats.data)?.filter(
+        chat => chat.id === myChat?.friendID + ":" + myChat?.userID
+    )[0];
+    const messages = []
+    if (myChat && myChat.message?.items) {
+        messages.push(...myChat.message?.items as Message[]);
+    }
+    if (friendChat && friendChat.message?.items) {
+        messages.push(...friendChat.message?.items as Message[]);
+    }
 
-    const renderedMessages = messages.filter(message => message.chatId === activeChat?.id).map((message) => { //replace 1 later
+    messages.sort((a, b) => {
+        return new Date(a?.createdAt).getTime() - new Date(b?.createdAt).getTime();
+    });
+
+    useEffect(() => {
+        // Select the container and scroll to the bottom
+        const container = document.querySelector('#chat-container');
+        if (container) {
+            container.scrollTop = container.scrollHeight;
+        }
+    });
+
+    const renderedMessages = messages.map((message) => {
         if (!currentUser) return null;
         return (
-            <ChatBubbleRow key={message.id} isCurrentUser={message.userId === currentUser?.lineID}>
-                {message}
+            <ChatBubbleRow key={message?.id} isCurrentUser={message?.chatID.split(":")[0] === currentUser?.lineID}>
+                {message as Message}
             </ChatBubbleRow>
         );
     });
@@ -31,10 +55,11 @@ function ChatBody({activeChat}: {activeChat: Chat}) {
                 </div>
             </div>
             <div
+                id="chat-container"
                 className="px-3 pb-4 overflow-y-scroll flex flex-col gap-1"
                 style={{
-                    height: 'calc(100vh - 228px)',
-                    maxHeight: 'calc(100vh - 228px)',
+                    height: 'calc(100vh - 232px)',
+                    maxHeight: 'calc(100vh - 232px)',
                 }}>
                 {renderedMessages}
             </div>

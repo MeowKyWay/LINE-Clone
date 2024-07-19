@@ -1,11 +1,11 @@
 import { generateClient } from "aws-amplify/api"
 import { useEffect, useRef } from "react"
 import { Subscription } from "rxjs"
-import { onCreateChat } from "../../../graphql/subscriptions";
+import { onCreateMessage } from "../../../graphql/subscriptions";
 import { useAppDispatch, useAppSelector } from "../../../hook";
-import { addChat } from "../../../store/slice/chatsSlice";
+import { addMessage } from "../../../store/slice/chatsSlice";
 
-function FriendChatSubscription() {
+function MessageSubscription() {
 
     const client = generateClient();
     const dispatch = useAppDispatch();
@@ -19,30 +19,31 @@ function FriendChatSubscription() {
         if (subscription.current) return;
 
         const newSubscription = client.graphql({
-            query: onCreateChat,
+            query: onCreateMessage,
+            variables: {
+                filter: {
+                    chatID: {
+                        contains: user.currentUser?.lineID
+                    }
+                }
+            }
         }).subscribe({
             next: ({ data }) => {
-                const chat = {
-                    ...data.onCreateChat,
-                    message: {
-                        items: []
-                    },
-                }
-                dispatch(addChat(chat));
-                console.log(chat)
+                dispatch(addMessage(data.onCreateMessage));
+                console.log(data.onCreateMessage)
             }
         })
 
         subscription.current = newSubscription;
 
-        console.log('Subscribe Friend chat')
+        console.log('Subscribe to Message')
 
         return () => {
             if (newSubscription) {
                 newSubscription.unsubscribe();
                 subscription.current = null;
             }
-            console.log('Unsubscribe Friend chat')
+            console.log('Unsubscribe to Message')
         };
 
     }, [client, dispatch, user.currentUser, user.error]);
@@ -52,4 +53,4 @@ function FriendChatSubscription() {
     );
 }
 
-export default FriendChatSubscription
+export default MessageSubscription

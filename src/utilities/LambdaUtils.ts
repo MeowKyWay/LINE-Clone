@@ -4,6 +4,7 @@ import { fetchAuthSession } from "aws-amplify/auth";
 export enum LambdaARN {
     ADD_FRIEND = "LINECloneAddFriend-dev",
     NEW_CHAT = "LINECloneNewChat-dev",
+    SEND_MESSAGE = "LINECloneSendMessage-dev",
 }
 
 export async function invokeLambda({ arn, body }: {
