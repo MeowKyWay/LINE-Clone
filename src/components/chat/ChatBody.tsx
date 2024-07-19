@@ -2,11 +2,10 @@ import useTheme from "../../theme";
 import { useAppSelector } from "../../hook";
 import ChatBubbleRow from "./ChatBubbleRow";
 import ChatTextArea from "./ChatTextArea";
-import { Chat, Message } from "../../API";
+import { Chat, Message, User } from "../../API";
 import { useEffect } from "react";
 
 function ChatBody({ activeChat }: { activeChat: Chat }) {
-    // console.log(activeChat);
     const theme = useTheme().currentTheme;
 
     const currentUser = useAppSelector(state => state.user.currentUser);
@@ -36,8 +35,9 @@ function ChatBody({ activeChat }: { activeChat: Chat }) {
 
     const renderedMessages = messages.map((message) => {
         if (!currentUser) return null;
+        
         return (
-            <ChatBubbleRow key={message?.id} isCurrentUser={message?.chatID.split(":")[0] === currentUser?.lineID}>
+            <ChatBubbleRow key={message?.id} isCurrentUser={message?.chatID.split(":")[0] === currentUser?.lineID} friend={myChat?.friend as User}>
                 {message as Message}
             </ChatBubbleRow>
         );

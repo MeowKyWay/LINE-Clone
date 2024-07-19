@@ -7,9 +7,7 @@ function FetchFavoriteFriends() {
     const dispatch = useAppDispatch();
 
     const favoriteFriends = useAppSelector(state => state.friends.favoriteFriends);
-    console.log("favoriteFriends: ",favoriteFriends);
     
-
     useEffect(() => {
         if (favoriteFriends.data || favoriteFriends.error) return;
         console.log('Fetch favoriteFriends')

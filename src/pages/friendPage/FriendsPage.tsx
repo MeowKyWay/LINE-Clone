@@ -77,7 +77,7 @@ function FriendsPage() {
                         </button>
                     </div>
                     {groupListState && <AccountList accounts={groupsFiltered}></AccountList>} */}
-                    {/* <FavoriteFriendList searchTerm={searchTerm}></FavoriteFriendList> */}
+                    <FavoriteFriendList></FavoriteFriendList>
                     <FriendList searchTerm={searchTerm} />
                 </div>
             </div>

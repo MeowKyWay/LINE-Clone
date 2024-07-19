@@ -7,8 +7,6 @@ function FetchFriends() {
     const dispatch = useAppDispatch();
 
     const friends = useAppSelector(state => state.friends.friends);
-    console.log("friends: ",friends);
-    
 
     useEffect(() => {
         if (friends.data || friends.error) return;

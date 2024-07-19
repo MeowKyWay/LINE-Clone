@@ -5,15 +5,12 @@ import ExpandListButton from "../../components/ExpandListButton";
 import FetchFavoriteFriends from "../../components/api/fetch/FetchFavoriteFriends";
 
 
-function FavoriteFriendList({ searchTerm }: { searchTerm: string }) {
+function FavoriteFriendList() {
 
     const dispatch = useAppDispatch();
-    const friends = useAppSelector(state => state.friends.friends);
+
     const favoriteFriends = useAppSelector(state => state.friends.favoriteFriends) || [];
-    const friendsFiltered = friends.data?.filter(friend => friend.name.toLowerCase().includes(searchTerm.toLowerCase())) || [];
-    
-    console.log("friendFiltered: " , friendsFiltered);
-    console.log("favorite friend: ", favoriteFriends);
+
     
     const favoriteFriendListState = useAppSelector(state => state.states.favoriteFriendsListState);
 

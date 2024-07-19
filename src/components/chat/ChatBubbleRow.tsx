@@ -1,15 +1,13 @@
-import { Message } from "../../API";
-import { useAppSelector } from "../../hook";
+import { Message, User } from "../../API";
 import useTheme from "../../theme";
 import Time from "../../utilities/Time";
 import ProfilePicture from "../ProfilePicture";
 import ChatBubble from "./ChatBubble";
 
-function ChatBubbleRow({ children, isCurrentUser }: { children: Message, isCurrentUser: boolean }) {
+function ChatBubbleRow({ children, isCurrentUser , friend }: { children: Message, isCurrentUser: boolean , friend : User}) {
 
     const theme = useTheme().currentTheme;
 
-    const currentUser = useAppSelector(state => state.user.currentUser)
     const time = ( //Todo implement
         <div className="flex flex-col">
             <div className="flex-1" />
@@ -23,7 +21,7 @@ function ChatBubbleRow({ children, isCurrentUser }: { children: Message, isCurre
     return (
         <div className={`flex flex-row gap-2 items-center ${isCurrentUser ? 'justify-end' : 'justify-start'}`}>
             {!isCurrentUser &&
-                <ProfilePicture size="38px" src={currentUser?.image} />
+                <ProfilePicture size="38px" src={friend?.image} />
             }
             <div className="size-fit flex flex-row gap-2">
                 {isCurrentUser &&

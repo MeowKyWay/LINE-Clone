@@ -9,78 +9,51 @@ import { BsChatDotsFill } from "react-icons/bs";
 import { IoCallSharp } from "react-icons/io5";
 import { FaVideo } from "react-icons/fa";
 import { useAppSelector } from "../../../hook";
-import { generateClient } from "aws-amplify/api";
-import { getUserFriend } from "../../../graphql/queries";
-import { updateUserFriend } from "../../../graphql/mutations";
-import FetchFavoriteFriends from "../../../components/api/fetch/FetchFavoriteFriends";
-import FetchFriends from "../../../components/api/fetch/FetchFriends";
-import { fetchFavoriteFriends, fetchUserFriends } from "../../../store/thunks/friendsThunk";
+import { fetchUserFriend, updateFavoriteFriend} from "../../../store/thunks/friendsThunk";
+import { useAppDispatch } from "../../../hook";
+import { UserFriend } from "../../../API";
 
 
 
 function FriendProfileModal({onClose , friend } : { onClose: () => void , friend : UserType}){
     const currentUser = useAppSelector(state => state.user.currentUser)
     const [isFavorite , setIsFavorite] = useState<boolean>(false)
-    const client = generateClient()
+    const [userFriend , setUserFriend] = useState<UserFriend | null>(null)
+    console.log("isFavorite: " , isFavorite);
+    
     const userFriendID = currentUser?.lineID + ":" + friend.id
-
-
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        fetchUserFriendToSet()
-    },[isFavorite])
-    
-    async function fetchUserFriendToSet(){
-        const response = await client.graphql({
-            query: getUserFriend,
-            variables: {
-                id: userFriendID
+        async function setIsFavoriteState() {
+            const action = await dispatch(fetchUserFriend(userFriendID));
+            const fetchedUserFriend = action.payload as UserFriend;
+            setUserFriend(fetchedUserFriend);
+            if (fetchedUserFriend && fetchedUserFriend.favorite) {
+                setIsFavorite(fetchedUserFriend.favorite);
             }
-        })
-        const userFriend = response.data.getUserFriend;
-        if(userFriend?.favorite)
-        setIsFavorite(userFriend?.favorite)
-    }
+        }
 
+        setIsFavoriteState();
+    }, [userFriendID, dispatch]);
+    
     async function updateFavoriteStatus(){
-        const response = await client.graphql({
-            query: getUserFriend,
-            variables: {
-                id: userFriendID
-            }
-        })
-        
-        const userFriend = response.data.getUserFriend
-        
         if(userFriend){
-            const defaultState = userFriend.favorite ?? false;        
-            await client.graphql({
-                query: updateUserFriend,
-                variables: {
-                    input: {
-                        id: userFriend.id,
-                        favorite: !defaultState
-                    }
-                }
-            })
-        setIsFavorite(!userFriend.favorite)
-        fetchUserFriends()
-        fetchFavoriteFriends()
+            dispatch(updateFavoriteFriend(userFriend))
+            setIsFavorite(!isFavorite)
     }
     }
 
     return (
         <Modal onClose={onClose} label={"profile page"} height={"516px"} width={"312px"}>
-            <FetchFriends/>
-            <FetchFavoriteFriends/>
             <div className="relative h-full w-full">
                 <ProfileCover friend={friend} className="h-full w-full opacity-50"/>
                 <div className="relative z-10 flex flex-col items-center justify-center h-full w-full gap-4">
 
                     <div className="flex flex-row right-4 absolute top-4 gap-x-2" onClick={updateFavoriteStatus}>
-                        { !isFavorite ? 
-                        <FaRegStar className="cursor-pointer" style={{color: "white"}}/> : 
-                        <FaStar className="cursor-pointer" style={{color: "#06c755"}}/>}
+                        { isFavorite ? 
+                        <FaStar className="cursor-pointer" style={{color: "#06c755"}}/> :
+                        <FaRegStar className="cursor-pointer" style={{color: "white"}}/> }
                     </div>
 
                     <div className="flex flex-col items-center gap-2">

@@ -88,14 +88,7 @@ const fetchUserFriends = createAsyncThunk('userFriends/fetch', async () => {
 })
 
 const updateFavoriteFriend = createAsyncThunk('userFriends/updateFavorite', async (userFriend : UserFriend) => {
-    let defaultState;
-    if(userFriend.favorite === undefined){
-        defaultState = false
-    }
-    else{
-        defaultState = userFriend.favorite
-    }
-
+    const defaultState = userFriend.favorite ?? false;  
     const response = await client.graphql({
         query: updateUserFriend,
         variables: {
@@ -121,10 +114,6 @@ const fetchUserFriend = createAsyncThunk('userFriends/getUserFriend', async (use
 
     return userFriend;
 })
-
-// const subscriptionFriendRequest = createAsyncThunk('subFriendRequest/update', async () => {
-
-// })
 
 export { 
     fetchFriendRequests as fetchFriendRequest, 
