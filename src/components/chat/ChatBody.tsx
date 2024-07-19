@@ -32,7 +32,7 @@ function ChatBody({ activeChat }: { activeChat: Chat }) {
         if (container) {
             container.scrollTop = container.scrollHeight;
         }
-    }, [messages]);
+    });
 
     const renderedMessages = messages.map((message) => {
         if (!currentUser) return null;

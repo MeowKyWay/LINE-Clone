@@ -9,6 +9,11 @@
     flex-direction: row;
 }
 
+.text-2xs {
+    font-size: 0.625rem;
+    line-height: 0.75rem;
+}
+
 .pt-7\.5 {
     padding-top: 1.875rem;
 }
