@@ -20,8 +20,6 @@ function AccountItem({ account, isRequest = false , onClick}: {
     const dispatch = useAppDispatch();
     const [showModal , setShowModal] = useState(false)
     
-    const chats = useAppSelector(state => state.chats.friendChats.data);
-    
     const handleClick = () => {
         if (isRequest) return;
         if ("email" in account) return;

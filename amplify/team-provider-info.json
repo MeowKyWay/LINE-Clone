@@ -32,7 +32,7 @@
         },
         "LINECloneSendMessage": {
           "deploymentBucketName": "amplify-lineclone-dev-46391-deployment",
-          "s3Key": "amplify-builds/LINECloneSendMessage-39686772396d67385465-build.zip"
+          "s3Key": "amplify-builds/LINECloneSendMessage-6961517656794a5a6541-build.zip"
         }
       },
       "storage": {

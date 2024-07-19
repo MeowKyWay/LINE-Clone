@@ -31,6 +31,45 @@ export type ListFriendQuery = {
                 coverImage: string,
             } | null,
             status: string,
+            favorite: boolean,
+            createdAt: string,
+            updatedAt: string,
+        } | null>,
+        nextToken?: string | null,
+    } | null,
+};
+
+export type ListFriendRequestQueryVariables = {
+    filter?: ModelUserFriendFilterInput | null,
+    limit?: number | null,
+    nextToken?: string | null,
+};
+
+export type ListFriendRequestQuery = {
+    listUserFriends?: {
+        __typename: "ModelUserFriendConnection",
+        items: Array<{
+            __typename: "UserFriend",
+            id: string,
+            userID: string,
+            user: {
+                __typename: "User",
+                id: string,
+                name: string,
+                statusMessage: string,
+                image: string,
+                coverImage: string,
+            } | null,
+            friendID: string,
+            friend: {
+                __typename: "User",
+                id: string,
+                name: string,
+                statusMessage: string,
+                image: string,
+                coverImage: string,
+            } | null,
+            status: string,
             createdAt: string,
             updatedAt: string,
         } | null>,

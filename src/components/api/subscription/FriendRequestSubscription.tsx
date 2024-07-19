@@ -4,6 +4,7 @@ import { Subscription } from "rxjs"
 import { onCreateUserFriend } from "../../../graphql/subscriptions";
 import { useAppDispatch, useAppSelector } from "../../../hook";
 import { addFriendRequest } from "../../../store/slice/friendsSlice";
+import { getUser } from "../../../graphql/queries";
 
 function FriendRequestSubscription() {
 
@@ -20,20 +21,18 @@ function FriendRequestSubscription() {
 
         const newSubscription = client.graphql({
             query: onCreateUserFriend,
-            variables: {
-                filter: {
-                    friendID: {
-                        eq: user.currentUser?.lineID
-                    },
-                    status: {
-                        eq: "pending"
-                    }
-                }
-            }
         }).subscribe({
-            next: ({ data }) => {
-                dispatch(addFriendRequest(data.onCreateUserFriend?.user));
-                console.log(data.onCreateUserFriend)
+            next: async ({ data }) => {
+                console.log(data)
+                if (data.onCreateUserFriend?.friendID !== user.currentUser?.lineID) return;
+                if (data.onCreateUserFriend?.status !== 'pending') return;
+                const friend = await client.graphql({
+                    query: getUser,
+                    variables: {
+                        id: data.onCreateUserFriend.userID
+                    }
+                })
+                dispatch(addFriendRequest(friend.data.getUser));
             }
         })
 
