@@ -21,6 +21,7 @@ function ChatTextArea() {
             content: message,
         }))
         // send message to backend
+        setMessage('');
     }
 
     return (
@@ -33,6 +34,7 @@ function ChatTextArea() {
             <textarea
                 className="size-full bg-transparent focus:outline-none text-sm flex-1 px-3.5"
                 placeholder="Enter a message"
+                value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 onKeyDown={(e) => {sendMessage(e)}}
                 style={{
