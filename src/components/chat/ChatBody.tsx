@@ -3,6 +3,7 @@ import { useAppSelector } from "../../hook";
 import ChatBubbleRow from "./ChatBubbleRow";
 import ChatTextArea from "./ChatTextArea";
 import { Chat, Message } from "../../API";
+import { useEffect } from "react";
 
 function ChatBody({ activeChat }: { activeChat: Chat }) {
     // console.log(activeChat);
@@ -21,16 +22,26 @@ function ChatBody({ activeChat }: { activeChat: Chat }) {
         messages.push(...friendChat.message?.items as Message[]);
     }
 
-    // console.log(messages);
+    messages.sort((a, b) => {
+        return new Date(a?.createdAt).getTime() - new Date(b?.createdAt).getTime();
+    });
+
+    useEffect(() => {
+        // Select the container and scroll to the bottom
+        const container = document.querySelector('#chat-container');
+        if (container) {
+            container.scrollTop = container.scrollHeight;
+        }
+    }, [messages]);
 
     const renderedMessages = messages.map((message) => {
-            if (!currentUser) return null;
-            return (
-                <ChatBubbleRow key={message?.id} isCurrentUser={message?.chatID.split(":")[0] === currentUser?.lineID}>
-                    {message as Message}
-                </ChatBubbleRow>
-            );
-        });
+        if (!currentUser) return null;
+        return (
+            <ChatBubbleRow key={message?.id} isCurrentUser={message?.chatID.split(":")[0] === currentUser?.lineID}>
+                {message as Message}
+            </ChatBubbleRow>
+        );
+    });
 
     return (
         <div className="flex-1 border-box h-full flex flex-col">
@@ -44,6 +55,7 @@ function ChatBody({ activeChat }: { activeChat: Chat }) {
                 </div>
             </div>
             <div
+                id="chat-container"
                 className="px-3 pb-4 overflow-y-scroll flex flex-col gap-1"
                 style={{
                     height: 'calc(100vh - 180px)',

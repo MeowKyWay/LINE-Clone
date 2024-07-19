@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Chat } from "../../API";
 import { fetchFriendChats } from "../thunks/chatsThunk";
-import { newMessage } from "../thunks/messageThunk";
 
 const chatsSlice = createSlice({
     name: 'chatList',
@@ -30,7 +29,7 @@ const chatsSlice = createSlice({
             if (!state.friendChats.data) return;
             state.friendChats.data.push(action.payload);
         },
-        addCase(state, action) {
+        addMessage(state, action) {
             if (!state.friendChats.data) return;
             const chat = state.friendChats.data.find(chat => chat.id === action.payload.chatID);
             if (!chat) return;
@@ -39,5 +38,5 @@ const chatsSlice = createSlice({
     },
 })
 
-export const { addChat } = chatsSlice.actions;
+export const { addChat, addMessage } = chatsSlice.actions;
 export const chatsReducer = chatsSlice.reducer;

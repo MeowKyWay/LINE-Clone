@@ -13,6 +13,7 @@ import FriendRequestSubscription from './components/api/subscription/FriendReque
 import FetchUser from './components/api/fetch/FetchUser';
 import FetchChats from './components/api/fetch/FetchChats';
 import FriendChatSubscription from './components/api/subscription/FriendChatSubscription';
+import MessageSubscription from './components/api/subscription/MessageSubscription';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
           <FetchChats />          
           <FriendRequestSubscription />
           <FriendChatSubscription />
+          <MessageSubscription />
         </div>
 
 
