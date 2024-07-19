@@ -1,8 +1,8 @@
 /* Amplify Params - DO NOT EDIT
-	API_LINECLONE_GRAPHQLAPIENDPOINTOUTPUT
-	API_LINECLONE_GRAPHQLAPIIDOUTPUT
-	ENV
-	REGION
+  API_LINECLONE_GRAPHQLAPIENDPOINTOUTPUT
+  API_LINECLONE_GRAPHQLAPIIDOUTPUT
+  ENV
+  REGION
 Amplify Params - DO NOT EDIT */
 
 //GraphQL
@@ -108,6 +108,17 @@ const createChat = async (userID, friendID) => {
             image
             createdAt
             updatedAt
+            __typename
+          }
+          message {
+            items {
+              id
+              chatID
+              content
+              createdAt
+              updatedAt
+              __typename
+            }
           }
           createdAt
           updatedAt

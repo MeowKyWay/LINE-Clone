@@ -141,11 +141,11 @@ export const handler = async (event) => {
     return error("Invalid access token")
   const userID = user.Username;
 
+  const friendID = event.friendID;
   if (friendID === userID)
     return error("Cannot send message to yourself")
 
-  const friendID = event.friendID;
-  const chat = await getChat(userID + ":" + friendID);
+  const chat = await getChat(userID, friendID);
   if (!chat.data.getChat)
     return error("Chat does not exist");
 

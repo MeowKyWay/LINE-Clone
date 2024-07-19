@@ -37,6 +37,7 @@ type UserFriend
   status: String!
   favorite: Boolean @auth(rules: [
     { allow: owner, ownerField: "userID", operations: [update] }
+    { allow: private, operations: [read] }
   ])
 }
 
