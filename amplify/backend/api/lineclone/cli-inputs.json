@@ -10,11 +10,6 @@
     "additionalAuthTypes": [
       {
         "mode": "AWS_IAM"
-      },
-      {
-        "mode": "AWS_LAMBDA",
-        "lambdaFunction": "graphQlLambdaAuthorizer9d21ee2e",
-        "ttlSeconds": "0"
       }
     ],
     "conflictResolution": {}

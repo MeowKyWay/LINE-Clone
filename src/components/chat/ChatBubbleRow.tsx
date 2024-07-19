@@ -1,9 +1,9 @@
+import { Message } from "../../API";
 import { useAppSelector } from "../../hook";
-import { MessageType } from "../../store/slice/messagesSlice";
 import ProfilePicture from "../ProfilePicture";
 import ChatBubble from "./ChatBubble";
 
-function ChatBubbleRow({ children, isCurrentUser }: { children: MessageType, isCurrentUser: boolean }) {
+function ChatBubbleRow({ children, isCurrentUser }: { children: Message, isCurrentUser: boolean }) {
 
     const currentUser = useAppSelector(state => state.user.currentUser) 
     const time = ( //Todo implement
@@ -22,7 +22,7 @@ function ChatBubbleRow({ children, isCurrentUser }: { children: MessageType, isC
                 time
             }
             <div className={`flex flex-row h-full items-center ${isCurrentUser ? 'justify-end' : 'justify-start'}`}>
-                <ChatBubble>{children.message}</ChatBubble>
+                <ChatBubble>{children.content}</ChatBubble>
             </div>
             { !isCurrentUser &&
                 time

@@ -7,29 +7,59 @@ import Button from "../components/input/Button";
 import { listUserChats } from "../utilities/APIUtils";
 import { invokeLambda } from "../utilities/LambdaUtils";
 import { fetchAuthSession } from "aws-amplify/auth";
+import { getChat, getMessage, listMessages } from "../graphql/queries";
 
 function TestPage() {
 
     const theme = useTheme().currentTheme;
-    
+
     const client = generateClient();
 
     const [friendLineID, setFriendLineID] = useState('');
 
     const test = async () => {
-        const res = (await fetchAuthSession()).tokens?.accessToken.toString();
+        const res = await client.graphql({
+            query: /* GraphQL */ `query GetChat(
+                $id: ID!
+            ) {
+            getChat(id: $id) {
+                id
+                userID
+                friendID
+                friend {
+                id
+                name
+                statusMessage
+                image
+                __typename
+                }
+                message {
+                    items {
+                        id
+                    }
+                }
+                createdAt
+                updatedAt
+                __typename
+                }
+            }
+            `,
+            variables: {
+                id: "dewy_hinges:feeders_wagon"
+            }
+        })
         console.log(res);
     }
 
     const test2 = async () => {
-        const str = "mutation MyMutation {\n  createMessage(input: {chatID: \"feeders_wagon:broths_tractor\", content: \"12345\"}) {\n    id\n    chatID\n    content\n    createdAt\n  }\n}\n"
-        const query = str.match(/{\n[ ]*([a-zA-Z0-9_]+)\(/);
+        const str = "{ input: { chatID: 'dewy_hinges:feeders_wagon', content: 'Test123' } }"
+        const query = str.match(/chatID:\s*["']([^"']+)["']/)[1].replace(/^["']|["']$/g, '')
 
         console.log(query);
     }
 
     return (
-        <div 
+        <div
             className="flex flex-col items-center"
             style={{
                 color: theme.color.primary.text,

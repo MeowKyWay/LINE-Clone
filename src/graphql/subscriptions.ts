@@ -132,6 +132,7 @@ export const onCreateUserFriend = /* GraphQL */ `subscription OnCreateUserFriend
       __typename
     }
     status
+    favorite
     createdAt
     updatedAt
     __typename
@@ -169,6 +170,7 @@ export const onUpdateUserFriend = /* GraphQL */ `subscription OnUpdateUserFriend
       __typename
     }
     status
+    favorite
     createdAt
     updatedAt
     __typename
@@ -206,6 +208,7 @@ export const onDeleteUserFriend = /* GraphQL */ `subscription OnDeleteUserFriend
       __typename
     }
     status
+    favorite
     createdAt
     updatedAt
     __typename

@@ -7,6 +7,7 @@ export type ModelUserFriendFilterInput = {
   userID?: ModelIDInput | null,
   friendID?: ModelIDInput | null,
   status?: ModelStringInput | null,
+  favorite?: ModelBooleanInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelUserFriendFilterInput | null > | null,
@@ -70,6 +71,13 @@ export type ModelStringInput = {
   size?: ModelSizeInput | null,
 };
 
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
 export type ModelUserFriendConnection = {
   __typename: "ModelUserFriendConnection",
   items:  Array<UserFriend | null >,
@@ -84,6 +92,7 @@ export type UserFriend = {
   friendID: string,
   friend?: User | null,
   status: string,
+  favorite?: boolean | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -186,12 +195,14 @@ export type CreateUserFriendInput = {
   userID: string,
   friendID: string,
   status: string,
+  favorite?: boolean | null,
 };
 
 export type ModelUserFriendConditionInput = {
   userID?: ModelIDInput | null,
   friendID?: ModelIDInput | null,
   status?: ModelStringInput | null,
+  favorite?: ModelBooleanInput | null,
   and?: Array< ModelUserFriendConditionInput | null > | null,
   or?: Array< ModelUserFriendConditionInput | null > | null,
   not?: ModelUserFriendConditionInput | null,
@@ -204,6 +215,7 @@ export type UpdateUserFriendInput = {
   userID?: string | null,
   friendID?: string | null,
   status?: string | null,
+  favorite?: boolean | null,
 };
 
 export type DeleteUserFriendInput = {
@@ -292,6 +304,12 @@ export type ModelMessageFilterInput = {
   not?: ModelMessageFilterInput | null,
 };
 
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
 export type ModelSubscriptionUserFilterInput = {
   name?: ModelSubscriptionStringInput | null,
   statusMessage?: ModelSubscriptionStringInput | null,
@@ -321,13 +339,14 @@ export type ModelSubscriptionStringInput = {
 
 export type ModelSubscriptionUserFriendFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  userID?: ModelSubscriptionIDInput | null,
   friendID?: ModelSubscriptionIDInput | null,
   status?: ModelSubscriptionStringInput | null,
+  favorite?: ModelSubscriptionBooleanInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserFriendFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserFriendFilterInput | null > | null,
+  userID?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -343,6 +362,11 @@ export type ModelSubscriptionIDInput = {
   beginsWith?: string | null,
   in?: Array< string | null > | null,
   notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
 };
 
 export type ModelSubscriptionChatFilterInput = {
@@ -421,6 +445,17 @@ export type ListMyChatsQuery = {
         name: string,
         statusMessage: string,
         image?: string | null,
+      } | null,
+      message?:  {
+        __typename: "ModelMessageConnection",
+        items:  Array< {
+          __typename: "Message",
+          id: string,
+          chatID: string,
+          content: string,
+          createdAt: string,
+          updatedAt: string,
+        } | null >,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -563,6 +598,7 @@ export type CreateUserFriendMutation = {
       updatedAt: string,
     } | null,
     status: string,
+    favorite?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -600,6 +636,7 @@ export type UpdateUserFriendMutation = {
       updatedAt: string,
     } | null,
     status: string,
+    favorite?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -637,6 +674,7 @@ export type DeleteUserFriendMutation = {
       updatedAt: string,
     } | null,
     status: string,
+    favorite?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -921,6 +959,7 @@ export type GetUserFriendQuery = {
       updatedAt: string,
     } | null,
     status: string,
+    favorite?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -941,6 +980,7 @@ export type ListUserFriendsQuery = {
       userID: string,
       friendID: string,
       status: string,
+      favorite?: boolean | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -1039,6 +1079,29 @@ export type ListMessagesQueryVariables = {
 
 export type ListMessagesQuery = {
   listMessages?:  {
+    __typename: "ModelMessageConnection",
+    items:  Array< {
+      __typename: "Message",
+      id: string,
+      content: string,
+      chatID: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type MessagesByChatIDQueryVariables = {
+  chatID: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelMessageFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type MessagesByChatIDQuery = {
+  messagesByChatID?:  {
     __typename: "ModelMessageConnection",
     items:  Array< {
       __typename: "Message",
@@ -1182,6 +1245,7 @@ export type OnCreateUserFriendSubscription = {
       updatedAt: string,
     } | null,
     status: string,
+    favorite?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1218,6 +1282,7 @@ export type OnUpdateUserFriendSubscription = {
       updatedAt: string,
     } | null,
     status: string,
+    favorite?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1254,6 +1319,7 @@ export type OnDeleteUserFriendSubscription = {
       updatedAt: string,
     } | null,
     status: string,
+    favorite?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,

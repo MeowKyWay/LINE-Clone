@@ -49,6 +49,7 @@ export type ListMyChatsQuery = {
             __typename: "Chat",
             id: string,
             userID: string,
+            user: null,
             friendID: string,
             friend: {
                 __typename: "User",
@@ -56,7 +57,20 @@ export type ListMyChatsQuery = {
                 name: string,
                 statusMessage: string,
                 image: string
-            }
+                createdAt: string,
+                updatedAt: string,
+            },
+            message: {
+                __typename: "ModelMessageConnection",
+                items: {
+                    __typename: "Message",
+                    id: string,
+                    chatID: string,
+                    content: string,
+                    createdAt: string,
+                    updatedAt: string,
+                }[] | null
+            },
             createdAt: string,
             updatedAt: string,
         } | null>,

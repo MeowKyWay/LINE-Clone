@@ -95,12 +95,10 @@ const getChat = async (id) => {
 }
 
 export const handler = async (event) => {
-  const response = ({isAuthorized, info}) => {
+  const response = ({ isAuthorized }) => {
     return {
       isAuthorized: isAuthorized,
-      resolverContext: {
-        info: info,
-      },
+      resolverContext: {},
     };
   }
 
@@ -109,51 +107,53 @@ export const handler = async (event) => {
   const accessToken = (event.authorizationToken).split(':')[1];
   const user = await getCognitoUser(accessToken);
   if (!user) {
+    console.log("Invalid access token");
     return response({
       isAuthorized: false,
-      info: 'Invalid access token',
     })
   }
 
   const queryString = event.requestContext.queryString;
+  console.log("Query String: ", queryString);
 
   if (queryString.split("")[0] === 'query') {
+    console.log("Not accepting query");
     return response({
       isAuthorized: false,
-      info: 'Use userPool provider for query',
     });
   }
 
+  const variables = event.requestContext.variables;
+  console.log("Variables: ", variables);
+
   const query = queryString.match(/{\n[ ]*([a-zA-Z0-9_]+)\(/)[1];
-  const chatID = queryString.match(/chatID:\s*"([^"]+)"/)[0].split(": ")[1].replace(/^"|"$/g, '');
+  console.log("Query: ", query);
+  const chatID = variables.input.chatID;
+  console.log("Chat ID: ", chatID);
   const userID = chatID.split(":")[0];
+  console.log("User ID: ", userID);
   const friendID = chatID.split(":")[1];
-  const content = queryString.match(/content:\s*"([^"]+)"/)[0].split(": ")[1].replace(/^"|"$/g, '');
-  console.log({
-    query,
-    chatID,
-    userID,
-    friendID,
-    content
-  })
+  console.log("Friend ID: ", friendID);
+  const content = variables.input.content;
+  console.log("Content: ", content);
 
   if (userID !== user.Username) {
+    console.log("Invalid user");
     return response({
       isAuthorized: false,
-      info: 'Invalid user',
     })
   }
 
   const chat = await getChat(chatID);
   if (!chat) {
+    console.log("Chat not found");
     return response({
       isAuthorized: false,
-      info: 'Chat not found',
     })
   }
 
+  console.log("Authorized");
   return response({
     isAuthorized: true,
-    info: 'Authorized',
   });
 };

@@ -84,6 +84,7 @@ export const getUserFriend = /* GraphQL */ `query GetUserFriend($id: ID!) {
       __typename
     }
     status
+    favorite
     createdAt
     updatedAt
     __typename
@@ -104,6 +105,7 @@ export const listUserFriends = /* GraphQL */ `query ListUserFriends(
       userID
       friendID
       status
+      favorite
       createdAt
       updatedAt
       __typename
@@ -213,4 +215,34 @@ export const listMessages = /* GraphQL */ `query ListMessages(
 ` as GeneratedQuery<
   APITypes.ListMessagesQueryVariables,
   APITypes.ListMessagesQuery
+>;
+export const messagesByChatID = /* GraphQL */ `query MessagesByChatID(
+  $chatID: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelMessageFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  messagesByChatID(
+    chatID: $chatID
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      content
+      chatID
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.MessagesByChatIDQueryVariables,
+  APITypes.MessagesByChatIDQuery
 >;
