@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { User } from "../../API";
-import { addFriend, fetchFriendRequest, fetchUserFriends } from "../thunks/friendsThunk";
+import { addFriend, fetchFavoriteFriends, fetchFriendRequest, fetchUserFriends } from "../thunks/friendsThunk";
 
 
 const friendsSlice = createSlice({
@@ -11,6 +11,10 @@ const friendsSlice = createSlice({
             error: "",
         },
         friendRequests: {
+            data: null as User[] | null,
+            error: "",
+        },
+        favoriteFriends: {
             data: null as User[] | null,
             error: "",
         },
@@ -44,6 +48,7 @@ const friendsSlice = createSlice({
         builder.addCase(fetchFriendRequest.rejected, (state, action) => {
             state.friendRequests.error = action.error.message ?? "";
         })
+
 
     },
     reducers: {

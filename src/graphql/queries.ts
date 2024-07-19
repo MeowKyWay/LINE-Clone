@@ -84,6 +84,7 @@ export const getUserFriend = /* GraphQL */ `query GetUserFriend($id: ID!) {
       __typename
     }
     status
+    favorite
     createdAt
     updatedAt
     __typename
@@ -104,6 +105,7 @@ export const listUserFriends = /* GraphQL */ `query ListUserFriends(
       userID
       friendID
       status
+      favorite
       createdAt
       updatedAt
       __typename
@@ -141,6 +143,10 @@ export const getChat = /* GraphQL */ `query GetChat($id: ID!) {
       updatedAt
       __typename
     }
+    message {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -166,3 +172,77 @@ export const listChats = /* GraphQL */ `query ListChats(
   }
 }
 ` as GeneratedQuery<APITypes.ListChatsQueryVariables, APITypes.ListChatsQuery>;
+export const getMessage = /* GraphQL */ `query GetMessage($id: ID!) {
+  getMessage(id: $id) {
+    id
+    content
+    chatID
+    chat {
+      id
+      userID
+      friendID
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetMessageQueryVariables,
+  APITypes.GetMessageQuery
+>;
+export const listMessages = /* GraphQL */ `query ListMessages(
+  $filter: ModelMessageFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      content
+      chatID
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListMessagesQueryVariables,
+  APITypes.ListMessagesQuery
+>;
+export const messagesByChatID = /* GraphQL */ `query MessagesByChatID(
+  $chatID: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelMessageFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  messagesByChatID(
+    chatID: $chatID
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      content
+      chatID
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.MessagesByChatIDQueryVariables,
+  APITypes.MessagesByChatIDQuery
+>;

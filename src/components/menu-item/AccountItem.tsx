@@ -25,7 +25,6 @@ function AccountItem({ account, isRequest = false , onClick}: {
     const handleClick = () => {
         if (isRequest) return;
         if ("email" in account) return;
-
         dispatch(setActiveChat(account.id));
     }
     

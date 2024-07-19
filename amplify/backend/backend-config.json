@@ -15,13 +15,6 @@
           "additionalAuthenticationProviders": [
             {
               "authenticationType": "AWS_IAM"
-            },
-            {
-              "authenticationType": "AWS_LAMBDA",
-              "lambdaAuthorizerConfig": {
-                "lambdaFunction": "graphQlLambdaAuthorizer9d21ee2e",
-                "ttlSeconds": "300"
-              }
             }
           ],
           "defaultAuthentication": {

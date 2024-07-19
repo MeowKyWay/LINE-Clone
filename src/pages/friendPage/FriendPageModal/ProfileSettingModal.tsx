@@ -65,6 +65,7 @@ function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
              )
 
             :
+            
             <div>
                         <IoIosArrowBack
                         onClick={() => setSetting(false)}

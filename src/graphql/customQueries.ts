@@ -31,6 +31,7 @@ export const listFriend = /* GraphQL */ `query ListFriends(
             __typename
         }
         status
+        favorite
         createdAt
         updatedAt
         __typename

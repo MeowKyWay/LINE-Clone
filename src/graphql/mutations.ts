@@ -142,6 +142,7 @@ export const createUserFriend = /* GraphQL */ `mutation CreateUserFriend(
       __typename
     }
     status
+    favorite
     createdAt
     updatedAt
     __typename
@@ -180,6 +181,7 @@ export const updateUserFriend = /* GraphQL */ `mutation UpdateUserFriend(
       __typename
     }
     status
+    favorite
     createdAt
     updatedAt
     __typename
@@ -218,6 +220,7 @@ export const deleteUserFriend = /* GraphQL */ `mutation DeleteUserFriend(
       __typename
     }
     status
+    favorite
     createdAt
     updatedAt
     __typename
@@ -253,6 +256,10 @@ export const createChat = /* GraphQL */ `mutation CreateChat(
       coverImage
       createdAt
       updatedAt
+      __typename
+    }
+    message {
+      nextToken
       __typename
     }
     createdAt
@@ -292,6 +299,10 @@ export const updateChat = /* GraphQL */ `mutation UpdateChat(
       updatedAt
       __typename
     }
+    message {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -329,6 +340,10 @@ export const deleteChat = /* GraphQL */ `mutation DeleteChat(
       updatedAt
       __typename
     }
+    message {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -337,4 +352,79 @@ export const deleteChat = /* GraphQL */ `mutation DeleteChat(
 ` as GeneratedMutation<
   APITypes.DeleteChatMutationVariables,
   APITypes.DeleteChatMutation
+>;
+export const createMessage = /* GraphQL */ `mutation CreateMessage(
+  $input: CreateMessageInput!
+  $condition: ModelMessageConditionInput
+) {
+  createMessage(input: $input, condition: $condition) {
+    id
+    content
+    chatID
+    chat {
+      id
+      userID
+      friendID
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateMessageMutationVariables,
+  APITypes.CreateMessageMutation
+>;
+export const updateMessage = /* GraphQL */ `mutation UpdateMessage(
+  $input: UpdateMessageInput!
+  $condition: ModelMessageConditionInput
+) {
+  updateMessage(input: $input, condition: $condition) {
+    id
+    content
+    chatID
+    chat {
+      id
+      userID
+      friendID
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateMessageMutationVariables,
+  APITypes.UpdateMessageMutation
+>;
+export const deleteMessage = /* GraphQL */ `mutation DeleteMessage(
+  $input: DeleteMessageInput!
+  $condition: ModelMessageConditionInput
+) {
+  deleteMessage(input: $input, condition: $condition) {
+    id
+    content
+    chatID
+    chat {
+      id
+      userID
+      friendID
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteMessageMutationVariables,
+  APITypes.DeleteMessageMutation
 >;

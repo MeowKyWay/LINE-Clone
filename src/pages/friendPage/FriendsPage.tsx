@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../hook";
 import { useState } from "react";
 import FriendList from "./FriendList";
 import ProfileModal from "./FriendPageModal/ProfileModal";
+import FavoriteFriendList from "./FavoriteFriendList";
 
 function FriendsPage() {
 
@@ -76,6 +77,7 @@ function FriendsPage() {
                         </button>
                     </div>
                     {groupListState && <AccountList accounts={groupsFiltered}></AccountList>} */}
+                    <FavoriteFriendList searchTerm={searchTerm}></FavoriteFriendList>
                     <FriendList searchTerm={searchTerm} />
                 </div>
             </div>

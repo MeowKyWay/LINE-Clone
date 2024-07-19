@@ -6,6 +6,7 @@ const statesSlice = createSlice({
         friendListState: true,
         groupListState: false,
         friendRequestListState: true,
+        favoriteFriendsListState: true,
         activeChat: null as string | null,
         chatFolderState: 'All',
     },
@@ -15,6 +16,9 @@ const statesSlice = createSlice({
         },
         setFriendRequestListState(state, action: PayloadAction<boolean>) {
             state.friendRequestListState = action.payload;
+        },
+        setFavoriteFriendListState(state, action: PayloadAction<boolean>) {
+            state.favoriteFriendsListState = action.payload;
         },
         setGroupListState(state, action: PayloadAction<boolean>) {
             state.groupListState = action.payload;
@@ -30,6 +34,7 @@ const statesSlice = createSlice({
             state.friendListState = true;
             state.groupListState = true;
             state.friendRequestListState = true;
+            state.favoriteFriendsListState = true;
             state.chatFolderState = 'All';
             state.activeChat = null;
         }
@@ -41,6 +46,7 @@ export const {
     setGroupListState,
     setChatFolderState,
     setFriendRequestListState,
+    setFavoriteFriendListState,
     setActiveChat,
     clearStates
 } = statesSlice.actions;

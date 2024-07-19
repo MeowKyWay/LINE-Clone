@@ -24,7 +24,7 @@
         },
         "graphQlLambdaAuthorizer9d21ee2e": {
           "deploymentBucketName": "amplify-lineclone-dev-46391-deployment",
-          "s3Key": "amplify-builds/graphQlLambdaAuthorizer9d21ee2e-4b7053674f3832493263-build.zip"
+          "s3Key": "amplify-builds/graphQlLambdaAuthorizer9d21ee2e-71524e6b757552745a2b-build.zip"
         },
         "LINECloneNewChat": {
           "deploymentBucketName": "amplify-lineclone-dev-46391-deployment",
