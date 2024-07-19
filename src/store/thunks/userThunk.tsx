@@ -26,7 +26,8 @@ const fetchUser = createAsyncThunk('users/fetch', async () => {
         email: userAttribute.email,
         lineID: user?.id,
         statusMessage: user?.statusMessage,
-        image: user?.image
+        image: user?.image,
+        coverImage: user?.coverImage,
     } as UserType;
 })
 
@@ -56,6 +57,27 @@ const setProfileUser = createAsyncThunk('users/setImg', async (filename: string)
     }
 })
 
+const setCoverImageUser = createAsyncThunk('users/setImg', async (filename: string) => {
+    const username = (await getCurrentUser()).username;
+    
+    try{
+        await client.graphql({
+            query: updateUser,
+            variables: {
+                input: {
+                    id: username,
+                    coverImage: filename
+                }
+            }
+        })        
+        return filename;
+    }
+    catch(error){
+        console.log(error);
+        throw error
+    }
+})
+
 const setStatusMessage = createAsyncThunk('users/setStatusMessage', async (message: string) => {
     const username = (await getCurrentUser()).username;
 
@@ -77,4 +99,27 @@ const setStatusMessage = createAsyncThunk('users/setStatusMessage', async (messa
     }
 })
 
-export { fetchUser, logout, setProfileUser, setStatusMessage }
+
+const changeUserName = createAsyncThunk('users/changeUserName', async (newName: string) => {
+    const username = (await getCurrentUser()).username;
+
+    try{
+        await client.graphql({
+            query: updateUser,
+            variables: {
+                input: {
+                    id: username,
+                    name: newName
+                }
+            }
+        })
+        return newName;
+    }
+    catch(error){
+        console.log(error);
+        throw error;
+        
+    }
+})
+
+export { fetchUser, logout , setProfileUser, setCoverImageUser , setStatusMessage , changeUserName}

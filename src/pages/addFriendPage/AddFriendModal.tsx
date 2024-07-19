@@ -70,10 +70,11 @@ function AddFriendModal({ onClose }: {
                 <div className="flex-1 w-full flex flex-col items-center justify-center">
 
                     {(friend && !userNotFound) && (
-                        <div className="flex flex-col items-center">
+                        <div className="flex flex-col items-center gap-y-1">
                             <ProfilePicture src={friend.image} size="94px"></ProfilePicture>
-                            <span className="mt-2">{friend.name}</span>
-                            <span className="text-red-500 text-xs font-light mb-1">{errorMessage}</span>
+                            <span className="text-xl">{friend.name}</span>
+                            <span className="text-xs">{friend.statusMessage}</span>
+                            <span className="text-red-500 text-xs font-light">{errorMessage}</span>
                             {
                                 friend.id === user.currentUser?.lineID ?
                                     <div className="flex flex-col items-center gap-4">

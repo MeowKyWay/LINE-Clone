@@ -1,33 +1,38 @@
 import useTheme from "../../theme";
 import ProfilePicture from "../ProfilePicture";
-import type { User } from "../../API";
-import { UserType } from "../../store/slice/userSlice";
 import { MdPersonAddAlt1 } from "react-icons/md";
 import { useAppDispatch, useAppSelector } from "../../hook";
 import { addFriend } from "../../store/thunks/friendsThunk";
 import { setActiveChat } from "../../store/slice/statesSlice";
+import { useState } from "react";
+import FriendProfileModal from "../../pages/friendPage/FriendPageModal/FriendProfileModal";
+import { UserType } from "../../store/slice/userSlice";
+import { User } from "../../API";
 
 
-function AccountItem({ account, isRequest = false}: {
+function AccountItem({ account, isRequest = false , onClick}: {
     account: UserType | User
     isRequest?: boolean
-    onClick?: () => void | null
+    onClick?: () => void | null 
 }) {
 
     const theme = useTheme().currentTheme;
     const dispatch = useAppDispatch();
-
+    const [showModal , setShowModal] = useState(false)
+    
     const chats = useAppSelector(state => state.chats.friendChats.data);
     
     const handleClick = () => {
         if (isRequest) return;
         if ("email" in account) return;
-
         dispatch(setActiveChat(account.id));
     }
     
     return (
-        <div className={`h-14 w-full ${isRequest ? '' : 'cursor-pointer'} items-center`} onClick={handleClick}>
+        <>
+        { showModal && (<FriendProfileModal friend={account as UserType} onClose={() => setShowModal(false)}></FriendProfileModal>)}
+        <div className={`h-14 w-full ${(isRequest || onClick) ? '' : 'cursor-pointer'} items-center`} onClick={handleClick}>
+
             <style>
                 {`
                 .hover:hover {
@@ -36,7 +41,7 @@ function AccountItem({ account, isRequest = false}: {
                 `}
             </style>
             <div className="h-14 w-full pl-5 flex flex-row items-center hover">
-                <ProfilePicture size="43px" src={account.image} />
+                <ProfilePicture size="43px" src={account.image} onClick={onClick ? onClick : () => setShowModal(true)}/>
                 <div className="flex flex-row ml-3 items-center" style={{ maxWidth: 'calc(100% - 83px)' }}>
                     <div>
                         <div className="overflow-hidden whitespace-nowrap text-ellipsis" style={{
@@ -73,7 +78,7 @@ function AccountItem({ account, isRequest = false}: {
             </div>
 
         </div>
-
+        </>
     )
 }
 

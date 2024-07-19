@@ -6,13 +6,15 @@ function AccountList({ accounts, isRequest = false }: {
     accounts: User[]
     isRequest?: boolean
 }) {
+
     const renderAccount = accounts.map((account) => {
         if (account.__typename === 'User') {
             return (
                 <AccountItem
                     account={account}
                     key={account.id}
-                    isRequest={isRequest}>
+                    isRequest={isRequest}
+                    >
                 </AccountItem>
             )
         }

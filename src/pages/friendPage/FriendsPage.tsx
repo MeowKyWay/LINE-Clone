@@ -1,8 +1,5 @@
 import AccountItem from "../../components/menu-item/AccountItem";
 import SearchField from "../../components/input/SearchField";
-import AccountList from "../../components/menu_list/AccountList";
-import { MdExpandLess, MdExpandMore } from "react-icons/md";
-import useTheme from "../../theme";
 import { setFriendListState, setGroupListState } from "../../store/slice/statesSlice";
 import { setFriendsTerms } from "../../store/slice/termsSlice";
 import { useEffect } from "react";
@@ -11,14 +8,12 @@ import { useAppDispatch, useAppSelector } from "../../hook";
 import { useState } from "react";
 import FriendList from "./FriendList";
 import ProfileModal from "./FriendPageModal/ProfileModal";
+import FavoriteFriendList from "./FavoriteFriendList";
 
 function FriendsPage() {
 
     const dispatch = useAppDispatch()
     const [showModal, setShowModal] = useState(false)
-
-    const theme = useTheme().currentTheme;
-
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -30,15 +25,15 @@ function FriendsPage() {
 
 
     const user = useAppSelector(state => state.user);
-    const groupListState = useAppSelector(state => state.states.groupListState);
+    // const groupListState = useAppSelector(state => state.states.groupListState);
     const searchTerm = useAppSelector(state => state.terms.friendsTerm);
 
     // const groups = useAppSelector(state => state.groups.groupList);
     // const groupsFiltered = groups?.filter(group => group.name.toLowerCase().includes(searchTerm.toLowerCase())) || [];
 
-    const setGroupList = (state: boolean) => {
-        dispatch(setGroupListState(state));
-    }
+    // const setGroupList = (state: boolean) => {
+    //     dispatch(setGroupListState(state));
+    // }
 
     const handleTermChange = (value: string) => {
         dispatch(setGroupListState(true));
@@ -65,8 +60,8 @@ function FriendsPage() {
                 <div className="w-full flex flex-col">
 
                     {user.currentUser &&
-                        <div onClick={() => setShowModal(true)}>
-                            <AccountItem account={user.currentUser} />
+                        <div>
+                            <AccountItem account={user.currentUser} onClick={() => setShowModal(true)}/>
                         </div>
                     }
 
@@ -82,6 +77,7 @@ function FriendsPage() {
                         </button>
                     </div>
                     {groupListState && <AccountList accounts={groupsFiltered}></AccountList>} */}
+                    {/* <FavoriteFriendList searchTerm={searchTerm}></FavoriteFriendList> */}
                     <FriendList searchTerm={searchTerm} />
                 </div>
             </div>

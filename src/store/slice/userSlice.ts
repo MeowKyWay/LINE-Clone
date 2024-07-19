@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchUser , setProfileUser , setStatusMessage} from "../thunks/userThunk";
 
 export interface UserType {
+    id: string;
     name: string;
     email: string;
     lineID: string;
