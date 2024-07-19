@@ -37,7 +37,7 @@ export const fetchFriendChats = createAsyncThunk('fetchChats', async (userID: st
         return rejectWithValue(response.errors.map((error) => error.message).join(', ') as string);
     chats.push(...response.data.listChats.items);
 
-    console.log(chats);
+    // console.log(chats);
 
     return chats as Chat[];
 })

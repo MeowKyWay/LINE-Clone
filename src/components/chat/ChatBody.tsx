@@ -5,6 +5,7 @@ import ChatTextArea from "./ChatTextArea";
 import { Chat, Message } from "../../API";
 
 function ChatBody({ activeChat }: { activeChat: Chat }) {
+    // console.log(activeChat);
     const theme = useTheme().currentTheme;
 
     const currentUser = useAppSelector(state => state.user.currentUser);
@@ -13,14 +14,14 @@ function ChatBody({ activeChat }: { activeChat: Chat }) {
         chat => chat.id === myChat?.friendID + ":" + myChat?.userID
     )[0];
     const messages = []
-    if (myChat) {
+    if (myChat && myChat.message?.items) {
         messages.push(...myChat.message?.items as Message[]);
     }
-    if (friendChat) {
+    if (friendChat && friendChat.message?.items) {
         messages.push(...friendChat.message?.items as Message[]);
     }
 
-    console.log(messages);
+    // console.log(messages);
 
     const renderedMessages = messages.map((message) => {
             if (!currentUser) return null;

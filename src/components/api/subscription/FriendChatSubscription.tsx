@@ -22,8 +22,14 @@ function FriendChatSubscription() {
             query: onCreateChat,
         }).subscribe({
             next: ({ data }) => {
-                dispatch(addChat(data.onCreateChat));
-                console.log(data.onCreateChat)
+                const chat = {
+                    ...data.onCreateChat,
+                    message: {
+                        items: []
+                    },
+                }
+                dispatch(addChat(chat));
+                console.log(chat)
             }
         })
 

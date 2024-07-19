@@ -5,7 +5,7 @@ import useTheme from "../theme";
 import { useState } from "react";
 import Button from "../components/input/Button";
 import { listUserChats } from "../utilities/APIUtils";
-import { invokeLambda } from "../utilities/LambdaUtils";
+import { invokeLambda, LambdaARN } from "../utilities/LambdaUtils";
 import { fetchAuthSession } from "aws-amplify/auth";
 import { getChat, getMessage, listMessages } from "../graphql/queries";
 
@@ -18,37 +18,19 @@ function TestPage() {
     const [friendLineID, setFriendLineID] = useState('');
 
     const test = async () => {
-        const res = await client.graphql({
-            query: /* GraphQL */ `query GetChat(
-                $id: ID!
-            ) {
-            getChat(id: $id) {
-                id
-                userID
-                friendID
-                friend {
-                id
-                name
-                statusMessage
-                image
-                __typename
+        try {
+            const res = await invokeLambda({
+                arn: LambdaARN.SEND_MESSAGE,
+                body: {
+                    accessToken: (await fetchAuthSession()).tokens?.accessToken.toString(),
+                    content: 'Test123',
+                    friendID: 'dewy_hinges',
                 }
-                message {
-                    items {
-                        id
-                    }
-                }
-                createdAt
-                updatedAt
-                __typename
-                }
-            }
-            `,
-            variables: {
-                id: "dewy_hinges:feeders_wagon"
-            }
-        })
-        console.log(res);
+            })
+            console.log(res);
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     const test2 = async () => {

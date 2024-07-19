@@ -10,15 +10,13 @@ function ChatTextArea() {
 
     const [message, setMessage] = useState('');
     const activeChat = useAppSelector(state => state.states.activeChat);
-    const currentUser = useAppSelector(state => state.user.currentUser);
 
     const sendMessage = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (event.key !== 'Enter') return;
         if (event.shiftKey) return;
         event.preventDefault();
-        console.log(message);
+        // console.log(message);
         dispatch(newMessage({
-            userID: currentUser?.lineID as string,
             friendID: activeChat as string,
             content: message,
         }))

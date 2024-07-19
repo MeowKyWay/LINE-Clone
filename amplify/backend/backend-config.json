@@ -154,6 +154,22 @@
         }
       ]
     },
+    "AMPLIFY_function_LINECloneSendMessage_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "LINECloneSendMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_LINECloneSendMessage_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "LINECloneSendMessage"
+        }
+      ]
+    },
     "AMPLIFY_function_graphQlLambdaAuthorizer9d21ee2e_deploymentBucketName": {
       "usedBy": [
         {

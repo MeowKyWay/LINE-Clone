@@ -39,7 +39,7 @@ function ChatPane() {
                     }}>
                         <span>Start a new conversation!</span>
                     </div>}
-                    {typeof currentChat === 'string' && <NewChat friend={currentChat} />}
+                    {typeof currentChat === 'string' && <NewChat/>}
                     {typeof currentChat !== 'string' && currentChat !== null &&
                         <ChatBody activeChat={currentChat as Chat} />
                     }

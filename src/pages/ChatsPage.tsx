@@ -2,7 +2,6 @@ import SearchField from "../components/input/SearchField";
 import { setChatsTerms } from "../store/slice/termsSlice";
 import ChatList from "../components/menu_list/ChatList";
 import { useAppDispatch, useAppSelector } from "../hook";
-import FetchChats from "../components/api/fetch/FetchChats";
 
 function ChatsPage() {
 
@@ -10,8 +9,11 @@ function ChatsPage() {
 
     const searchTerm = useAppSelector(state => state.terms.chatsTerm);
     const chatFolderState = useAppSelector(state => state.states.chatFolderState);
+    const currentUser = useAppSelector(state => state.user.currentUser);
 
-    const friendChats = useAppSelector(state => state.chats.friendChats.data);
+    const friendChats = useAppSelector(state => state.chats.friendChats.data)?.filter(
+        chat => chat.userID === currentUser?.lineID
+    );
     const friendChatSorted = friendChats?.slice().sort((a, b) =>
         (new Date(b.updatedAt)).getTime() - (new Date(a.updatedAt)).getTime()
     );
@@ -30,7 +32,7 @@ function ChatsPage() {
     }
 
     const chatsFiltered = selectedChat?.filter(chat => {
-        console.log(chat.friend?.name.toLowerCase(), searchTerm.toLowerCase());
+        // console.log(chat.friend?.name.toLowerCase(), searchTerm.toLowerCase());
         return chat.friend?.name.toLowerCase().includes(searchTerm.toLowerCase())
     });
 
