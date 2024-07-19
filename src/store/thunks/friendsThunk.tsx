@@ -28,24 +28,23 @@ const fetchFriendRequests = createAsyncThunk('fetchFriendRequests', async () => 
     return response.data.listUserFriends.items.map((item) => item.user) as User[];
 })
 
-const fetchFavoriteFriends = createAsyncThunk('fetchFriendRequests', async () => {
+const fetchFavoriteFriends = createAsyncThunk('fetchFavoriteFriends', async () => {
+
     const userID = (await getCurrentUser()).username;
     const response = await client.graphql({
         query: listFriend,
         variables: {
             filter: {
-                friendID: {
+                userID: {
                     eq: userID
                 },
-                favorite: {
+                favorite: { 
                     eq: true
                 }
             }
         }
-    })
-    console.log("response: ",response);
-    
-    return response.data.listUserFriends.items.map((item) => item.user) as User[];
+    })    
+    return response.data.listUserFriends.items.map((item) => item.friend) as User[]
 })
 
 const addFriend = createAsyncThunk('addFriend', async (friendID: string, { rejectWithValue }) => {
@@ -77,6 +76,9 @@ const fetchUserFriends = createAsyncThunk('userFriends/fetch', async () => {
             filter: {
                 userID: {
                     eq: (await getCurrentUser()).username,
+                },
+                favorite: {
+                    ne: true
                 }
             }
         }

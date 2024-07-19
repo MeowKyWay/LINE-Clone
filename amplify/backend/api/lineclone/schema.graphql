@@ -24,7 +24,6 @@ type UserFriend
   @auth(
     rules: [
       { allow: private, operations: [read] }
-      { allow: owner, ownerField: "userID", operations: [update] }
     ]
   ) {
   id: ID!
@@ -36,7 +35,9 @@ type UserFriend
   friend: User @belongsTo(fields: ["friendID"])
 
   status: String!
-  favorite: Boolean
+  favorite: Boolean @auth(rules: [
+    { allow: owner, ownerField: "userID", operations: [update] }
+  ])
 }
 
 type Chat

@@ -49,6 +49,15 @@ const friendsSlice = createSlice({
             state.friendRequests.error = action.error.message ?? "";
         })
 
+        builder.addCase(fetchFavoriteFriends.fulfilled, (state, action) => {
+            state.favoriteFriends.data = action.payload || [];
+        })
+
+        builder.addCase(fetchFavoriteFriends.rejected ,(state, action) => {
+            state.favoriteFriends.error = action.error.message ?? "";
+        })
+
+
 
     },
     reducers: {

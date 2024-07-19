@@ -1,8 +1,8 @@
 /* Amplify Params - DO NOT EDIT
-	API_LINECLONE_GRAPHQLAPIENDPOINTOUTPUT
-	API_LINECLONE_GRAPHQLAPIIDOUTPUT
-	ENV
-	REGION
+  API_LINECLONE_GRAPHQLAPIENDPOINTOUTPUT
+  API_LINECLONE_GRAPHQLAPIIDOUTPUT
+  ENV
+  REGION
 Amplify Params - DO NOT EDIT */
 
 //GraphQL
@@ -65,20 +65,10 @@ const getUser = async (accessToken) => {
 }
 //Cognito
 
-const getFriend = async (friendID) => {
-  const response = await graphql({
-    query: /* GraphQL */ `
-      query GET_USER($id: ID!) {
-        getUser(id: $id) {
-          id
-        }
-      }
-    `,
-    variables: { id: friendID }
-  })
-  console.log("Friend: ", response);
-  return response;
-}
+/**
+ * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
+ */
+
 const getChat = async (userID, friendID) => {
   const response = await graphql({
     query: /* GraphQL */ `
@@ -93,22 +83,15 @@ const getChat = async (userID, friendID) => {
   console.log("Chat: ", response);
   return response;
 }
-const createChat = async (userID, friendID) => {
+
+const createMessage = async (userID, friendID, content) => {
   const response = await graphql({
     query: /* GraphQL */ `
-      mutation CREATE_CHAT($input: CreateChatInput!) {
-        createChat(input: $input) {
+      mutation CREATE_MESSAGE($input: CreateMessageInput!) {
+        createMessage(input: $input) {
           id
-          userID
-          friendID
-          friend {
-            id
-            name
-            statusMessage
-            image
-            createdAt
-            updatedAt
-          }
+          content
+          chatID
           createdAt
           updatedAt
           __typename
@@ -117,13 +100,12 @@ const createChat = async (userID, friendID) => {
     `,
     variables: {
       input: {
-        id: userID + ":" + friendID,
-        userID: userID,
-        friendID: friendID,
+        content: content,
+        chatID: userID + ":" + friendID,
       }
     }
   })
-  console.log("CreateChat: ", response);
+  console.log("CreateMessage: ", response);
   return response;
 }
 
@@ -146,39 +128,32 @@ const error = (body) => {
   }
 };
 
-/**
- * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
- */
-
 export const handler = async (event) => {
   if (!event.accessToken)
     return error("Missing property \"accessToken\"");
   if (!event.friendID)
     return error("Missing property \"friendID\"");
+  if (!event.content)
+    return error("Missing property \"content\"");
 
   const user = (await getUser(event.accessToken));
   if (!user)
     return error("Invalid access token")
   const userID = user.Username;
 
-  const friendID = event.friendID;
-  const friend = await getFriend(friendID);
-  if (!friend.data.getUser)
-    return error("Friend does not exist");
-
   if (friendID === userID)
-    return error("Cannot create new chat with self")
+    return error("Cannot send message to yourself")
 
-  const userFriend = (await getChat(userID, friendID));
-  if (userFriend.data.getChat)
-    return error("Chat already exists");
+  const friendID = event.friendID;
+  const chat = await getChat(userID + ":" + friendID);
+  if (!chat.data.getChat)
+    return error("Chat does not exist");
 
   try {
-    await createChat(userID, friendID);
-    await createChat(friendID, userID);
+    await createMessage(userID, friendID, event.content);
   } catch (error) {
-    return error("Failed to create chat");
+    return error("Failed to send message");
   }
 
-  return response("Chat created");
+  return response("Message sended");
 };

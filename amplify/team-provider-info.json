@@ -28,7 +28,11 @@
         },
         "LINECloneNewChat": {
           "deploymentBucketName": "amplify-lineclone-dev-46391-deployment",
-          "s3Key": "amplify-builds/LINECloneNewChat-7255347543647238532f-build.zip"
+          "s3Key": "amplify-builds/LINECloneNewChat-6e374278493472336745-build.zip"
+        },
+        "LINECloneSendMessage": {
+          "deploymentBucketName": "amplify-lineclone-dev-46391-deployment",
+          "s3Key": "amplify-builds/LINECloneSendMessage-7075543830777334366a-build.zip"
         }
       },
       "storage": {

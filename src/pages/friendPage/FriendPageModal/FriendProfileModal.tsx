@@ -12,8 +12,9 @@ import { useAppSelector } from "../../../hook";
 import { generateClient } from "aws-amplify/api";
 import { getUserFriend } from "../../../graphql/queries";
 import { updateUserFriend } from "../../../graphql/mutations";
-import { listFriend } from "../../../graphql/customQueries";
-import { User } from "../../../API";
+import FetchFavoriteFriends from "../../../components/api/fetch/FetchFavoriteFriends";
+import FetchFriends from "../../../components/api/fetch/FetchFriends";
+import { fetchFavoriteFriends, fetchUserFriends } from "../../../store/thunks/friendsThunk";
 
 
 
@@ -23,32 +24,13 @@ function FriendProfileModal({onClose , friend } : { onClose: () => void , friend
     const client = generateClient()
     const userFriendID = currentUser?.lineID + ":" + friend.id
 
-    async function fetchFavoriteFriends(){
-        const response = await client.graphql({
-            query: listFriend,
-            variables: {
-                filter: {
-                    friendID: {
-                        eq: currentUser?.id
-                    },
-                    favorite: {
-                        eq: true
-                    }
-                }
-            }
-        })    
-        return response.data.listUserFriends.items.map((item) => item.user) as User[];
-    }
-    
-    const us = fetchFavoriteFriends()
-    console.log("us: ",us);
-    
+
 
     useEffect(() => {
-        fetchUserFriend()
-    },[])
+        fetchUserFriendToSet()
+    },[isFavorite])
     
-    async function fetchUserFriend(){
+    async function fetchUserFriendToSet(){
         const response = await client.graphql({
             query: getUserFriend,
             variables: {
@@ -82,11 +64,15 @@ function FriendProfileModal({onClose , friend } : { onClose: () => void , friend
                 }
             })
         setIsFavorite(!userFriend.favorite)
+        fetchUserFriends()
+        fetchFavoriteFriends()
     }
     }
 
     return (
         <Modal onClose={onClose} label={"profile page"} height={"516px"} width={"312px"}>
+            <FetchFriends/>
+            <FetchFavoriteFriends/>
             <div className="relative h-full w-full">
                 <ProfileCover friend={friend} className="h-full w-full opacity-50"/>
                 <div className="relative z-10 flex flex-col items-center justify-center h-full w-full gap-4">
