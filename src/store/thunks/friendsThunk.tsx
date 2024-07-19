@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { generateClient } from "aws-amplify/api";
-import { listFriend } from "../../graphql/customQueries";
+import { listFriend, listFriendRequest } from "../../graphql/customQueries";
 import { invokeLambda } from "../../utilities/LambdaUtils";
 import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
 import { getUser } from "../../graphql/queries";
@@ -11,21 +11,26 @@ import { getUserFriend } from "../../graphql/queries";
 const client = generateClient();
 
 const fetchFriendRequests = createAsyncThunk('fetchFriendRequests', async () => {
-    const userID = (await getCurrentUser()).username;
-    const response = await client.graphql({
-        query: listFriend,
-        variables: {
-            filter: {
-                friendID: {
-                    eq: userID
-                },
-                status: {
-                    eq: "pending"
+    try {
+        const response = await client.graphql({
+            query: listFriendRequest,
+            variables: {
+                filter: {
+                    friendID: {
+                        eq: (await getCurrentUser()).username,
+                    },
+                    status: {
+                        eq: "pending"
+                    }
                 }
             }
-        }
-    })
-    return response.data.listUserFriends.items.map((item) => item.user) as User[];
+        })
+        // console.log("response: ", response);
+        return response.data.listUserFriends.items.map((item) => item.user) as User[];
+    } catch (err) {
+        console.log(err);
+    }
+
 })
 
 const fetchFavoriteFriends = createAsyncThunk('fetchFavoriteFriends', async () => {
@@ -43,11 +48,19 @@ const fetchFavoriteFriends = createAsyncThunk('fetchFavoriteFriends', async () =
                 }
             }
         }
+<<<<<<< HEAD
     })    
     return response.data.listUserFriends.items.map((item) => item.friend) as User[]
+=======
+    })
+    console.log("response: ", response);
+
+    return response.data.listUserFriends.items.map((item) => item.user) as User[];
+>>>>>>> 447b014e63b7bff1f0efd6f244ed56a7237be765
 })
 
 const addFriend = createAsyncThunk('addFriend', async (friendID: string, { rejectWithValue }) => {
+    console.log("friendID: ", friendID);
     const response = await invokeLambda({
         arn: 'LINECloneAddFriend-dev',
         body: {
@@ -55,7 +68,7 @@ const addFriend = createAsyncThunk('addFriend', async (friendID: string, { rejec
             friendID,
         }
     })
-    if (response.status === "error") 
+    if (response.status === "error")
         return rejectWithValue(response.message);
     const friend = (await client.graphql({
         query: getUser, //Todo
@@ -63,7 +76,8 @@ const addFriend = createAsyncThunk('addFriend', async (friendID: string, { rejec
             id: friendID,
         }
     })).data.getUser;
-    
+    // console.log("friend: ", friend);
+
     return friend as User;
 })
 
@@ -87,6 +101,7 @@ const fetchUserFriends = createAsyncThunk('userFriends/fetch', async () => {
     return response.data.listUserFriends.items.map((item) => item.friend) as User[];
 })
 
+
 const updateFavoriteFriend = createAsyncThunk('userFriends/updateFavorite', async (userFriend : UserFriend) => {
     const defaultState = userFriend.favorite ?? false;  
     const response = await client.graphql({
@@ -102,7 +117,7 @@ const updateFavoriteFriend = createAsyncThunk('userFriends/updateFavorite', asyn
     return response;
 })
 
-const fetchUserFriend = createAsyncThunk('userFriends/getUserFriend', async (userFriendID : string) => {
+const fetchUserFriend = createAsyncThunk('userFriends/getUserFriend', async (userFriendID: string) => {
     const response = await client.graphql({
         query: getUserFriend,
         variables: {
@@ -110,14 +125,24 @@ const fetchUserFriend = createAsyncThunk('userFriends/getUserFriend', async (use
         }
     })
 
-    const userFriend =  response.data.getUserFriend;
+    const userFriend = response.data.getUserFriend;
 
     return userFriend;
 })
 
+<<<<<<< HEAD
 export { 
     fetchFriendRequests as fetchFriendRequest, 
     addFriend, 
+=======
+// const subscriptionFriendRequest = createAsyncThunk('subFriendRequest/update', async () => {
+
+// })
+
+export {
+    fetchFriendRequests as fetchFriendRequest,
+    addFriend,
+>>>>>>> 447b014e63b7bff1f0efd6f244ed56a7237be765
     fetchUserFriends,
     fetchUserFriend,
     updateFavoriteFriend,

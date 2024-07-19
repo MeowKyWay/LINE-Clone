@@ -37,7 +37,6 @@ const friendsSlice = createSlice({
                 state.friendRequests.data = state.friendRequests.data.filter((user) => user.id !== action.payload.id)
             }
         })
-
         builder.addCase(addFriend.rejected, (state, action) => {
             state.error = action.payload as string;
         })

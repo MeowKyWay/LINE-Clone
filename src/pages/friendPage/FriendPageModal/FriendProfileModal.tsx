@@ -33,7 +33,6 @@ function FriendProfileModal({onClose , friend } : { onClose: () => void , friend
                 setIsFavorite(fetchedUserFriend.favorite);
             }
         }
-
         setIsFavoriteState();
     }, [userFriendID, dispatch]);
     

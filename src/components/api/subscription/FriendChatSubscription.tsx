@@ -4,6 +4,7 @@ import { Subscription } from "rxjs"
 import { onCreateChat } from "../../../graphql/subscriptions";
 import { useAppDispatch, useAppSelector } from "../../../hook";
 import { addChat } from "../../../store/slice/chatsSlice";
+import { Chat } from "../../../API";
 
 function FriendChatSubscription() {
 
@@ -13,8 +14,11 @@ function FriendChatSubscription() {
     const user = useAppSelector(state => state.user);
     const subscription = useRef<Subscription | null>(null);
 
+    const friends = useAppSelector(state => state.friends.friends.data);
+
     useEffect(() => {
         if (!user.currentUser || user.error) return;
+        if (!friends) return;
 
         if (subscription.current) return;
 
@@ -24,12 +28,14 @@ function FriendChatSubscription() {
             next: ({ data }) => {
                 const chat = {
                     ...data.onCreateChat,
+                    friend: friends?.find(friend => friend.id === data.onCreateChat.friendID),
                     message: {
-                        items: []
+                        items: [],
+                        __typename: 'ModelMessageConnection',
                     },
-                }
+                } as Chat;
                 dispatch(addChat(chat));
-                console.log(chat)
+                // console.log(chat)
             }
         })
 
@@ -45,7 +51,7 @@ function FriendChatSubscription() {
             console.log('Unsubscribe Friend chat')
         };
 
-    }, [client, dispatch, user.currentUser, user.error]);
+    }, [client, dispatch, user.currentUser, user.error, friends]);
 
     return (
         <div className="hidden" />

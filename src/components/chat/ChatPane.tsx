@@ -4,6 +4,7 @@ import useTheme from "../../theme";
 import ChatBody from "./ChatBody";
 import NewChat from "./NewChat";
 import { Chat } from "../../API";
+import LineIcon from "../LineIcon";
 
 function ChatPane() {
 
@@ -44,6 +45,14 @@ function ChatPane() {
                         <ChatBody activeChat={currentChat as Chat} />
                     }
                 </div>)
+            }
+            {!activeChat &&
+                <div className="size-full flex flex-col items-center justify-center text-xs font-light">
+                    <LineIcon size="150px"/>
+                    <span className="pb-10" style={{
+                        color: theme.color.tertiary.text
+                    }}>Start a new conversation!</span>
+                </div>
             }
         </div>
     )

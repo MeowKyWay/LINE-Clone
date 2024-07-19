@@ -6,18 +6,17 @@ function AccountList({ accounts, isRequest = false }: {
     accounts: User[]
     isRequest?: boolean
 }) {
+    // console.log(accounts);
 
-    const renderAccount = accounts.map((account) => {
-        if (account.__typename === 'User') {
-            return (
-                <AccountItem
-                    account={account}
-                    key={account.id}
-                    isRequest={isRequest}
-                    >
-                </AccountItem>
-            )
-        }
+    const renderAccount = accounts.filter(account => account).map((account) => {
+        return (
+            <AccountItem
+                account={account}
+                key={account.id}
+                isRequest={isRequest}
+            >
+            </AccountItem>
+        )
     }) as ReactNode[];
 
     return (

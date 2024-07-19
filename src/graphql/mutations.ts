@@ -34,6 +34,10 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
       nextToken
       __typename
     }
+    chatFolder {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -69,6 +73,10 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
       nextToken
       __typename
     }
+    chatFolder {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -101,6 +109,10 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
       __typename
     }
     chatWith {
+      nextToken
+      __typename
+    }
+    chatFolder {
       nextToken
       __typename
     }
@@ -262,6 +274,10 @@ export const createChat = /* GraphQL */ `mutation CreateChat(
       nextToken
       __typename
     }
+    chatFolders {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -300,6 +316,10 @@ export const updateChat = /* GraphQL */ `mutation UpdateChat(
       __typename
     }
     message {
+      nextToken
+      __typename
+    }
+    chatFolders {
       nextToken
       __typename
     }
@@ -344,6 +364,10 @@ export const deleteChat = /* GraphQL */ `mutation DeleteChat(
       nextToken
       __typename
     }
+    chatFolders {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -360,6 +384,8 @@ export const createMessage = /* GraphQL */ `mutation CreateMessage(
   createMessage(input: $input, condition: $condition) {
     id
     content
+    userID
+    friendID
     chatID
     chat {
       id
@@ -385,6 +411,8 @@ export const updateMessage = /* GraphQL */ `mutation UpdateMessage(
   updateMessage(input: $input, condition: $condition) {
     id
     content
+    userID
+    friendID
     chatID
     chat {
       id
@@ -410,6 +438,8 @@ export const deleteMessage = /* GraphQL */ `mutation DeleteMessage(
   deleteMessage(input: $input, condition: $condition) {
     id
     content
+    userID
+    friendID
     chatID
     chat {
       id
@@ -427,4 +457,199 @@ export const deleteMessage = /* GraphQL */ `mutation DeleteMessage(
 ` as GeneratedMutation<
   APITypes.DeleteMessageMutationVariables,
   APITypes.DeleteMessageMutation
+>;
+export const createChatFolder = /* GraphQL */ `mutation CreateChatFolder(
+  $input: CreateChatFolderInput!
+  $condition: ModelChatFolderConditionInput
+) {
+  createChatFolder(input: $input, condition: $condition) {
+    id
+    name
+    userID
+    user {
+      id
+      name
+      statusMessage
+      image
+      coverImage
+      createdAt
+      updatedAt
+      __typename
+    }
+    chats {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateChatFolderMutationVariables,
+  APITypes.CreateChatFolderMutation
+>;
+export const updateChatFolder = /* GraphQL */ `mutation UpdateChatFolder(
+  $input: UpdateChatFolderInput!
+  $condition: ModelChatFolderConditionInput
+) {
+  updateChatFolder(input: $input, condition: $condition) {
+    id
+    name
+    userID
+    user {
+      id
+      name
+      statusMessage
+      image
+      coverImage
+      createdAt
+      updatedAt
+      __typename
+    }
+    chats {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateChatFolderMutationVariables,
+  APITypes.UpdateChatFolderMutation
+>;
+export const deleteChatFolder = /* GraphQL */ `mutation DeleteChatFolder(
+  $input: DeleteChatFolderInput!
+  $condition: ModelChatFolderConditionInput
+) {
+  deleteChatFolder(input: $input, condition: $condition) {
+    id
+    name
+    userID
+    user {
+      id
+      name
+      statusMessage
+      image
+      coverImage
+      createdAt
+      updatedAt
+      __typename
+    }
+    chats {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteChatFolderMutationVariables,
+  APITypes.DeleteChatFolderMutation
+>;
+export const createFolderChat = /* GraphQL */ `mutation CreateFolderChat(
+  $input: CreateFolderChatInput!
+  $condition: ModelFolderChatConditionInput
+) {
+  createFolderChat(input: $input, condition: $condition) {
+    id
+    userID
+    chatID
+    chat {
+      id
+      userID
+      friendID
+      createdAt
+      updatedAt
+      __typename
+    }
+    chatFolderID
+    chatFolder {
+      id
+      name
+      userID
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateFolderChatMutationVariables,
+  APITypes.CreateFolderChatMutation
+>;
+export const updateFolderChat = /* GraphQL */ `mutation UpdateFolderChat(
+  $input: UpdateFolderChatInput!
+  $condition: ModelFolderChatConditionInput
+) {
+  updateFolderChat(input: $input, condition: $condition) {
+    id
+    userID
+    chatID
+    chat {
+      id
+      userID
+      friendID
+      createdAt
+      updatedAt
+      __typename
+    }
+    chatFolderID
+    chatFolder {
+      id
+      name
+      userID
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateFolderChatMutationVariables,
+  APITypes.UpdateFolderChatMutation
+>;
+export const deleteFolderChat = /* GraphQL */ `mutation DeleteFolderChat(
+  $input: DeleteFolderChatInput!
+  $condition: ModelFolderChatConditionInput
+) {
+  deleteFolderChat(input: $input, condition: $condition) {
+    id
+    userID
+    chatID
+    chat {
+      id
+      userID
+      friendID
+      createdAt
+      updatedAt
+      __typename
+    }
+    chatFolderID
+    chatFolder {
+      id
+      name
+      userID
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteFolderChatMutationVariables,
+  APITypes.DeleteFolderChatMutation
 >;

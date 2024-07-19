@@ -45,6 +45,46 @@ export const listFriend = /* GraphQL */ `query ListFriends(
   CustomAPITypes.ListFriendQuery
 >;
 
+export const listFriendRequest = /* GraphQL */ `query ListFriends(
+  $filter: ModelUserFriendFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUserFriends(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      userID
+      user {
+        id
+        name
+        statusMessage
+        image
+        coverImage
+        __typename
+      }
+      friendID
+      friend {
+          id
+          name
+          statusMessage
+          image
+          coverImage
+          __typename
+      }
+      status
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+CustomAPITypes.ListFriendRequestQueryVariables,
+CustomAPITypes.ListFriendRequestQuery
+>;
+
 export const listMyChats = /* GraphQL */ `query ListMyChats(
     $filter: ModelChatFilterInput
     $limit: Int
