@@ -21,12 +21,12 @@ function ChatItem({ chat }: { chat: Chat }) {
     if (myLastMessage && friendLastMessage) {
         lastMessage = (
             new Date(myLastMessage.createdAt as string).getTime() > new Date(friendLastMessage.createdAt as string).getTime()
-        ) ? myLastMessage : friendLastMessage;
+        ) ? myLastMessage.content : friendLastMessage.content;
     } else if (myLastMessage && !friendLastMessage) {
-        lastMessage = myLastMessage;
+        lastMessage = myLastMessage.content;
     }
     else if (friendLastMessage && !myLastMessage) {
-        lastMessage = friendLastMessage;
+        lastMessage = friendLastMessage.content;
     }
     else {
         lastMessage = "";
@@ -59,7 +59,7 @@ function ChatItem({ chat }: { chat: Chat }) {
                             color: theme.color.tertiary.text,
                             fontSize: '10px',
                         }}>
-                            {lastMessage?.content}
+                            {lastMessage}
                         </span>
                     </div>
                     <span className="absolute top-1 right-0" style={{
