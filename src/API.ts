@@ -108,7 +108,6 @@ export type User = {
   friendOf?: ModelUserFriendConnection | null,
   chats?: ModelChatConnection | null,
   chatWith?: ModelChatConnection | null,
-  chatFolder?: ModelChatFolderConnection | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -127,7 +126,6 @@ export type Chat = {
   friendID: string,
   friend?: User | null,
   message?: ModelMessageConnection | null,
-  chatFolders?: ModelFolderChatConnection | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -142,47 +140,10 @@ export type Message = {
   __typename: "Message",
   id: string,
   content: string,
-  userID: string,
-  friendID: string,
   chatID: string,
   chat?: Chat | null,
   createdAt: string,
   updatedAt: string,
-};
-
-export type ModelFolderChatConnection = {
-  __typename: "ModelFolderChatConnection",
-  items:  Array<FolderChat | null >,
-  nextToken?: string | null,
-};
-
-export type FolderChat = {
-  __typename: "FolderChat",
-  id: string,
-  userID: string,
-  chatID: string,
-  chat?: Chat | null,
-  chatFolderID: string,
-  chatFolder?: ChatFolder | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ChatFolder = {
-  __typename: "ChatFolder",
-  id: string,
-  name: string,
-  userID: string,
-  user?: User | null,
-  chats?: ModelFolderChatConnection | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelChatFolderConnection = {
-  __typename: "ModelChatFolderConnection",
-  items:  Array<ChatFolder | null >,
-  nextToken?: string | null,
 };
 
 export type ModelChatFilterInput = {
@@ -290,15 +251,11 @@ export type DeleteChatInput = {
 export type CreateMessageInput = {
   id?: string | null,
   content: string,
-  userID: string,
-  friendID: string,
   chatID: string,
 };
 
 export type ModelMessageConditionInput = {
   content?: ModelStringInput | null,
-  userID?: ModelIDInput | null,
-  friendID?: ModelIDInput | null,
   chatID?: ModelIDInput | null,
   and?: Array< ModelMessageConditionInput | null > | null,
   or?: Array< ModelMessageConditionInput | null > | null,
@@ -310,67 +267,10 @@ export type ModelMessageConditionInput = {
 export type UpdateMessageInput = {
   id: string,
   content?: string | null,
-  userID?: string | null,
-  friendID?: string | null,
   chatID?: string | null,
 };
 
 export type DeleteMessageInput = {
-  id: string,
-};
-
-export type CreateChatFolderInput = {
-  id?: string | null,
-  name: string,
-  userID: string,
-};
-
-export type ModelChatFolderConditionInput = {
-  name?: ModelStringInput | null,
-  userID?: ModelIDInput | null,
-  and?: Array< ModelChatFolderConditionInput | null > | null,
-  or?: Array< ModelChatFolderConditionInput | null > | null,
-  not?: ModelChatFolderConditionInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-};
-
-export type UpdateChatFolderInput = {
-  id: string,
-  name?: string | null,
-  userID?: string | null,
-};
-
-export type DeleteChatFolderInput = {
-  id: string,
-};
-
-export type CreateFolderChatInput = {
-  id?: string | null,
-  userID: string,
-  chatID: string,
-  chatFolderID: string,
-};
-
-export type ModelFolderChatConditionInput = {
-  userID?: ModelIDInput | null,
-  chatID?: ModelIDInput | null,
-  chatFolderID?: ModelIDInput | null,
-  and?: Array< ModelFolderChatConditionInput | null > | null,
-  or?: Array< ModelFolderChatConditionInput | null > | null,
-  not?: ModelFolderChatConditionInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-};
-
-export type UpdateFolderChatInput = {
-  id: string,
-  userID?: string | null,
-  chatID?: string | null,
-  chatFolderID?: string | null,
-};
-
-export type DeleteFolderChatInput = {
   id: string,
 };
 
@@ -396,8 +296,6 @@ export type ModelUserConnection = {
 export type ModelMessageFilterInput = {
   id?: ModelIDInput | null,
   content?: ModelStringInput | null,
-  userID?: ModelIDInput | null,
-  friendID?: ModelIDInput | null,
   chatID?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
@@ -411,29 +309,6 @@ export enum ModelSortDirection {
   DESC = "DESC",
 }
 
-
-export type ModelChatFolderFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  userID?: ModelIDInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  and?: Array< ModelChatFolderFilterInput | null > | null,
-  or?: Array< ModelChatFolderFilterInput | null > | null,
-  not?: ModelChatFolderFilterInput | null,
-};
-
-export type ModelFolderChatFilterInput = {
-  id?: ModelIDInput | null,
-  userID?: ModelIDInput | null,
-  chatID?: ModelIDInput | null,
-  chatFolderID?: ModelIDInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  and?: Array< ModelFolderChatFilterInput | null > | null,
-  or?: Array< ModelFolderChatFilterInput | null > | null,
-  not?: ModelFolderChatFilterInput | null,
-};
 
 export type ModelSubscriptionUserFilterInput = {
   name?: ModelSubscriptionStringInput | null,
@@ -464,6 +339,7 @@ export type ModelSubscriptionStringInput = {
 
 export type ModelSubscriptionUserFriendFilterInput = {
   id?: ModelSubscriptionIDInput | null,
+  friendID?: ModelSubscriptionIDInput | null,
   status?: ModelSubscriptionStringInput | null,
   favorite?: ModelSubscriptionBooleanInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
@@ -471,7 +347,6 @@ export type ModelSubscriptionUserFriendFilterInput = {
   and?: Array< ModelSubscriptionUserFriendFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserFriendFilterInput | null > | null,
   userID?: ModelStringInput | null,
-  friendID?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -512,29 +387,6 @@ export type ModelSubscriptionMessageFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMessageFilterInput | null > | null,
   or?: Array< ModelSubscriptionMessageFilterInput | null > | null,
-  userID?: ModelStringInput | null,
-  friendID?: ModelStringInput | null,
-};
-
-export type ModelSubscriptionChatFolderFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionChatFolderFilterInput | null > | null,
-  or?: Array< ModelSubscriptionChatFolderFilterInput | null > | null,
-  userID?: ModelStringInput | null,
-};
-
-export type ModelSubscriptionFolderChatFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  chatID?: ModelSubscriptionIDInput | null,
-  chatFolderID?: ModelSubscriptionIDInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionFolderChatFilterInput | null > | null,
-  or?: Array< ModelSubscriptionFolderChatFilterInput | null > | null,
-  userID?: ModelStringInput | null,
 };
 
 export type ListFriendsQueryVariables = {
@@ -569,6 +421,44 @@ export type ListFriendsQuery = {
       } | null,
       status: string,
       favorite?: boolean | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type ListFriendRequestsQueryVariables = {
+  filter?: ModelUserFriendFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListFriendRequestsQuery = {
+  listUserFriends?:  {
+    __typename: "ModelUserFriendConnection",
+    items:  Array< {
+      __typename: "UserFriend",
+      id: string,
+      userID: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        statusMessage: string,
+        image?: string | null,
+        coverImage?: string | null,
+      } | null,
+      friendID: string,
+      friend?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        statusMessage: string,
+        image?: string | null,
+        coverImage?: string | null,
+      } | null,
+      status: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -646,10 +536,6 @@ export type CreateUserMutation = {
       __typename: "ModelChatConnection",
       nextToken?: string | null,
     } | null,
-    chatFolder?:  {
-      __typename: "ModelChatFolderConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -684,10 +570,6 @@ export type UpdateUserMutation = {
       __typename: "ModelChatConnection",
       nextToken?: string | null,
     } | null,
-    chatFolder?:  {
-      __typename: "ModelChatFolderConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -720,10 +602,6 @@ export type DeleteUserMutation = {
     } | null,
     chatWith?:  {
       __typename: "ModelChatConnection",
-      nextToken?: string | null,
-    } | null,
-    chatFolder?:  {
-      __typename: "ModelChatFolderConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -880,10 +758,6 @@ export type CreateChatMutation = {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
-    chatFolders?:  {
-      __typename: "ModelFolderChatConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -922,10 +796,6 @@ export type UpdateChatMutation = {
     } | null,
     message?:  {
       __typename: "ModelMessageConnection",
-      nextToken?: string | null,
-    } | null,
-    chatFolders?:  {
-      __typename: "ModelFolderChatConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -968,10 +838,6 @@ export type DeleteChatMutation = {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
-    chatFolders?:  {
-      __typename: "ModelFolderChatConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -987,8 +853,6 @@ export type CreateMessageMutation = {
     __typename: "Message",
     id: string,
     content: string,
-    userID: string,
-    friendID: string,
     chatID: string,
     chat?:  {
       __typename: "Chat",
@@ -1013,8 +877,6 @@ export type UpdateMessageMutation = {
     __typename: "Message",
     id: string,
     content: string,
-    userID: string,
-    friendID: string,
     chatID: string,
     chat?:  {
       __typename: "Chat",
@@ -1039,203 +901,12 @@ export type DeleteMessageMutation = {
     __typename: "Message",
     id: string,
     content: string,
-    userID: string,
-    friendID: string,
     chatID: string,
     chat?:  {
       __typename: "Chat",
       id: string,
       userID: string,
       friendID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateChatFolderMutationVariables = {
-  input: CreateChatFolderInput,
-  condition?: ModelChatFolderConditionInput | null,
-};
-
-export type CreateChatFolderMutation = {
-  createChatFolder?:  {
-    __typename: "ChatFolder",
-    id: string,
-    name: string,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      statusMessage: string,
-      image?: string | null,
-      coverImage?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    chats?:  {
-      __typename: "ModelFolderChatConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateChatFolderMutationVariables = {
-  input: UpdateChatFolderInput,
-  condition?: ModelChatFolderConditionInput | null,
-};
-
-export type UpdateChatFolderMutation = {
-  updateChatFolder?:  {
-    __typename: "ChatFolder",
-    id: string,
-    name: string,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      statusMessage: string,
-      image?: string | null,
-      coverImage?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    chats?:  {
-      __typename: "ModelFolderChatConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteChatFolderMutationVariables = {
-  input: DeleteChatFolderInput,
-  condition?: ModelChatFolderConditionInput | null,
-};
-
-export type DeleteChatFolderMutation = {
-  deleteChatFolder?:  {
-    __typename: "ChatFolder",
-    id: string,
-    name: string,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      statusMessage: string,
-      image?: string | null,
-      coverImage?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    chats?:  {
-      __typename: "ModelFolderChatConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateFolderChatMutationVariables = {
-  input: CreateFolderChatInput,
-  condition?: ModelFolderChatConditionInput | null,
-};
-
-export type CreateFolderChatMutation = {
-  createFolderChat?:  {
-    __typename: "FolderChat",
-    id: string,
-    userID: string,
-    chatID: string,
-    chat?:  {
-      __typename: "Chat",
-      id: string,
-      userID: string,
-      friendID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    chatFolderID: string,
-    chatFolder?:  {
-      __typename: "ChatFolder",
-      id: string,
-      name: string,
-      userID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateFolderChatMutationVariables = {
-  input: UpdateFolderChatInput,
-  condition?: ModelFolderChatConditionInput | null,
-};
-
-export type UpdateFolderChatMutation = {
-  updateFolderChat?:  {
-    __typename: "FolderChat",
-    id: string,
-    userID: string,
-    chatID: string,
-    chat?:  {
-      __typename: "Chat",
-      id: string,
-      userID: string,
-      friendID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    chatFolderID: string,
-    chatFolder?:  {
-      __typename: "ChatFolder",
-      id: string,
-      name: string,
-      userID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteFolderChatMutationVariables = {
-  input: DeleteFolderChatInput,
-  condition?: ModelFolderChatConditionInput | null,
-};
-
-export type DeleteFolderChatMutation = {
-  deleteFolderChat?:  {
-    __typename: "FolderChat",
-    id: string,
-    userID: string,
-    chatID: string,
-    chat?:  {
-      __typename: "Chat",
-      id: string,
-      userID: string,
-      friendID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    chatFolderID: string,
-    chatFolder?:  {
-      __typename: "ChatFolder",
-      id: string,
-      name: string,
-      userID: string,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -1270,10 +941,6 @@ export type GetUserQuery = {
     } | null,
     chatWith?:  {
       __typename: "ModelChatConnection",
-      nextToken?: string | null,
-    } | null,
-    chatFolder?:  {
-      __typename: "ModelChatFolderConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -1398,10 +1065,6 @@ export type GetChatQuery = {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
-    chatFolders?:  {
-      __typename: "ModelFolderChatConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1437,8 +1100,6 @@ export type GetMessageQuery = {
     __typename: "Message",
     id: string,
     content: string,
-    userID: string,
-    friendID: string,
     chatID: string,
     chat?:  {
       __typename: "Chat",
@@ -1466,8 +1127,6 @@ export type ListMessagesQuery = {
       __typename: "Message",
       id: string,
       content: string,
-      userID: string,
-      friendID: string,
       chatID: string,
       createdAt: string,
       updatedAt: string,
@@ -1491,184 +1150,7 @@ export type MessagesByChatIDQuery = {
       __typename: "Message",
       id: string,
       content: string,
-      userID: string,
-      friendID: string,
       chatID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetChatFolderQueryVariables = {
-  id: string,
-};
-
-export type GetChatFolderQuery = {
-  getChatFolder?:  {
-    __typename: "ChatFolder",
-    id: string,
-    name: string,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      statusMessage: string,
-      image?: string | null,
-      coverImage?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    chats?:  {
-      __typename: "ModelFolderChatConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListChatFoldersQueryVariables = {
-  filter?: ModelChatFolderFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListChatFoldersQuery = {
-  listChatFolders?:  {
-    __typename: "ModelChatFolderConnection",
-    items:  Array< {
-      __typename: "ChatFolder",
-      id: string,
-      name: string,
-      userID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type ChatFoldersByUserIDQueryVariables = {
-  userID: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelChatFolderFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ChatFoldersByUserIDQuery = {
-  chatFoldersByUserID?:  {
-    __typename: "ModelChatFolderConnection",
-    items:  Array< {
-      __typename: "ChatFolder",
-      id: string,
-      name: string,
-      userID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetFolderChatQueryVariables = {
-  id: string,
-};
-
-export type GetFolderChatQuery = {
-  getFolderChat?:  {
-    __typename: "FolderChat",
-    id: string,
-    userID: string,
-    chatID: string,
-    chat?:  {
-      __typename: "Chat",
-      id: string,
-      userID: string,
-      friendID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    chatFolderID: string,
-    chatFolder?:  {
-      __typename: "ChatFolder",
-      id: string,
-      name: string,
-      userID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListFolderChatsQueryVariables = {
-  filter?: ModelFolderChatFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListFolderChatsQuery = {
-  listFolderChats?:  {
-    __typename: "ModelFolderChatConnection",
-    items:  Array< {
-      __typename: "FolderChat",
-      id: string,
-      userID: string,
-      chatID: string,
-      chatFolderID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type FolderChatsByChatIDQueryVariables = {
-  chatID: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelFolderChatFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type FolderChatsByChatIDQuery = {
-  folderChatsByChatID?:  {
-    __typename: "ModelFolderChatConnection",
-    items:  Array< {
-      __typename: "FolderChat",
-      id: string,
-      userID: string,
-      chatID: string,
-      chatFolderID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type FolderChatsByChatFolderIDQueryVariables = {
-  chatFolderID: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelFolderChatFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type FolderChatsByChatFolderIDQuery = {
-  folderChatsByChatFolderID?:  {
-    __typename: "ModelFolderChatConnection",
-    items:  Array< {
-      __typename: "FolderChat",
-      id: string,
-      userID: string,
-      chatID: string,
-      chatFolderID: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -1704,10 +1186,6 @@ export type OnCreateUserSubscription = {
       __typename: "ModelChatConnection",
       nextToken?: string | null,
     } | null,
-    chatFolder?:  {
-      __typename: "ModelChatFolderConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1739,10 +1217,6 @@ export type OnUpdateUserSubscription = {
     } | null,
     chatWith?:  {
       __typename: "ModelChatConnection",
-      nextToken?: string | null,
-    } | null,
-    chatFolder?:  {
-      __typename: "ModelChatFolderConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -1778,10 +1252,6 @@ export type OnDeleteUserSubscription = {
       __typename: "ModelChatConnection",
       nextToken?: string | null,
     } | null,
-    chatFolder?:  {
-      __typename: "ModelChatFolderConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1789,8 +1259,6 @@ export type OnDeleteUserSubscription = {
 
 export type OnCreateUserFriendSubscriptionVariables = {
   filter?: ModelSubscriptionUserFriendFilterInput | null,
-  userID?: string | null,
-  friendID?: string | null,
 };
 
 export type OnCreateUserFriendSubscription = {
@@ -1828,8 +1296,6 @@ export type OnCreateUserFriendSubscription = {
 
 export type OnUpdateUserFriendSubscriptionVariables = {
   filter?: ModelSubscriptionUserFriendFilterInput | null,
-  userID?: string | null,
-  friendID?: string | null,
 };
 
 export type OnUpdateUserFriendSubscription = {
@@ -1867,8 +1333,6 @@ export type OnUpdateUserFriendSubscription = {
 
 export type OnDeleteUserFriendSubscriptionVariables = {
   filter?: ModelSubscriptionUserFriendFilterInput | null,
-  userID?: string | null,
-  friendID?: string | null,
 };
 
 export type OnDeleteUserFriendSubscription = {
@@ -1940,10 +1404,6 @@ export type OnCreateChatSubscription = {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
-    chatFolders?:  {
-      __typename: "ModelFolderChatConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1983,10 +1443,6 @@ export type OnUpdateChatSubscription = {
     } | null,
     message?:  {
       __typename: "ModelMessageConnection",
-      nextToken?: string | null,
-    } | null,
-    chatFolders?:  {
-      __typename: "ModelFolderChatConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -2030,10 +1486,6 @@ export type OnDeleteChatSubscription = {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
-    chatFolders?:  {
-      __typename: "ModelFolderChatConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2041,8 +1493,6 @@ export type OnDeleteChatSubscription = {
 
 export type OnCreateMessageSubscriptionVariables = {
   filter?: ModelSubscriptionMessageFilterInput | null,
-  userID?: string | null,
-  friendID?: string | null,
 };
 
 export type OnCreateMessageSubscription = {
@@ -2050,8 +1500,6 @@ export type OnCreateMessageSubscription = {
     __typename: "Message",
     id: string,
     content: string,
-    userID: string,
-    friendID: string,
     chatID: string,
     chat?:  {
       __typename: "Chat",
@@ -2068,8 +1516,6 @@ export type OnCreateMessageSubscription = {
 
 export type OnUpdateMessageSubscriptionVariables = {
   filter?: ModelSubscriptionMessageFilterInput | null,
-  userID?: string | null,
-  friendID?: string | null,
 };
 
 export type OnUpdateMessageSubscription = {
@@ -2077,8 +1523,6 @@ export type OnUpdateMessageSubscription = {
     __typename: "Message",
     id: string,
     content: string,
-    userID: string,
-    friendID: string,
     chatID: string,
     chat?:  {
       __typename: "Chat",
@@ -2095,8 +1539,6 @@ export type OnUpdateMessageSubscription = {
 
 export type OnDeleteMessageSubscriptionVariables = {
   filter?: ModelSubscriptionMessageFilterInput | null,
-  userID?: string | null,
-  friendID?: string | null,
 };
 
 export type OnDeleteMessageSubscription = {
@@ -2104,203 +1546,12 @@ export type OnDeleteMessageSubscription = {
     __typename: "Message",
     id: string,
     content: string,
-    userID: string,
-    friendID: string,
     chatID: string,
     chat?:  {
       __typename: "Chat",
       id: string,
       userID: string,
       friendID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateChatFolderSubscriptionVariables = {
-  filter?: ModelSubscriptionChatFolderFilterInput | null,
-  userID?: string | null,
-};
-
-export type OnCreateChatFolderSubscription = {
-  onCreateChatFolder?:  {
-    __typename: "ChatFolder",
-    id: string,
-    name: string,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      statusMessage: string,
-      image?: string | null,
-      coverImage?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    chats?:  {
-      __typename: "ModelFolderChatConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateChatFolderSubscriptionVariables = {
-  filter?: ModelSubscriptionChatFolderFilterInput | null,
-  userID?: string | null,
-};
-
-export type OnUpdateChatFolderSubscription = {
-  onUpdateChatFolder?:  {
-    __typename: "ChatFolder",
-    id: string,
-    name: string,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      statusMessage: string,
-      image?: string | null,
-      coverImage?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    chats?:  {
-      __typename: "ModelFolderChatConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteChatFolderSubscriptionVariables = {
-  filter?: ModelSubscriptionChatFolderFilterInput | null,
-  userID?: string | null,
-};
-
-export type OnDeleteChatFolderSubscription = {
-  onDeleteChatFolder?:  {
-    __typename: "ChatFolder",
-    id: string,
-    name: string,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      statusMessage: string,
-      image?: string | null,
-      coverImage?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    chats?:  {
-      __typename: "ModelFolderChatConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateFolderChatSubscriptionVariables = {
-  filter?: ModelSubscriptionFolderChatFilterInput | null,
-  userID?: string | null,
-};
-
-export type OnCreateFolderChatSubscription = {
-  onCreateFolderChat?:  {
-    __typename: "FolderChat",
-    id: string,
-    userID: string,
-    chatID: string,
-    chat?:  {
-      __typename: "Chat",
-      id: string,
-      userID: string,
-      friendID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    chatFolderID: string,
-    chatFolder?:  {
-      __typename: "ChatFolder",
-      id: string,
-      name: string,
-      userID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateFolderChatSubscriptionVariables = {
-  filter?: ModelSubscriptionFolderChatFilterInput | null,
-  userID?: string | null,
-};
-
-export type OnUpdateFolderChatSubscription = {
-  onUpdateFolderChat?:  {
-    __typename: "FolderChat",
-    id: string,
-    userID: string,
-    chatID: string,
-    chat?:  {
-      __typename: "Chat",
-      id: string,
-      userID: string,
-      friendID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    chatFolderID: string,
-    chatFolder?:  {
-      __typename: "ChatFolder",
-      id: string,
-      name: string,
-      userID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteFolderChatSubscriptionVariables = {
-  filter?: ModelSubscriptionFolderChatFilterInput | null,
-  userID?: string | null,
-};
-
-export type OnDeleteFolderChatSubscription = {
-  onDeleteFolderChat?:  {
-    __typename: "FolderChat",
-    id: string,
-    userID: string,
-    chatID: string,
-    chat?:  {
-      __typename: "Chat",
-      id: string,
-      userID: string,
-      friendID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    chatFolderID: string,
-    chatFolder?:  {
-      __typename: "ChatFolder",
-      id: string,
-      name: string,
-      userID: string,
       createdAt: string,
       updatedAt: string,
     } | null,
