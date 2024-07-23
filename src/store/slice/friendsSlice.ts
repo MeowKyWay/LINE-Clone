@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { User } from "../../API";
-import { addFriend, fetchFavoriteFriends, fetchFriendRequest, fetchUserFriends } from "../thunks/friendsThunk";
+import {  addFavoriteFriend, addFriend, fetchFriendRequest, fetchUserFriends, removeFavoriteFriend } from "../thunks/friendsThunk";
 
 
 const friendsSlice = createSlice({
@@ -21,7 +21,8 @@ const friendsSlice = createSlice({
         error: "",
     }, extraReducers(builder) {
         builder.addCase(fetchUserFriends.fulfilled, (state, action) => {
-            state.friends.data = action.payload || [];
+            state.friends.data = action.payload.allFriends || [];
+            state.favoriteFriends.data = action.payload.favoriteFriends
             state.friends.error = "";
         })
         builder.addCase(fetchUserFriends.rejected, (state, action) => {
@@ -48,13 +49,24 @@ const friendsSlice = createSlice({
             state.friendRequests.error = action.error.message ?? "";
         })
 
-        builder.addCase(fetchFavoriteFriends.fulfilled, (state, action) => {
-            state.favoriteFriends.data = action.payload || [];
+        builder.addCase(addFavoriteFriend.fulfilled, (state, action) => {
+            console.log("action: ",action);
+            if(!state.friends.data) return;
+            const friend = state.friends.data.find(friend => friend.id === action.payload);
+            if(!friend) return;
+            state.favoriteFriends.data?.push(friend);
         })
 
-        builder.addCase(fetchFavoriteFriends.rejected ,(state, action) => {
-            state.favoriteFriends.error = action.error.message ?? "";
+        builder.addCase(removeFavoriteFriend.fulfilled, (state, action) => {
+            console.log("action: ",action);
+            if(!state.friends.data) return;
+            const friend = state.friends.data.find(friend => friend.id === action.payload);
+            if(!friend) return;
+            state.favoriteFriends.data = state.favoriteFriends.data?.filter(
+                friend => friend.id !== action.payload
+            ) as User[];
         })
+
 
 
 

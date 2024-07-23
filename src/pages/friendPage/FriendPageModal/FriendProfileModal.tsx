@@ -9,7 +9,7 @@ import { BsChatDotsFill } from "react-icons/bs";
 import { IoCallSharp } from "react-icons/io5";
 import { FaVideo } from "react-icons/fa";
 import { useAppSelector } from "../../../hook";
-import { fetchUserFriend, updateFavoriteFriend} from "../../../store/thunks/friendsThunk";
+import { addFavoriteFriend, fetchUserFriend, removeFavoriteFriend } from "../../../store/thunks/friendsThunk";
 import { useAppDispatch } from "../../../hook";
 import { UserFriend } from "../../../API";
 
@@ -37,11 +37,16 @@ function FriendProfileModal({onClose , friend } : { onClose: () => void , friend
     }, [userFriendID, dispatch]);
     
     async function updateFavoriteStatus(){
-        if(userFriend){
-            dispatch(updateFavoriteFriend(userFriend))
+        if(userFriend && !userFriend?.favorite ){
+            dispatch(addFavoriteFriend(userFriend))
             setIsFavorite(!isFavorite)
+        }
+        else if(userFriend){
+            dispatch(removeFavoriteFriend(userFriend))
+            setIsFavorite(!isFavorite)
+        }
     }
-    }
+    
 
     return (
         <Modal onClose={onClose} label={"profile page"} height={"516px"} width={"312px"}>

@@ -3,24 +3,23 @@ import { useAppDispatch, useAppSelector } from "../../hook";
 import { setFriendListState } from "../../store/slice/statesSlice";
 import ExpandListButton from "../../components/ExpandListButton";
 import FetchFriends from "../../components/api/fetch/FetchFriends";
+import { User } from "../../API";
 
-function FriendList({ searchTerm }: { searchTerm: string }) {
+function FriendList({ list, label }: { list: User[] , label:string}) {
 
     const dispatch = useAppDispatch();
-    const friends = useAppSelector(state => state.friends.friends);
-    const friendsFiltered = friends.data?.filter(friend => friend.name.toLowerCase().includes(searchTerm.toLowerCase())) || [];
 
     const friendListState = useAppSelector(state => state.states.friendListState);
 
     return (
         <div>
             <ExpandListButton
-                label="Friends"
+                label={label}
                 value={friendListState}
-                size={friendsFiltered.length}
+                size={list.length}
                 onClick={() => dispatch(setFriendListState(!friendListState))}
             ></ExpandListButton>
-            {friendListState && <AccountList accounts={friendsFiltered}></AccountList>}
+            {friendListState && <AccountList accounts={list}></AccountList>}
             <FetchFriends />
         </div>
     )

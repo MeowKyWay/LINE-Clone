@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from "../../hook";
 import { useState } from "react";
 import FriendList from "./FriendList";
 import ProfileModal from "./FriendPageModal/ProfileModal";
-import FavoriteFriendList from "./FavoriteFriendList";
 
 function FriendsPage() {
 
@@ -22,11 +21,16 @@ function FriendsPage() {
             navigate('/std/friends');
         }
     }, [navigate, location.pathname]);
+    const searchTerm = useAppSelector(state => state.terms.friendsTerm);
+    const friends = useAppSelector(state => state.friends.friends);
+    const favoriteFriends = useAppSelector(state => state.friends.favoriteFriends)
+    const friendsFiltered = friends.data?.filter(friend => friend.name.toLowerCase().includes(searchTerm.toLowerCase())) || [];
+    const favoriteFriendsFiltered = favoriteFriends.data?.filter(favoriteFriends => favoriteFriends.name.toLowerCase().includes(searchTerm.toLowerCase())) || [];
 
 
     const user = useAppSelector(state => state.user);
     // const groupListState = useAppSelector(state => state.states.groupListState);
-    const searchTerm = useAppSelector(state => state.terms.friendsTerm);
+
 
     // const groups = useAppSelector(state => state.groups.groupList);
     // const groupsFiltered = groups?.filter(group => group.name.toLowerCase().includes(searchTerm.toLowerCase())) || [];
@@ -77,8 +81,9 @@ function FriendsPage() {
                         </button>
                     </div>
                     {groupListState && <AccountList accounts={groupsFiltered}></AccountList>} */}
-                    <FavoriteFriendList></FavoriteFriendList>
-                    <FriendList searchTerm={searchTerm} />
+                    <FriendList list={favoriteFriendsFiltered} label="Favorites"></FriendList>
+                    <FriendList list={friendsFiltered} label="Friends"/>
+                    
                 </div>
             </div>
 
