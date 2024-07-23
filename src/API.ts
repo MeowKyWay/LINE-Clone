@@ -420,7 +420,7 @@ export type ListFriendsQuery = {
         coverImage?: string | null,
       } | null,
       status: string,
-      favorite: boolean,
+      favorite?: boolean | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -448,6 +448,8 @@ export type ListMyChatsQuery = {
         name: string,
         statusMessage: string,
         image?: string | null,
+        createdAt: string,
+        updatedAt: string,
       } | null,
       message?:  {
         __typename: "ModelMessageConnection",
