@@ -31,10 +31,6 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
       nextToken
       __typename
     }
-    chatFolder {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -64,10 +60,6 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
       __typename
     }
     chatWith {
-      nextToken
-      __typename
-    }
-    chatFolder {
       nextToken
       __typename
     }
@@ -103,10 +95,6 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
       nextToken
       __typename
     }
-    chatFolder {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -118,10 +106,8 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
 >;
 export const onCreateUserFriend = /* GraphQL */ `subscription OnCreateUserFriend(
   $filter: ModelSubscriptionUserFriendFilterInput
-  $userID: String
-  $friendID: String
 ) {
-  onCreateUserFriend(filter: $filter, userID: $userID, friendID: $friendID) {
+  onCreateUserFriend(filter: $filter) {
     id
     userID
     user {
@@ -158,10 +144,8 @@ export const onCreateUserFriend = /* GraphQL */ `subscription OnCreateUserFriend
 >;
 export const onUpdateUserFriend = /* GraphQL */ `subscription OnUpdateUserFriend(
   $filter: ModelSubscriptionUserFriendFilterInput
-  $userID: String
-  $friendID: String
 ) {
-  onUpdateUserFriend(filter: $filter, userID: $userID, friendID: $friendID) {
+  onUpdateUserFriend(filter: $filter) {
     id
     userID
     user {
@@ -198,10 +182,8 @@ export const onUpdateUserFriend = /* GraphQL */ `subscription OnUpdateUserFriend
 >;
 export const onDeleteUserFriend = /* GraphQL */ `subscription OnDeleteUserFriend(
   $filter: ModelSubscriptionUserFriendFilterInput
-  $userID: String
-  $friendID: String
 ) {
-  onDeleteUserFriend(filter: $filter, userID: $userID, friendID: $friendID) {
+  onDeleteUserFriend(filter: $filter) {
     id
     userID
     user {
@@ -269,10 +251,6 @@ export const onCreateChat = /* GraphQL */ `subscription OnCreateChat(
       nextToken
       __typename
     }
-    chatFolders {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -312,10 +290,6 @@ export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat(
       __typename
     }
     message {
-      nextToken
-      __typename
-    }
-    chatFolders {
       nextToken
       __typename
     }
@@ -361,10 +335,6 @@ export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat(
       nextToken
       __typename
     }
-    chatFolders {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -374,16 +344,10 @@ export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat(
   APITypes.OnDeleteChatSubscriptionVariables,
   APITypes.OnDeleteChatSubscription
 >;
-export const onCreateMessage = /* GraphQL */ `subscription OnCreateMessage(
-  $filter: ModelSubscriptionMessageFilterInput
-  $userID: String
-  $friendID: String
-) {
-  onCreateMessage(filter: $filter, userID: $userID, friendID: $friendID) {
+export const onCreateMessage = /* GraphQL */ `subscription OnCreateMessage($filter: ModelSubscriptionMessageFilterInput) {
+  onCreateMessage(filter: $filter) {
     id
     content
-    userID
-    friendID
     chatID
     chat {
       id
@@ -402,16 +366,10 @@ export const onCreateMessage = /* GraphQL */ `subscription OnCreateMessage(
   APITypes.OnCreateMessageSubscriptionVariables,
   APITypes.OnCreateMessageSubscription
 >;
-export const onUpdateMessage = /* GraphQL */ `subscription OnUpdateMessage(
-  $filter: ModelSubscriptionMessageFilterInput
-  $userID: String
-  $friendID: String
-) {
-  onUpdateMessage(filter: $filter, userID: $userID, friendID: $friendID) {
+export const onUpdateMessage = /* GraphQL */ `subscription OnUpdateMessage($filter: ModelSubscriptionMessageFilterInput) {
+  onUpdateMessage(filter: $filter) {
     id
     content
-    userID
-    friendID
     chatID
     chat {
       id
@@ -430,16 +388,10 @@ export const onUpdateMessage = /* GraphQL */ `subscription OnUpdateMessage(
   APITypes.OnUpdateMessageSubscriptionVariables,
   APITypes.OnUpdateMessageSubscription
 >;
-export const onDeleteMessage = /* GraphQL */ `subscription OnDeleteMessage(
-  $filter: ModelSubscriptionMessageFilterInput
-  $userID: String
-  $friendID: String
-) {
-  onDeleteMessage(filter: $filter, userID: $userID, friendID: $friendID) {
+export const onDeleteMessage = /* GraphQL */ `subscription OnDeleteMessage($filter: ModelSubscriptionMessageFilterInput) {
+  onDeleteMessage(filter: $filter) {
     id
     content
-    userID
-    friendID
     chatID
     chat {
       id
@@ -457,199 +409,4 @@ export const onDeleteMessage = /* GraphQL */ `subscription OnDeleteMessage(
 ` as GeneratedSubscription<
   APITypes.OnDeleteMessageSubscriptionVariables,
   APITypes.OnDeleteMessageSubscription
->;
-export const onCreateChatFolder = /* GraphQL */ `subscription OnCreateChatFolder(
-  $filter: ModelSubscriptionChatFolderFilterInput
-  $userID: String
-) {
-  onCreateChatFolder(filter: $filter, userID: $userID) {
-    id
-    name
-    userID
-    user {
-      id
-      name
-      statusMessage
-      image
-      coverImage
-      createdAt
-      updatedAt
-      __typename
-    }
-    chats {
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateChatFolderSubscriptionVariables,
-  APITypes.OnCreateChatFolderSubscription
->;
-export const onUpdateChatFolder = /* GraphQL */ `subscription OnUpdateChatFolder(
-  $filter: ModelSubscriptionChatFolderFilterInput
-  $userID: String
-) {
-  onUpdateChatFolder(filter: $filter, userID: $userID) {
-    id
-    name
-    userID
-    user {
-      id
-      name
-      statusMessage
-      image
-      coverImage
-      createdAt
-      updatedAt
-      __typename
-    }
-    chats {
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateChatFolderSubscriptionVariables,
-  APITypes.OnUpdateChatFolderSubscription
->;
-export const onDeleteChatFolder = /* GraphQL */ `subscription OnDeleteChatFolder(
-  $filter: ModelSubscriptionChatFolderFilterInput
-  $userID: String
-) {
-  onDeleteChatFolder(filter: $filter, userID: $userID) {
-    id
-    name
-    userID
-    user {
-      id
-      name
-      statusMessage
-      image
-      coverImage
-      createdAt
-      updatedAt
-      __typename
-    }
-    chats {
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteChatFolderSubscriptionVariables,
-  APITypes.OnDeleteChatFolderSubscription
->;
-export const onCreateFolderChat = /* GraphQL */ `subscription OnCreateFolderChat(
-  $filter: ModelSubscriptionFolderChatFilterInput
-  $userID: String
-) {
-  onCreateFolderChat(filter: $filter, userID: $userID) {
-    id
-    userID
-    chatID
-    chat {
-      id
-      userID
-      friendID
-      createdAt
-      updatedAt
-      __typename
-    }
-    chatFolderID
-    chatFolder {
-      id
-      name
-      userID
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateFolderChatSubscriptionVariables,
-  APITypes.OnCreateFolderChatSubscription
->;
-export const onUpdateFolderChat = /* GraphQL */ `subscription OnUpdateFolderChat(
-  $filter: ModelSubscriptionFolderChatFilterInput
-  $userID: String
-) {
-  onUpdateFolderChat(filter: $filter, userID: $userID) {
-    id
-    userID
-    chatID
-    chat {
-      id
-      userID
-      friendID
-      createdAt
-      updatedAt
-      __typename
-    }
-    chatFolderID
-    chatFolder {
-      id
-      name
-      userID
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateFolderChatSubscriptionVariables,
-  APITypes.OnUpdateFolderChatSubscription
->;
-export const onDeleteFolderChat = /* GraphQL */ `subscription OnDeleteFolderChat(
-  $filter: ModelSubscriptionFolderChatFilterInput
-  $userID: String
-) {
-  onDeleteFolderChat(filter: $filter, userID: $userID) {
-    id
-    userID
-    chatID
-    chat {
-      id
-      userID
-      friendID
-      createdAt
-      updatedAt
-      __typename
-    }
-    chatFolderID
-    chatFolder {
-      id
-      name
-      userID
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteFolderChatSubscriptionVariables,
-  APITypes.OnDeleteFolderChatSubscription
 >;

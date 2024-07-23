@@ -19,6 +19,7 @@ const fetchUser = createAsyncThunk('users/fetch', async () => {
             id: username
         }
     })
+
     const user = response.data.getUser;
 
     return {
@@ -59,8 +60,8 @@ const setProfileUser = createAsyncThunk('users/setImg', async (filename: string)
 
 const setCoverImageUser = createAsyncThunk('users/setImg', async (filename: string) => {
     const username = (await getCurrentUser()).username;
-    
-    try{
+
+    try {
         await client.graphql({
             query: updateUser,
             variables: {
@@ -69,10 +70,10 @@ const setCoverImageUser = createAsyncThunk('users/setImg', async (filename: stri
                     coverImage: filename
                 }
             }
-        })        
+        })
         return filename;
     }
-    catch(error){
+    catch (error) {
         console.log(error);
         throw error
     }
@@ -103,7 +104,7 @@ const setStatusMessage = createAsyncThunk('users/setStatusMessage', async (messa
 const changeUserName = createAsyncThunk('users/changeUserName', async (newName: string) => {
     const username = (await getCurrentUser()).username;
 
-    try{
+    try {
         await client.graphql({
             query: updateUser,
             variables: {
@@ -115,11 +116,11 @@ const changeUserName = createAsyncThunk('users/changeUserName', async (newName: 
         })
         return newName;
     }
-    catch(error){
+    catch (error) {
         console.log(error);
         throw error;
-        
+
     }
 })
 
-export { fetchUser, logout , setProfileUser, setCoverImageUser , setStatusMessage , changeUserName}
+export { fetchUser, logout, setProfileUser, setCoverImageUser, setStatusMessage, changeUserName }

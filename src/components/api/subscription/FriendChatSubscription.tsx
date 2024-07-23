@@ -4,6 +4,7 @@ import { Subscription } from "rxjs"
 import { onCreateChat, onUpdateChat } from "../../../graphql/subscriptions";
 import { useAppDispatch, useAppSelector } from "../../../hook";
 import { addChat, updateChat } from "../../../store/slice/chatsSlice";
+import { Chat } from "../../../API";
 
 function FriendChatSubscription() {
 
