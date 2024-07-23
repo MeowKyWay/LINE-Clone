@@ -12,7 +12,7 @@ const fetchUser = createAsyncThunk('users/fetch', async () => {
     const username = (await getCurrentUser()).username;
 
     const userAttribute = (await fetchUserAttributes());
-
+    try{
     const response = await client.graphql({
         query: getUser,
         variables: {
@@ -29,6 +29,11 @@ const fetchUser = createAsyncThunk('users/fetch', async () => {
         image: user?.image,
         coverImage: user?.coverImage,
     } as UserType;
+    }
+    catch(error){
+        console.log(error);
+        
+    }
 })
 
 const logout = createAsyncThunk('users/logout', async () => {

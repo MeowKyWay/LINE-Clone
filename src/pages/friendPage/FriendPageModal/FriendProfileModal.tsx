@@ -19,7 +19,7 @@ function FriendProfileModal({onClose , friend } : { onClose: () => void , friend
     const currentUser = useAppSelector(state => state.user.currentUser)
     const [isFavorite , setIsFavorite] = useState<boolean>(false)
     const [userFriend , setUserFriend] = useState<UserFriend | null>(null)
-    console.log("isFavorite: " , isFavorite);
+    console.log("isFavorite: " , isFavorite);    
     
     const userFriendID = currentUser?.lineID + ":" + friend.id
     const dispatch = useAppDispatch();
@@ -34,7 +34,7 @@ function FriendProfileModal({onClose , friend } : { onClose: () => void , friend
             }
         }
         setIsFavoriteState();
-    }, [userFriendID, dispatch]);
+    }, [ dispatch ]);
     
     async function updateFavoriteStatus(){
         if(userFriend && !userFriend?.favorite ){
