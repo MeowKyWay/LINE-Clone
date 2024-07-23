@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Chat } from "../../API";
+import { Chat, Message } from "../../API";
 import { fetchFriendChats } from "../thunks/chatsThunk";
 
 const chatsSlice = createSlice({
@@ -17,13 +17,18 @@ const chatsSlice = createSlice({
     extraReducers(builder) {
         builder.addCase(fetchFriendChats.fulfilled, (state, action) => {
             state.friendChats.data = action.payload;
+            for (const chat of state.friendChats.data) {
+                chat.message?.items.sort((a, b) => (
+                    new Date((a as Message).createdAt).getTime() - new Date((b as Message).createdAt).getTime()
+                ))
+            }
             state.friendChats.error = '';
         })
         builder.addCase(fetchFriendChats.rejected, (state, action) => {
             state.friendChats.data = null;
             state.friendChats.error = action.payload as string;
         })
-    },    
+    },
     reducers: {
         addChat(state, action) {
             if (!state.friendChats.data) return;
@@ -34,9 +39,15 @@ const chatsSlice = createSlice({
             const chat = state.friendChats.data.find(chat => chat.id === action.payload.chatID);
             if (!chat) return;
             chat.message?.items.push(action.payload);
+        },
+        updateChat(state, action) {
+            if (!state.friendChats.data) return;
+            const chat = state.friendChats.data.find(chat => chat.id === action.payload.id);
+            if (!chat) return;
+            chat.updatedAt = action.payload.updateAt;
         }
     },
 })
 
-export const { addChat, addMessage } = chatsSlice.actions;
+export const { addChat, addMessage, updateChat } = chatsSlice.actions;
 export const chatsReducer = chatsSlice.reducer;
