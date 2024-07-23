@@ -30,7 +30,6 @@ function MessageSubscription() {
         }).subscribe({
             next: ({ data }) => {
                 dispatch(addMessage(data.onCreateMessage));
-                console.log(data.onCreateMessage)
             }
         })
 

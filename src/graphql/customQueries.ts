@@ -45,7 +45,7 @@ export const listFriend = /* GraphQL */ `query ListFriends(
   CustomAPITypes.ListFriendQuery
 >;
 
-export const listFriendRequest = /* GraphQL */ `query ListFriends(
+export const listFriendRequests = /* GraphQL */ `query ListFriendRequests(
   $filter: ModelUserFriendFilterInput
   $limit: Int
   $nextToken: String
