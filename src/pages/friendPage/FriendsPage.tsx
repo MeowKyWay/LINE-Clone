@@ -29,6 +29,8 @@ function FriendsPage() {
 
 
     const user = useAppSelector(state => state.user);
+    console.log(user);
+    
     // const groupListState = useAppSelector(state => state.states.groupListState);
 
 

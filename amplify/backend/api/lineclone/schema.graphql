@@ -17,14 +17,15 @@ type User
 
   chats: [Chat] @hasMany(fields: ["id"])
   chatWith: [Chat] @hasMany(fields: ["id"])
-
-  chatFolder: [ChatFolder] @hasMany(indexName: "folders",fields: ["id"])
 }
 
-type UserFriend @model @auth(rules: [
-  { allow: owner, ownerField: "userID", operations: [read] }
-  { allow: owner, ownerField: "friendID", operations: [read] }
-  ]) {
+type UserFriend 
+  @model 
+  @auth(
+    rules: [
+      { allow: private, operations: [read] }
+    ]
+  ) {
   id: ID!
 
   userID: ID!
@@ -34,20 +35,17 @@ type UserFriend @model @auth(rules: [
   friend: User @belongsTo(fields: ["friendID"])
 
   status: String!
-  favorite: Boolean
-    @auth(
-      rules: [
-        { allow: owner, ownerField: "userID", operations: [read, update] }
-      ]
-    )
+  favorite: Boolean @auth(rules: [
+    { allow: owner, ownerField: "userID", operations: [update] }
+    { allow: private, operations: [read] }
+  ])
 }
 
 type Chat
   @model
   @auth(
     rules: [
-      { allow: owner, ownerField: "userID", operations: [read] }
-      { allow: owner, ownerField: "friendID", operations: [read] }
+      { allow: private, operations: [read] }
     ]
   ) {
   id: ID!
@@ -59,50 +57,21 @@ type Chat
   friend: User @belongsTo(fields: ["friendID"])
 
   message: [Message] @hasMany(indexName: "byChat", fields: ["id"])
-
-  chatFolders: [FolderChat] @hasMany(indexName: "folders", fields: ["id"])
+    @auth(rules: [
+      { allow: owner, ownerField: "userID", operations: [read] }
+      { allow: owner, ownerField: "friendID", operations: [read] }
+    ])
 }
 
 type Message
   @model
   @auth(
     rules: [
-      { allow: owner, ownerField: "userID", operations: [read] }
-      { allow: owner, ownerField: "friendID", operations: [read] }
+      { allow: private, operations: [read] }
     ]
   ) {
   id: ID!
   content: String!
-
-  userID: ID!
-  friendID: ID!
-
   chatID: ID! @index(name: "byChat")
   chat: Chat @belongsTo(fields: ["chatID"])
-}
-
-type ChatFolder
-  @model
-  @auth(rules: [{ allow: owner, ownerField: "userID", operations: [read] }]) {
-  id: ID!
-  name: String!
-
-  userID: ID! @index(name: "folders")
-  user: User @belongsTo(fields: ["userID"])
-
-  chats: [FolderChat] @hasMany(indexName: "chatFolder", fields: ["id"])
-}
-
-type FolderChat
-  @model
-  @auth(rules: [{ allow: owner, ownerField: "userID", operations: [read] }]) {
-  id: ID!
-
-  userID: ID!
-
-  chatID: ID! @index(name: "folders")
-  chat: Chat @belongsTo(fields: ["chatID"])
-
-  chatFolderID: ID! @index(name: "chatFolder")
-  chatFolder: ChatFolder @belongsTo(fields: ["chatFolderID"])
-}
+  }

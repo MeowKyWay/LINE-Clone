@@ -92,8 +92,6 @@ const createMessage = async (userID, friendID, content) => {
           id
           content
           chatID
-          userID
-          friendID
           createdAt
           updatedAt
           __typename
@@ -104,13 +102,35 @@ const createMessage = async (userID, friendID, content) => {
       input: {
         content: content,
         chatID: userID + ":" + friendID,
-        userID: userID,
-        friendID: friendID,
       }
     }
   })
   console.log("CreateMessage: ", response);
   return response;
+}
+
+const updateChat = async (userID, friendID) => {
+  const response = await graphql({
+    query: /* GraphQL */ `
+      mutation UPDATE_CHAT($input: UpdateChatInput!) {
+        updateChat(input: $input) {
+          id
+          userID
+          friendID
+          updatedAt
+          __typename
+        }
+      }
+    `,
+    variables: {
+      input: {
+        id: userID + ":" + friendID,
+      }
+    }
+  })
+  console.log("UpdateChat: ", response);
+  return response;
+
 }
 
 const response = (body) => {
@@ -155,6 +175,8 @@ export const handler = async (event) => {
 
   try {
     await createMessage(userID, friendID, event.content);
+    await updateChat(userID, friendID);
+    await updateChat(friendID, userID);
   } catch (error) {
     return error("Failed to send message");
   }
