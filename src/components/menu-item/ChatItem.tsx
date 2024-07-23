@@ -1,15 +1,36 @@
 import { Chat } from "../../API";
-import { useAppDispatch } from "../../hook";
+import { useAppDispatch, useAppSelector } from "../../hook";
 import { setActiveChat } from "../../store/slice/statesSlice";
 import useTheme from "../../theme";
 import Time from "../../utilities/Time";
 import ProfilePicture from "../ProfilePicture";
-import UnreadBubble from "../UnreadBubble";
 
 function ChatItem({ chat }: { chat: Chat }) {
     const dispatch = useAppDispatch();
 
     const theme = useTheme().currentTheme;
+
+    const friendChat = useAppSelector(state => state.chats.friendChats.data)?.filter(
+        item => item.id === chat?.friendID + ":" + chat?.userID
+    )[0];
+
+    const myLastMessage = chat.message?.items[chat.message?.items.length - 1];
+    const friendLastMessage = friendChat?.message?.items[friendChat?.message?.items.length - 1];
+
+    let lastMessage;
+    if (myLastMessage && friendLastMessage) {
+        lastMessage = (
+            new Date(myLastMessage.createdAt as string).getTime() > new Date(friendLastMessage.createdAt as string).getTime()
+        ) ? myLastMessage : friendLastMessage;
+    } else if (myLastMessage && !friendLastMessage) {
+        lastMessage = myLastMessage;
+    }
+    else if (friendLastMessage && !myLastMessage) {
+        lastMessage = friendLastMessage;
+    }
+    else {
+        lastMessage = "";
+    }
 
     return (
         <div className="w-full cursor-pointer" onClick={() => dispatch(setActiveChat(chat.friendID))}>
@@ -38,13 +59,8 @@ function ChatItem({ chat }: { chat: Chat }) {
                             color: theme.color.tertiary.text,
                             fontSize: '10px',
                         }}>
-                            {"test"} {/*Implement last message later*/}
+                            {lastMessage?.content}
                         </span>
-                    </div>
-                    <div className="flex flex-col items-end justify-items-center w-16 relative">
-                        <div>
-                            {/*value.unread!==0*/ true && <UnreadBubble>{0}</UnreadBubble>}
-                        </div>
                     </div>
                     <span className="absolute top-1 right-0" style={{
                         color: theme.color.tertiary.text,
