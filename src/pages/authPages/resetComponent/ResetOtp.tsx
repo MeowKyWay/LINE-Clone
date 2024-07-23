@@ -16,7 +16,7 @@ function ResetOtp({ otp, setOtp }: {
                 >OTP</TextField>
             </div>
             <Button
-                type={otp ? 'primary' : 'disabled'}
+                variant={otp ? 'primary' : 'disabled'}
                 className="mt-4"
             >
                 Confirm OTP

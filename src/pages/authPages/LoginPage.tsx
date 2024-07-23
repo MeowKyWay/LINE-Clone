@@ -85,7 +85,7 @@ function LoginPage() {
                             </TextField>
                         </div>
                         <Button
-                            type={email && password ? 'primary' : 'disabled'}
+                            variant={email && password ? 'primary' : 'disabled'}
                             className="mt-4">
                             Login
                         </Button>

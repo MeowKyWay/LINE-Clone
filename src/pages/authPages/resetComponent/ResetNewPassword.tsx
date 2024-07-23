@@ -39,7 +39,7 @@ function ResetNewPassword({otp, setOtp, password, setPassword, confirmPassword, 
                 >confirm password</TextField>
             </div>
             <Button
-                type={password === confirmPassword && password ? 'primary' : 'disabled'}
+                variant={password === confirmPassword && password ? 'primary' : 'disabled'}
                 className="mt-4"
             >
                 Reset Password

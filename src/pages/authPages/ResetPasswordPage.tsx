@@ -27,6 +27,7 @@ function ResetPasswordPage() {
 
     const handleSendOtpButtonClicked = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setErrorMessage('');
         try {
             await resetPassword({
                 username: email
@@ -40,6 +41,7 @@ function ResetPasswordPage() {
 
     const handleConfirmOtpButtonClicked = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setErrorMessage('');
         try {
             await confirmResetPassword({
                 username: email,
