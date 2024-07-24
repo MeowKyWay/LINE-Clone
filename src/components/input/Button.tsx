@@ -2,10 +2,11 @@ import classNames from "classnames";
 import { ReactNode } from "react"
 import useTheme from "../../theme";
 
-function Button({ children, onClick, type = 'primary', className = '' }: {
+function Button({ children, onClick, variant = 'primary', type, className = '' }: {
     children: ReactNode,
     onClick?: () => void,
-    type: 'primary' | 'warning' | 'disabled',
+    variant: 'primary' | 'warning' | 'disabled',
+    type?: 'button' | 'submit' | 'reset',
     className?: string
 }
 ) {
@@ -14,8 +15,8 @@ function Button({ children, onClick, type = 'primary', className = '' }: {
 
     const style = {
         backgroundColor:
-            type === 'primary' ? theme.color.primary.button :
-                type === 'warning' ? theme.color.primary.error :
+            variant === 'primary' ? theme.color.primary.button :
+                variant === 'warning' ? theme.color.primary.error :
                     theme.color.primary.buttonDisabled,
     }
 
@@ -29,7 +30,8 @@ function Button({ children, onClick, type = 'primary', className = '' }: {
             className={classes}
             style={style}
             onClick={onClick}
-            disabled={type === 'disabled'}
+            disabled={variant === 'disabled'}
+            type={type}
         >{children}</button>
     )
 }

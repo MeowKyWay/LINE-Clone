@@ -79,13 +79,13 @@ function AddFriendModal({ onClose }: {
                                 friend.id === user.currentUser?.lineID ?
                                     <div className="flex flex-col items-center gap-4">
                                         <div className="text-xs text-gray-400">You can't add yourself as a friend.</div>
-                                        <Button type="disabled" className="text-sm w-22 h-7.5" onClick={handleAddFriend}>Add</Button>
+                                        <Button variant="disabled" className="text-sm w-22 h-7.5" onClick={handleAddFriend}>Add</Button>
                                     </div>
                                     :
 
                                     <div>
                                         <Button
-                                            type={errorMessage ? "disabled" : "primary"}
+                                            variant={errorMessage ? "disabled" : "primary"}
                                             className="text-sm w-22 h-7.5"
                                             onClick={handleAddFriend}>
                                             Add
@@ -99,7 +99,7 @@ function AddFriendModal({ onClose }: {
                             <div>
                                 <span className="text-sm">User not found.</span>
                                 <div>
-                                    <Button type="primary" onClick={onClose} className="w-22 h-8 mt-2">OK</Button>
+                                    <Button variant="primary" onClick={onClose} className="w-22 h-8 mt-2">OK</Button>
                                 </div>
                             </div>
                         )

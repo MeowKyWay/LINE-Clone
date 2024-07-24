@@ -100,14 +100,14 @@ function RegisterPage() {
                                 </TextField>
                             </div>
                             <Button
-                                type={email && password && lineID && password === confirmPassword ? 'primary' : 'disabled'}
+                                variant={email && password && lineID && password === confirmPassword ? 'primary' : 'disabled'}
                                 className="mt-4">
                                 Register
                             </Button>
                         </form>
                     }
                     {step === 'confirm_sign_up' &&
-                        <ConfirmSignUp username={lineID} />
+                        <ConfirmSignUp username={lineID} setError={setErrorMessage} />
                     }
 
                 </div>

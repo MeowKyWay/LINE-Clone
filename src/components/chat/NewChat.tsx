@@ -24,7 +24,7 @@ function NewChat() {
         }}>
             <ProfilePicture size="100px" src={account?.image} />
             {account?.name}
-            <Button type="primary" onClick={handleNewChat}>
+            <Button variant="primary" onClick={handleNewChat}>
                 Chat
             </Button>
         </div>

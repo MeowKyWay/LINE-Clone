@@ -58,8 +58,8 @@ function ChatBody({ activeChat }: { activeChat: Chat }) {
                 id="chat-container"
                 className="px-3 pb-4 overflow-y-scroll flex flex-col gap-1"
                 style={{
-                    height: 'calc(100vh - 232px)',
-                    maxHeight: 'calc(100vh - 232px)',
+                    height: 'calc(100vh - 184px)',
+                    maxHeight: 'calc(100vh - 184px)',
                 }}>
                 {renderedMessages}
             </div>

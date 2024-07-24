@@ -32,7 +32,7 @@ function EditProfileImage({setEditImg , image , isCoverImg} :
         <div className="flex flex-col items-center gap-1 z-20">
             { (image && !isCoverImg) && (<img className="object-cover" style={profilePictureStyle} src={URL.createObjectURL(image)} />)}
                     <div className="flex flex-row gap-x-2 absolute bottom-4">
-                        <Button type="primary" onClick={uploadImage}>Save</Button>
+                        <Button variant="primary" onClick={uploadImage}>Save</Button>
                         <button 
                             className="text-white px-2 box-border rounded text-white h-10 cursor-pointer"  
                             style={{backgroundColor: "#575757"}}

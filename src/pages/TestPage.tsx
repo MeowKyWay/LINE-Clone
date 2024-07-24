@@ -48,10 +48,10 @@ function TestPage() {
             }}
         >
             <h1>Test Page</h1>
-            <Button type='primary' onClick={test}>
+            <Button variant='primary' onClick={test}>
                 Test
             </Button>
-            <Button type='primary' onClick={test2}>
+            <Button variant='primary' onClick={test2}>
                 Test2
             </Button>
         </div>

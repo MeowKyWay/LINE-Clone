@@ -14,7 +14,7 @@ function Complete({to, children}: {
     return (
         <div className="flex flex-col text-center pt-20">
             <span className="text-3xl" style={{ color: theme.color.primary.text }}>{children}</span>
-            <Button type='primary' onClick={() => navigate(to)} className="mt-4">Continue</Button>
+            <Button variant='primary' onClick={() => navigate(to)} className="mt-4">Continue</Button>
         </div>
     )
 }

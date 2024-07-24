@@ -71,14 +71,14 @@ function TextField({ children, onChange, value, className, type, name, autoCompl
             >
             </input>
             {type === 'password' && (
-                <button onClick={() => setHidden(!hidden)} className='w-9 h-9 grid place-content-center'>
+                <button type="button" onClick={() => setHidden(!hidden)} className='w-9 h-9 grid place-content-center'>
                     {hidden && <FaEyeSlash className="text-lg text-gray-400" />}
                     {!hidden && <FaEye className="text-lg text-gray-400" />}
                 </button>
 
             )}
             {resetButton && (
-                <button onClick={() => handleChange('')} className='w-9 h-9 grid place-content-center'>
+                <button type="button" onClick={() => handleChange('')} className='w-9 h-9 grid place-content-center'>
                     <TiDelete className="text-lg text-gray-400" />
                 </button>
             )}

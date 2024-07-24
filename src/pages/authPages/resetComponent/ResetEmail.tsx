@@ -16,7 +16,7 @@ function ResetEmail({ email, setEmail }: {
                 >Email</TextField>
             </div>
             <Button
-                type={email ? 'primary' : 'disabled'}
+                variant={email ? 'primary' : 'disabled'}
                 className="mt-4"
             >
                 Send

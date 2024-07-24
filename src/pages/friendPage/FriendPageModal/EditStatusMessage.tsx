@@ -51,7 +51,7 @@ function EditProfileInfo({ setEditStatus, type } : { setEditStatus: React.Dispat
                         </textarea>
                     </div>
                     <div className="flex flex-row gap-x-2 absolute bottom-4 ">
-                        <Button type="primary" onClick={updateStatusMessage}>Save</Button>
+                        <Button variant="primary" onClick={updateStatusMessage}>Save</Button>
                         <button 
                             className="text-white px-2 box-border rounded text-white h-10"  
                             style={{backgroundColor: "#575757"}}
