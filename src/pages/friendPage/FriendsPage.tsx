@@ -30,6 +30,7 @@ function FriendsPage() {
 
     const user = useAppSelector(state => state.user);
 
+
     // const groupListState = useAppSelector(state => state.states.groupListState);
 
 
@@ -48,6 +49,7 @@ function FriendsPage() {
 
     return (
         <div className="size-full flex flex-col">
+            
             {showModal && <ProfileModal onClose={() => setShowModal(false)}></ProfileModal>}
             <div className="pt-8 pb-2">
                 <div className="mx-4">
@@ -63,7 +65,6 @@ function FriendsPage() {
             </div>
             <div className="flex-1 flex flex-col w-full overflow-y-scroll" style={{ maxHeight: 'calc(100vh - 76px)' }}>
                 <div className="w-full flex flex-col">
-
                     {user.currentUser &&
                         <div>
                             <AccountItem account={user.currentUser} onClick={() => setShowModal(true)}/>

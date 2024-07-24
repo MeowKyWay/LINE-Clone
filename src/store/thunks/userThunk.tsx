@@ -36,6 +36,7 @@ const fetchUser = createAsyncThunk('users/fetch', async () => {
     }
 })
 
+
 const logout = createAsyncThunk('users/logout', async () => {
     await signOut();
     return "Logged out successfully";
@@ -127,4 +128,6 @@ const changeUserName = createAsyncThunk('users/changeUserName', async (newName: 
     }
 })
 
-export { fetchUser, logout , setProfileUser, setCoverImageUser , setStatusMessage , changeUserName}
+
+
+export { fetchUser, logout , setProfileUser, setCoverImageUser , setStatusMessage , changeUserName }

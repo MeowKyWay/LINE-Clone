@@ -10,7 +10,6 @@ function FriendList({ list, label }: { list: User[] , label:string }) {
     const dispatch = useAppDispatch();
     const friendListState = useAppSelector(state => state.states.friendListState);
     const favoriteFriendsState = useAppSelector(state => state.states.favoriteFriendsListState)
-    console.log(label);
     
     const handleExpandClick = () => {
         if (label === "Favorites") {
@@ -24,11 +23,12 @@ function FriendList({ list, label }: { list: User[] , label:string }) {
         <div>
             <ExpandListButton
                 label={label}
-                value={friendListState}
+                value={label === "Favorites" ? favoriteFriendsState : friendListState}
                 size={list.length}
                 onClick={handleExpandClick}
             ></ExpandListButton>
-            {friendListState && <AccountList accounts={list}></AccountList>}
+            { label==="Favorites" ? favoriteFriendsState && <AccountList accounts={list}/> :
+            friendListState && <AccountList accounts={list}></AccountList>}
             <FetchFriends />
         </div>
     )

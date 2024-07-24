@@ -4,7 +4,7 @@ import ProfileCover from "../../../components/ProfileCover";
 import { UserType } from "../../../store/slice/userSlice";
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { BsChatDotsFill } from "react-icons/bs";
 import { IoCallSharp } from "react-icons/io5";
 import { FaVideo } from "react-icons/fa";
@@ -15,12 +15,10 @@ import { UserFriend } from "../../../API";
 
 
 
-function FriendProfileModal({onClose , friend } : { onClose: () => void , friend : UserType}){
+function FriendProfileModal({onClose , friend , children} : { onClose: () => void , friend : UserType , children?: ReactNode}){
     const currentUser = useAppSelector(state => state.user.currentUser)
-    const [isFavorite , setIsFavorite] = useState<boolean>(false)
+    const [isFavorite , setIsFavorite] = useState<boolean>()
     const [userFriend , setUserFriend] = useState<UserFriend | null>(null)
-    console.log("isFavorite: " , isFavorite);    
-    
     const userFriendID = currentUser?.lineID + ":" + friend.id
     const dispatch = useAppDispatch();
 
@@ -34,14 +32,16 @@ function FriendProfileModal({onClose , friend } : { onClose: () => void , friend
             }
         }
         setIsFavoriteState();
-    }, [ dispatch ]);
+    }, [userFriendID, dispatch ]);
     
     async function updateFavoriteStatus(){
-        if(userFriend && !userFriend?.favorite ){
+        //addFavoriteFriend
+        if(userFriend && !userFriend.favorite && !isFavorite){
             dispatch(addFavoriteFriend(userFriend))
             setIsFavorite(!isFavorite)
         }
-        else if(userFriend){
+        //removeFavoriteFriend
+        else if(userFriend && isFavorite){
             dispatch(removeFavoriteFriend(userFriend))
             setIsFavorite(!isFavorite)
         }
@@ -49,7 +49,9 @@ function FriendProfileModal({onClose , friend } : { onClose: () => void , friend
     
 
     return (
+        <>
         <Modal onClose={onClose} label={"profile page"} height={"516px"} width={"312px"}>
+            {children}
             <div className="relative h-full w-full">
                 <ProfileCover friend={friend} className="h-full w-full opacity-50"/>
                 <div className="relative z-10 flex flex-col items-center justify-center h-full w-full gap-4">
@@ -92,6 +94,7 @@ function FriendProfileModal({onClose , friend } : { onClose: () => void , friend
                 </div>
             </div>
         </Modal>
+                    </>
 
     )
 }

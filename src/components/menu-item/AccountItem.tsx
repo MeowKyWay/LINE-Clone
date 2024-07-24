@@ -1,7 +1,7 @@
 import useTheme from "../../theme";
 import ProfilePicture from "../ProfilePicture";
 import { MdPersonAddAlt1 } from "react-icons/md";
-import { useAppDispatch, useAppSelector } from "../../hook";
+import { useAppDispatch } from "../../hook";
 import { addFriend } from "../../store/thunks/friendsThunk";
 import { setActiveChat } from "../../store/slice/statesSlice";
 import { useState } from "react";
@@ -9,14 +9,14 @@ import FriendProfileModal from "../../pages/friendPage/FriendPageModal/FriendPro
 import { UserType } from "../../store/slice/userSlice";
 import { User } from "../../API";
 
-
-function AccountItem({ account, isRequest = false , onClick}: {
+function AccountItem({ account, isRequest = false , onClick  }: {
     account: UserType | User
     isRequest?: boolean
     onClick?: () => void | null 
 }) {
 
     const theme = useTheme().currentTheme;
+
     const dispatch = useAppDispatch();
     const [showModal , setShowModal] = useState(false)
     
@@ -25,10 +25,11 @@ function AccountItem({ account, isRequest = false , onClick}: {
         if ("email" in account) return;
         dispatch(setActiveChat(account.id));
     }
+
     
     return (
         <>
-        { showModal && (<FriendProfileModal friend={account as UserType} onClose={() => setShowModal(false)}></FriendProfileModal>)}
+        { (showModal) && (<FriendProfileModal friend={account as UserType} onClose={() => setShowModal(false)}></FriendProfileModal>)}
         <div className={`h-14 w-full ${(isRequest || onClick) ? '' : 'cursor-pointer'} items-center`} onClick={handleClick}>
 
             <style>
@@ -74,7 +75,6 @@ function AccountItem({ account, isRequest = false , onClick}: {
                     </div>
                 }
             </div>
-
         </div>
         </>
     )

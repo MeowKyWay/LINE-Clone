@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUser , setProfileUser , setStatusMessage} from "../thunks/userThunk";
+import { fetchProfileImage , fetchCoverImage } from "../thunks/imagesThunk";
 
 export interface UserType {
     id: string;
@@ -8,7 +9,7 @@ export interface UserType {
     lineID: string;
     statusMessage: string;
     chatFolders: string;
-    image?: string | null
+    image?: string | null | undefined
     coverImage?: string | null
 }
 
@@ -29,6 +30,30 @@ const userSlice = createSlice({
             state.currentUser = null;
             state.error = "Failed to fetch user";
         })
+
+        builder.addCase(fetchProfileImage.fulfilled, (state, action) => {
+            if(state.currentUser){
+                state.currentUser.image = action.payload
+            }
+        })
+
+        builder.addCase(fetchProfileImage.rejected, (state, action) => {
+            state.error = action.error.message || "Failed to fetchProfileImage";
+            console.log(state.error);
+        })
+
+        builder.addCase(fetchCoverImage.fulfilled, (state, action) => {
+            if(state.currentUser){
+                state.currentUser.coverImage = action.payload
+            }
+        })
+
+        builder.addCase(fetchCoverImage.rejected, (state, action) => {
+            state.error = action.error.message || "Failed to fetchCoverImage";
+            console.log(state.error);
+        })
+
+
         builder.addCase(setProfileUser.fulfilled, (state, action) => {
             if (state.currentUser) {
                 state.currentUser.image = action.payload;
