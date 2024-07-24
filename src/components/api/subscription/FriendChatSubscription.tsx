@@ -27,6 +27,8 @@ function FriendChatSubscription() {
             query: onCreateChat,
         }).subscribe({
             next: ({ data }) => {
+                console.log(data);
+                
                 const chat = {
                     ...data.onCreateChat,
                     friend: friends?.find(friend => friend.id === data.onCreateChat.friendID),

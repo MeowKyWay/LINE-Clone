@@ -17,6 +17,7 @@ import MessageSubscription from './components/api/subscription/MessageSubscripti
 
 function App() {
 
+
   const router = createBrowserRouter([
 
     {
@@ -29,7 +30,7 @@ function App() {
             <Outlet />
           </Body>
           <FetchUser />
-          <FetchChats />          
+          <FetchChats /> 
           <FriendRequestSubscription />
           <FriendChatSubscription />
           <MessageSubscription />

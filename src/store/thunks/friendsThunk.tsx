@@ -102,6 +102,7 @@ const addFavoriteFriend = createAsyncThunk('addFavoriteFriend/updateFavorite', a
         return response.data.updateUserFriend.friendID;
     }
     catch (error) {
+        console.log(error);
         return userFriend.friendID
     }
 })
@@ -121,6 +122,7 @@ const removeFavoriteFriend = createAsyncThunk('removeFavoriteFriends/updateFavor
         return response.data.updateUserFriend.friendID;
     }
     catch(error){
+        console.log(error);
         return userFriend.friendID
     }
 })

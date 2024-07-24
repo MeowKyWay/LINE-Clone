@@ -57,6 +57,10 @@ const friendsSlice = createSlice({
             state.favoriteFriends.data?.push(friend);
         })
 
+        builder.addCase(addFavoriteFriend.rejected, (state, action) => {
+            state.favoriteFriends.error = action.error.message ?? ""
+        })
+
         builder.addCase(removeFavoriteFriend.fulfilled, (state, action) => {
             console.log("action: ",action);
             if(!state.friends.data) return;
@@ -67,8 +71,9 @@ const friendsSlice = createSlice({
             ) as User[];
         })
 
-
-
+        builder.addCase(removeFavoriteFriend.rejected, (state, action) => {
+            state.favoriteFriends.error = action.error.message ?? ""
+        })
 
     },
     reducers: {

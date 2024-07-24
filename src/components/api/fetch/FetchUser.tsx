@@ -7,10 +7,7 @@ function FetchUser() {
     const dispatch = useAppDispatch();
 
     const user = useAppSelector(state => state.user);
-    console.log("user", user);
     
-    
-
     useEffect(() => {
         if (user.currentUser || user.error) return;
         console.log('Fetch User')
