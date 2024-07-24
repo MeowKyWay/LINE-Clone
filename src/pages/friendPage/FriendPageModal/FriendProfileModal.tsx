@@ -32,7 +32,7 @@ function FriendProfileModal({onClose , friend , children} : { onClose: () => voi
             }
         }
         setIsFavoriteState();
-    }, [userFriendID, dispatch ]);
+    }, [userFriendID, dispatch]);
     
     async function updateFavoriteStatus(){
         //addFavoriteFriend
