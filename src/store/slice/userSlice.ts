@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUser, uploadUserProfileImage, changeStatusMessage, updateUserProfile } from "../thunks/userThunk";
+import { fetchUser, uploadUserProfileImage, updateUserProfile } from "../thunks/userThunk";
 import { fetchProfileImage, fetchCoverImage } from "../thunks/imagesThunk";
 
 export interface UserType {
