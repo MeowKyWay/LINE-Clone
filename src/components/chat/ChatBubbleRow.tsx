@@ -4,7 +4,7 @@ import Time from "../../utilities/Time";
 import ProfilePicture from "../profile/ProfilePicture";
 import ChatBubble from "./ChatBubble";
 
-function ChatBubbleRow({ children, isCurrentUser , friend }: { children: Message, isCurrentUser: boolean , friend : User}) {
+function ChatBubbleRow({ children, isCurrentUser , friend , showSearchField}: { children: Message, isCurrentUser: boolean , friend : User , showSearchField : boolean}) {
 
     const theme = useTheme().currentTheme;
 
@@ -28,7 +28,7 @@ function ChatBubbleRow({ children, isCurrentUser , friend }: { children: Message
                     time
                 }
                 <div className={`flex flex-row h-full items-center ${isCurrentUser ? 'justify-end' : 'justify-start'}`}>
-                    <ChatBubble>{children.content}</ChatBubble>
+                    <ChatBubble isCurrentUser={isCurrentUser ? true : false} showSearchField={showSearchField}>{children.content}</ChatBubble>
                 </div>
                 {!isCurrentUser &&
                     time

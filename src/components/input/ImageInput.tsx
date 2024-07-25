@@ -33,7 +33,7 @@ function ImageInput({setImage, className}: {
             <input type="file" accept="image/*" onChange={handleChangeImage} ref={imageInputRef} style={{
                 display: "none"
             }} />
-            <div className="size-5 rounded-full input" onClick={() => imageInputRef.current?.click()}>
+            <div className="size-5 rounded-full input cursor-pointer" onClick={() => imageInputRef.current?.click()}>
                 <MdCameraAlt size="14px" color="#ffffff"/>
             </div>
         </div>

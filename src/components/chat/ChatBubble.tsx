@@ -1,23 +1,39 @@
 import { useAppSelector } from "../../hook";
 import useTheme from "../../theme";
 
-function ChatBubble({ children }: { children: string }) {
+function ChatBubble({ children, isCurrentUser = false , showSearchField = false}: 
+  { children: string, isCurrentUser: boolean , showSearchField: boolean}) {
   const theme = useTheme().currentTheme;
   const messageTerm = useAppSelector(state => state.terms.messagesTerm);
-  console.log("messageTerm in ChatBubble:", messageTerm);
 
-  const isTermIncluded = messageTerm && children.toLowerCase().includes(messageTerm.toLowerCase());
+  const highlightText = (text: string, term: string | null) => {
+    if (!term || !showSearchField) return text;
+    const parts = text.split(new RegExp(`(${term})`, 'gi'));
+
+    return parts.map((part, index) => (
+      part.toLowerCase() === term.toLowerCase() ? 
+      <span key={index} style={{ 
+          backgroundColor: isCurrentUser ? 'blue' : "#fffc52" , 
+          color: isCurrentUser ?  'white' : "#07b53b"}}>
+          {part}
+      </span> 
+      : 
+      part
+    ));
+  };
 
   return (
     <div
       className="p-2.5 rounded-2xl text-xs leading-3 font-light h-fit"
       style={{
-        backgroundColor: isTermIncluded ? "red" : theme.color.chatBubble.background,
-        color: theme.color.chatBubble.text,
+        backgroundColor: isCurrentUser ? "#86d97b" : theme.color.chatBubble.background,
+        color: isCurrentUser ? "#2d2e30" : theme.color.chatBubble.text,
         wordWrap: 'break-word',
       }}
     >
-      {children}
+      <div>
+        {highlightText(children, messageTerm)}
+      </div>
     </div>
   );
 }

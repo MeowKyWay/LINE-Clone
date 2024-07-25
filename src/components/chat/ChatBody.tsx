@@ -45,7 +45,7 @@ function ChatBody({ activeChat }: { activeChat: Chat }) {
         if (!currentUser) return null;
         
         return (
-            <ChatBubbleRow key={message?.id} isCurrentUser={message?.chatID.split(":")[0] === currentUser?.lineID} friend={myChat?.friend as User}>
+            <ChatBubbleRow key={message?.id} isCurrentUser={message?.chatID.split(":")[0] === currentUser?.lineID} friend={myChat?.friend as User} showSearchField={showSearchField}>
                 {message as Message}
             </ChatBubbleRow>
         );
@@ -66,8 +66,10 @@ function ChatBody({ activeChat }: { activeChat: Chat }) {
                 </div>
             </div>
             {
-                showSearchField && (<div className="flex items-center ml-4 mb-2">
+                showSearchField && (<div className="flex items-center ml-4" style={{marginBottom: "10px"}}>
                     <SearchField 
+                        placeholder="search messages"
+                        round
                         height="36px" 
                         width="90%" 
                         value={searchTerm} 
@@ -83,7 +85,7 @@ function ChatBody({ activeChat }: { activeChat: Chat }) {
                 id="chat-container"
                 className="px-3 pb-4 overflow-y-scroll flex flex-col gap-1"
                 style={{
-                    height: 'calc(100vh - 184px)',
+                    height: showSearchField ? 'calc(100vh - 230px)':'calc(100vh - 184px)',
                     maxHeight: 'calc(100vh - 184px)',
                 }}>
                 {renderedMessages}

@@ -10,7 +10,6 @@ import { fetchAuthSession } from "aws-amplify/auth";
 import { getChat, getMessage, listMessages } from "../graphql/queries";
 import UploadImageButton from "../components/input/UploadImgButton";
 import { useAppDispatch, useAppSelector } from "../hook";
-import { fetchUser, setProfileUser } from "../store/thunks/userThunk";
 import { uploadImg } from "../store/thunks/imagesThunk";
 
 function TestPage() {
