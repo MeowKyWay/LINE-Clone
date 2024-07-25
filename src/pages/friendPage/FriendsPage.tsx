@@ -21,25 +21,15 @@ function FriendsPage() {
             navigate('/std/friends');
         }
     }, [navigate, location.pathname]);
+
     const searchTerm = useAppSelector(state => state.terms.friendsTerm);
+    
     const friends = useAppSelector(state => state.friends.friends);
     const favoriteFriends = useAppSelector(state => state.friends.favoriteFriends)
     const friendsFiltered = friends.data?.filter(friend => friend.name.toLowerCase().includes(searchTerm.toLowerCase())) || [];
     const favoriteFriendsFiltered = favoriteFriends.data?.filter(favoriteFriends => favoriteFriends.name.toLowerCase().includes(searchTerm.toLowerCase())) || [];
 
-
     const user = useAppSelector(state => state.user);
-
-
-    // const groupListState = useAppSelector(state => state.states.groupListState);
-
-
-    // const groups = useAppSelector(state => state.groups.groupList);
-    // const groupsFiltered = groups?.filter(group => group.name.toLowerCase().includes(searchTerm.toLowerCase())) || [];
-
-    // const setGroupList = (state: boolean) => {
-    //     dispatch(setGroupListState(state));
-    // }
 
     const handleTermChange = (value: string) => {
         dispatch(setGroupListState(true));
@@ -50,7 +40,7 @@ function FriendsPage() {
     return (
         <div className="size-full flex flex-col">
             
-            {showModal && <ProfileModal onClose={() => setShowModal(false)}></ProfileModal>}
+            {showModal && <ProfileModal></ProfileModal>}
             <div className="pt-8 pb-2">
                 <div className="mx-4">
                     <SearchField
