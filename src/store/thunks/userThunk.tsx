@@ -43,7 +43,7 @@ const logout = createAsyncThunk('users/logout', async () => {
     return "Logged out successfully";
 })
 
-const setProfileUser = createAsyncThunk('users/setImg', async (filename: string) => {
+const uploadUserProfileImage = createAsyncThunk('users/setImg', async (filename: string) => {
     const username = (await getCurrentUser()).username;
 
     try {
@@ -64,7 +64,7 @@ const setProfileUser = createAsyncThunk('users/setImg', async (filename: string)
     }
 })
 
-const setCoverImageUser = createAsyncThunk('users/setImg', async (filename: string) => {
+const uploadUserCoverImage = createAsyncThunk('users/setImg', async (filename: string) => {
     const username = (await getCurrentUser()).username;
 
     try {
@@ -85,7 +85,10 @@ const setCoverImageUser = createAsyncThunk('users/setImg', async (filename: stri
     }
 })
 
-const setStatusMessage = createAsyncThunk('users/setStatusMessage', async (message: string) => {
+const updateUserProfile = createAsyncThunk('users/updateProfile', async ({name, statusMessage}: {
+    name: string,
+    statusMessage: string
+}) => {
     const username = (await getCurrentUser()).username;
 
     try {
@@ -94,11 +97,15 @@ const setStatusMessage = createAsyncThunk('users/setStatusMessage', async (messa
             variables: {
                 input: {
                     id: username,
-                    statusMessage: message
+                    name: name,
+                    statusMessage: statusMessage
                 }
             }
         })
-        return message;
+        return {
+            name,
+            statusMessage
+        }
     }
     catch (error) {
         console.log(error);
@@ -107,28 +114,5 @@ const setStatusMessage = createAsyncThunk('users/setStatusMessage', async (messa
 })
 
 
-const changeUserName = createAsyncThunk('users/changeUserName', async (newName: string) => {
-    const username = (await getCurrentUser()).username;
-
-    try {
-        await client.graphql({
-            query: updateUser,
-            variables: {
-                input: {
-                    id: username,
-                    name: newName
-                }
-            }
-        })
-        return newName;
-    }
-    catch (error) {
-        console.log(error);
-        throw error;
-
-    }
-})
-
-
-export { fetchUser, logout, setProfileUser, setCoverImageUser, setStatusMessage, changeUserName }
+export { fetchUser, logout, uploadUserProfileImage, uploadUserCoverImage, updateUserProfile }   
 

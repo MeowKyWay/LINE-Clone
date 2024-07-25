@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUser , setProfileUser , setStatusMessage} from "../thunks/userThunk";
-import { fetchProfileImage , fetchCoverImage } from "../thunks/imagesThunk";
+import { fetchUser, uploadUserProfileImage, changeStatusMessage, updateUserProfile } from "../thunks/userThunk";
+import { fetchProfileImage, fetchCoverImage } from "../thunks/imagesThunk";
 
 export interface UserType {
     id: string;
@@ -23,7 +23,7 @@ const userSlice = createSlice({
     initialState,
     extraReducers(builder) {
         builder.addCase(fetchUser.fulfilled, (state, action) => {
-            state.currentUser = action.payload;
+            state.currentUser = action.payload as UserType;
             state.error = "";
         })
         builder.addCase(fetchUser.rejected, (state) => {
@@ -32,7 +32,7 @@ const userSlice = createSlice({
         })
 
         builder.addCase(fetchProfileImage.fulfilled, (state, action) => {
-            if(state.currentUser){
+            if (state.currentUser) {
                 state.currentUser.image = action.payload
             }
         })
@@ -43,7 +43,7 @@ const userSlice = createSlice({
         })
 
         builder.addCase(fetchCoverImage.fulfilled, (state, action) => {
-            if(state.currentUser){
+            if (state.currentUser) {
                 state.currentUser.coverImage = action.payload
             }
         })
@@ -54,25 +54,25 @@ const userSlice = createSlice({
         })
 
 
-        builder.addCase(setProfileUser.fulfilled, (state, action) => {
+        builder.addCase(uploadUserProfileImage.fulfilled, (state, action) => {
             if (state.currentUser) {
                 state.currentUser.image = action.payload;
             }
         })
-        builder.addCase(setProfileUser.rejected, (state, action) => {
+        builder.addCase(uploadUserProfileImage.rejected, (state, action) => {
             state.error = action.error.message || "Failed to set profile image";
             console.log(state.error);
-            
+
         })
-        builder.addCase(setStatusMessage.fulfilled, (state, action) => {
-            if (state.currentUser) {
-                state.currentUser.statusMessage = action.payload;
-            }
+        builder.addCase(updateUserProfile.fulfilled, (state, action) => {
+            if (!state.currentUser) return;
+            state.currentUser.name = action.payload.name;
+            state.currentUser.statusMessage = action.payload.statusMessage;
         })
-        builder.addCase(setStatusMessage.rejected, (state, action) => {
-            state.error = action.error.message || "Failed to set status message";
+        builder.addCase(updateUserProfile.rejected, (state, action) => {
+            state.error = action.error.message || "Failed to update user profile";
             console.log(state.error);
-            
+
         })
     },
     reducers: {

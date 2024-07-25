@@ -359,6 +359,8 @@ export const createMessage = /* GraphQL */ `mutation CreateMessage(
 ) {
   createMessage(input: $input, condition: $condition) {
     id
+    userID
+    friendID
     content
     chatID
     chat {
@@ -384,6 +386,8 @@ export const updateMessage = /* GraphQL */ `mutation UpdateMessage(
 ) {
   updateMessage(input: $input, condition: $condition) {
     id
+    userID
+    friendID
     content
     chatID
     chat {
@@ -409,6 +413,8 @@ export const deleteMessage = /* GraphQL */ `mutation DeleteMessage(
 ) {
   deleteMessage(input: $input, condition: $condition) {
     id
+    userID
+    friendID
     content
     chatID
     chat {

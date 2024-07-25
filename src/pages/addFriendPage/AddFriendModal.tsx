@@ -7,7 +7,7 @@ import { User } from "../../API";
 import { searchUserByUsername } from "../../utilities/APIUtils";
 import { useAppDispatch, useAppSelector } from "../../hook";
 import { addFriend } from "../../store/thunks/friendsThunk";
-import ProfilePicture from "../../components/ProfilePicture";
+import ProfilePicture from "../../components/profile/ProfilePicture";
 
 function AddFriendModal({ onClose }: {
     onClose: () => void
