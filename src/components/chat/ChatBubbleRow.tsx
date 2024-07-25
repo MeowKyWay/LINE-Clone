@@ -1,7 +1,7 @@
 import { Message, User } from "../../API";
 import useTheme from "../../theme";
 import Time from "../../utilities/Time";
-import ProfilePicture from "../ProfilePicture";
+import ProfilePicture from "../profile/ProfilePicture";
 import ChatBubble from "./ChatBubble";
 
 function ChatBubbleRow({ children, isCurrentUser , friend }: { children: Message, isCurrentUser: boolean , friend : User}) {

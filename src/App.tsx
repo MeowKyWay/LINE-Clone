@@ -30,7 +30,7 @@ function App() {
             <Outlet />
           </Body>
           <FetchUser />
-          <FetchChats /> 
+          <FetchChats />
           <FriendRequestSubscription />
           <FriendChatSubscription />
           <MessageSubscription />
@@ -46,15 +46,15 @@ function App() {
         },
         {
           path: RoutePath.FRIENDS,
-          element: <FriendsPage/>
+          element: <FriendsPage />
         },
         {
           path: RoutePath.CHATS,
-          element: <ChatsPage/>
+          element: <ChatsPage />
         },
         {
           path: RoutePath.ADD_FRIENDS,
-          element: <AddFriendsPage/>
+          element: <AddFriendsPage />
         },
         {
           path: RoutePath.TEST,
@@ -69,7 +69,7 @@ function App() {
           <Outlet />
         </div>
       ),
-      children: [        
+      children: [
         {
           index: true,
           element: <LoginPage />

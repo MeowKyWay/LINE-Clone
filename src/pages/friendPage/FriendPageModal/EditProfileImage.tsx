@@ -1,5 +1,5 @@
 import Button from "../../../components/input/Button";
-import { fetchUser, setCoverImageUser, setProfileUser } from "../../../store/thunks/userThunk";
+import { fetchUser, uploadUserCoverImage, uploadUserProfileImage } from "../../../store/thunks/userThunk";
 import { useAppDispatch } from "../../../hook";
 import { v4 as uuid} from "uuid"
 import { uploadImg } from "../../../store/thunks/imagesThunk";
@@ -17,10 +17,10 @@ function EditProfileImage({setEditImg , image , isCoverImg} :
         if(image){
             const filename = `public/${image?.name}_${uuid()}`
             if(isCoverImg){
-                dispatch(setCoverImageUser(filename))
+                dispatch(uploadUserCoverImage(filename))
             }
             else{
-                dispatch(setProfileUser(filename))
+                dispatch(uploadUserProfileImage(filename))
             }
             dispatch(uploadImg({filename,image}))
             setEditImg(false)

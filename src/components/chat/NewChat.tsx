@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "../../hook";
 import { newFriendChat } from "../../store/thunks/chatsThunk";
 import useTheme from "../../theme";
 import Button from "../input/Button";
-import ProfilePicture from "../ProfilePicture";
+import ProfilePicture from "../profile/ProfilePicture";
 
 function NewChat() {
 

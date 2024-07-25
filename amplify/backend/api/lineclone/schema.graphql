@@ -23,7 +23,8 @@ type UserFriend
   @model 
   @auth(
     rules: [
-      { allow: private, operations: [read] }
+      { allow: owner, ownerField: "userID", operations: [read] }
+      { allow: owner, ownerField: "friendID", operations: [read] }
     ]
   ) {
   id: ID!
@@ -36,8 +37,7 @@ type UserFriend
 
   status: String!
   favorite: Boolean @auth(rules: [
-    { allow: owner, ownerField: "userID", operations: [update] }
-    { allow: private, operations: [read] }
+    { allow: owner, ownerField: "userID", operations: [read, update] }
   ])
 }
 
@@ -45,7 +45,8 @@ type Chat
   @model
   @auth(
     rules: [
-      { allow: private, operations: [read] }
+      { allow: owner, ownerField: "userID" operations: [read] }
+      { allow: owner, ownerField: "friendID" operations: [read] }
     ]
   ) {
   id: ID!
@@ -67,10 +68,15 @@ type Message
   @model
   @auth(
     rules: [
-      { allow: private, operations: [read] }
+      { allow: owner, ownerField: "userID" operations: [read] }
+      { allow: owner, ownerField: "friendID" operations: [read] }
     ]
   ) {
   id: ID!
+
+  userID: ID!
+  friendID: ID!
+
   content: String!
   chatID: ID! @index(name: "byChat")
   chat: Chat @belongsTo(fields: ["chatID"])

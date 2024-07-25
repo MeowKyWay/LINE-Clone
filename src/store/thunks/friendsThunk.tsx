@@ -87,13 +87,13 @@ const fetchUserFriends = createAsyncThunk('userFriends/fetch', async () => {
 })
 
 
-const addFavoriteFriend = createAsyncThunk('addFavoriteFriend/updateFavorite', async (userFriend: UserFriend) => {
+const addFavoriteFriend = createAsyncThunk('addFavoriteFriend/updateFavorite', async (friendID: string) => {
     try {
         const response = await client.graphql({
             query: updateUserFriend,
             variables: {
                 input: {
-                    id: userFriend.id,
+                    id: friendID,
                     favorite: true
                 }
             }
@@ -103,17 +103,17 @@ const addFavoriteFriend = createAsyncThunk('addFavoriteFriend/updateFavorite', a
     }
     catch (error) {
         console.log(error);
-        return userFriend.friendID
+        return friendID;
     }
 })
 
-const removeFavoriteFriend = createAsyncThunk('removeFavoriteFriends/updateFavorite', async (userFriend: UserFriend) => {
+const removeFavoriteFriend = createAsyncThunk('removeFavoriteFriends/updateFavorite', async (friendID: string) => {
     try {
         const response = await client.graphql({
             query: updateUserFriend,
             variables: {
                 input: {
-                    id: userFriend.id,
+                    id: friendID,
                     favorite: false
                 }
             }
@@ -123,7 +123,7 @@ const removeFavoriteFriend = createAsyncThunk('removeFavoriteFriends/updateFavor
     }
     catch(error){
         console.log(error);
-        return userFriend.friendID
+        return friendID;
     }
 })
 

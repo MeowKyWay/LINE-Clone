@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUser , setProfileUser , setStatusMessage} from "../thunks/userThunk";
+import { fetchUser , uploadUserProfileImage , setStatusMessage} from "../thunks/userThunk";
 import { fetchProfileImage , fetchCoverImage } from "../thunks/imagesThunk";
 
 export interface UserType {
@@ -23,7 +23,7 @@ const userSlice = createSlice({
     initialState,
     extraReducers(builder) {
         builder.addCase(fetchUser.fulfilled, (state, action) => {
-            state.currentUser = action.payload;
+            state.currentUser = action.payload as UserType;
             state.error = "";
         })
         builder.addCase(fetchUser.rejected, (state) => {
@@ -54,12 +54,12 @@ const userSlice = createSlice({
         })
 
 
-        builder.addCase(setProfileUser.fulfilled, (state, action) => {
+        builder.addCase(uploadUserProfileImage.fulfilled, (state, action) => {
             if (state.currentUser) {
                 state.currentUser.image = action.payload;
             }
         })
-        builder.addCase(setProfileUser.rejected, (state, action) => {
+        builder.addCase(uploadUserProfileImage.rejected, (state, action) => {
             state.error = action.error.message || "Failed to set profile image";
             console.log(state.error);
             

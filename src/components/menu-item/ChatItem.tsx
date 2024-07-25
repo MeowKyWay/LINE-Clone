@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../hook";
 import { setActiveChat } from "../../store/slice/statesSlice";
 import useTheme from "../../theme";
 import Time from "../../utilities/Time";
-import ProfilePicture from "../ProfilePicture";
+import ProfilePicture from "../profile/ProfilePicture";
 
 function ChatItem({ chat }: { chat: Chat }) {
     const dispatch = useAppDispatch();

@@ -1,13 +1,14 @@
 import { StorageImage } from "@aws-amplify/ui-react-storage"
 
-function ProfilePicture({ src, size , onClick}: {
+function ProfilePicture({ src, size, onClick, className}: {
     src?: string | null
     size: string
     onClick?: () => void
+    className?: string
 }) {
 
     return (
-        <div>
+        <div className={className}>
             {
                 src ? <StorageImage 
                     path={src} 

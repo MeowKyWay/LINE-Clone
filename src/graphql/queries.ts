@@ -175,6 +175,8 @@ export const listChats = /* GraphQL */ `query ListChats(
 export const getMessage = /* GraphQL */ `query GetMessage($id: ID!) {
   getMessage(id: $id) {
     id
+    userID
+    friendID
     content
     chatID
     chat {
@@ -202,6 +204,8 @@ export const listMessages = /* GraphQL */ `query ListMessages(
   listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      userID
+      friendID
       content
       chatID
       createdAt
@@ -232,6 +236,8 @@ export const messagesByChatID = /* GraphQL */ `query MessagesByChatID(
   ) {
     items {
       id
+      userID
+      friendID
       content
       chatID
       createdAt

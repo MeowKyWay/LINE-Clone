@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "../../../hook";
 import { useEffect, useState } from "react";
 import Button from "../../../components/input/Button";
 import { setStatusMessage , changeUserName, fetchUser } from "../../../store/thunks/userThunk";
-import ProfilePicture from "../../../components/ProfilePicture";
+import ProfilePicture from "../../../components/profile/ProfilePicture";
 
 
 function EditProfileInfo({ setEditStatus, type } : { setEditStatus: React.Dispatch<React.SetStateAction<boolean>> , type: string})
