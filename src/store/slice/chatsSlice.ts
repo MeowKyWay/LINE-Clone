@@ -45,6 +45,7 @@ const chatsSlice = createSlice({
             const chat = state.friendChats.data.find(chat => chat.id === action.payload.id);
             if (!chat) return;
             chat.updatedAt = action.payload.updateAt;
+            chat.lastReadTime = action.payload.lastReadTime;
         }
     },
 })

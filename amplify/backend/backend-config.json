@@ -90,6 +90,21 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "LINECloneReadChat": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ],
+          "category": "api",
+          "resourceName": "lineclone"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "LINECloneSendMessage": {
       "build": true,
       "dependsOn": [
@@ -151,6 +166,22 @@
         {
           "category": "function",
           "resourceName": "LINECloneNewChat"
+        }
+      ]
+    },
+    "AMPLIFY_function_LINECloneReadChat_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "LINECloneReadChat"
+        }
+      ]
+    },
+    "AMPLIFY_function_LINECloneReadChat_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "LINECloneReadChat"
         }
       ]
     },

@@ -51,3 +51,13 @@ export const newFriendChat = createAsyncThunk('newChat', async (friendID: string
         }
     })
 })
+
+export const readChat = createAsyncThunk('readChat', async (friendID: string) => {
+    await invokeLambda({
+        arn: LambdaARN.READ_CHAT,
+        body: {
+            accessToken: (await fetchAuthSession()).tokens?.accessToken.toString(),
+            friendID: 'dewy_hinges',
+        }
+    })
+})

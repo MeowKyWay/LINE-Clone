@@ -31,6 +31,13 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     },
+    "LINECloneReadChat": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "LINECloneSendMessage": {
       "Arn": "string",
       "LambdaExecutionRole": "string",

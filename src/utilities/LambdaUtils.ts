@@ -5,6 +5,7 @@ export enum LambdaARN {
     ADD_FRIEND = "LINECloneAddFriend-dev",
     NEW_CHAT = "LINECloneNewChat-dev",
     SEND_MESSAGE = "LINECloneSendMessage-dev",
+    READ_CHAT = "LINECloneReadChat-dev",
 }
 
 export async function invokeLambda({ arn, body }: {

@@ -67,6 +67,7 @@ function FriendChatSubscription() {
             next: ({ data }) => {
                 dispatch(updateChat({
                     id: data.onUpdateChat.id,
+                    lastReadTime: data.onUpdateChat.lastReadTime,
                     updateAt: data.onUpdateChat.updatedAt
                 }));
             }

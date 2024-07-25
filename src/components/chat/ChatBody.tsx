@@ -1,12 +1,15 @@
 import useTheme from "../../theme";
-import { useAppSelector } from "../../hook";
+import { useAppDispatch, useAppSelector } from "../../hook";
 import ChatBubbleRow from "./ChatBubbleRow";
 import ChatTextArea from "./ChatTextArea";
 import { Chat, Message, User } from "../../API";
 import { useEffect } from "react";
+import { readChat } from "../../store/thunks/chatsThunk";
 
 function ChatBody({ activeChat }: { activeChat: Chat }) {
     const theme = useTheme().currentTheme;
+
+    const dispatch = useAppDispatch();
 
     const currentUser = useAppSelector(state => state.user.currentUser);
     const myChat = useAppSelector(state => state.chats.friendChats.data)?.filter(chat => chat.id === activeChat.id)[0];
@@ -24,6 +27,18 @@ function ChatBody({ activeChat }: { activeChat: Chat }) {
     messages.sort((a, b) => {
         return new Date(a?.createdAt).getTime() - new Date(b?.createdAt).getTime();
     });
+
+    useEffect(() => {
+        const friendLastMessage = friendChat?.message?.items[friendChat.message.items.length - 1];
+        const sendTime = new Date(friendLastMessage?.createdAt as string).getTime();
+        const lastReadTime = new Date(myChat?.lastReadTime as string).getTime();
+        if (!friendLastMessage || !lastReadTime) return;
+        console.log(sendTime - lastReadTime);
+        if (sendTime < lastReadTime) return;
+
+        console.log('Read Chat');
+        dispatch(readChat(activeChat.friendID as string));
+    }, [friendChat?.message?.items, myChat?.lastReadTime, activeChat.friendID, dispatch]);
 
     useEffect(() => {
         // Select the container and scroll to the bottom

@@ -258,6 +258,7 @@ export const createChat = /* GraphQL */ `mutation CreateChat(
       updatedAt
       __typename
     }
+    lastReadTime
     message {
       nextToken
       __typename
@@ -299,6 +300,7 @@ export const updateChat = /* GraphQL */ `mutation UpdateChat(
       updatedAt
       __typename
     }
+    lastReadTime
     message {
       nextToken
       __typename
@@ -340,6 +342,7 @@ export const deleteChat = /* GraphQL */ `mutation DeleteChat(
       updatedAt
       __typename
     }
+    lastReadTime
     message {
       nextToken
       __typename
@@ -367,6 +370,7 @@ export const createMessage = /* GraphQL */ `mutation CreateMessage(
       id
       userID
       friendID
+      lastReadTime
       createdAt
       updatedAt
       __typename
@@ -394,6 +398,7 @@ export const updateMessage = /* GraphQL */ `mutation UpdateMessage(
       id
       userID
       friendID
+      lastReadTime
       createdAt
       updatedAt
       __typename
@@ -421,6 +426,7 @@ export const deleteMessage = /* GraphQL */ `mutation DeleteMessage(
       id
       userID
       friendID
+      lastReadTime
       createdAt
       updatedAt
       __typename

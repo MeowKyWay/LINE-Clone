@@ -253,6 +253,7 @@ export const onCreateChat = /* GraphQL */ `subscription OnCreateChat(
       updatedAt
       __typename
     }
+    lastReadTime
     message {
       nextToken
       __typename
@@ -295,6 +296,7 @@ export const onUpdateChat = /* GraphQL */ `subscription OnUpdateChat(
       updatedAt
       __typename
     }
+    lastReadTime
     message {
       nextToken
       __typename
@@ -337,6 +339,7 @@ export const onDeleteChat = /* GraphQL */ `subscription OnDeleteChat(
       updatedAt
       __typename
     }
+    lastReadTime
     message {
       nextToken
       __typename
@@ -365,6 +368,7 @@ export const onCreateMessage = /* GraphQL */ `subscription OnCreateMessage(
       id
       userID
       friendID
+      lastReadTime
       createdAt
       updatedAt
       __typename
@@ -393,6 +397,7 @@ export const onUpdateMessage = /* GraphQL */ `subscription OnUpdateMessage(
       id
       userID
       friendID
+      lastReadTime
       createdAt
       updatedAt
       __typename
@@ -421,6 +426,7 @@ export const onDeleteMessage = /* GraphQL */ `subscription OnDeleteMessage(
       id
       userID
       friendID
+      lastReadTime
       createdAt
       updatedAt
       __typename
