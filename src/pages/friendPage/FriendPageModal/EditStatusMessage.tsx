@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../../../hook";
 import { useEffect, useState } from "react";
 import Button from "../../../components/input/Button";
-import { setStatusMessage , changeUserName, fetchUser } from "../../../store/thunks/userThunk";
+import { changeStatusMessage , changeUsername, fetchUser } from "../../../store/thunks/userThunk";
 import ProfilePicture from "../../../components/profile/ProfilePicture";
 
 
@@ -26,10 +26,10 @@ function EditProfileInfo({ setEditStatus, type } : { setEditStatus: React.Dispat
 
     const updateStatusMessage = () => {
         if(type === "statusMessage"){
-            dispatch(setStatusMessage(status))
+            dispatch(changeStatusMessage(status))
         }
         else if(type === "username"){
-            dispatch(changeUserName(status))
+            dispatch(changeUsername(status))
         }
         setEditStatus(false)
         dispatch(fetchUser())

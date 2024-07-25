@@ -1,7 +1,7 @@
 import Modal from "../modal/Modal";
 import { useAppDispatch, useAppSelector } from "../../hook";
 import ProfileSetting from "./ProfileSetting";
-import { setAccountModalState } from "../../store/slice/statesSlice";
+import { setAccountModalState, setSettingModalState } from "../../store/slice/statesSlice";
 import AccountProfile from "./AccountProfile";
 
 
@@ -11,8 +11,13 @@ function ProfileModal(){
 
     const settingModalState = useAppSelector(state => state.states.settingModalState);
 
+    const onClose = () => {
+        dispatch(setAccountModalState(null))
+        dispatch(setSettingModalState(false))
+    }
+
     return (
-        <Modal onClose={() => dispatch(setAccountModalState(null))} label={"profile page"} height={"516px"} width={"312px"}>
+        <Modal onClose={onClose} label={"profile page"} height={"516px"} width={"312px"}>
             { settingModalState? <ProfileSetting/> : <AccountProfile/> }
         </Modal>
     )

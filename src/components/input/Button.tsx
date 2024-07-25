@@ -5,7 +5,7 @@ import useTheme from "../../theme";
 function Button({ children, onClick, variant = 'primary', type, className = '' }: {
     children: ReactNode,
     onClick?: () => void,
-    variant: 'primary' | 'warning' | 'disabled',
+    variant: 'primary' | 'secondary' | 'warning' | 'disabled',
     type?: 'button' | 'submit' | 'reset',
     className?: string
 }
@@ -16,8 +16,9 @@ function Button({ children, onClick, variant = 'primary', type, className = '' }
     const style = {
         backgroundColor:
             variant === 'primary' ? theme.color.primary.button :
-                variant === 'warning' ? theme.color.primary.error :
-                    theme.color.primary.buttonDisabled,
+                variant === 'secondary' ? theme.color.secondary.button :
+                    variant === 'warning' ? theme.color.primary.error :
+                        theme.color.primary.buttonDisabled,
     }
 
     const classes = classNames('box-border rounded text-white h-10 ' +

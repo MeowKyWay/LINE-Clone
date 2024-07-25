@@ -62,7 +62,7 @@ const theme: {light:Theme, dark:Theme} = {
                 text: '#000000',
                 icon: '#ffffff',
                 line: '#e9e9e9',
-                button: '#ffffff',
+                button: '#969696',
             },
             tertiary: {
                 background: '#f7f7f7',
@@ -99,7 +99,7 @@ const theme: {light:Theme, dark:Theme} = {
                 text: '#373737',
                 icon: '#dfdfdf',
                 line: '#37383a',
-                button: '#ffffff',
+                button: '#969696',
             },
             tertiary: {
                 background: '#343536',
