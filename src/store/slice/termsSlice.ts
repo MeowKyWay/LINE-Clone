@@ -5,6 +5,7 @@ const termsSlice = createSlice({
     initialState: {
         friendsTerm: '',
         chatsTerm: '',
+        messagesTerm: ''
     },
     reducers: {
         setFriendsTerms(state, action: PayloadAction<string>) {
@@ -13,8 +14,12 @@ const termsSlice = createSlice({
         setChatsTerms(state, action: PayloadAction<string>) {
             state.chatsTerm = action.payload;
         },
+        setMessagesTerms(state, action: PayloadAction<string>) {
+            state.messagesTerm = action.payload;
+        },
+        
     }
 })
 
-export const { setFriendsTerms, setChatsTerms } = termsSlice.actions;
+export const { setFriendsTerms, setChatsTerms , setMessagesTerms} = termsSlice.actions;
 export const termsReducer = termsSlice.reducer;

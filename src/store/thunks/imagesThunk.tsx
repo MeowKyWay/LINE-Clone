@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { uploadData , getProperties} from "aws-amplify/storage";
+
 const uploadImg = createAsyncThunk(
   'uploadImg',
   async ({ filename, image }: { filename: string, image: File }) => {

@@ -21,6 +21,7 @@ function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
     const [editImgType , setEditImgType] = useState<"profile" | "cover" | null>(null)
     const theme = useTheme().currentTheme;
     const currentUser = useAppSelector(state => state.user.currentUser)
+    const userStatusMessage = useAppSelector(state => state.user.currentUser?.statusMessage)
     const textStyle = { color: theme.color.tertiary.text }
 
     const onImageChange = (e: React.ChangeEvent<HTMLInputElement>, isCover = false) => {
@@ -86,14 +87,15 @@ function ProfileSettingModal({setSetting , setEditStatus , editStatus} :
                         <div className="flex flex-col ml-4 gap-y-4 text-sm mt-4" style={{ color: theme.color.primary.text }} id="content">
                             <div>
                                 <div style={textStyle}>Display name</div>
-                                <div className="flex flex-row items-center cursor-pointer">{currentUser?.name}
-                                    <IoPencilOutline size="12px" className="ml-1" onClick={() => {setEditStatus(true); setType("username")}}/>
+                                <div className="flex flex-row items-center">{currentUser?.name}
+                                    <IoPencilOutline size="12px" className="ml-1 cursor-pointer" onClick={() => {setEditStatus(true); setType("username")}}/>
                                 </div>
                             </div>
                             <div>
                                 <div style={textStyle}>Status message</div>
-                                <div className="flex flex-row items-center cursor-pointer">{currentUser?.statusMessage}
-                                    <IoPencilOutline size="12px" className="ml-1" onClick={() => {setEditStatus(true); setType("statusMessage")}}/>
+                                <div className={`flex flex-row items-center ${ !userStatusMessage ? "text-gray-500" : ""}`}>
+                                    {userStatusMessage ? userStatusMessage : "Enter a status messgae"}
+                                    <IoPencilOutline size="12px" className="ml-1 cursor-pointer" onClick={() => {setEditStatus(true); setType("statusMessage")}}/>
                                 </div>
                             </div>
                             <div>

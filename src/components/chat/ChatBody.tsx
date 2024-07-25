@@ -1,13 +1,21 @@
 import useTheme from "../../theme";
-import { useAppSelector } from "../../hook";
+import { useAppDispatch, useAppSelector } from "../../hook";
 import ChatBubbleRow from "./ChatBubbleRow";
 import ChatTextArea from "./ChatTextArea";
 import { Chat, Message, User } from "../../API";
-import { useEffect } from "react";
+import { useEffect , useState} from "react";
+import { IoSearch } from "react-icons/io5";
+import SearchField from "../input/SearchField";
+import { setMessagesTerms } from "../../store/slice/termsSlice";
+import { IoClose } from "react-icons/io5";
+
 
 function ChatBody({ activeChat }: { activeChat: Chat }) {
     const theme = useTheme().currentTheme;
-
+    const [showSearchField , setShowSearchField] = useState<boolean>(false)
+    const dispatch = useAppDispatch()
+    const searchTerm = useAppSelector(state => state.terms.messagesTerm)
+    
     const currentUser = useAppSelector(state => state.user.currentUser);
     const myChat = useAppSelector(state => state.chats.friendChats.data)?.filter(chat => chat.id === activeChat.id)[0];
     const friendChat = useAppSelector(state => state.chats.friendChats.data)?.filter(
@@ -46,14 +54,31 @@ function ChatBody({ activeChat }: { activeChat: Chat }) {
     return (
         <div className="flex-1 border-box h-full flex flex-col">
             <div
-                className="w-full h-15 pt-2 pb-1"
+                className="w-full h-15 pt-2 pb-1 flex flex-row justify-between"
                 style={{
                     color: theme.color.primary.text
                 }}>
                 <div className="flex flex-col justify-center h-full pl-3.5">
                     {activeChat?.friend?.name}
                 </div>
+                <div>
+                    <IoSearch onClick={() => setShowSearchField(!showSearchField)} className="cursor-pointer m-4"></IoSearch>
+                </div>
             </div>
+            {
+                showSearchField && (<div className="flex items-center ml-4 mb-2">
+                    <SearchField 
+                        height="36px" 
+                        width="90%" 
+                        value={searchTerm} 
+                        onChange={(value) => dispatch(setMessagesTerms(value))}>
+                    </SearchField>
+                    <IoClose style={{color: theme.color.primary.text}} 
+                        className="ml-2 cursor-pointer" 
+                        onClick={() => setShowSearchField(!showSearchField)}>
+                    </IoClose>
+                </div>)
+            }
             <div
                 id="chat-container"
                 className="px-3 pb-4 overflow-y-scroll flex flex-col gap-1"

@@ -8,14 +8,38 @@ import { listUserChats } from "../utilities/APIUtils";
 import { invokeLambda, LambdaARN } from "../utilities/LambdaUtils";
 import { fetchAuthSession } from "aws-amplify/auth";
 import { getChat, getMessage, listMessages } from "../graphql/queries";
+import UploadImageButton from "../components/input/UploadImgButton";
+import ProfilePicture from "../components/ProfilePicture";
+import { useAppDispatch, useAppSelector } from "../hook";
+import { fetchUser, setProfileUser } from "../store/thunks/userThunk";
+import { uploadImg } from "../store/thunks/imagesThunk";
 
 function TestPage() {
 
     const theme = useTheme().currentTheme;
 
     const client = generateClient();
-
+    const [image , setImage] = useState<File | null>(null)
+    const currentUser = useAppSelector(state => state.user.currentUser)
+    const [uploadStatus , setUploadStatus] = useState("")
     const [friendLineID, setFriendLineID] = useState('');
+    const dispatch = useAppDispatch()
+
+    function onImageChange(e: React.ChangeEvent<HTMLInputElement>){
+        const fileUploaded = e.target.files ? e.target.files[0] : null;
+        if(!fileUploaded) return;
+        setImage(fileUploaded)
+    }
+
+    async function uploadImage(){
+        if(image){
+            const filename = `public/${image?.name}}`
+            dispatch(setProfileUser(filename))
+            dispatch(uploadImg({filename,image}))
+            dispatch(fetchUser())
+            setUploadStatus("success")
+    }
+}
 
     const test = async () => {
         try {
@@ -47,13 +71,11 @@ function TestPage() {
                 color: theme.color.primary.text,
             }}
         >
-            <h1>Test Page</h1>
-            <Button variant='primary' onClick={test}>
-                Test
-            </Button>
-            <Button variant='primary' onClick={test2}>
-                Test2
-            </Button>
+            <UploadImageButton onImageChange={onImageChange}></UploadImageButton>
+            { image && <img src={URL.createObjectURL(image)}></img>}
+            <ProfilePicture size="94px" src={currentUser?.image}></ProfilePicture>
+            <button onClick={uploadImage} className="bg-red-500">upload</button>
+            { uploadStatus && <div style={{color:"green"}}>{uploadStatus}</div>}
         </div>
     )
 }

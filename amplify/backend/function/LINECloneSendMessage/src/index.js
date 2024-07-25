@@ -92,6 +92,8 @@ const createMessage = async (userID, friendID, content) => {
           id
           content
           chatID
+          userID
+          friendID
           createdAt
           updatedAt
           __typename
@@ -102,6 +104,8 @@ const createMessage = async (userID, friendID, content) => {
       input: {
         content: content,
         chatID: userID + ":" + friendID,
+        userID: userID,
+        friendID: friendID,
       }
     }
   })
