@@ -1,6 +1,6 @@
-import { Chat } from "../../API";
+import { Chat, User } from "../../API";
 import { useAppDispatch, useAppSelector } from "../../hook";
-import { setActiveChat } from "../../store/slice/statesSlice";
+import { setAccountModalState, setActiveChat } from "../../store/slice/statesSlice";
 import useTheme from "../../theme";
 import Time from "../../utilities/Time";
 import ProfilePicture from "../profile/ProfilePicture";
@@ -41,7 +41,7 @@ function ChatItem({ chat }: { chat: Chat }) {
     }
 
     return (
-        <div className="w-full cursor-pointer" onClick={() => dispatch(setActiveChat(chat.friendID))}>
+        <div className="w-full cursor-pointer">
             <style>
                 {`
                 .hover:hover {
@@ -54,8 +54,13 @@ function ChatItem({ chat }: { chat: Chat }) {
                 `}
             </style>
             <div className="h-71px w-full pl-4 pr-1 flex flex-row items-center hover">
-                <ProfilePicture size="53px" src={chat.friend?.image as string} />
-                <div className="flex flex-row items-center h-full ml-3 relative" style={{ width: 'calc(100% - 69px)' }}>
+                <ProfilePicture size="53px" src={chat.friend?.image as string} onClick={() => dispatch(setAccountModalState(chat.friend as User))} />
+                <div className="flex flex-row items-center h-full ml-3 relative"
+                    onClick={() => dispatch(setActiveChat(chat.friendID))}
+                    style={{
+                        width: 'calc(100% - 69px)'
+                    }}
+                >
                     <div className="flex flex-col flex-1">
                         <span className="overflow-hidden whitespace-nowrap text-ellipsis w-36" style={{
                             color: theme.color.primary.text,

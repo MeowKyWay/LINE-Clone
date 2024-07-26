@@ -1,5 +1,6 @@
 import { Message, User } from "../../API";
-import { useAppSelector } from "../../hook";
+import { useAppDispatch, useAppSelector } from "../../hook";
+import { setAccountModalState } from "../../store/slice/statesSlice";
 import useTheme from "../../theme";
 import Time from "../../utilities/Time";
 import ProfilePicture from "../profile/ProfilePicture";
@@ -8,6 +9,8 @@ import ChatBubble from "./ChatBubble";
 function ChatBubbleRow({ children, isCurrentUser, friend }: { children: Message, isCurrentUser: boolean, friend: User }) {
 
     const theme = useTheme().currentTheme;
+
+    const dispatch = useAppDispatch();
 
     const chat = useAppSelector(state => state.chats.friendChats.data)?.find(
         chat => chat.id === children.friendID + ":" + children.userID
@@ -34,7 +37,7 @@ function ChatBubbleRow({ children, isCurrentUser, friend }: { children: Message,
     return (
         <div className={`flex flex-row gap-2 items-center ${isCurrentUser ? 'justify-end' : 'justify-start'}`}>
             {!isCurrentUser &&
-                <ProfilePicture size="38px" src={friend?.image} />
+                <ProfilePicture size="38px" src={friend?.image} onClick={() => dispatch(setAccountModalState(chat.friend as User))}/>
             }
             <div className="flex flex-row gap-2 items-end">
                 {isCurrentUser &&
