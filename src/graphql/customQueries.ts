@@ -104,10 +104,13 @@ export const listMyChats = /* GraphQL */ `query ListMyChats(
           updatedAt
           __typename
         }
+        lastReadTime
         message {
           items {
             id
             chatID
+            userID
+            friendID
             content
             createdAt
             updatedAt

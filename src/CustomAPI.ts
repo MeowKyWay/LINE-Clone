@@ -101,12 +101,15 @@ export type ListMyChatsQuery = {
                 createdAt: string,
                 updatedAt: string,
             },
+            lastReadTime: string,
             message: {
                 __typename: "ModelMessageConnection",
                 items: {
                     __typename: "Message",
                     id: string,
                     chatID: string,
+                    userID: string,
+                    friendID: string,
                     content: string,
                     createdAt: string,
                     updatedAt: string,

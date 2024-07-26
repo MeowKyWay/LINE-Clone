@@ -33,7 +33,6 @@ function ChatBody({ activeChat }: { activeChat: Chat }) {
         const sendTime = new Date(friendLastMessage?.createdAt as string).getTime();
         const lastReadTime = new Date(myChat?.lastReadTime as string).getTime();
         if (!friendLastMessage || !lastReadTime) return;
-        console.log(sendTime - lastReadTime);
         if (sendTime < lastReadTime) return;
 
         console.log('Read Chat');

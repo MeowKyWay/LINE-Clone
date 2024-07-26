@@ -57,7 +57,7 @@ export const readChat = createAsyncThunk('readChat', async (friendID: string) =>
         arn: LambdaARN.READ_CHAT,
         body: {
             accessToken: (await fetchAuthSession()).tokens?.accessToken.toString(),
-            friendID: 'dewy_hinges',
+            friendID: friendID,
         }
     })
 })
