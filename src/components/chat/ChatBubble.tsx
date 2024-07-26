@@ -12,7 +12,7 @@ function ChatBubble({ children, isCurrentUser = false , showSearchField = false}
 
     return parts.map((part, index) => (
       part.toLowerCase() === term.toLowerCase() ? 
-      <span key={index} style={{ 
+      <span key={index}  className="highlight" style={{ 
           backgroundColor: isCurrentUser ? 'blue' : "#fffc52" , 
           color: isCurrentUser ?  'white' : "#07b53b"}}>
           {part}

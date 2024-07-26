@@ -11,7 +11,7 @@ const FetchUserPicture = ({path} : {path?: string}) => {
 
   useEffect(() => {
       if(currentUser?.image || currentUser?.coverImage) return;
-      dispatch(fetchProfileImage(path ? path :currentUser?.image as string));
+      dispatch(fetchProfileImage(path ? path : currentUser?.image as string));
       dispatch(fetchCoverImage(path? path : currentUser?.coverImage as string))
       console.log("FetchProfileImage");
     
