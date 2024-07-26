@@ -125,6 +125,7 @@ export type Chat = {
   user?: User | null,
   friendID: string,
   friend?: User | null,
+  lastReadTime: string,
   message?: ModelMessageConnection | null,
   createdAt: string,
   updatedAt: string,
@@ -152,6 +153,7 @@ export type ModelChatFilterInput = {
   id?: ModelIDInput | null,
   userID?: ModelIDInput | null,
   friendID?: ModelIDInput | null,
+  lastReadTime?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelChatFilterInput | null > | null,
@@ -228,11 +230,13 @@ export type CreateChatInput = {
   id?: string | null,
   userID: string,
   friendID: string,
+  lastReadTime: string,
 };
 
 export type ModelChatConditionInput = {
   userID?: ModelIDInput | null,
   friendID?: ModelIDInput | null,
+  lastReadTime?: ModelStringInput | null,
   and?: Array< ModelChatConditionInput | null > | null,
   or?: Array< ModelChatConditionInput | null > | null,
   not?: ModelChatConditionInput | null,
@@ -244,6 +248,7 @@ export type UpdateChatInput = {
   id: string,
   userID?: string | null,
   friendID?: string | null,
+  lastReadTime?: string | null,
 };
 
 export type DeleteChatInput = {
@@ -381,6 +386,7 @@ export type ModelSubscriptionBooleanInput = {
 
 export type ModelSubscriptionChatFilterInput = {
   id?: ModelSubscriptionIDInput | null,
+  lastReadTime?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionChatFilterInput | null > | null,
@@ -766,6 +772,7 @@ export type CreateChatMutation = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    lastReadTime: string,
     message?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
@@ -806,6 +813,7 @@ export type UpdateChatMutation = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    lastReadTime: string,
     message?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
@@ -846,6 +854,7 @@ export type DeleteChatMutation = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    lastReadTime: string,
     message?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
@@ -873,6 +882,7 @@ export type CreateMessageMutation = {
       id: string,
       userID: string,
       friendID: string,
+      lastReadTime: string,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -899,6 +909,7 @@ export type UpdateMessageMutation = {
       id: string,
       userID: string,
       friendID: string,
+      lastReadTime: string,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -925,6 +936,7 @@ export type DeleteMessageMutation = {
       id: string,
       userID: string,
       friendID: string,
+      lastReadTime: string,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -1079,6 +1091,7 @@ export type GetChatQuery = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    lastReadTime: string,
     message?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
@@ -1102,6 +1115,7 @@ export type ListChatsQuery = {
       id: string,
       userID: string,
       friendID: string,
+      lastReadTime: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -1126,6 +1140,7 @@ export type GetMessageQuery = {
       id: string,
       userID: string,
       friendID: string,
+      lastReadTime: string,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -1430,6 +1445,7 @@ export type OnCreateChatSubscription = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    lastReadTime: string,
     message?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
@@ -1471,6 +1487,7 @@ export type OnUpdateChatSubscription = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    lastReadTime: string,
     message?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
@@ -1512,6 +1529,7 @@ export type OnDeleteChatSubscription = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    lastReadTime: string,
     message?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
@@ -1540,6 +1558,7 @@ export type OnCreateMessageSubscription = {
       id: string,
       userID: string,
       friendID: string,
+      lastReadTime: string,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -1567,6 +1586,7 @@ export type OnUpdateMessageSubscription = {
       id: string,
       userID: string,
       friendID: string,
+      lastReadTime: string,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -1594,6 +1614,7 @@ export type OnDeleteMessageSubscription = {
       id: string,
       userID: string,
       friendID: string,
+      lastReadTime: string,
       createdAt: string,
       updatedAt: string,
     } | null,

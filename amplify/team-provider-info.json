@@ -28,11 +28,15 @@
         },
         "LINECloneNewChat": {
           "deploymentBucketName": "amplify-lineclone-dev-46391-deployment",
-          "s3Key": "amplify-builds/LINECloneNewChat-654e6d6738674e427851-build.zip"
+          "s3Key": "amplify-builds/LINECloneNewChat-6649337577434e6f5552-build.zip"
         },
         "LINECloneSendMessage": {
           "deploymentBucketName": "amplify-lineclone-dev-46391-deployment",
-          "s3Key": "amplify-builds/LINECloneSendMessage-4b6f34566f44424a7544-build.zip"
+          "s3Key": "amplify-builds/LINECloneSendMessage-4b6133576f704d79572b-build.zip"
+        },
+        "LINECloneReadChat": {
+          "deploymentBucketName": "amplify-lineclone-dev-46391-deployment",
+          "s3Key": "amplify-builds/LINECloneReadChat-2f5030326e493472366e-build.zip"
         }
       },
       "storage": {

@@ -65,20 +65,6 @@ const getUser = async (accessToken) => {
 }
 //Cognito
 
-const getFriend = async (friendID) => {
-  const response = await graphql({
-    query: /* GraphQL */ `
-      query GET_USER($id: ID!) {
-        getUser(id: $id) {
-          id
-        }
-      }
-    `,
-    variables: { id: friendID }
-  })
-  console.log("Friend: ", response);
-  return response;
-}
 const getChat = async (userID, friendID) => {
   const response = await graphql({
     query: /* GraphQL */ `
@@ -93,34 +79,16 @@ const getChat = async (userID, friendID) => {
   console.log("Chat: ", response);
   return response;
 }
-const createChat = async (userID, friendID) => {
+
+const updateChat = async (userID, friendID, lastReadTime) => {
   const response = await graphql({
     query: /* GraphQL */ `
-      mutation CREATE_CHAT($input: CreateChatInput!) {
-        createChat(input: $input) {
+      mutation UPDATE_CHAT($input: UpdateChatInput!) {
+        updateChat(input: $input) {
           id
           userID
           friendID
-          friend {
-            id
-            name
-            statusMessage
-            image
-            createdAt
-            updatedAt
-            __typename
-          }
           lastReadTime
-          message {
-            items {
-              id
-              chatID
-              content
-              createdAt
-              updatedAt
-              __typename
-            }
-          }
           createdAt
           updatedAt
           __typename
@@ -130,13 +98,11 @@ const createChat = async (userID, friendID) => {
     variables: {
       input: {
         id: userID + ":" + friendID,
-        lastReadTime: new Date().toISOString(),
-        userID: userID,
-        friendID: friendID,
+        lastReadTime: lastReadTime
       }
     }
   })
-  console.log("CreateChat: ", response);
+  console.log("Update Chat: ", response);
   return response;
 }
 
@@ -175,23 +141,14 @@ export const handler = async (event) => {
   const userID = user.Username;
 
   const friendID = event.friendID;
-  const friend = await getFriend(friendID);
-  if (!friend.data.getUser)
-    return error("Friend does not exist");
-
-  if (friendID === userID)
-    return error("Cannot create new chat with self")
-
-  const userFriend = (await getChat(userID, friendID));
-  if (userFriend.data.getChat)
-    return error("Chat already exists");
+  const chat = await getChat(userID, friendID);
+  if (!chat.data.getChat)
+    return error("Chat does not exists");
 
   try {
-    await createChat(userID, friendID);
-    await createChat(friendID, userID);
+    await updateChat(userID, friendID, new Date().toISOString());
+    return response("Chat readed");
   } catch (error) {
-    return error("Failed to create chat");
+    return error("Failed to read chat");
   }
-
-  return response("Chat created");
 };

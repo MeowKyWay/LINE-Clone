@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "../../hook";
 import ProfileCover from "./ProfileCover";
 import ProfilePicture from "./ProfilePicture";
 import ImageInput from "../input/ImageInput";
-import { fetchUser, updateUserProfile, uploadUserCoverImage, uploadUserProfileImage } from "../../store/thunks/userThunk";
+import { updateUserProfile, uploadUserCoverImage, uploadUserProfileImage } from "../../store/thunks/userThunk";
 import { uploadImg } from "../../store/thunks/imagesThunk";
 import useTheme from "../../theme";
 import { IoPencilSharp } from "react-icons/io5";
@@ -30,9 +30,6 @@ function ProfileSetting() {
         console.log("filename:", filename);
         await dispatch(uploadImg({ filename, image }))
         await dispatch(uploadUserProfileImage(filename))
-        setTimeout(() => {
-            dispatch(fetchUser())
-        }, 2000); // 1000 milliseconds = 1 second
     }
 
     const handleChangeCoverImage = async (image: File | null) => {
@@ -42,9 +39,6 @@ function ProfileSetting() {
         console.log("filename:", filename);
         await dispatch(uploadImg({ filename, image }))
         await dispatch(uploadUserCoverImage(filename))
-        setTimeout(() => {
-            dispatch(fetchUser())
-        }, 2000); // 1000 milliseconds = 1 second
     }
 
     const handleSaveChange = async () => {

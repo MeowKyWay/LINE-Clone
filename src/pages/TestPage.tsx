@@ -42,10 +42,9 @@ function TestPage() {
     const test = async () => {
         try {
             const res = await invokeLambda({
-                arn: LambdaARN.SEND_MESSAGE,
+                arn: LambdaARN.READ_CHAT,
                 body: {
                     accessToken: (await fetchAuthSession()).tokens?.accessToken.toString(),
-                    content: 'Test123',
                     friendID: 'dewy_hinges',
                 }
             })

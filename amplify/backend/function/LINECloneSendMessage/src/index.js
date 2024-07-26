@@ -121,6 +121,7 @@ const updateChat = async (userID, friendID) => {
           id
           userID
           friendID
+          lastReadTime
           createdAt
           updatedAt
           __typename

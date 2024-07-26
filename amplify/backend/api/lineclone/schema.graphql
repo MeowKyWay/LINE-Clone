@@ -57,11 +57,9 @@ type Chat
   friendID: ID!
   friend: User @belongsTo(fields: ["friendID"])
 
+  lastReadTime: String!
+
   message: [Message] @hasMany(indexName: "byChat", fields: ["id"])
-    @auth(rules: [
-      { allow: owner, ownerField: "userID", operations: [read] }
-      { allow: owner, ownerField: "friendID", operations: [read] }
-    ])
 }
 
 type Message

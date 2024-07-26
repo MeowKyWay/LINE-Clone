@@ -143,6 +143,7 @@ export const getChat = /* GraphQL */ `query GetChat($id: ID!) {
       updatedAt
       __typename
     }
+    lastReadTime
     message {
       nextToken
       __typename
@@ -163,6 +164,7 @@ export const listChats = /* GraphQL */ `query ListChats(
       id
       userID
       friendID
+      lastReadTime
       createdAt
       updatedAt
       __typename
@@ -183,6 +185,7 @@ export const getMessage = /* GraphQL */ `query GetMessage($id: ID!) {
       id
       userID
       friendID
+      lastReadTime
       createdAt
       updatedAt
       __typename

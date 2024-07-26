@@ -1,26 +1,26 @@
 import useTheme from "../../theme";
-import { useAppSelector } from "../../hook";
+import { useAppDispatch, useAppSelector } from "../../hook";
 import ChatBubbleRow from "./ChatBubbleRow";
 import ChatTextArea from "./ChatTextArea";
 import { Chat, Message, User } from "../../API";
-import { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import SearchMessages from "../SearchMessages";
+import { useEffect , useState} from "react";
+import { readChat } from "../../store/thunks/chatsThunk";
 
 function ChatBody({ activeChat }: { activeChat: Chat }) {
     const theme = useTheme().currentTheme;
     const [showSearchField, setShowSearchField] = useState<boolean>(false);
 
-    const currentUser = useAppSelector((state) => state.user.currentUser);
-    const myChat = useAppSelector((state) =>
-        state.chats.friendChats.data?.filter((chat) => chat.id === activeChat.id)[0]
-    );
-    const friendChat = useAppSelector((state) =>
-        state.chats.friendChats.data?.filter(
-            (chat) => chat.id === myChat?.friendID + ":" + myChat?.userID
-        )[0]
-    );
-    const messages = [] as Message[];
+
+    const dispatch = useAppDispatch();
+
+    const currentUser = useAppSelector(state => state.user.currentUser);
+    const myChat = useAppSelector(state => state.chats.friendChats.data)?.filter(chat => chat.id === activeChat.id)[0];
+    const friendChat = useAppSelector(state => state.chats.friendChats.data)?.filter(
+        chat => chat.id === myChat?.friendID + ":" + myChat?.userID
+    )[0];
+    const messages = []
     if (myChat && myChat.message?.items) {
         messages.push(...(myChat.message?.items as Message[]));
     }
@@ -31,6 +31,17 @@ function ChatBody({ activeChat }: { activeChat: Chat }) {
     messages.sort((a, b) => {
         return new Date(a?.createdAt).getTime() - new Date(b?.createdAt).getTime();
     });
+
+    useEffect(() => {
+        const friendLastMessage = friendChat?.message?.items[friendChat.message.items.length - 1];
+        const sendTime = new Date(friendLastMessage?.createdAt as string).getTime();
+        const lastReadTime = new Date(myChat?.lastReadTime as string).getTime();
+        if (!friendLastMessage || !lastReadTime) return;
+        if (sendTime < lastReadTime) return;
+
+        console.log('Read Chat');
+        dispatch(readChat(activeChat.friendID as string));
+    }, [friendChat?.message?.items, myChat?.lastReadTime, activeChat.friendID, dispatch]);
 
     useEffect(() => {
         // Select the container and scroll to the bottom
