@@ -306,6 +306,12 @@ export type ModelUserConnection = {
   nextToken?: string | null,
 };
 
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
 export type ModelMessageFilterInput = {
   id?: ModelIDInput | null,
   userID?: ModelIDInput | null,
@@ -318,12 +324,6 @@ export type ModelMessageFilterInput = {
   or?: Array< ModelMessageFilterInput | null > | null,
   not?: ModelMessageFilterInput | null,
 };
-
-export enum ModelSortDirection {
-  ASC = "ASC",
-  DESC = "DESC",
-}
-
 
 export type ModelSubscriptionUserFilterInput = {
   name?: ModelSubscriptionStringInput | null,
@@ -507,12 +507,15 @@ export type ListMyChatsQuery = {
         createdAt: string,
         updatedAt: string,
       } | null,
+      lastReadTime: string,
       message?:  {
         __typename: "ModelMessageConnection",
         items:  Array< {
           __typename: "Message",
           id: string,
           chatID: string,
+          userID: string,
+          friendID: string,
           content: string,
           createdAt: string,
           updatedAt: string,
@@ -1061,6 +1064,56 @@ export type ListUserFriendsQuery = {
   } | null,
 };
 
+export type UserFriendsByUserIDQueryVariables = {
+  userID: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelUserFriendFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type UserFriendsByUserIDQuery = {
+  userFriendsByUserID?:  {
+    __typename: "ModelUserFriendConnection",
+    items:  Array< {
+      __typename: "UserFriend",
+      id: string,
+      userID: string,
+      friendID: string,
+      status: string,
+      favorite?: boolean | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type UserFriendsByFriendIDQueryVariables = {
+  friendID: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelUserFriendFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type UserFriendsByFriendIDQuery = {
+  userFriendsByFriendID?:  {
+    __typename: "ModelUserFriendConnection",
+    items:  Array< {
+      __typename: "UserFriend",
+      id: string,
+      userID: string,
+      friendID: string,
+      status: string,
+      favorite?: boolean | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetChatQueryVariables = {
   id: string,
 };
@@ -1109,6 +1162,54 @@ export type ListChatsQueryVariables = {
 
 export type ListChatsQuery = {
   listChats?:  {
+    __typename: "ModelChatConnection",
+    items:  Array< {
+      __typename: "Chat",
+      id: string,
+      userID: string,
+      friendID: string,
+      lastReadTime: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type ChatsByUserIDQueryVariables = {
+  userID: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelChatFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ChatsByUserIDQuery = {
+  chatsByUserID?:  {
+    __typename: "ModelChatConnection",
+    items:  Array< {
+      __typename: "Chat",
+      id: string,
+      userID: string,
+      friendID: string,
+      lastReadTime: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type ChatsByFriendIDQueryVariables = {
+  friendID: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelChatFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ChatsByFriendIDQuery = {
+  chatsByFriendID?:  {
     __typename: "ModelChatConnection",
     items:  Array< {
       __typename: "Chat",

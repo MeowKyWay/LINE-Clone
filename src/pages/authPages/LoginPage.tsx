@@ -104,7 +104,6 @@ function LoginPage() {
                     </span>
                 </div>
             </div>
-            <button onClick={themeContext.toggle}>Toggle Theme</button>
         </div>
     )
 }
