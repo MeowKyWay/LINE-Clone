@@ -4,6 +4,7 @@ import { setActiveChat } from "../../store/slice/statesSlice";
 import useTheme from "../../theme";
 import Time from "../../utilities/Time";
 import ProfilePicture from "../profile/ProfilePicture";
+import UnreadBubble from "../UnreadBubble";
 
 function ChatItem({ chat }: { chat: Chat }) {
     const dispatch = useAppDispatch();
@@ -30,6 +31,13 @@ function ChatItem({ chat }: { chat: Chat }) {
     }
     else {
         lastMessage = "";
+    }
+
+    let unreadCount = 0;
+    if (friendChat) {
+        unreadCount = friendChat.message?.items.filter(
+            item => new Date(item?.createdAt as string).getTime() > new Date(chat.lastReadTime).getTime()
+        ).length;
     }
 
     return (
@@ -61,7 +69,15 @@ function ChatItem({ chat }: { chat: Chat }) {
                         }}>
                             {lastMessage}
                         </span>
+
                     </div>
+                    {unreadCount > 0 &&
+                        <div className="mt-4">
+                            <UnreadBubble>{unreadCount}</UnreadBubble>
+                        </div>
+                    }
+
+
                     <span className="absolute top-1 right-0" style={{
                         color: theme.color.tertiary.text,
                         fontSize: '11px',
