@@ -1,22 +1,23 @@
 import { useAppSelector } from "../../hook";
 import useTheme from "../../theme";
 
-function ChatBubble({ children, isCurrentUser = false , showSearchField = false}: 
-  { children: string, isCurrentUser: boolean , showSearchField: boolean}) {
+function ChatBubble({ children,  isCurrentUser = false ,showSearchField = false , selected = false}: 
+  { children: string, isCurrentUser: boolean , showSearchField: boolean , selected?: boolean }) {
   const theme = useTheme().currentTheme;
   const messageTerm = useAppSelector(state => state.terms.messagesTerm);
+    console.log("selected:", selected);
+    
+
 
   const highlightText = (text: string, term: string | null) => {
     if (!term || !showSearchField) return text;
     const parts = text.split(new RegExp(`(${term})`, 'gi'));
 
     return parts.map((part, index) => (
-      part.toLowerCase() === term.toLowerCase() ? 
-      <span key={index}  className="highlight" style={{ 
-          backgroundColor: isCurrentUser ? 'blue' : "#fffc52" , 
-          color: isCurrentUser ?  'white' : "#07b53b"}}>
+      part.toLowerCase() === term.toLowerCase() ?  
+      <span key={index} className="highlight">
           {part}
-      </span> 
+      </span>
       : 
       part
     ));

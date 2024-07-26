@@ -12,6 +12,8 @@ interface SearchMessagesProps {
     showSearchField: boolean;
     setShowSearchField: (show: boolean) => void;
     messages: Message[];
+    selectedMessageId : string | null
+    setSelectedMessageId: React.Dispatch<React.SetStateAction<string | null>>
 }
 
 const SearchMessages: React.FC<SearchMessagesProps> = ({
@@ -43,18 +45,30 @@ const SearchMessages: React.FC<SearchMessagesProps> = ({
             const container = document.querySelector('#chat-container');
             if (!container) return;
             const matches = Array.from(container.querySelectorAll('.highlight'));
+            matches.forEach((match, index) => {
+                if (index === currentIndex - 1) {
+
+                    match.classList.add('selected-message');
+                } else {
+                    match.classList.remove('selected-message');
+                }
+            });
             if (matches.length > 0 && matches[currentIndex - 1]) {
                 matches[currentIndex - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
-    }, [currentIndex]);
+    }, [currentIndex, showSearchField]);
 
     const handlePrevious = () => {
-        setCurrentIndex(currentIndex <= 1 ? 1 : currentIndex - 1);
+        if (currentIndex > 1) {
+            setCurrentIndex(currentIndex - 1);
+        }
     };
 
     const handleNext = () => {
-        setCurrentIndex(currentIndex => currentIndex >= termCount ? termCount : currentIndex + 1);
+        if (currentIndex < termCount) {
+            setCurrentIndex(currentIndex + 1);
+        }
     };
 
     return (
@@ -80,12 +94,12 @@ const SearchMessages: React.FC<SearchMessagesProps> = ({
 
             {showSearchField && termCount > 0 && (
                 <div className="flex items-center justify-center ml-2 gap-x-1">
-                    <IoIosArrowUp
+                    <IoIosArrowDown
                         onClick={currentIndex > 1 ? handlePrevious : undefined}
                         style={{ color: theme.color.primary.icon }}
                         className={`cursor-pointer ${currentIndex <= 1 ? "text-gray-400" : "text-black"}`}
                     />
-                    <IoIosArrowDown
+                    <IoIosArrowUp
                         onClick={currentIndex < termCount ? handleNext : undefined}
                         style={{ color: theme.color.primary.icon }}
                         className={`cursor-pointer ${currentIndex >= termCount ? "text-gray-400" : "text-black"}`}

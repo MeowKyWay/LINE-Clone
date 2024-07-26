@@ -46,3 +46,13 @@
     background: #888;
     border-radius: 3px;
 }
+
+.highlight {
+    background-color: blue;
+    color: white
+}
+.highlight.selected-message {
+    background-color: #fffc52;
+    color: #07b53b;
+}
+
