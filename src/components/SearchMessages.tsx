@@ -94,12 +94,12 @@ const SearchMessages: React.FC<SearchMessagesProps> = ({
 
             {showSearchField && termCount > 0 && (
                 <div className="flex items-center justify-center ml-2 gap-x-1">
-                    <IoIosArrowDown
+                    <IoIosArrowUp
                         onClick={currentIndex > 1 ? handlePrevious : undefined}
                         style={{ color: theme.color.primary.icon }}
                         className={`cursor-pointer ${currentIndex <= 1 ? "text-gray-400" : "text-black"}`}
                     />
-                    <IoIosArrowUp
+                    <IoIosArrowDown
                         onClick={currentIndex < termCount ? handleNext : undefined}
                         style={{ color: theme.color.primary.icon }}
                         className={`cursor-pointer ${currentIndex >= termCount ? "text-gray-400" : "text-black"}`}
