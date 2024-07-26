@@ -1,9 +1,10 @@
-import { Chat } from "../../API";
+import { Chat, User } from "../../API";
 import { useAppDispatch, useAppSelector } from "../../hook";
-import { setActiveChat } from "../../store/slice/statesSlice";
+import { setAccountModalState, setActiveChat } from "../../store/slice/statesSlice";
 import useTheme from "../../theme";
 import Time from "../../utilities/Time";
 import ProfilePicture from "../profile/ProfilePicture";
+import UnreadBubble from "../UnreadBubble";
 
 function ChatItem({ chat }: { chat: Chat }) {
     const dispatch = useAppDispatch();
@@ -32,8 +33,15 @@ function ChatItem({ chat }: { chat: Chat }) {
         lastMessage = "";
     }
 
+    let unreadCount = 0;
+    if (friendChat) {
+        unreadCount = friendChat.message?.items.filter(
+            item => new Date(item?.createdAt as string).getTime() > new Date(chat.lastReadTime).getTime()
+        ).length;
+    }
+
     return (
-        <div className="w-full cursor-pointer" onClick={() => dispatch(setActiveChat(chat.friendID))}>
+        <div className="w-full cursor-pointer">
             <style>
                 {`
                 .hover:hover {
@@ -46,8 +54,13 @@ function ChatItem({ chat }: { chat: Chat }) {
                 `}
             </style>
             <div className="h-71px w-full pl-4 pr-1 flex flex-row items-center hover">
-                <ProfilePicture size="53px" src={chat.friend?.image as string} />
-                <div className="flex flex-row items-center h-full ml-3 relative" style={{ width: 'calc(100% - 69px)' }}>
+                <ProfilePicture size="53px" src={chat.friend?.image as string} onClick={() => dispatch(setAccountModalState(chat.friend as User))} />
+                <div className="flex flex-row items-center h-full ml-3 relative"
+                    onClick={() => dispatch(setActiveChat(chat.friendID))}
+                    style={{
+                        width: 'calc(100% - 69px)'
+                    }}
+                >
                     <div className="flex flex-col flex-1">
                         <span className="overflow-hidden whitespace-nowrap text-ellipsis w-36" style={{
                             color: theme.color.primary.text,
@@ -61,7 +74,15 @@ function ChatItem({ chat }: { chat: Chat }) {
                         }}>
                             {lastMessage}
                         </span>
+
                     </div>
+                    {unreadCount > 0 &&
+                        <div className="mt-4">
+                            <UnreadBubble>{unreadCount}</UnreadBubble>
+                        </div>
+                    }
+
+
                     <span className="absolute top-1 right-0" style={{
                         color: theme.color.tertiary.text,
                         fontSize: '11px',

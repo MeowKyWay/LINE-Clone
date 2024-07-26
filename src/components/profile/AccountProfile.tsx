@@ -7,7 +7,7 @@ import ProfileCover from "./ProfileCover";
 import ProfilePicture from "./ProfilePicture";
 import { useAppDispatch, useAppSelector } from "../../hook";
 import { addFavoriteFriend, removeFavoriteFriend } from "../../store/thunks/friendsThunk";
-import { setSettingModalState } from "../../store/slice/statesSlice";
+import { setAccountModalState, setActiveChat, setSettingModalState } from "../../store/slice/statesSlice";
 import { User } from "../../API";
 
 function AccountProfile() {
@@ -40,6 +40,11 @@ function AccountProfile() {
         setIsFavorite(!isFavorite)
     }
 
+    const handleChat = () => {
+        dispatch(setActiveChat(friend.id));
+        dispatch(setAccountModalState(null));
+    }
+
     return (
         <div className="relative flex flex-col h-full w-full">
             <ProfileCover image={friend.coverImage as string} className="opacity-50" />
@@ -68,7 +73,7 @@ function AccountProfile() {
                 <span className="text-xs text-white mt-4">{friend?.statusMessage}</span>
                 {currentUser?.id !== friend?.id &&
                     <div className="flex flex-row items-center text-white mt-8">
-                        <div className="flex flex-col items-center cursor-pointer gap-1">
+                        <div className="flex flex-col items-center cursor-pointer gap-1" onClick={handleChat}>
                             <BsChatDotsFill size={"20px"} />
                             <div className="font-light">Chat</div>
                         </div>
