@@ -31,14 +31,17 @@ function FriendChatSubscription() {
                 
                 const chat = {
                     ...data.onCreateChat,
-                    friend: friends?.find(friend => friend.id === data.onCreateChat.friendID),
+                    friend: friends?.find(friend => friend.id === data.onCreateChat.friendID) || {
+                        id: data.onCreateChat.friendID,
+                        name: data.onCreateChat.friendID,
+                    },
                     message: {
                         items: [],
                         __typename: 'ModelMessageConnection',
                     },
                 } as Chat;
+                console.log(chat);
                 dispatch(addChat(chat));
-                // console.log(chat)
             }
         })
 

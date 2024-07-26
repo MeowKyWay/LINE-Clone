@@ -106,6 +106,7 @@ const createChat = async (userID, friendID) => {
             name
             statusMessage
             image
+            coverImage
             createdAt
             updatedAt
             __typename
@@ -129,10 +130,10 @@ const createChat = async (userID, friendID) => {
     `,
     variables: {
       input: {
-        id: userID + ":" + friendID,
-        lastReadTime: new Date().toISOString(),
+        id: userID + ":" + friendID,        
         userID: userID,
         friendID: friendID,
+        lastReadTime: new Date().toISOString(),
       }
     }
   })

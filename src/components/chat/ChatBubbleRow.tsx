@@ -17,14 +17,14 @@ function ChatBubbleRow({ children, isCurrentUser , friend , showSearchField , se
     const chat = useAppSelector(state => state.chats.friendChats.data)?.find(
         chat => chat.id === children.friendID + ":" + children.userID
     )
-    console.log(children.friendID + ":" + children.userID)
+    // console.log(children.friendID + ":" + children.userID)
     const lastReadTime = new Date(chat?.lastReadTime as string).getTime();
-    console.log({
-        chat: chat,
-        message: children.content,
-        read: new Date(chat?.lastReadTime as string),
-        send: new Date(children.createdAt),
-    })
+    // console.log({
+    //     chat: chat,
+    //     message: children.content,
+    //     read: new Date(chat?.lastReadTime as string),
+    //     send: new Date(children.createdAt),
+    // })
 
     const time = ( //Todo implement
         <div className="flex flex-col">
@@ -39,7 +39,7 @@ function ChatBubbleRow({ children, isCurrentUser , friend , showSearchField , se
     return (
         <div className={`flex flex-row gap-2 items-center ${isCurrentUser ? 'justify-end' : 'justify-start'}`}>
             {!isCurrentUser &&
-                <ProfilePicture size="38px" src={friend?.image} onClick={() => dispatch(setAccountModalState(chat.friend as User))}/>
+                <ProfilePicture size="38px" src={friend?.image} onClick={() => dispatch(setAccountModalState(chat?.friend as User))}/>
             }
             <div className="flex flex-row gap-2 items-end">
                 {isCurrentUser &&

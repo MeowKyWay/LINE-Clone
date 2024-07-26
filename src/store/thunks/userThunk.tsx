@@ -43,7 +43,7 @@ const logout = createAsyncThunk('users/logout', async () => {
     return "Logged out successfully";
 })
 
-const uploadUserProfileImage = createAsyncThunk('users/setImg', async (filename: string) => {
+const uploadUserProfileImage = createAsyncThunk('uploadProfileImage', async (filename: string) => {
     const username = (await getCurrentUser()).username;
 
     try {
@@ -64,7 +64,7 @@ const uploadUserProfileImage = createAsyncThunk('users/setImg', async (filename:
     }
 })
 
-const uploadUserCoverImage = createAsyncThunk('users/setImg', async (filename: string) => {
+const uploadUserCoverImage = createAsyncThunk('uploadCoverImage', async (filename: string) => {
     const username = (await getCurrentUser()).username;
 
     try {

@@ -11,27 +11,20 @@ function ChatsPage() {
     const chatFolderState = useAppSelector(state => state.states.chatFolderState);
     const currentUser = useAppSelector(state => state.user.currentUser);
 
+    console.log(currentUser);
+
     const friendChats = useAppSelector(state => state.chats.friendChats.data)?.filter(
         chat => chat.userID === currentUser?.lineID
     );
 
-    let selectedChat;
-    switch (chatFolderState) {
-        case 'Friends':
-            selectedChat = friendChats?.slice();
-            break;
-        case 'Groups':
-            selectedChat = friendChats; //Add group chat later
-            break;
-        default:
-            selectedChat = friendChats?.slice();
-            break;
-    }
+    console.log(friendChats);
 
-    const chatsFiltered = selectedChat?.filter(chat => {
+    const chatsFiltered = friendChats?.filter(chat => {
         // console.log(chat.friend?.name.toLowerCase(), searchTerm.toLowerCase());
         return chat.friend?.name.toLowerCase().includes(searchTerm.toLowerCase())
     });
+
+    console.log(chatsFiltered);
 
     return (
         <div className="size-full flex flex-col">

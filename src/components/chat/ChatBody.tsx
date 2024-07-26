@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import useTheme from "../../theme";
-import { useAppSelector } from "../../hook";
+import { useAppDispatch, useAppSelector } from "../../hook";
 import ChatBubbleRow from "./ChatBubbleRow";
 import ChatTextArea from "./ChatTextArea";
 import { Chat, Message, User } from "../../API";
 import { IoSearch } from "react-icons/io5";
 import SearchMessages from "../SearchMessages";
+import { readChat } from "../../store/thunks/chatsThunk";
 
 function ChatBody({ activeChat }: { activeChat: Chat }) {
   const theme = useTheme().currentTheme;
   const [showSearchField, setShowSearchField] = useState<boolean>(false);
+
+  const dispatch = useAppDispatch();
 
   const currentUser = useAppSelector((state) => state.user.currentUser);
   const myChat = useAppSelector((state) =>
@@ -35,11 +38,22 @@ function ChatBody({ activeChat }: { activeChat: Chat }) {
   const [selectedMessageId, setSelectedMessageId] = useState<string | null>(null);
 
   useEffect(() => {
+    const friendLastMessage = friendChat?.message?.items[friendChat.message.items.length - 1];
+    const sendTime = new Date(friendLastMessage?.createdAt as string).getTime();
+    const lastReadTime = new Date(myChat?.lastReadTime as string).getTime();
+    if (!friendLastMessage || !lastReadTime) return;
+    if (sendTime < lastReadTime) return;
+
+    console.log('Read Chat');
+    dispatch(readChat(activeChat.friendID as string));
+  }, [friendChat?.message?.items, myChat?.lastReadTime, activeChat.friendID, dispatch]);
+
+  useEffect(() => {
     const container = document.querySelector('#chat-container');
     if (container) {
       container.scrollTop = container.scrollHeight;
     }
-  }, [messages]);
+  });
 
   const renderedMessages = messages.map((message) => {
     if (!currentUser) return null;

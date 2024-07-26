@@ -37,7 +37,7 @@ function ChatItem({ chat }: { chat: Chat }) {
     if (friendChat) {
         unreadCount = friendChat.message?.items.filter(
             item => new Date(item?.createdAt as string).getTime() > new Date(chat.lastReadTime).getTime()
-        ).length;
+        ).length as number;
     }
 
     return (

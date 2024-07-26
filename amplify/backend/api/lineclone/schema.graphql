@@ -12,11 +12,11 @@ type User
   image: String
   coverImage: String
 
-  friends: [UserFriend] @hasMany(fields: ["id"])
-  friendOf: [UserFriend] @hasMany(fields: ["id"])
+  friends: [UserFriend] @hasMany(indexName: "friend", fields: ["id"])
+  friendOf: [UserFriend] @hasMany(indexName: "friendOf", fields: ["id"])
 
-  chats: [Chat] @hasMany(fields: ["id"])
-  chatWith: [Chat] @hasMany(fields: ["id"])
+  chats: [Chat] @hasMany(indexName: "chat", fields: ["id"])
+  chatWith: [Chat] @hasMany(indexName: "chatWith", fields: ["id"])
 }
 
 type UserFriend 
@@ -29,10 +29,10 @@ type UserFriend
   ) {
   id: ID!
 
-  userID: ID!
+  userID: ID! @index(name: "friend")
   user: User @belongsTo(fields: ["userID"])
 
-  friendID: ID!
+  friendID: ID! @index(name: "friendOf")
   friend: User @belongsTo(fields: ["friendID"])
 
   status: String!
@@ -51,10 +51,10 @@ type Chat
   ) {
   id: ID!
 
-  userID: ID!
+  userID: ID! @index(name: "chat")
   user: User @belongsTo(fields: ["userID"])
 
-  friendID: ID!
+  friendID: ID! @index(name: "chatWith")
   friend: User @belongsTo(fields: ["friendID"])
 
   lastReadTime: String!

@@ -15,6 +15,7 @@ function AddFriendModal({ onClose }: {
 
     const dispatch = useAppDispatch();
     const user = useAppSelector(state => state.user);
+    const friends = useAppSelector(state => state.friends.friends.data);
 
     const [friend, setFriend] = useState<User | null>(null);
     const [userNotFound, setUserNotFound] = useState(false)
@@ -76,21 +77,20 @@ function AddFriendModal({ onClose }: {
                             <span className="text-xs">{friend.statusMessage}</span>
                             <span className="text-red-500 text-xs font-light">{errorMessage}</span>
                             {
-                                friend.id === user.currentUser?.lineID ?
-                                    <div className="flex flex-col items-center gap-4">
-                                        <div className="text-xs text-gray-400">You can't add yourself as a friend.</div>
-                                        <Button variant="disabled" className="text-sm w-22 h-7.5" onClick={handleAddFriend}>Add</Button>
-                                    </div>
-                                    :
-
-                                    <div>
-                                        <Button
-                                            variant={errorMessage ? "disabled" : "primary"}
-                                            className="text-sm w-22 h-7.5"
-                                            onClick={handleAddFriend}>
-                                            Add
-                                        </Button>
-                                    </div>
+                                friend.id === user.currentUser?.lineID ? <div className="flex flex-col items-center gap-4">
+                                    <div className="text-xs text-gray-400">You can't add yourself as a friend.</div>
+                                    <Button variant="disabled" className="text-sm w-22 h-7.5" onClick={handleAddFriend}>Add</Button>
+                                </div> : friends?.find(item => item.id === friend.id) ? <div className="flex flex-col items-center gap-4">
+                                    <div className="text-xs text-gray-400">Already added.</div>
+                                    <Button variant="disabled" className="text-sm w-22 h-7.5" onClick={handleAddFriend}>Add</Button>
+                                </div> : <div>
+                                    <Button
+                                        variant={errorMessage ? "disabled" : "primary"}
+                                        className="text-sm w-22 h-7.5"
+                                        onClick={handleAddFriend}>
+                                        Add
+                                    </Button>
+                                </div>
                             }
                         </div>
                     )}
