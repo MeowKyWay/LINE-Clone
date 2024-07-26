@@ -7,12 +7,15 @@ import ClickableText from "../../components/input/ClickableText";
 import LineIcon from "../../components/LineIcon";
 import { RoutePath } from "../../RoutePath";
 import { signIn, signOut, getCurrentUser } from "@aws-amplify/auth";
+import { IoIosMenu } from "react-icons/io";
+import ModalOverlay from "../../components/modal/ModalOverlay";
+import MoreModalButton from "../../components/navigation/MoreModalButton";
 
 function LoginPage() {
 
     const theme = useTheme().currentTheme;
     const themeContext = useTheme();
-
+    const [showModal , setShowModal] = useState(false)
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -34,7 +37,6 @@ function LoginPage() {
         }
         checkAuth();
     });
-
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -61,6 +63,28 @@ function LoginPage() {
     return (
         <div style={{ backgroundColor: theme.color.primary.background }}
             className="w-full h-full flex flex-col items-center">
+            <IoIosMenu 
+                className="absolute flex left-2 top-2 cursor-pointer" 
+                size="24px" 
+                style={{color: theme.color.primary.icon}}
+                onClick={() => setShowModal(true)}>    
+            </IoIosMenu>
+            { showModal &&
+                        <ModalOverlay onClose={() => setShowModal(false)}>
+                        <div
+                            className="fixed rounded text-xs font-light py-2 flex flex-col drop-shadow-md"
+                            style={{
+                                top: '30px',
+                                left: '10px',
+                                zIndex: 10000,
+                                backgroundColor: theme.color.primary.modal,
+                                color: theme.color.primary.text,
+                            }}
+                        >
+                            <MoreModalButton onClick={themeContext.toggle}>Toggle theme</MoreModalButton>
+                        </div>
+                    </ModalOverlay>
+            }
             <div className="flex flex-col items-center mt-20">
                 <LineIcon size="150px" />
                 <div className="w-96">
@@ -104,7 +128,6 @@ function LoginPage() {
                     </span>
                 </div>
             </div>
-            <button onClick={themeContext.toggle}>Toggle Theme</button>
         </div>
     )
 }

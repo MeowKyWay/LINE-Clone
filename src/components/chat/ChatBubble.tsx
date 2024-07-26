@@ -1,11 +1,10 @@
 import { useAppSelector } from "../../hook";
 import useTheme from "../../theme";
 
-function ChatBubble({ children,  isCurrentUser = false ,showSearchField = false , selected = false}: 
+function ChatBubble({ children,  isCurrentUser = false ,showSearchField = false }: 
   { children: string, isCurrentUser: boolean , showSearchField: boolean , selected?: boolean }) {
   const theme = useTheme().currentTheme;
   const messageTerm = useAppSelector(state => state.terms.messagesTerm);
-    console.log("selected:", selected);
     
 
 
