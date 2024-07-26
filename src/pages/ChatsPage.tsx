@@ -8,7 +8,6 @@ function ChatsPage() {
     const dispatch = useAppDispatch();
 
     const searchTerm = useAppSelector(state => state.terms.chatsTerm);
-    const chatFolderState = useAppSelector(state => state.states.chatFolderState);
     const currentUser = useAppSelector(state => state.user.currentUser);
 
     console.log(currentUser);

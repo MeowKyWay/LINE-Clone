@@ -4,7 +4,7 @@ import { listFriend, listFriendRequests } from "../../graphql/customQueries";
 import { invokeLambda } from "../../utilities/LambdaUtils";
 import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
 import { getUser } from "../../graphql/queries";
-import { User, UserFriend } from "../../API";
+import { User } from "../../API";
 import { updateUserFriend } from "../../graphql/mutations";
 import { getUserFriend } from "../../graphql/queries";
 
