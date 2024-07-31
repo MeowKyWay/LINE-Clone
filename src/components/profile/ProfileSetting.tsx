@@ -17,7 +17,14 @@ function ProfileSetting() {
     const theme = useTheme().currentTheme;
 
     const currentUser = useAppSelector(state => state.user.currentUser);
+<<<<<<< HEAD
     
+=======
+
+    const [profileKey, setProfileKey] = useState(0);
+    const [coverKey, setCoverKey] = useState(0);
+
+>>>>>>> 2b9bb46c7657a30991ac573539eb035082fec0ea
     const [editDisplayName, setEditDisplayName] = useState(false);
     const [editStatusMessage, setEditStatusMessage] = useState(false);
     const [displayName, setDisplayName] = useState(currentUser?.name);
@@ -30,6 +37,8 @@ function ProfileSetting() {
         console.log("filename:", filename);
         await dispatch(uploadImg({ filename, image }))
         await dispatch(uploadUserProfileImage(filename))
+
+        setProfileKey(profileKey + 1);
     }
 
     const handleChangeCoverImage = async (image: File | null) => {
@@ -39,6 +48,8 @@ function ProfileSetting() {
         console.log("filename:", filename);
         await dispatch(uploadImg({ filename, image }))
         await dispatch(uploadUserCoverImage(filename))
+
+        setCoverKey(coverKey + 1);
     }
 
     const handleSaveChange = async () => {
@@ -62,9 +73,9 @@ function ProfileSetting() {
     return (
         <div className="flex flex-col p-4 size-full">
             <div className="relative flex flex-col items-center justify-center h-30">
-                <ProfileCover image={currentUser?.coverImage as string} className="h-30 w-full opacity-50 rounded-xl" />
+                <ProfileCover key={coverKey} image={currentUser?.coverImage as string} className="h-30 w-full opacity-50 rounded-xl" />
                 <div className="relative size-20 z-0">
-                    <ProfilePicture size="80px" src={currentUser?.image as string} className="z-10" />
+                    <ProfilePicture key={profileKey} size="80px" src={currentUser?.image as string} className="z-10" />
                     <ImageInput setImage={handleChangeProfileImage} className="z-20 absolute right-0.5 bottom-0.5"></ImageInput>
                 </div>
                 <ImageInput setImage={handleChangeCoverImage} className="z-20 absolute right-2 bottom-2"></ImageInput>
