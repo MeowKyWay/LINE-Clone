@@ -6,8 +6,6 @@ function ChatBubble({ children, isCurrentUser = false, showSearchField = false }
   const theme = useTheme().currentTheme;
   const messageTerm = useAppSelector(state => state.terms.messagesTerm);
 
-
-
   const highlightText = (text: string, term: string | null) => {
     if (!term || !showSearchField) return text;
     const parts = text.split(new RegExp(`(${term})`, 'gi'));

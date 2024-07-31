@@ -46,14 +46,14 @@ function AccountItem({ account, isRequest = false, onClick }: {
                                 {account.name} {'memberCount' in account && `(${account.memberCount})`}
                             </div>
                             {'statusMessage' in account &&
-                                <span
+                                <div
                                     style={{
                                         color: theme.color.tertiary.text,
                                         fontSize: '10px',
                                     }}
                                     className="overflow-hidden whitespace-nowrap text-ellipsis">
                                     {account.statusMessage}
-                                </span>
+                                </div>
                             }
                         </div>
                     </div>

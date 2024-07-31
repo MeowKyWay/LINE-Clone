@@ -17,7 +17,8 @@ function ProfileSetting() {
     const theme = useTheme().currentTheme;
 
     const currentUser = useAppSelector(state => state.user.currentUser);
-
+    console.log("userImg" , currentUser?.image);
+    
     const [editDisplayName, setEditDisplayName] = useState(false);
     const [editStatusMessage, setEditStatusMessage] = useState(false);
     const [displayName, setDisplayName] = useState(currentUser?.name);
@@ -35,7 +36,7 @@ function ProfileSetting() {
     const handleChangeCoverImage = async (image: File | null) => {
         console.log(image)
         if (!image) return;
-        const filename = `public/cover/${currentUser?.lineID}`
+        const filename = `public/cover/${image.name}`
         console.log("filename:", filename);
         await dispatch(uploadImg({ filename, image }))
         await dispatch(uploadUserCoverImage(filename))
