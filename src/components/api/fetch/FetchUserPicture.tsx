@@ -1,5 +1,5 @@
 // src/components/ProfileComponent.js
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useAppDispatch } from '../../../hook';
 import { fetchProfileImage , fetchCoverImage} from '../../../store/thunks/imagesThunk';
 import { useAppSelector } from '../../../hook';
