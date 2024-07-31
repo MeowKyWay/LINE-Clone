@@ -53,9 +53,11 @@ const SearchMessages: React.FC<SearchMessagesProps> = ({
                     match.classList.remove('selected-message');
                 }
             });
+
             if (matches.length > 0 && matches[currentIndex - 1]) {
                 matches[currentIndex - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
+            
         }
     }, [currentIndex, showSearchField]);
 
