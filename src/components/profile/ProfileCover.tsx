@@ -19,7 +19,12 @@ const ProfileCover = ({ image, className }: {
                 />
             ) : (
                 //default coverImg
-                <img src={'../src/assets/default-cover.jpg'} alt="default-cover" className={style} />
+                <StorageImage
+                    path='public/cover/default-cover.jpg'
+                    alt="profile"
+                    className={style}
+                    style={{ pointerEvents: "none" }}
+                />
             )
             }
         </div>
