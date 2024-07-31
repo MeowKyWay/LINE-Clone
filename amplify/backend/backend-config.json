@@ -136,11 +136,87 @@
       "service": "Lambda"
     }
   },
-  "hosting": {
-    "amplifyhosting": {
-      "providerPlugin": "awscloudformation",
-      "service": "amplifyhosting",
-      "type": "manual"
+  "hosting": {},
+  "parameters": {
+    "AMPLIFY_function_LINECloneAddFriend_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "LINECloneAddFriend"
+        }
+      ]
+    },
+    "AMPLIFY_function_LINECloneAddFriend_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "LINECloneAddFriend"
+        }
+      ]
+    },
+    "AMPLIFY_function_LINECloneNewChat_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "LINECloneNewChat"
+        }
+      ]
+    },
+    "AMPLIFY_function_LINECloneNewChat_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "LINECloneNewChat"
+        }
+      ]
+    },
+    "AMPLIFY_function_LINECloneReadChat_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "LINECloneReadChat"
+        }
+      ]
+    },
+    "AMPLIFY_function_LINECloneReadChat_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "LINECloneReadChat"
+        }
+      ]
+    },
+    "AMPLIFY_function_LINECloneSendMessage_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "LINECloneSendMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_LINECloneSendMessage_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "LINECloneSendMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_graphQlLambdaAuthorizer9d21ee2e_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "graphQlLambdaAuthorizer9d21ee2e"
+        }
+      ]
+    },
+    "AMPLIFY_function_graphQlLambdaAuthorizer9d21ee2e_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "graphQlLambdaAuthorizer9d21ee2e"
+        }
+      ]
     }
   },
   "storage": {
