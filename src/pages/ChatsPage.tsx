@@ -10,20 +10,20 @@ function ChatsPage() {
     const searchTerm = useAppSelector(state => state.terms.chatsTerm);
     const currentUser = useAppSelector(state => state.user.currentUser);
 
-    console.log(currentUser);
+    // console.log(currentUser);
 
     const friendChats = useAppSelector(state => state.chats.friendChats.data)?.filter(
         chat => chat.userID === currentUser?.lineID
     );
 
-    console.log(friendChats);
+    // console.log(friendChats);
 
     const chatsFiltered = friendChats?.filter(chat => {
         // console.log(chat.friend?.name.toLowerCase(), searchTerm.toLowerCase());
         return chat.friend?.name.toLowerCase().includes(searchTerm.toLowerCase())
     });
 
-    console.log(chatsFiltered);
+    // console.log(chatsFiltered);
 
     return (
         <div className="size-full flex flex-col">
