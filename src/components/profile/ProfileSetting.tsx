@@ -17,14 +17,10 @@ function ProfileSetting() {
     const theme = useTheme().currentTheme;
 
     const currentUser = useAppSelector(state => state.user.currentUser);
-<<<<<<< HEAD
-    
-=======
 
     const [profileKey, setProfileKey] = useState(0);
     const [coverKey, setCoverKey] = useState(0);
 
->>>>>>> 2b9bb46c7657a30991ac573539eb035082fec0ea
     const [editDisplayName, setEditDisplayName] = useState(false);
     const [editStatusMessage, setEditStatusMessage] = useState(false);
     const [displayName, setDisplayName] = useState(currentUser?.name);
