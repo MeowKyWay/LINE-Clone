@@ -17,7 +17,6 @@ function ProfileSetting() {
     const theme = useTheme().currentTheme;
 
     const currentUser = useAppSelector(state => state.user.currentUser);
-    console.log("userImg" , currentUser?.image);
     
     const [editDisplayName, setEditDisplayName] = useState(false);
     const [editStatusMessage, setEditStatusMessage] = useState(false);
