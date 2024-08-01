@@ -55,6 +55,7 @@ const friendsSlice = createSlice({
             const friend = state.friends.data.find(friend => friend.id === action.payload);
             if(!friend) return;
             state.favoriteFriends.data?.push(friend);
+            console.log(state.favoriteFriends);
         })
 
         builder.addCase(addFavoriteFriend.rejected, (state, action) => {
