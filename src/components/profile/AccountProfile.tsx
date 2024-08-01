@@ -18,9 +18,6 @@ function AccountProfile() {
     const friend = useAppSelector((state) => state.states.accountModalState as User); 
     const currentUser = useAppSelector((state) => state.user.currentUser);
     const favoriteFriends = useAppSelector((state) => state.friends.favoriteFriends);
-    console.log("isFavorite :" , isFavorite);
-    console.log("favoriteFriends :" , favoriteFriends);
-    
     
 
     // console.log(friend)
@@ -41,8 +38,6 @@ function AccountProfile() {
         //removeFavoriteFriend
         dispatch(removeFavoriteFriend(friend.id))
         setIsFavorite(!isFavorite)
-        console.log("isFavorite :" , isFavorite);
-        console.log("favoriteFriends :" , favoriteFriends);
     }
 
     const handleChat = () => {
